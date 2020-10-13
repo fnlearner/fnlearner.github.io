@@ -1,29 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Javscript复杂判断</title>
-    <url>/2019/08/07/Javscript_complex_judge/</url>
-    <content><![CDATA[<p>在公司维护前人代码的时候，经常会遇见一堆的if-else语句</p>
-<h3 id="if-else"><a href="#if-else" class="headerlink" title="if-else"></a>if-else</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const flag = (status)=&gt;&#123;</span><br><span class="line">    if(status ==0)&#123;</span><br><span class="line">        //do somethind</span><br><span class="line">    &#125;else if(status==1)&#123;</span><br><span class="line">        //do somethind</span><br><span class="line">    &#125;else if(status ==2)&#123;</span><br><span class="line">        //do something</span><br><span class="line">    &#125;else if(status ==3)&#123;</span><br><span class="line">        //do something</span><br><span class="line">    &#125;</span><br><span class="line">    //...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    <title>ObjectKeys</title>
+    <url>/2020/07/07/ObjectKeys/</url>
+    <content><![CDATA[<h3 id="Object-keys"><a href="#Object-keys" class="headerlink" title="Object.keys"></a>Object.keys</h3><p>上一个Object.keys()在js中的用法</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const obj = &#123;</span><br><span class="line">    name:<span class="string">'John'</span>,</span><br><span class="line">    age:12,</span><br><span class="line">    id:1</span><br><span class="line">&#125;</span><br><span class="line">Object.keys(obj).forEach(key=&gt;&#123;</span><br><span class="line">    //output   <span class="string">'John'</span>,12,1</span><br><span class="line">    console.log(obj[key])</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
 <a id="more"></a>
-<p>或许还可以用switch-case的写法</p>
-<h3 id="switch-case"><a href="#switch-case" class="headerlink" title="switch-case"></a>switch-case</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const flag = (status)=&gt;&#123;</span><br><span class="line">    swtich(status)&#123;</span><br><span class="line">        case 0:</span><br><span class="line">            //do something</span><br><span class="line">            break;</span><br><span class="line">        case 1:</span><br><span class="line">        case 2:</span><br><span class="line">            //do something</span><br><span class="line">            break;</span><br><span class="line">        case 3:</span><br><span class="line">            //do something</span><br><span class="line">            break;</span><br><span class="line">        default:</span><br><span class="line">            return ;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>假如case 1和 case 2的处理情况都一样，可以像上面的写法.</p>
-<p>然鹅如果需要判断的条件多的时候，如果继续用if-else的写法，那么工作量会翻倍</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const flag = (status,type)=&gt;&#123;</span><br><span class="line">    if(type==0)&#123;</span><br><span class="line">        if(status ==0)&#123;</span><br><span class="line">            //do somethind</span><br><span class="line">        &#125;else if(status==1)&#123;</span><br><span class="line">            //do somethind</span><br><span class="line">        &#125;else if(status ==2)&#123;</span><br><span class="line">            //do something</span><br><span class="line">        &#125;else if(status ==3)&#123;</span><br><span class="line">            //do something</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;else if(type==1)&#123;</span><br><span class="line">         if(status ==0)&#123;</span><br><span class="line">            //do somethind</span><br><span class="line">        &#125;else if(status==1)&#123;</span><br><span class="line">            //do somethind</span><br><span class="line">        &#125;else if(status ==2)&#123;</span><br><span class="line">            //do something</span><br><span class="line">        &#125;else if(status ==3)&#123;</span><br><span class="line">            //do something</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>试试ts版的</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> Person =&#123;</span><br><span class="line">    name:string,</span><br><span class="line">    id:number,</span><br><span class="line">    age:number</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">declare</span> const me:Person;</span><br><span class="line"></span><br><span class="line">Object.keys(me).forEach(key=&gt;&#123;</span><br><span class="line">    // 在ts里面这个时候编辑器会提示我们错误</span><br><span class="line">    console.log(me[key])</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
-<p>这种写法太麻瓜了吧，简直反人类</p>
-<h3 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const actions = ()=&gt;&#123;</span><br><span class="line">    function A()&#123;</span><br><span class="line">        return &apos;A&apos;</span><br><span class="line">    &#125;</span><br><span class="line">    function B()&#123;</span><br><span class="line">        return &apos;B&apos;</span><br><span class="line">    &#125;</span><br><span class="line">    return new Map([</span><br><span class="line">        [&apos;0_0&apos;,A],</span><br><span class="line">        [&apos;0_1&apos;,A],</span><br><span class="line">        [&apos;0_2&apos;,B]</span><br><span class="line">    ])</span><br><span class="line">&#125;</span><br><span class="line">const flag =(status ,type)=&gt;&#123;</span><br><span class="line">    const action = actions().get(`$&#123;type&#125;_$&#123;status&#125;`);</span><br><span class="line">    console.log(action());</span><br><span class="line">&#125;</span><br><span class="line">flag(0,0);//A</span><br></pre></td></tr></table></figure>
+<p><code>Element implicitly has an ‘any’ type because expression of type ‘string’ can’t be used to index type ‘Person’. No index signature with a parameter of type ‘string’ was found on type ‘Person’</code></p>
+<p>来看一下Object.keys的类型声明</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">interface ObjectConstructor &#123;</span><br><span class="line">    keys(o: object): string[];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>直接将逻辑封装起来，然后在另一个函数调用，看起来就干净很多！！！</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const actions = ()=&gt;&#123;</span><br><span class="line">    function A()&#123;</span><br><span class="line">        return &apos;A&apos;</span><br><span class="line">    &#125;</span><br><span class="line">    function B()&#123;</span><br><span class="line">        return &apos;B&apos;</span><br><span class="line">    &#125;</span><br><span class="line">    return new Map([</span><br><span class="line">        [/^0_[0-3]/,A],</span><br><span class="line">        [/1_[0-2]/,A],</span><br><span class="line">        [/1_1/,B]</span><br><span class="line">    ])</span><br><span class="line">&#125;</span><br><span class="line">const flag =(status ,type)=&gt;&#123;</span><br><span class="line">     const action = [...actions()].filter(([key,value])=&gt;&#123;</span><br><span class="line">        return key.test(`$&#123;type&#125;_$&#123;status&#125;`)</span><br><span class="line">    &#125;)</span><br><span class="line">    action.forEach(([_,value])=&gt;&#123;</span><br><span class="line">        console.log(&quot;value.apply(this):&quot;, value.apply(this));//A</span><br><span class="line">        value.call(this);</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line">flag(1,1);</span><br></pre></td></tr></table></figure>]]></content>
+<p>方法接收任意类型的object作为输入并且返回string类型的数组作为输出。</p>
+<p>来回到之前的问题，为什么会报错？</p>
+<p>在Person中，具体的key值分别是name|age|id，但是它们的索引签名并不是string类型，所以当在keys方法中返回的string数组的每一个key都是string类型时，跟Person中的每个key的索引签名并不匹配，所以是不能通过string类型的key访问到me中的数据，<br>如果Person这样定义:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">interface Person&#123;</span><br><span class="line">    [key:string]:string</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果这样写，那么之前的forEach语句就可以正常执行不报错，而且循环中的每个item的类型推导是string类型<br><img src="/images/ObjectKeys/code2.png" alt="code"><br><br><br><strong>注意</strong>：那么这个就很有可能是报错的原因。更具体的类型在已经建立索引的库中引发的问题，或者是因为类型过于复杂导致类型不能正确推导</p>
+<p>那么遇到这个问题该怎么解决？</p>
+<p>最菜的方法就是把tsconfig.json里面的noImplicitAny选项给关了，那回家用JS吧</p>
+<h3 id="Type-casting-类型转换"><a href="#Type-casting-类型转换" class="headerlink" title="Type-casting(类型转换)"></a>Type-casting(类型转换)</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Object.keys(me).forEach(key=&gt;&#123;</span><br><span class="line">    (me as any)[key]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>这样写法虽然可以，但是不推荐</p>
+<p>第二种可以把loop里面的key的类型设置为Person的key，这样就能让ts理解我们在做什么</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Object.keys(me).forEach(key=&gt;&#123;</span><br><span class="line">    me[key as keyof Person]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>这种比之前的要好点，还可以试试其他的，比如让ts自己能够完成这项工作</p>
+<h3 id="Extending-Object-Constructor-继承接口ObjectConstructor"><a href="#Extending-Object-Constructor-继承接口ObjectConstructor" class="headerlink" title="Extending Object Constructor(继承接口ObjectConstructor)"></a>Extending Object Constructor(继承接口ObjectConstructor)</h3><p>在ts里面有一个声明合并的特性</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">interface Person &#123;</span><br><span class="line">  name: string;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">interface Person &#123;</span><br><span class="line">  age: number;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">interface Person &#123;</span><br><span class="line">  height: number;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面的code对Person接口进行了三次的声明，等同于下面这个code</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">interface Person&#123;</span><br><span class="line">    name: string;</span><br><span class="line">    age: number;</span><br><span class="line">    height: number;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>所以同理我们可以写ObjectConstructor的接口，写key方法的重载，这次我们需要对object的value值进行细分，并且决定应该返回什么类型</p>
+<p>三种行为</p>
+<ol>
+<li>如果我们传递进来一个number类型，那么应该返回空数组</li>
+<li>如果我们传递进来一个字符串或者一个数组，那么应该返回string[]，也就是字符串数组</li>
+<li>如果我们传递进来一个any类型，那么直接返回它的key</li>
+</ol>
+<p>看一下怎么构造这个类型</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> ObjectKeys&lt;T&gt; = T extends object?(keyof T)[]:</span><br><span class="line">T extends number?[]:</span><br><span class="line">T extends string|Array&lt;any&gt; ?string[]:</span><br><span class="line">never</span><br></pre></td></tr></table></figure>
+
+<p>以never结尾来捕捉异常错误</p>
+<p>然后写ObjectConstructor</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">interface ObjectConstructor&#123;</span><br><span class="line">    keys(o:T):ObjectKeys&lt;T&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>把这两段代码放在声明文件中，比如lib.d.ts</p>
+<p>然后这个时候执行文章开头的那个loop</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Object.keys(me).forEach((key) =&gt; &#123;</span><br><span class="line">  //这个时候就可以正常输出了</span><br><span class="line">  console.log(me[key])</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<br>
+<div style="overflow:hidden">
+    <img src="/images/ObjectKeys/code.png" style="float:left;" title="Codes" alt="picture">
+</div>
+
+
+
+
+
+]]></content>
       <categories>
-        <category>JavaScript</category>
+        <category>TypeScript</category>
       </categories>
       <tags>
-        <tag>JavaScript</tag>
+        <tag>TypeScript</tag>
       </tags>
   </entry>
   <entry>
@@ -150,98 +195,8 @@
         <category>JavaScript</category>
       </categories>
       <tags>
-        <tag>JavaScript</tag>
         <tag>css</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Traversing</title>
-    <url>/2019/09/06/Traversing/</url>
-    <content><![CDATA[<h3 id="深度优先遍历"><a href="#深度优先遍历" class="headerlink" title="深度优先遍历"></a>深度优先遍历</h3><p>从某个顶点v出发，首先访问该顶点然后依次从它的各个未被访问的邻接点出发深度优先搜索遍历图，直至图中所有和v有路径相通的顶点都被访问到</p>
-<a id="more"></a>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 递归</span></span><br><span class="line"><span class="built_in">let</span> deepTraversal1 = (node, nodeList = []) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (node !== null) &#123;</span><br><span class="line">    nodeList.push(node)</span><br><span class="line">    <span class="built_in">let</span> children = node.children</span><br><span class="line">    <span class="keyword">if</span>(children!==null||children.length!==0)&#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="built_in">let</span> i = 0; i &lt; children.length; i++) &#123;</span><br><span class="line">        deepTraversal1(children[i], nodeList)</span><br><span class="line">      &#125;</span><br><span class="line">     &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">return</span> nodeList</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 递归</span></span><br><span class="line"><span class="built_in">let</span> deepTraversal2= (node)=&gt;&#123;</span><br><span class="line">  <span class="built_in">let</span> nodes=[];</span><br><span class="line">  <span class="keyword">if</span>(node!== null)&#123;</span><br><span class="line">    nodes.push(node);</span><br><span class="line">    <span class="built_in">let</span> children = node.children;</span><br><span class="line">    <span class="keyword">if</span>(children!==null||children.length!==0)&#123;</span><br><span class="line">      <span class="keyword">for</span>(<span class="built_in">let</span> i=0;i&lt;children.length;i++)&#123;</span><br><span class="line">        nodes= nodes.concat(deepTraversal2(children[i]));</span><br><span class="line">      &#125;</span><br><span class="line">     &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">return</span> nodes;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 非递归</span></span><br><span class="line"><span class="built_in">let</span> deepTraversal2=(node)=&gt;&#123;</span><br><span class="line">  <span class="built_in">let</span> stack =[];</span><br><span class="line">  <span class="built_in">let</span> nodes=[];</span><br><span class="line">  <span class="keyword">if</span>(node)&#123;</span><br><span class="line">    /*如果node节点存在*/</span><br><span class="line">    stack.push(node);</span><br><span class="line">    <span class="keyword">while</span>(stack.length)&#123;</span><br><span class="line">      <span class="built_in">let</span> item= stack.pop();//取出队尾元素</span><br><span class="line">      <span class="built_in">let</span> children = item.children;//获取元素子节点</span><br><span class="line">      nodes.push(children);//推进子节点，结构与父节点一样</span><br><span class="line">      <span class="keyword">if</span>(children!==null||children.length!==0)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="built_in">let</span> i =0;i&lt;children.length;i++)&#123;</span><br><span class="line">          stack.push(children[i]);</span><br><span class="line">        &#125;</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">return</span> nodes;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="广度优先遍历"><a href="#广度优先遍历" class="headerlink" title="广度优先遍历"></a>广度优先遍历</h3><p>从某顶点v出发，在访问了v之后依次访问v的各个未曾访问过的邻接点，然后分别从这些邻接点出发依次访问它们的邻接点，并使得“先被访问的顶点的邻接点先于后被访问的顶点的邻接点被访问，直至图中所有已被访问的顶点的邻接点都被访问到</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">let</span> widthTraversal2=(node)=&gt;&#123;</span><br><span class="line">  <span class="built_in">let</span> nodes=[];</span><br><span class="line">  <span class="built_in">let</span> stack=[];</span><br><span class="line">  <span class="keyword">if</span>(node)&#123;</span><br><span class="line">    stack.push(node);</span><br><span class="line">    <span class="keyword">while</span>(stack.length)&#123;</span><br><span class="line">      <span class="built_in">let</span> item = stack.shift();</span><br><span class="line">      <span class="built_in">let</span> children = item.children;</span><br><span class="line">      nodes.push(node);</span><br><span class="line">      <span class="keyword">if</span>(children!==null||children.length!==0)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="built_in">let</span> i =0;i&lt;children.length;i++)&#123;</span><br><span class="line">          stack.push(children[i]);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">return</span> nodes;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <tags>
         <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ObjectKeys</title>
-    <url>/2020/07/07/ObjectKeys/</url>
-    <content><![CDATA[<h3 id="Object-keys"><a href="#Object-keys" class="headerlink" title="Object.keys"></a>Object.keys</h3><p>上一个Object.keys()在js中的用法</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const obj = &#123;</span><br><span class="line">    name:<span class="string">'John'</span>,</span><br><span class="line">    age:12,</span><br><span class="line">    id:1</span><br><span class="line">&#125;</span><br><span class="line">Object.keys(obj).forEach(key=&gt;&#123;</span><br><span class="line">    //output   <span class="string">'John'</span>,12,1</span><br><span class="line">    console.log(obj[key])</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<a id="more"></a>
-
-<p>试试ts版的</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> Person =&#123;</span><br><span class="line">    name:string,</span><br><span class="line">    id:number,</span><br><span class="line">    age:number</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">declare</span> const me:Person;</span><br><span class="line"></span><br><span class="line">Object.keys(me).forEach(key=&gt;&#123;</span><br><span class="line">    // 在ts里面这个时候编辑器会提示我们错误</span><br><span class="line">    console.log(me[key])</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<p><code>Element implicitly has an ‘any’ type because expression of type ‘string’ can’t be used to index type ‘Person’. No index signature with a parameter of type ‘string’ was found on type ‘Person’</code></p>
-<p>来看一下Object.keys的类型声明</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">interface ObjectConstructor &#123;</span><br><span class="line">    keys(o: object): string[];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>方法接收任意类型的object作为输入并且返回string类型的数组作为输出。</p>
-<p>来回到之前的问题，为什么会报错？</p>
-<p>在Person中，具体的key值分别是name|age|id，但是它们的索引签名并不是string类型，所以当在keys方法中返回的string数组的每一个key都是string类型时，跟Person中的每个key的索引签名并不匹配，所以是不能通过string类型的key访问到me中的数据，<br>如果Person这样定义:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">interface Person&#123;</span><br><span class="line">    [key:string]:string</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>如果这样写，那么之前的forEach语句就可以正常执行不报错，而且循环中的每个item的类型推导是string类型<br><img src="/images/ObjectKeys/code2.png" alt="code"><br><br><br><strong>注意</strong>：那么这个就很有可能是报错的原因。更具体的类型在已经建立索引的库中引发的问题，或者是因为类型过于复杂导致类型不能正确推导</p>
-<p>那么遇到这个问题该怎么解决？</p>
-<p>最菜的方法就是把tsconfig.json里面的noImplicitAny选项给关了，那回家用JS吧</p>
-<h3 id="Type-casting-类型转换"><a href="#Type-casting-类型转换" class="headerlink" title="Type-casting(类型转换)"></a>Type-casting(类型转换)</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Object.keys(me).forEach(key=&gt;&#123;</span><br><span class="line">    (me as any)[key]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>这样写法虽然可以，但是不推荐</p>
-<p>第二种可以把loop里面的key的类型设置为Person的key，这样就能让ts理解我们在做什么</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Object.keys(me).forEach(key=&gt;&#123;</span><br><span class="line">    me[key as keyof Person]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>这种比之前的要好点，还可以试试其他的，比如让ts自己能够完成这项工作</p>
-<h3 id="Extending-Object-Constructor-继承接口ObjectConstructor"><a href="#Extending-Object-Constructor-继承接口ObjectConstructor" class="headerlink" title="Extending Object Constructor(继承接口ObjectConstructor)"></a>Extending Object Constructor(继承接口ObjectConstructor)</h3><p>在ts里面有一个声明合并的特性</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">interface Person &#123;</span><br><span class="line">  name: string;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">interface Person &#123;</span><br><span class="line">  age: number;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">interface Person &#123;</span><br><span class="line">  height: number;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>上面的code对Person接口进行了三次的声明，等同于下面这个code</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">interface Person&#123;</span><br><span class="line">    name: string;</span><br><span class="line">    age: number;</span><br><span class="line">    height: number;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>所以同理我们可以写ObjectConstructor的接口，写key方法的重载，这次我们需要对object的value值进行细分，并且决定应该返回什么类型</p>
-<p>三种行为</p>
-<ol>
-<li>如果我们传递进来一个number类型，那么应该返回空数组</li>
-<li>如果我们传递进来一个字符串或者一个数组，那么应该返回string[]，也就是字符串数组</li>
-<li>如果我们传递进来一个any类型，那么直接返回它的key</li>
-</ol>
-<p>看一下怎么构造这个类型</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> ObjectKeys&lt;T&gt; = T extends object?(keyof T)[]:</span><br><span class="line">T extends number?[]:</span><br><span class="line">T extends string|Array&lt;any&gt; ?string[]:</span><br><span class="line">never</span><br></pre></td></tr></table></figure>
-
-<p>以never结尾来捕捉异常错误</p>
-<p>然后写ObjectConstructor</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">interface ObjectConstructor&#123;</span><br><span class="line">    keys(o:T):ObjectKeys&lt;T&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>把这两段代码放在声明文件中，比如lib.d.ts</p>
-<p>然后这个时候执行文章开头的那个loop</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Object.keys(me).forEach((key) =&gt; &#123;</span><br><span class="line">  //这个时候就可以正常输出了</span><br><span class="line">  console.log(me[key])</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<br>
-<div style="overflow:hidden">
-    <img src="/images/ObjectKeys/code.png" style="float:left;" title="Codes" alt="picture">
-</div>
-
-
-
-
-
-]]></content>
-      <categories>
-        <category>TypeScript</category>
-      </categories>
-      <tags>
-        <tag>TypeScript</tag>
       </tags>
   </entry>
   <entry>
@@ -291,20 +246,80 @@
       </tags>
   </entry>
   <entry>
-    <title>思考如何使a==1&amp;&amp;a==2&amp;&amp;a==3为true</title>
-    <url>/2019/11/01/closure/</url>
-    <content><![CDATA[<p>涉及运算符比较过程，运算符在比较两个值是否相等的时候做了什么,第二个涉及闭包JS比较两个数值是否相等可以用== 和=== ，<a id="more"></a>其中 == 会有隐式类型转换的操作，===则不会,在两个数比较时，先调用valueOf,如果返回的不是原始类型，继续调用toString,如果不是原始类型，抛出异常</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const b = &#123;</span><br><span class="line">  value :1,</span><br><span class="line">  toString()&#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      name:1</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  valueOf()&#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      name:1</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">console.log(`toString : $&#123;b==3&#125;`)</span><br><span class="line">console.log(`valueOf : $&#123;b==4&#125;`)</span><br><span class="line">//抛出异常TypeError: Cannot convert object to primitive value</span><br></pre></td></tr></table></figure>
+    <title>Traversing</title>
+    <url>/2019/09/06/Traversing/</url>
+    <content><![CDATA[<h3 id="深度优先遍历"><a href="#深度优先遍历" class="headerlink" title="深度优先遍历"></a>深度优先遍历</h3><p>从某个顶点v出发，首先访问该顶点然后依次从它的各个未被访问的邻接点出发深度优先搜索遍历图，直至图中所有和v有路径相通的顶点都被访问到</p>
+<a id="more"></a>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 递归</span></span><br><span class="line"><span class="built_in">let</span> deepTraversal1 = (node, nodeList = []) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (node !== null) &#123;</span><br><span class="line">    nodeList.push(node)</span><br><span class="line">    <span class="built_in">let</span> children = node.children</span><br><span class="line">    <span class="keyword">if</span>(children!==null||children.length!==0)&#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="built_in">let</span> i = 0; i &lt; children.length; i++) &#123;</span><br><span class="line">        deepTraversal1(children[i], nodeList)</span><br><span class="line">      &#125;</span><br><span class="line">     &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">return</span> nodeList</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const b = &#123;</span><br><span class="line">  value :1,</span><br><span class="line">  toString()&#123;</span><br><span class="line">    return 3</span><br><span class="line">  &#125;,</span><br><span class="line">  valueOf()&#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      name:1</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">console.log(`toString : $&#123;b==3&#125;`)</span><br><span class="line">console.log(`valueOf : $&#123;b==4&#125;`)</span><br><span class="line">//toString:true,valueOf:false</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 递归</span></span><br><span class="line"><span class="built_in">let</span> deepTraversal2= (node)=&gt;&#123;</span><br><span class="line">  <span class="built_in">let</span> nodes=[];</span><br><span class="line">  <span class="keyword">if</span>(node!== null)&#123;</span><br><span class="line">    nodes.push(node);</span><br><span class="line">    <span class="built_in">let</span> children = node.children;</span><br><span class="line">    <span class="keyword">if</span>(children!==null||children.length!==0)&#123;</span><br><span class="line">      <span class="keyword">for</span>(<span class="built_in">let</span> i=0;i&lt;children.length;i++)&#123;</span><br><span class="line">        nodes= nodes.concat(deepTraversal2(children[i]));</span><br><span class="line">      &#125;</span><br><span class="line">     &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">return</span> nodes;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const b = &#123;</span><br><span class="line">  value :1,</span><br><span class="line">  toString()&#123;</span><br><span class="line">    return 3</span><br><span class="line">  &#125;,</span><br><span class="line">  valueOf()&#123;</span><br><span class="line">    return 4</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(`toString : $&#123;b==3&#125;`)//false</span><br><span class="line">console.log(`valueOf : $&#123;b==4&#125;`)//true</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 非递归</span></span><br><span class="line"><span class="built_in">let</span> deepTraversal2=(node)=&gt;&#123;</span><br><span class="line">  <span class="built_in">let</span> stack =[];</span><br><span class="line">  <span class="built_in">let</span> nodes=[];</span><br><span class="line">  <span class="keyword">if</span>(node)&#123;</span><br><span class="line">    /*如果node节点存在*/</span><br><span class="line">    stack.push(node);</span><br><span class="line">    <span class="keyword">while</span>(stack.length)&#123;</span><br><span class="line">      <span class="built_in">let</span> item= stack.pop();//取出队尾元素</span><br><span class="line">      <span class="built_in">let</span> children = item.children;//获取元素子节点</span><br><span class="line">      nodes.push(children);//推进子节点，结构与父节点一样</span><br><span class="line">      <span class="keyword">if</span>(children!==null||children.length!==0)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="built_in">let</span> i =0;i&lt;children.length;i++)&#123;</span><br><span class="line">          stack.push(children[i]);</span><br><span class="line">        &#125;</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">return</span> nodes;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>OK,接下来说正题， a==1的时候先调用了a.valueOf(),然后根据valueOf的返回值与1进行比较,但是在a==1为真的情况下如何确保a==2以及a==3也同时成立呢？还记得里两个数比较时做的操作吗？先调用valueOf,然后是toString,所以只要覆写其中一个方法</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const a =&#123;</span><br><span class="line">  value:1,</span><br><span class="line">  toString()&#123;</span><br><span class="line">    return this.value++;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">//由于这时的a是一个Object,所以调用valueOf的时候返回的并不是原始类型，因此我们覆写toString方法即可</span><br><span class="line">console.log(a==1&amp;&amp;a==2&amp;&amp;a==3)//true</span><br></pre></td></tr></table></figure>]]></content>
+<h3 id="广度优先遍历"><a href="#广度优先遍历" class="headerlink" title="广度优先遍历"></a>广度优先遍历</h3><p>从某顶点v出发，在访问了v之后依次访问v的各个未曾访问过的邻接点，然后分别从这些邻接点出发依次访问它们的邻接点，并使得“先被访问的顶点的邻接点先于后被访问的顶点的邻接点被访问，直至图中所有已被访问的顶点的邻接点都被访问到</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">let</span> widthTraversal2=(node)=&gt;&#123;</span><br><span class="line">  <span class="built_in">let</span> nodes=[];</span><br><span class="line">  <span class="built_in">let</span> stack=[];</span><br><span class="line">  <span class="keyword">if</span>(node)&#123;</span><br><span class="line">    stack.push(node);</span><br><span class="line">    <span class="keyword">while</span>(stack.length)&#123;</span><br><span class="line">      <span class="built_in">let</span> item = stack.shift();</span><br><span class="line">      <span class="built_in">let</span> children = item.children;</span><br><span class="line">      nodes.push(node);</span><br><span class="line">      <span class="keyword">if</span>(children!==null||children.length!==0)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="built_in">let</span> i =0;i&lt;children.length;i++)&#123;</span><br><span class="line">          stack.push(children[i]);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">return</span> nodes;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
       <tags>
         <tag>JavaScript</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Javscript复杂判断</title>
+    <url>/2019/08/07/Javscript_complex_judge/</url>
+    <content><![CDATA[<p>在公司维护前人代码的时候，经常会遇见一堆的if-else语句</p>
+<h3 id="if-else"><a href="#if-else" class="headerlink" title="if-else"></a>if-else</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const flag = (status)=&gt;&#123;</span><br><span class="line">    if(status ==0)&#123;</span><br><span class="line">        //do somethind</span><br><span class="line">    &#125;else if(status==1)&#123;</span><br><span class="line">        //do somethind</span><br><span class="line">    &#125;else if(status ==2)&#123;</span><br><span class="line">        //do something</span><br><span class="line">    &#125;else if(status ==3)&#123;</span><br><span class="line">        //do something</span><br><span class="line">    &#125;</span><br><span class="line">    //...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+<p>或许还可以用switch-case的写法</p>
+<h3 id="switch-case"><a href="#switch-case" class="headerlink" title="switch-case"></a>switch-case</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const flag = (status)=&gt;&#123;</span><br><span class="line">    swtich(status)&#123;</span><br><span class="line">        case 0:</span><br><span class="line">            //do something</span><br><span class="line">            break;</span><br><span class="line">        case 1:</span><br><span class="line">        case 2:</span><br><span class="line">            //do something</span><br><span class="line">            break;</span><br><span class="line">        case 3:</span><br><span class="line">            //do something</span><br><span class="line">            break;</span><br><span class="line">        default:</span><br><span class="line">            return ;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>假如case 1和 case 2的处理情况都一样，可以像上面的写法.</p>
+<p>然鹅如果需要判断的条件多的时候，如果继续用if-else的写法，那么工作量会翻倍</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const flag = (status,type)=&gt;&#123;</span><br><span class="line">    if(type==0)&#123;</span><br><span class="line">        if(status ==0)&#123;</span><br><span class="line">            //do somethind</span><br><span class="line">        &#125;else if(status==1)&#123;</span><br><span class="line">            //do somethind</span><br><span class="line">        &#125;else if(status ==2)&#123;</span><br><span class="line">            //do something</span><br><span class="line">        &#125;else if(status ==3)&#123;</span><br><span class="line">            //do something</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;else if(type==1)&#123;</span><br><span class="line">         if(status ==0)&#123;</span><br><span class="line">            //do somethind</span><br><span class="line">        &#125;else if(status==1)&#123;</span><br><span class="line">            //do somethind</span><br><span class="line">        &#125;else if(status ==2)&#123;</span><br><span class="line">            //do something</span><br><span class="line">        &#125;else if(status ==3)&#123;</span><br><span class="line">            //do something</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这种写法太麻瓜了吧，简直反人类</p>
+<h3 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const actions = ()=&gt;&#123;</span><br><span class="line">    function A()&#123;</span><br><span class="line">        return &apos;A&apos;</span><br><span class="line">    &#125;</span><br><span class="line">    function B()&#123;</span><br><span class="line">        return &apos;B&apos;</span><br><span class="line">    &#125;</span><br><span class="line">    return new Map([</span><br><span class="line">        [&apos;0_0&apos;,A],</span><br><span class="line">        [&apos;0_1&apos;,A],</span><br><span class="line">        [&apos;0_2&apos;,B]</span><br><span class="line">    ])</span><br><span class="line">&#125;</span><br><span class="line">const flag =(status ,type)=&gt;&#123;</span><br><span class="line">    const action = actions().get(`$&#123;type&#125;_$&#123;status&#125;`);</span><br><span class="line">    console.log(action());</span><br><span class="line">&#125;</span><br><span class="line">flag(0,0);//A</span><br></pre></td></tr></table></figure>
+
+<p>直接将逻辑封装起来，然后在另一个函数调用，看起来就干净很多！！！</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const actions = ()=&gt;&#123;</span><br><span class="line">    function A()&#123;</span><br><span class="line">        return &apos;A&apos;</span><br><span class="line">    &#125;</span><br><span class="line">    function B()&#123;</span><br><span class="line">        return &apos;B&apos;</span><br><span class="line">    &#125;</span><br><span class="line">    return new Map([</span><br><span class="line">        [/^0_[0-3]/,A],</span><br><span class="line">        [/1_[0-2]/,A],</span><br><span class="line">        [/1_1/,B]</span><br><span class="line">    ])</span><br><span class="line">&#125;</span><br><span class="line">const flag =(status ,type)=&gt;&#123;</span><br><span class="line">     const action = [...actions()].filter(([key,value])=&gt;&#123;</span><br><span class="line">        return key.test(`$&#123;type&#125;_$&#123;status&#125;`)</span><br><span class="line">    &#125;)</span><br><span class="line">    action.forEach(([_,value])=&gt;&#123;</span><br><span class="line">        console.log(&quot;value.apply(this):&quot;, value.apply(this));//A</span><br><span class="line">        value.call(this);</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line">flag(1,1);</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>JavaScript</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>GET 和 POST 的区别</title>
+    <url>/2020/09/12/diff-between-get-post/</url>
+    <content><![CDATA[<h2 id="GET请求"><a href="#GET请求" class="headerlink" title="GET请求"></a>GET请求</h2><ol>
+<li>GET请求返回的资源会被浏览器缓存</li>
+<li>GET请求会保存在浏览器的历史记录中</li>
+<li>GET请求能当书签</li>
+<li>GET不能用来处理敏感数据</li>
+<li>有长度限制（具体长度参见各个浏览器规范）</li>
+<li>仅仅用来获取数据，不能修改</li>
+<li>参数的数据类型，只接收ascll编码</li>
+<li>仅支持url编码</li>
+<li>产生一个数据包</li>
+<li>页面重载或者回退没有影响</li>
+</ol>
+<h2 id="POST请求"><a href="#POST请求" class="headerlink" title="POST请求"></a>POST请求</h2><ol>
+<li>请求不会被缓存</li>
+<li>不会保存在历史记录中</li>
+<li>不能作为书签</li>
+<li>数据长度没有限制</li>
+<li>参数的数据类型没有限制</li>
+<li>支持多种编码</li>
+<li>两个数据包，需要服务器响应100后继续发出请求之后服务器（可能）响应200</li>
+<li>刷新或者回退 数据会重新提交</li>
+</ol>
+<h2 id="其他http方法"><a href="#其他http方法" class="headerlink" title="其他http方法"></a>其他http方法</h2><h3 id="put"><a href="#put" class="headerlink" title="put"></a>put</h3><p>put方法跟post一样，也是用来创建或者更新资源的，但是跟post不一样的地方在于put请求是幂等的，也就是说put请求发起多次所产生的结果是跟第一个一样的；那么对于post请求，重复请求就会产生多次创建相同资源的副作用</p>
+<h3 id="head"><a href="#head" class="headerlink" title="head"></a>head</h3><p>head请求跟get请求是差不多相同的，不同的地方在于head请求没有返回体<br>那么head 请求通常是在发起get请求之前检查get请求返回的是什么，比如在下载文件的时候或者下载请求体的时候</p>
+<h3 id="delete"><a href="#delete" class="headerlink" title="delete"></a>delete</h3><p>删除方法用来删除资源</p>
+<h3 id="options"><a href="#options" class="headerlink" title="options"></a>options</h3><p>是复杂请求的预检请求</p>
+]]></content>
   </entry>
   <entry>
     <title>今日随笔(7-29)</title>
@@ -358,35 +373,20 @@
       </tags>
   </entry>
   <entry>
-    <title>GET 和 POST 的区别</title>
-    <url>/2020/09/12/diff-between-get-post/</url>
-    <content><![CDATA[<h2 id="GET请求"><a href="#GET请求" class="headerlink" title="GET请求"></a>GET请求</h2><ol>
-<li>GET请求返回的资源会被浏览器缓存</li>
-<li>GET请求会保存在浏览器的历史记录中</li>
-<li>GET请求能当书签</li>
-<li>GET不能用来处理敏感数据</li>
-<li>有长度限制（具体长度参见各个浏览器规范）</li>
-<li>仅仅用来获取数据，不能修改</li>
-<li>参数的数据类型，只接收ascll编码</li>
-<li>仅支持url编码</li>
-<li>产生一个数据包</li>
-<li>页面重载或者回退没有影响</li>
-</ol>
-<h2 id="POST请求"><a href="#POST请求" class="headerlink" title="POST请求"></a>POST请求</h2><ol>
-<li>请求不会被缓存</li>
-<li>不会保存在历史记录中</li>
-<li>不能作为书签</li>
-<li>数据长度没有限制</li>
-<li>参数的数据类型没有限制</li>
-<li>支持多种编码</li>
-<li>两个数据包，需要服务器响应100后继续发出请求之后服务器（可能）响应200</li>
-<li>刷新或者回退 数据会重新提交</li>
-</ol>
-<h2 id="其他http方法"><a href="#其他http方法" class="headerlink" title="其他http方法"></a>其他http方法</h2><h3 id="put"><a href="#put" class="headerlink" title="put"></a>put</h3><p>put方法跟post一样，也是用来创建或者更新资源的，但是跟post不一样的地方在于put请求是幂等的，也就是说put请求发起多次所产生的结果是跟第一个一样的；那么对于post请求，重复请求就会产生多次创建相同资源的副作用</p>
-<h3 id="head"><a href="#head" class="headerlink" title="head"></a>head</h3><p>head请求跟get请求是差不多相同的，不同的地方在于head请求没有返回体<br>那么head 请求通常是在发起get请求之前检查get请求返回的是什么，比如在下载文件的时候或者下载请求体的时候</p>
-<h3 id="delete"><a href="#delete" class="headerlink" title="delete"></a>delete</h3><p>删除方法用来删除资源</p>
-<h3 id="options"><a href="#options" class="headerlink" title="options"></a>options</h3><p>是复杂请求的预检请求</p>
-]]></content>
+    <title>思考如何使a==1&amp;&amp;a==2&amp;&amp;a==3为true</title>
+    <url>/2019/11/01/closure/</url>
+    <content><![CDATA[<p>涉及运算符比较过程，运算符在比较两个值是否相等的时候做了什么,第二个涉及闭包JS比较两个数值是否相等可以用== 和=== ，<a id="more"></a>其中 == 会有隐式类型转换的操作，===则不会,在两个数比较时，先调用valueOf,如果返回的不是原始类型，继续调用toString,如果不是原始类型，抛出异常</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const b = &#123;</span><br><span class="line">  value :1,</span><br><span class="line">  toString()&#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      name:1</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  valueOf()&#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      name:1</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">console.log(`toString : $&#123;b==3&#125;`)</span><br><span class="line">console.log(`valueOf : $&#123;b==4&#125;`)</span><br><span class="line">//抛出异常TypeError: Cannot convert object to primitive value</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const b = &#123;</span><br><span class="line">  value :1,</span><br><span class="line">  toString()&#123;</span><br><span class="line">    return 3</span><br><span class="line">  &#125;,</span><br><span class="line">  valueOf()&#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      name:1</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">console.log(`toString : $&#123;b==3&#125;`)</span><br><span class="line">console.log(`valueOf : $&#123;b==4&#125;`)</span><br><span class="line">//toString:true,valueOf:false</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const b = &#123;</span><br><span class="line">  value :1,</span><br><span class="line">  toString()&#123;</span><br><span class="line">    return 3</span><br><span class="line">  &#125;,</span><br><span class="line">  valueOf()&#123;</span><br><span class="line">    return 4</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(`toString : $&#123;b==3&#125;`)//false</span><br><span class="line">console.log(`valueOf : $&#123;b==4&#125;`)//true</span><br></pre></td></tr></table></figure>
+
+<p>OK,接下来说正题， a==1的时候先调用了a.valueOf(),然后根据valueOf的返回值与1进行比较,但是在a==1为真的情况下如何确保a==2以及a==3也同时成立呢？还记得里两个数比较时做的操作吗？先调用valueOf,然后是toString,所以只要覆写其中一个方法</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const a =&#123;</span><br><span class="line">  value:1,</span><br><span class="line">  toString()&#123;</span><br><span class="line">    return this.value++;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">//由于这时的a是一个Object,所以调用valueOf的时候返回的并不是原始类型，因此我们覆写toString方法即可</span><br><span class="line">console.log(a==1&amp;&amp;a==2&amp;&amp;a==3)//true</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
   </entry>
   <entry>
     <title>今日随笔(7-30)</title>
@@ -438,6 +438,64 @@
       </categories>
       <tags>
         <tag>essay</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>docker</title>
+    <url>/2020/07/31/essay-3/</url>
+    <content><![CDATA[<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>Docker 是由开发人员和系统管理员 构建 、运行和容器共享的应用程序的一个平台。使用容器部署应用程序称之为集装箱化。</p>
+<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><p>docker 为什么能够越来越受欢迎，那是因为:</p>
+<ol>
+<li><p>灵活性：即使再复杂的应用也能够被容器化。</p>
+</li>
+<li><p>轻量性：容器共享主机内核，并且在系统资源利用方面比虚拟机更加的高效</p>
+</li>
+<li><p>便携性：你可以在本地将应用打包成镜像，然后上传到云端，然后就可以在任何地方运行这个镜像</p>
+</li>
+<li><p>解耦：容器拥有高度自治权以及封闭性，你可以在不干扰其他应用程序的情况下对其中一个进行升级或者替换</p>
+</li>
+<li><p>拓展性：可以在数据中心自动分发容器副本</p>
+</li>
+<li><p>容器对应用隔离，对用户来说完全是黑盒，不用关心容器内发配置</p>
+<a id="more"></a>
+<h2 id="解决了哪些问题"><a href="#解决了哪些问题" class="headerlink" title="解决了哪些问题"></a>解决了哪些问题</h2></li>
+<li><p>有时候在测试环境程序运行正常，但是在生产环境却出现了问题。<code>docker</code>的出现让测试环境和生产环境保持了一致性。</p>
+</li>
+<li><p>对于每个新用户来说，在执行程序之前必须在本机环境安装对应的环境。<code>docker</code>保证了一次配置，一键部署</p>
+</li>
+<li><p>由于版本问题导致程序不能正常启动.<code>docker</code>保证在部署的时候安装的版本跟开发时候的版本是完全一致的，重新定义了交付环境,比如对于<code>node-sass</code>的安装，不同版本的<code>node-sass</code>要对应不同版本的<code>node</code>，否则在安装的时候就会出现错误，需要重新 rebuild</p>
+</li>
+</ol>
+<h2 id="微服务"><a href="#微服务" class="headerlink" title="微服务"></a>微服务</h2><p>docker 常常与 微服务架构 一起使用<br>这是一个简单的单机架构，当需求简单时，可以采用单机架构进行开发<br><img src="/images/essay-3/esay.jpg" alt="简单需求"></p>
+<p>但是当需求开始复杂时，如果还用单机架构进行开发</p>
+<p><img src="/images/essay-3/complex.jpg" alt="复杂需求"></p>
+<p>这样的设计是不太合理的</p>
+<ol>
+<li>对于网站和移动端来说，有很多相同逻辑的业务代码</li>
+<li>数据有时候通过数据库共享，有时候通过调用接口传输。接口调用关系混乱。</li>
+<li>单个应用为了给其他应用提供不同的结构，逐渐越改越大，越来越多的 ifelse，功能归属混乱</li>
+<li>数据库为多个应用提供数据支持，难以重构和优化</li>
+<li>所有应用都在同一个数据库进行操作，当数据量庞大时，容易出现性能瓶颈，需要分库分表</li>
+<li>部署、维护、开发困难，即使只改动一个功能，也需要整体应用一起发布。如果不小心带上未经测试的代码，也有可能出现意料之外的错误</li>
+</ol>
+<p>将服务进行拆分，让每个容器能够各司其职，只负责一小部分模块，然后将各个服务进行拼接起来就组成一个完整的服务，并且在更新代码时也只需要更新其中一个容器而不用对整个应用进行更新<br><img src="/images/essay-3/micro_service.jpg" alt="micro_service"></p>
+<h2 id="镜像和容器"><a href="#镜像和容器" class="headerlink" title="镜像和容器"></a>镜像和容器</h2><p>从根本上来说，容器只是一个正在运行的进程，应用了一些添加的封装特性以便它能和主机以及其他容器分离开。对于容器隔离最重要的概念之一就是每个容器和它自身的文件系统交互。文件系统是由<code>docker image</code>来提供的。一个<code>image</code>包含了一切运行所需的东西– 代码或者二进制，运行依赖以及其他任何文件系统对象。</p>
+<h2 id="容器连接"><a href="#容器连接" class="headerlink" title="容器连接"></a>容器连接</h2><p><code>docker</code>实例之间虽然都是互相隔离的，但是隔离的只是它们的环境，但是它们容器之前也需要互相联系，数据之间的传递，不然做拆分就没有任何的意义，用–link 来做容器之间的连接。同时在创建容器时需要设定好宿主机和容器之间的端口映射，这样可以通过访问宿主机的端口来访问容器的服务。<br>对于容器来说，如果把一些数据存放在容器中，那么当容器被删除时，那么存放在容器中的数据也会被删除，这是不合理的，所以数据应该放在宿主机中，然后映射进容器中，这样当容器被删除时，数据仍然存在于宿主机中</p>
+<h2 id="DockerFile"><a href="#DockerFile" class="headerlink" title="DockerFile"></a>DockerFile</h2><p>想要把应用编写成一个 docker 镜像，需要编写 DokcerFile 文件</p>
+<p>这是一个 dockerFile 文件例子</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">FROM php:7.4.8-fpm</span><br><span class="line">MAINTAINER liubucai</span><br><span class="line">ENV REDIS_VERSION=5.3.1</span><br><span class="line">ENV SWOOLE_VERSION=4.4.16</span><br><span class="line">ENV PROTOBUF_VERSION=0.12.3</span><br><span class="line">ENV PSR_VERSION=1.0.0</span><br><span class="line"></span><br><span class="line">RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak \</span><br><span class="line">&amp;&amp; <span class="built_in">echo</span> <span class="string">"deb http://mirrors.163.com/debian/ jessie main non-free contri</span></span><br><span class="line"><span class="string">b"</span> &gt;&gt; /etc/apt/sources.list \</span><br><span class="line">&amp;&amp; <span class="built_in">echo</span> <span class="string">"deb-src http://mirrors.163.com/debian/ jessie main non-free co</span></span><br><span class="line"><span class="string">ntrib"</span> &gt;&gt;/etc/apt/sources.list \</span><br><span class="line"><span class="comment"># \</span></span><br><span class="line">&amp;&amp; apt-get update &amp;&amp; apt-get upgrade \</span><br><span class="line">&amp;&amp; <span class="built_in">printf</span> <span class="string">"%s %s %s %s %s\n"</span> Yes, <span class="keyword">do</span> as I say! | apt-get install libtin</span><br><span class="line">fo5=5.9+20140913-1+deb8u3 \</span><br><span class="line">&amp;&amp; apt-get install -y libncurses5 procps \</span><br><span class="line">&amp;&amp; <span class="built_in">printf</span> <span class="string">"%s %s %s %s %s\n"</span> Yes, <span class="keyword">do</span> as I say! | apt-get install zlib1g</span><br><span class="line">=1:1.2.8.dfsg-2+b1 \</span><br><span class="line">&amp;&amp; apt-get install -y libssl-dev libzip-dev wget zip vim \</span><br><span class="line"><span class="comment"># \</span></span><br><span class="line">&amp;&amp; docker-php-source extract \</span><br><span class="line">&amp;&amp; docker-php-ext-install bcmath sockets pdo_mysql pcntl opcache \</span><br><span class="line"><span class="comment"># \</span></span><br><span class="line">&amp;&amp; wget https://github.com/allegro/php-protobuf/archive/master.zip \</span><br><span class="line">&amp;&amp; unzip master.zip &amp;&amp; rm -rf master.zip \</span><br><span class="line">&amp;&amp; mv php-protobuf-master /usr/src/php/ext/ \</span><br><span class="line">&amp;&amp; docker-php-ext-install php-protobuf-master \</span><br><span class="line">&amp;&amp; curl -sS https://getcomposer.org/installer | php \</span><br><span class="line">&amp;&amp; mv composer.phar /usr/<span class="built_in">local</span>/bin/composer \</span><br><span class="line">&amp;&amp; <span class="built_in">cd</span> /usr/src/php/ext/php-protobuf-master/ &amp;&amp; composer install \</span><br><span class="line">&amp;&amp; wget https://github.com/protocolbuffers/protobuf/releases/download/v</span><br><span class="line">3.12.3/protobuf-php-3.12.3.zip \</span><br><span class="line">&amp;&amp; unzip protobuf-php-3.12.3.zip \</span><br><span class="line">&amp;&amp; <span class="built_in">cd</span> protobuf-3.12.3/ \</span><br><span class="line">&amp;&amp; ./configure --prefix=/usr/<span class="built_in">local</span>/protobuf \</span><br><span class="line">&amp;&amp; make &amp;&amp; make install \</span><br><span class="line">&amp;&amp; <span class="built_in">export</span> PATH=/usr/<span class="built_in">local</span>/protobuf/bin:<span class="variable">$PATH</span> \</span><br><span class="line">&amp;&amp; apt-get -y install npm \</span><br><span class="line">&amp;&amp; npm install -g require &amp;&amp; npm install -g browserify &amp;&amp; npm install g</span><br><span class="line">oogle-protobuf \</span><br><span class="line"><span class="comment"># \</span></span><br><span class="line">&amp;&amp; pecl install redis-<span class="variable">$&#123;REDIS_VERSION&#125;</span> &amp;&amp; docker-php-ext-enable redis \</span><br><span class="line">&amp;&amp; <span class="built_in">echo</span> <span class="string">"install redis ok !"</span> \</span><br><span class="line"><span class="comment"># \</span></span><br><span class="line">&amp;&amp; <span class="built_in">printf</span> <span class="string">"yes\n yes\n yes\n yes\n"</span> | pecl install swoole-$&#123;SWOOLE_VE</span><br><span class="line">RSION&#125; \</span><br><span class="line">&amp;&amp; docker-php-ext-enable swoole \</span><br><span class="line">&amp;&amp; <span class="built_in">echo</span> <span class="string">"install swoole ok !"</span> \</span><br><span class="line"><span class="comment"># \</span></span><br><span class="line">&amp;&amp; pecl install psr-<span class="variable">$&#123;PSR_VERSION&#125;</span> &amp;&amp; docker-php-ext-enable psr \</span><br><span class="line">&amp;&amp; <span class="built_in">echo</span> <span class="string">"install psr ok !"</span> \</span><br><span class="line"><span class="comment"># \</span></span><br><span class="line">&amp;&amp; pecl install zip &amp;&amp; docker-php-ext-enable zip</span><br><span class="line"><span class="comment">#VOLUME ["/var/log","/usr/local/etc/","/var/run","/var/www/html"]</span></span><br><span class="line">WORKDIR /var/www/html</span><br><span class="line"></span><br><span class="line">EXPOSE 9000</span><br><span class="line"><span class="comment">#CMD php-fpm -R -D &amp;&amp; tail -f /dev/null</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="docker-compose"><a href="#docker-compose" class="headerlink" title="docker compose"></a>docker compose</h2><p>当宿主机中拥有几十个 docker 服务时，如果一个一个的执行<code>docker run</code> 无疑是很让人崩溃的以及怀疑世界 ing，因此可以采用 docker compose 才对 docker 实例进行管理，只要写好 docker compose 的配置文件, 然后执行 <code>docker compose start</code> 那么就会执行配置文件中的 docker 实例（假设宿主机中已经启动对应的容器）</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">version: <span class="string">'3'</span></span><br><span class="line">networks:</span><br><span class="line">    xxx-game-net:</span><br><span class="line">        driver: bridge <span class="comment"># 以网桥的形式连接docker</span></span><br><span class="line">services:</span><br><span class="line">    nginx:</span><br><span class="line">        image: nginx:latest <span class="comment"># 安装的版本</span></span><br><span class="line">        container_name: nginx-xxx</span><br><span class="line">        restart: always</span><br><span class="line">        ports:</span><br><span class="line">            - 6688:80</span><br><span class="line">        volumes: <span class="comment"># 映射配置文件到容器中</span></span><br><span class="line">            - ./conf/nginx/conf.d/:/etc/nginx/conf.d</span><br><span class="line">            - ../html:/usr/share/nginx/html</span><br><span class="line">            - ./<span class="built_in">log</span>/nginx:/var/<span class="built_in">log</span>/nginx</span><br><span class="line">        depends_on: <span class="comment"># 启动的依赖</span></span><br><span class="line">            - mysql</span><br><span class="line">            - redis</span><br><span class="line">            - php-fpm</span><br><span class="line">        networks:</span><br><span class="line">            - xxx-game-net</span><br><span class="line"> mysql:</span><br><span class="line">    image: mysql:latest</span><br><span class="line">    container_name: mysql-xxx</span><br><span class="line">    <span class="built_in">command</span>: --default-authentication-plugin=mysql_native_password</span><br><span class="line">    restart: always</span><br><span class="line">    ports:</span><br><span class="line">        - 6666:3306</span><br><span class="line">    volumes:</span><br><span class="line">        - ./conf/mysql/conf.d/:/etc/mysql/conf.d</span><br><span class="line">        - ./data/mysql:/var/lib/mysql</span><br><span class="line">    environment:</span><br><span class="line">        MYSQL_ROOT_PASSWORD: 123456</span><br><span class="line">    networks:</span><br><span class="line">        - xxx-game-net</span><br><span class="line">php-fpm:</span><br><span class="line">    build: .</span><br><span class="line">    container_name: php-fpm-xxx</span><br><span class="line">    volumes:</span><br><span class="line">        - ../:/data/www</span><br><span class="line">    networks:</span><br><span class="line">        - xxx-game-net</span><br><span class="line">redis:</span><br><span class="line">    image: redis:latest</span><br><span class="line">    container_name: redis-xxx</span><br><span class="line">    restart: always</span><br><span class="line">    ports:</span><br><span class="line">        - 6668:6379</span><br><span class="line">    volumes:</span><br><span class="line">        - ./data/redis:/data</span><br><span class="line">    networks:</span><br><span class="line">        - xxx-game-net</span><br></pre></td></tr></table></figure>
+
+<p>—–OVER</p>
+]]></content>
+      <categories>
+        <category>essay</category>
+        <category>docker</category>
+      </categories>
+      <tags>
+        <tag>docker</tag>
       </tags>
   </entry>
   <entry>
@@ -563,97 +621,6 @@
       </tags>
   </entry>
   <entry>
-    <title>今日随笔(2020-10-11)</title>
-    <url>/2020/10/11/essay-5/</url>
-    <content><![CDATA[<h3 id="命令行文件的上传与下载"><a href="#命令行文件的上传与下载" class="headerlink" title="命令行文件的上传与下载"></a>命令行文件的上传与下载</h3><p>文件的上传和下载命令都是scp</p>
-<p><strong>上传</strong><br>从服务器上下载文件 scp username@servername:/path/filename /Users/mac/Desktop（本地目录，例如：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">scp root@47.98.37.170:/root/test.txt /Users/mac/Desktop就是将服务器上的/root/test.txt下载到本地的/Users/mac/Desktop目录下。注意两个地址之间有空格！</span><br></pre></td></tr></table></figure>
-
-<p><strong>下载</strong><br>上传本地文件到服务器 scp /path/filename username@servername:/path ;</p>
-<p>note： 下载命令就是将两个路径换一个位置就行了。</p>
-<h3 id="TS-4-0的一些更新"><a href="#TS-4-0的一些更新" class="headerlink" title="TS 4.0的一些更新"></a>TS 4.0的一些更新</h3><h4 id="类型解构"><a href="#类型解构" class="headerlink" title="类型解构"></a>类型解构</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> Strings = [string, string];</span><br><span class="line"><span class="built_in">type</span> Numbers = number[]</span><br><span class="line"></span><br><span class="line"><span class="built_in">type</span> Unbounded = [...Strings, ...Numbers, boolean];</span><br><span class="line"><span class="comment"># // [string, string, ...Array&lt;number | boolean&gt;]</span></span><br><span class="line"><span class="comment"># 按照官方的解释就是解构一个已知长度的类型的时候，那么最后的结果类型也是没有任何限制的，在解构类型之后添加的类型声明都要添加到被解构类型的类型中去</span></span><br></pre></td></tr></table></figure>
-
-<p>—待续哈，明天更新</p>
-]]></content>
-      <tags>
-        <tag>TypeScript Upload</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>docker</title>
-    <url>/2020/07/31/essay-3/</url>
-    <content><![CDATA[<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>Docker 是由开发人员和系统管理员 构建 、运行和容器共享的应用程序的一个平台。使用容器部署应用程序称之为集装箱化。</p>
-<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><p>docker 为什么能够越来越受欢迎，那是因为:</p>
-<ol>
-<li><p>灵活性：即使再复杂的应用也能够被容器化。</p>
-</li>
-<li><p>轻量性：容器共享主机内核，并且在系统资源利用方面比虚拟机更加的高效</p>
-</li>
-<li><p>便携性：你可以在本地将应用打包成镜像，然后上传到云端，然后就可以在任何地方运行这个镜像</p>
-</li>
-<li><p>解耦：容器拥有高度自治权以及封闭性，你可以在不干扰其他应用程序的情况下对其中一个进行升级或者替换</p>
-</li>
-<li><p>拓展性：可以在数据中心自动分发容器副本</p>
-</li>
-<li><p>容器对应用隔离，对用户来说完全是黑盒，不用关心容器内发配置</p>
-<a id="more"></a>
-<h2 id="解决了哪些问题"><a href="#解决了哪些问题" class="headerlink" title="解决了哪些问题"></a>解决了哪些问题</h2></li>
-<li><p>有时候在测试环境程序运行正常，但是在生产环境却出现了问题。<code>docker</code>的出现让测试环境和生产环境保持了一致性。</p>
-</li>
-<li><p>对于每个新用户来说，在执行程序之前必须在本机环境安装对应的环境。<code>docker</code>保证了一次配置，一键部署</p>
-</li>
-<li><p>由于版本问题导致程序不能正常启动.<code>docker</code>保证在部署的时候安装的版本跟开发时候的版本是完全一致的，重新定义了交付环境,比如对于<code>node-sass</code>的安装，不同版本的<code>node-sass</code>要对应不同版本的<code>node</code>，否则在安装的时候就会出现错误，需要重新 rebuild</p>
-</li>
-</ol>
-<h2 id="微服务"><a href="#微服务" class="headerlink" title="微服务"></a>微服务</h2><p>docker 常常与 微服务架构 一起使用<br>这是一个简单的单机架构，当需求简单时，可以采用单机架构进行开发<br><img src="/images/essay-3/esay.jpg" alt="简单需求"></p>
-<p>但是当需求开始复杂时，如果还用单机架构进行开发</p>
-<p><img src="/images/essay-3/complex.jpg" alt="复杂需求"></p>
-<p>这样的设计是不太合理的</p>
-<ol>
-<li>对于网站和移动端来说，有很多相同逻辑的业务代码</li>
-<li>数据有时候通过数据库共享，有时候通过调用接口传输。接口调用关系混乱。</li>
-<li>单个应用为了给其他应用提供不同的结构，逐渐越改越大，越来越多的 ifelse，功能归属混乱</li>
-<li>数据库为多个应用提供数据支持，难以重构和优化</li>
-<li>所有应用都在同一个数据库进行操作，当数据量庞大时，容易出现性能瓶颈，需要分库分表</li>
-<li>部署、维护、开发困难，即使只改动一个功能，也需要整体应用一起发布。如果不小心带上未经测试的代码，也有可能出现意料之外的错误</li>
-</ol>
-<p>将服务进行拆分，让每个容器能够各司其职，只负责一小部分模块，然后将各个服务进行拼接起来就组成一个完整的服务，并且在更新代码时也只需要更新其中一个容器而不用对整个应用进行更新<br><img src="/images/essay-3/micro_service.jpg" alt="micro_service"></p>
-<h2 id="镜像和容器"><a href="#镜像和容器" class="headerlink" title="镜像和容器"></a>镜像和容器</h2><p>从根本上来说，容器只是一个正在运行的进程，应用了一些添加的封装特性以便它能和主机以及其他容器分离开。对于容器隔离最重要的概念之一就是每个容器和它自身的文件系统交互。文件系统是由<code>docker image</code>来提供的。一个<code>image</code>包含了一切运行所需的东西– 代码或者二进制，运行依赖以及其他任何文件系统对象。</p>
-<h2 id="容器连接"><a href="#容器连接" class="headerlink" title="容器连接"></a>容器连接</h2><p><code>docker</code>实例之间虽然都是互相隔离的，但是隔离的只是它们的环境，但是它们容器之前也需要互相联系，数据之间的传递，不然做拆分就没有任何的意义，用–link 来做容器之间的连接。同时在创建容器时需要设定好宿主机和容器之间的端口映射，这样可以通过访问宿主机的端口来访问容器的服务。<br>对于容器来说，如果把一些数据存放在容器中，那么当容器被删除时，那么存放在容器中的数据也会被删除，这是不合理的，所以数据应该放在宿主机中，然后映射进容器中，这样当容器被删除时，数据仍然存在于宿主机中</p>
-<h2 id="DockerFile"><a href="#DockerFile" class="headerlink" title="DockerFile"></a>DockerFile</h2><p>想要把应用编写成一个 docker 镜像，需要编写 DokcerFile 文件</p>
-<p>这是一个 dockerFile 文件例子</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">FROM php:7.4.8-fpm</span><br><span class="line">MAINTAINER liubucai</span><br><span class="line">ENV REDIS_VERSION=5.3.1</span><br><span class="line">ENV SWOOLE_VERSION=4.4.16</span><br><span class="line">ENV PROTOBUF_VERSION=0.12.3</span><br><span class="line">ENV PSR_VERSION=1.0.0</span><br><span class="line"></span><br><span class="line">RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak \</span><br><span class="line">&amp;&amp; <span class="built_in">echo</span> <span class="string">"deb http://mirrors.163.com/debian/ jessie main non-free contri</span></span><br><span class="line"><span class="string">b"</span> &gt;&gt; /etc/apt/sources.list \</span><br><span class="line">&amp;&amp; <span class="built_in">echo</span> <span class="string">"deb-src http://mirrors.163.com/debian/ jessie main non-free co</span></span><br><span class="line"><span class="string">ntrib"</span> &gt;&gt;/etc/apt/sources.list \</span><br><span class="line"><span class="comment"># \</span></span><br><span class="line">&amp;&amp; apt-get update &amp;&amp; apt-get upgrade \</span><br><span class="line">&amp;&amp; <span class="built_in">printf</span> <span class="string">"%s %s %s %s %s\n"</span> Yes, <span class="keyword">do</span> as I say! | apt-get install libtin</span><br><span class="line">fo5=5.9+20140913-1+deb8u3 \</span><br><span class="line">&amp;&amp; apt-get install -y libncurses5 procps \</span><br><span class="line">&amp;&amp; <span class="built_in">printf</span> <span class="string">"%s %s %s %s %s\n"</span> Yes, <span class="keyword">do</span> as I say! | apt-get install zlib1g</span><br><span class="line">=1:1.2.8.dfsg-2+b1 \</span><br><span class="line">&amp;&amp; apt-get install -y libssl-dev libzip-dev wget zip vim \</span><br><span class="line"><span class="comment"># \</span></span><br><span class="line">&amp;&amp; docker-php-source extract \</span><br><span class="line">&amp;&amp; docker-php-ext-install bcmath sockets pdo_mysql pcntl opcache \</span><br><span class="line"><span class="comment"># \</span></span><br><span class="line">&amp;&amp; wget https://github.com/allegro/php-protobuf/archive/master.zip \</span><br><span class="line">&amp;&amp; unzip master.zip &amp;&amp; rm -rf master.zip \</span><br><span class="line">&amp;&amp; mv php-protobuf-master /usr/src/php/ext/ \</span><br><span class="line">&amp;&amp; docker-php-ext-install php-protobuf-master \</span><br><span class="line">&amp;&amp; curl -sS https://getcomposer.org/installer | php \</span><br><span class="line">&amp;&amp; mv composer.phar /usr/<span class="built_in">local</span>/bin/composer \</span><br><span class="line">&amp;&amp; <span class="built_in">cd</span> /usr/src/php/ext/php-protobuf-master/ &amp;&amp; composer install \</span><br><span class="line">&amp;&amp; wget https://github.com/protocolbuffers/protobuf/releases/download/v</span><br><span class="line">3.12.3/protobuf-php-3.12.3.zip \</span><br><span class="line">&amp;&amp; unzip protobuf-php-3.12.3.zip \</span><br><span class="line">&amp;&amp; <span class="built_in">cd</span> protobuf-3.12.3/ \</span><br><span class="line">&amp;&amp; ./configure --prefix=/usr/<span class="built_in">local</span>/protobuf \</span><br><span class="line">&amp;&amp; make &amp;&amp; make install \</span><br><span class="line">&amp;&amp; <span class="built_in">export</span> PATH=/usr/<span class="built_in">local</span>/protobuf/bin:<span class="variable">$PATH</span> \</span><br><span class="line">&amp;&amp; apt-get -y install npm \</span><br><span class="line">&amp;&amp; npm install -g require &amp;&amp; npm install -g browserify &amp;&amp; npm install g</span><br><span class="line">oogle-protobuf \</span><br><span class="line"><span class="comment"># \</span></span><br><span class="line">&amp;&amp; pecl install redis-<span class="variable">$&#123;REDIS_VERSION&#125;</span> &amp;&amp; docker-php-ext-enable redis \</span><br><span class="line">&amp;&amp; <span class="built_in">echo</span> <span class="string">"install redis ok !"</span> \</span><br><span class="line"><span class="comment"># \</span></span><br><span class="line">&amp;&amp; <span class="built_in">printf</span> <span class="string">"yes\n yes\n yes\n yes\n"</span> | pecl install swoole-$&#123;SWOOLE_VE</span><br><span class="line">RSION&#125; \</span><br><span class="line">&amp;&amp; docker-php-ext-enable swoole \</span><br><span class="line">&amp;&amp; <span class="built_in">echo</span> <span class="string">"install swoole ok !"</span> \</span><br><span class="line"><span class="comment"># \</span></span><br><span class="line">&amp;&amp; pecl install psr-<span class="variable">$&#123;PSR_VERSION&#125;</span> &amp;&amp; docker-php-ext-enable psr \</span><br><span class="line">&amp;&amp; <span class="built_in">echo</span> <span class="string">"install psr ok !"</span> \</span><br><span class="line"><span class="comment"># \</span></span><br><span class="line">&amp;&amp; pecl install zip &amp;&amp; docker-php-ext-enable zip</span><br><span class="line"><span class="comment">#VOLUME ["/var/log","/usr/local/etc/","/var/run","/var/www/html"]</span></span><br><span class="line">WORKDIR /var/www/html</span><br><span class="line"></span><br><span class="line">EXPOSE 9000</span><br><span class="line"><span class="comment">#CMD php-fpm -R -D &amp;&amp; tail -f /dev/null</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="docker-compose"><a href="#docker-compose" class="headerlink" title="docker compose"></a>docker compose</h2><p>当宿主机中拥有几十个 docker 服务时，如果一个一个的执行<code>docker run</code> 无疑是很让人崩溃的以及怀疑世界 ing，因此可以采用 docker compose 才对 docker 实例进行管理，只要写好 docker compose 的配置文件, 然后执行 <code>docker compose start</code> 那么就会执行配置文件中的 docker 实例（假设宿主机中已经启动对应的容器）</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">version: <span class="string">'3'</span></span><br><span class="line">networks:</span><br><span class="line">    xxx-game-net:</span><br><span class="line">        driver: bridge <span class="comment"># 以网桥的形式连接docker</span></span><br><span class="line">services:</span><br><span class="line">    nginx:</span><br><span class="line">        image: nginx:latest <span class="comment"># 安装的版本</span></span><br><span class="line">        container_name: nginx-xxx</span><br><span class="line">        restart: always</span><br><span class="line">        ports:</span><br><span class="line">            - 6688:80</span><br><span class="line">        volumes: <span class="comment"># 映射配置文件到容器中</span></span><br><span class="line">            - ./conf/nginx/conf.d/:/etc/nginx/conf.d</span><br><span class="line">            - ../html:/usr/share/nginx/html</span><br><span class="line">            - ./<span class="built_in">log</span>/nginx:/var/<span class="built_in">log</span>/nginx</span><br><span class="line">        depends_on: <span class="comment"># 启动的依赖</span></span><br><span class="line">            - mysql</span><br><span class="line">            - redis</span><br><span class="line">            - php-fpm</span><br><span class="line">        networks:</span><br><span class="line">            - xxx-game-net</span><br><span class="line"> mysql:</span><br><span class="line">    image: mysql:latest</span><br><span class="line">    container_name: mysql-xxx</span><br><span class="line">    <span class="built_in">command</span>: --default-authentication-plugin=mysql_native_password</span><br><span class="line">    restart: always</span><br><span class="line">    ports:</span><br><span class="line">        - 6666:3306</span><br><span class="line">    volumes:</span><br><span class="line">        - ./conf/mysql/conf.d/:/etc/mysql/conf.d</span><br><span class="line">        - ./data/mysql:/var/lib/mysql</span><br><span class="line">    environment:</span><br><span class="line">        MYSQL_ROOT_PASSWORD: 123456</span><br><span class="line">    networks:</span><br><span class="line">        - xxx-game-net</span><br><span class="line">php-fpm:</span><br><span class="line">    build: .</span><br><span class="line">    container_name: php-fpm-xxx</span><br><span class="line">    volumes:</span><br><span class="line">        - ../:/data/www</span><br><span class="line">    networks:</span><br><span class="line">        - xxx-game-net</span><br><span class="line">redis:</span><br><span class="line">    image: redis:latest</span><br><span class="line">    container_name: redis-xxx</span><br><span class="line">    restart: always</span><br><span class="line">    ports:</span><br><span class="line">        - 6668:6379</span><br><span class="line">    volumes:</span><br><span class="line">        - ./data/redis:/data</span><br><span class="line">    networks:</span><br><span class="line">        - xxx-game-net</span><br></pre></td></tr></table></figure>
-
-<p>—–OVER</p>
-]]></content>
-      <categories>
-        <category>essay</category>
-        <category>docker</category>
-      </categories>
-      <tags>
-        <tag>docker</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>内网穿透</title>
-    <url>/2020/01/08/intranet-contacts/</url>
-    <content><![CDATA[<p>内网穿透就是把本地服务映射到具有公网IP地址的服务器上，通过访问在公网上的机器，就可以访问到内网</p>
-<a id="more"></a>
-<p>工具挺多的，今天刚用的ngrok，感觉不太稳定，不过能凑活用吧，内网穿透这玩意儿对移动端开发来说挺方便的，把电脑上的本地服务映射到外网端口，然后这样手机也就可以访问在电脑上的服务了，也能热更</p>
-<p>使用也挺方便的，google搜索ngrok，然后下载</p>
-<p><img src="/images/intranet-contacts/demo1.png" alt="图片"></p>
-<p>然后就是这样了</p>
-<p><img src="/images/intranet-contacts/demo2.png" alt="图片"></p>
-<p>然后你发现不管本地还是ngrok给你生成的地址，你都可以访问到本地开启的服务，但是每次开启的时候IP都不一样hhh</p>
-]]></content>
-      <tags>
-        <tag>tool</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>基于Hexo搭建个人博客</title>
     <url>/2019/08/05/hexo-config/</url>
     <content><![CDATA[<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><ol>
@@ -691,6 +658,22 @@
       <tags>
         <tag>hexo</tag>
         <tag>blog</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>内网穿透</title>
+    <url>/2020/01/08/intranet-contacts/</url>
+    <content><![CDATA[<p>内网穿透就是把本地服务映射到具有公网IP地址的服务器上，通过访问在公网上的机器，就可以访问到内网</p>
+<a id="more"></a>
+<p>工具挺多的，今天刚用的ngrok，感觉不太稳定，不过能凑活用吧，内网穿透这玩意儿对移动端开发来说挺方便的，把电脑上的本地服务映射到外网端口，然后这样手机也就可以访问在电脑上的服务了，也能热更</p>
+<p>使用也挺方便的，google搜索ngrok，然后下载</p>
+<p><img src="/images/intranet-contacts/demo1.png" alt="图片"></p>
+<p>然后就是这样了</p>
+<p><img src="/images/intranet-contacts/demo2.png" alt="图片"></p>
+<p>然后你发现不管本地还是ngrok给你生成的地址，你都可以访问到本地开启的服务，但是每次开启的时候IP都不一样hhh</p>
+]]></content>
+      <tags>
+        <tag>tool</tag>
       </tags>
   </entry>
   <entry>
@@ -815,6 +798,39 @@
       </tags>
   </entry>
   <entry>
+    <title>今日随笔(2020-10-11)</title>
+    <url>/2020/10/11/essay-5/</url>
+    <content><![CDATA[<h3 id="命令行文件的上传与下载"><a href="#命令行文件的上传与下载" class="headerlink" title="命令行文件的上传与下载"></a>命令行文件的上传与下载</h3><p>文件的上传和下载命令都是scp</p>
+<p><strong>上传</strong><br>从服务器上下载文件 scp username@servername:/path/filename /Users/mac/Desktop（本地目录，例如：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">scp root@47.98.37.170:/root/test.txt /Users/mac/Desktop就是将服务器上的/root/test.txt下载到本地的/Users/mac/Desktop目录下。注意两个地址之间有空格！</span><br></pre></td></tr></table></figure>
+
+<p><strong>下载</strong><br>上传本地文件到服务器 scp /path/filename username@servername:/path ;</p>
+<p>note： 下载命令就是将两个路径换一个位置就行了。</p>
+<h3 id="TS-4-0的一些更新"><a href="#TS-4-0的一些更新" class="headerlink" title="TS 4.0的一些更新"></a>TS 4.0的一些更新</h3><h4 id="类型解构"><a href="#类型解构" class="headerlink" title="类型解构"></a>类型解构</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> Strings = [string, string];</span><br><span class="line"><span class="built_in">type</span> Numbers = number[]</span><br><span class="line"></span><br><span class="line"><span class="built_in">type</span> Unbounded = [...Strings, ...Numbers, boolean];</span><br><span class="line"><span class="comment"># // [string, string, ...Array&lt;number | boolean&gt;]</span></span><br><span class="line"><span class="comment"># 按照官方的解释就是解构一个已知长度的类型的时候，那么最后的结果类型也是没有任何限制的，在解构类型之后添加的类型声明都要添加到被解构类型的类型中去</span></span><br></pre></td></tr></table></figure>
+
+<p>—待续哈，明天更新</p>
+]]></content>
+      <tags>
+        <tag>TypeScript Upload</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>item</title>
+    <url>/2020/10/07/item/</url>
+    <content><![CDATA[<h3 id="Proposal-for-a-item-method-on-all-the-built-in-indexables"><a href="#Proposal-for-a-item-method-on-all-the-built-in-indexables" class="headerlink" title="Proposal for a .item() method on all the built-in indexables"></a>Proposal for a .item() method on all the built-in indexables</h3><p>这个方法是给有索引对象内置的一个方法，那么这个方法接收一个 number 类型的 index，对象能够根据 index 来确定值。那其实看到这会有个问题，具备索引的对象自己就能根据索引来确定值了，那么这个方法出现的意义是为什么？它其实是用负值的 index 来获取值，比如</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const arr =[1,2,3]</span><br><span class="line">arr.item(-1) // 3</span><br></pre></td></tr></table></figure>
+
+<p>是这样的用法。<br>那么这个方法是挂载在 String，Array，TypeArray 这三个数据结构的原型链上。<br>然后对于 dom 结构中类型 document.getElementById()这样的返回 NodeList 结构在经过 Array.from 转化之后同样会挂载 item 方法</p>
+<p>但是这个方法目前还处于 stage3 阶段，因此是不能直接使用的 hhhh。但是官方给出了 polyfill</p>
+<p>Like this:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> item(n) &#123;</span><br><span class="line">	<span class="comment"># ToInteger() abstract op</span></span><br><span class="line">	n = Math.trunc(n) || 0;</span><br><span class="line">	<span class="comment"># Allow negative indexing from the end</span></span><br><span class="line">	<span class="keyword">if</span>(n &lt; 0) n += this.length;</span><br><span class="line">	<span class="comment"># OOB access is guaranteed to return undefined</span></span><br><span class="line">	<span class="keyword">if</span>(n &lt; 0 || n &gt;= this.length) <span class="built_in">return</span> undefined;</span><br><span class="line">	<span class="comment"># Otherwise, this is just normal property access</span></span><br><span class="line">	<span class="built_in">return</span> this[n];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Other TypedArray constructors omitted for brevity.</span></span><br><span class="line"><span class="keyword">for</span> (<span class="built_in">let</span> C of [Array, String, Uint8Array]) &#123;</span><br><span class="line">    Object.defineProperty(C.prototype, <span class="string">"item"</span>,</span><br><span class="line">                          &#123; value: item,</span><br><span class="line">                            writable: <span class="literal">true</span>,</span><br><span class="line">                            enumerable: <span class="literal">false</span>,</span><br><span class="line">                            configurable: <span class="literal">true</span> &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>leetcode第70之爬楼梯</title>
     <url>/2019/08/08/leetcode-70/</url>
     <content><![CDATA[<p>描述：假设你正在爬楼梯。需要 n 阶你才能到达楼顶。</p>
@@ -824,23 +840,6 @@
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 爬楼梯</span><br><span class="line"> * @param &#123;number&#125; n</span><br><span class="line"> * @<span class="built_in">return</span> &#123;number&#125;</span><br><span class="line"> */</span><br><span class="line">var climbStairs = <span class="keyword">function</span>(n) &#123;</span><br><span class="line">    <span class="built_in">let</span> ans =[1,2];</span><br><span class="line">    <span class="keyword">if</span>(n==1||n==2)&#123;</span><br><span class="line">        <span class="built_in">return</span> ans[n-1];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">let</span> i = 2;i&lt;n;i++)&#123;</span><br><span class="line">        ans[i]=ans[i-1]+ans[i-2];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> ans[n-1]</span><br><span class="line"></span><br><span class="line">    // <span class="keyword">else</span> &#123;</span><br><span class="line">    //     <span class="built_in">return</span> climbStairs(n-1)+climbStairs(n-2);</span><br><span class="line">    // &#125;</span><br><span class="line">&#125;;</span><br><span class="line">console.log(<span class="string">"climbStairs(44):"</span>, climbStairs(44));</span><br><span class="line">// climbStairs(3)</span><br></pre></td></tr></table></figure>
 
 ]]></content>
-      <tags>
-        <tag>leetcode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>leetcode第73之矩阵置0</title>
-    <url>/2019/08/08/leetcode-73/</url>
-    <content><![CDATA[<p>描述：: 给定一个 m x n 的矩阵，如果一个元素为 0，则将其所在行和列的所有元素都设为 0。请使用原地算法。</p>
-<a id="more"></a>
-
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * @param &#123;number[][]&#125; matrix</span><br><span class="line"> * @<span class="built_in">return</span> &#123;void&#125; Do not <span class="built_in">return</span> anything, modify matrix <span class="keyword">in</span>-place instead.</span><br><span class="line"> */</span><br><span class="line">var setZeroes = <span class="keyword">function</span>(matrix) &#123;</span><br><span class="line">    <span class="built_in">let</span> columns=new Set(),rows=new Set();</span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">let</span> row =0;row&lt;matrix.length;row++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="built_in">let</span> column =0;column&lt;matrix[row].length;column++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(matrix[row][column]==0)&#123;</span><br><span class="line">                columns.add(column);</span><br><span class="line">                rows.add(row);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">let</span> row =0;row&lt;matrix.length;row++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="built_in">let</span> column =0;column&lt;matrix[row].length;column++)&#123;</span><br><span class="line">           <span class="keyword">if</span>(rows.has(row)||columns.has(column))&#123;</span><br><span class="line">               matrix[row][column]=0;</span><br><span class="line">           &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> matrix;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>题解：将0所在的行列储存起来作为标记，第二次循环的时候判断元素当前所在行或者列是否在标记的行或列即可</p>
-]]></content>
-      <categories>
-        <category>leetcode</category>
-      </categories>
       <tags>
         <tag>leetcode</tag>
       </tags>
@@ -861,19 +860,20 @@
       </tags>
   </entry>
   <entry>
-    <title>item</title>
-    <url>/2020/10/07/item/</url>
-    <content><![CDATA[<h3 id="Proposal-for-a-item-method-on-all-the-built-in-indexables"><a href="#Proposal-for-a-item-method-on-all-the-built-in-indexables" class="headerlink" title="Proposal for a .item() method on all the built-in indexables"></a>Proposal for a .item() method on all the built-in indexables</h3><p>这个方法是给有索引对象内置的一个方法，那么这个方法接收一个 number 类型的 index，对象能够根据 index 来确定值。那其实看到这会有个问题，具备索引的对象自己就能根据索引来确定值了，那么这个方法出现的意义是为什么？它其实是用负值的 index 来获取值，比如</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const arr =[1,2,3]</span><br><span class="line">arr.item(-1) // 3</span><br></pre></td></tr></table></figure>
+    <title>leetcode第73之矩阵置0</title>
+    <url>/2019/08/08/leetcode-73/</url>
+    <content><![CDATA[<p>描述：: 给定一个 m x n 的矩阵，如果一个元素为 0，则将其所在行和列的所有元素都设为 0。请使用原地算法。</p>
+<a id="more"></a>
 
-<p>是这样的用法。<br>那么这个方法是挂载在 String，Array，TypeArray 这三个数据结构的原型链上。<br>然后对于 dom 结构中类型 document.getElementById()这样的返回 NodeList 结构在经过 Array.from 转化之后同样会挂载 item 方法</p>
-<p>但是这个方法目前还处于 stage3 阶段，因此是不能直接使用的 hhhh。但是官方给出了 polyfill</p>
-<p>Like this:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> item(n) &#123;</span><br><span class="line">	<span class="comment"># ToInteger() abstract op</span></span><br><span class="line">	n = Math.trunc(n) || 0;</span><br><span class="line">	<span class="comment"># Allow negative indexing from the end</span></span><br><span class="line">	<span class="keyword">if</span>(n &lt; 0) n += this.length;</span><br><span class="line">	<span class="comment"># OOB access is guaranteed to return undefined</span></span><br><span class="line">	<span class="keyword">if</span>(n &lt; 0 || n &gt;= this.length) <span class="built_in">return</span> undefined;</span><br><span class="line">	<span class="comment"># Otherwise, this is just normal property access</span></span><br><span class="line">	<span class="built_in">return</span> this[n];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Other TypedArray constructors omitted for brevity.</span></span><br><span class="line"><span class="keyword">for</span> (<span class="built_in">let</span> C of [Array, String, Uint8Array]) &#123;</span><br><span class="line">    Object.defineProperty(C.prototype, <span class="string">"item"</span>,</span><br><span class="line">                          &#123; value: item,</span><br><span class="line">                            writable: <span class="literal">true</span>,</span><br><span class="line">                            enumerable: <span class="literal">false</span>,</span><br><span class="line">                            configurable: <span class="literal">true</span> &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * @param &#123;number[][]&#125; matrix</span><br><span class="line"> * @<span class="built_in">return</span> &#123;void&#125; Do not <span class="built_in">return</span> anything, modify matrix <span class="keyword">in</span>-place instead.</span><br><span class="line"> */</span><br><span class="line">var setZeroes = <span class="keyword">function</span>(matrix) &#123;</span><br><span class="line">    <span class="built_in">let</span> columns=new Set(),rows=new Set();</span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">let</span> row =0;row&lt;matrix.length;row++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="built_in">let</span> column =0;column&lt;matrix[row].length;column++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(matrix[row][column]==0)&#123;</span><br><span class="line">                columns.add(column);</span><br><span class="line">                rows.add(row);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">let</span> row =0;row&lt;matrix.length;row++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="built_in">let</span> column =0;column&lt;matrix[row].length;column++)&#123;</span><br><span class="line">           <span class="keyword">if</span>(rows.has(row)||columns.has(column))&#123;</span><br><span class="line">               matrix[row][column]=0;</span><br><span class="line">           &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> matrix;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
+<p>题解：将0所在的行列储存起来作为标记，第二次循环的时候判断元素当前所在行或者列是否在标记的行或列即可</p>
 ]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
       <tags>
-        <tag>JavaScript</tag>
+        <tag>leetcode</tag>
       </tags>
   </entry>
   <entry>
@@ -951,124 +951,6 @@
       <tags>
         <tag>JavaScript</tag>
         <tag>listNode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>面试总结(2)</title>
-    <url>/2020/08/30/mianshi2/</url>
-    <content><![CDATA[<h2 id="https握手过程"><a href="#https握手过程" class="headerlink" title="https握手过程"></a>https握手过程</h2><ol>
-<li>服务端生成公私钥</li>
-<li>服务端把公钥，加密的hash算法以及个人信息发送给CA</li>
-<li>CA把服务端发送来的明文信息用服务端发来的hash算法加密生成密文，然后用CA的私钥对密文进行加密生成签名</li>
-<li>CA把证书发还给服务端，证书内容包括签名，以及证书的颁发对象以及 颁发者等信息。</li>
-<li>服务端把证书和明文信息一起发送给客户端</li>
-<li>客户端接收服务端发送的证书，用内置在操作系统的公钥对签名进行解密，然后用服务端发来对hash算法对明文进行加密，如果两次生成的字符串相等，那么数据是可信的</li>
-<li>客户端在本地随机生成random1，发送给服务端</li>
-<li>服务端在本地随机生成random2，发送给客户端</li>
-<li>客户端在本地随机生成random3，然后用服务端发来的公钥对random3加密发送给服务端</li>
-<li>客户端服务端根据三个随机random各自生成对称密钥</li>
-<li>用生成的对称密钥加密一段握手信息，发送给服务端。双端验证。</li>
-<li>后续加密用生成的对称密钥加密<a id="more"></a>
-<h2 id="输入URL到页面渲染过程"><a href="#输入URL到页面渲染过程" class="headerlink" title="输入URL到页面渲染过程"></a>输入URL到页面渲染过程</h2></li>
-<li>浏览器进程拼接URL，加协议</li>
-<li>网络进程根据URl做DNS解析</li>
-<li>请求的资源返回给渲染进程</li>
-<li>渲染进程根据返回的状态码以及content-type来进行后续的流程</li>
-<li>是html类型则进行渲染流程</li>
-<li>生成CSSOM以及DOM</li>
-<li>生成Render树。</li>
-<li>根据render树生成图层树</li>
-<li>渲染进程对图层进行绘制，把图层绘制拆分成一个个的绘制指令，绘制指令组成绘制列表</li>
-<li>渲染进程的合成线程来进行实际的绘制操作</li>
-<li>合成线程在光栅化线程中执行光栅化（把图层转化成位图）</li>
-<li>光栅化采用GPU加速，因此实际绘制过程在GPU进程</li>
-<li>光栅化结束渲染进程通知浏览器进程</li>
-<li>浏览器进程接收drawquard命令，将其页面内容绘制到内存中，最后再将内存显示在屏幕上。</li>
-<li>done！</li>
-</ol>
-<h2 id="字符串翻转"><a href="#字符串翻转" class="headerlink" title="字符串翻转"></a>字符串翻转</h2><p>略</p>
-<h2 id="字符串转数组"><a href="#字符串转数组" class="headerlink" title="字符串转数组"></a>字符串转数组</h2><p>parseInt Number 两者区别<br>略</p>
-<h2 id="DNS解析过程"><a href="#DNS解析过程" class="headerlink" title="DNS解析过程"></a>DNS解析过程</h2><p>找本地缓存，没找到请求域名服务器</p>
-<h2 id="DNS劫持"><a href="#DNS劫持" class="headerlink" title="DNS劫持"></a>DNS劫持</h2><p>略</p>
-<h2 id="强缓存-协商缓存"><a href="#强缓存-协商缓存" class="headerlink" title="强缓存 协商缓存"></a>强缓存 协商缓存</h2><ul>
-<li><p>强缓存：</p>
-<ul>
-<li>Cache-Control</li>
-<li>Expire</li>
-</ul>
-</li>
-<li><p>协商缓存：</p>
-<ul>
-<li>If-Modified-Since</li>
-<li>Etag<br>其他略</li>
-</ul>
-</li>
-</ul>
-<h2 id="vue双向绑定原理"><a href="#vue双向绑定原理" class="headerlink" title="vue双向绑定原理"></a>vue双向绑定原理</h2><p>数据劫持 ➕ 发布订阅</p>
-<h2 id="vue响应式原理"><a href="#vue响应式原理" class="headerlink" title="vue响应式原理"></a>vue响应式原理</h2><p>依赖收集 + 依赖更细</p>
-<h2 id="react-fiber"><a href="#react-fiber" class="headerlink" title="react fiber"></a>react fiber</h2><ol>
-<li>根据component生成fiber树</li>
-<li>每个节点都对应一个fiber节点</li>
-<li>当前渲染在屏幕上的是current树</li>
-<li>current树有一个是alternate的指针指向wip树</li>
-<li>wip也有相同的指针指向current树</li>
-<li>wip树是fork了一份current树，这个叫做double buffering</li>
-<li>有两个阶段，一个是render，一个是commit</li>
-<li>render阶段可以被打断，commit阶段不可以被打断</li>
-<li>render阶段的任务主要根据插入的顺序来执行，通过使用requestIdlecallback这个api来实现任务的调度</li>
-<li>高优先级的任务可以打断低优先级的任务执行，比如用户输入等需要及时反馈的任务属于高优先级，而对于数据获取这类的任务属于低优先级</li>
-<li>react内部通过使用messageChannel来实现reqeustIdleCallback的polyfill</li>
-</ol>
-<h2 id="xss防御"><a href="#xss防御" class="headerlink" title="xss防御"></a>xss防御</h2><ol>
-<li>转码</li>
-<li>白名单</li>
-<li>过滤</li>
-</ol>
-<h2 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h2><ol>
-<li>SameSite<ul>
-<li>Lax</li>
-<li>Strict</li>
-<li>None</li>
-</ul>
-</li>
-<li>x-frame-option</li>
-<li>csp<ul>
-<li>default-src</li>
-<li>image-src</li>
-<li>media-src</li>
-<li>script-src</li>
-</ul>
-</li>
-<li>token</li>
-<li>refer/origin</li>
-</ol>
-<h2 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h2><ol>
-<li><p>webpack</p>
-<ul>
-<li>缩小构建体积（分包，tree-shaking，剔除第三方库不需要的模块）</li>
-<li>缓存（cache-loader，hard-source-webpack-plugin，dll）</li>
-<li>预加载（preload）</li>
-<li>减少请求资源数（mini-css-extract-plugin，html-webpack-plugin）</li>
-</ul>
-</li>
-<li><p>差异化服务</p>
-</li>
-<li><p>图片懒加载（非可视区域图片用placeholder替代或者低质量图片）</p>
-</li>
-<li><p>减少时间复杂度</p>
-</li>
-<li><p>非必要文件异步加载或动态加载模块</p>
-</li>
-<li><p>对核心内容启用SSR</p>
-</li>
-</ol>
-<h2 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h2><p>CORS</p>
-<p>img</p>
-<p>script</p>
-]]></content>
-      <tags>
-        <tag>article</tag>
-        <tag>conclusion</tag>
       </tags>
   </entry>
   <entry>
@@ -1272,6 +1154,124 @@
 ]]></content>
   </entry>
   <entry>
+    <title>面试总结(2)</title>
+    <url>/2020/08/30/mianshi2/</url>
+    <content><![CDATA[<h2 id="https握手过程"><a href="#https握手过程" class="headerlink" title="https握手过程"></a>https握手过程</h2><ol>
+<li>服务端生成公私钥</li>
+<li>服务端把公钥，加密的hash算法以及个人信息发送给CA</li>
+<li>CA把服务端发送来的明文信息用服务端发来的hash算法加密生成密文，然后用CA的私钥对密文进行加密生成签名</li>
+<li>CA把证书发还给服务端，证书内容包括签名，以及证书的颁发对象以及 颁发者等信息。</li>
+<li>服务端把证书和明文信息一起发送给客户端</li>
+<li>客户端接收服务端发送的证书，用内置在操作系统的公钥对签名进行解密，然后用服务端发来对hash算法对明文进行加密，如果两次生成的字符串相等，那么数据是可信的</li>
+<li>客户端在本地随机生成random1，发送给服务端</li>
+<li>服务端在本地随机生成random2，发送给客户端</li>
+<li>客户端在本地随机生成random3，然后用服务端发来的公钥对random3加密发送给服务端</li>
+<li>客户端服务端根据三个随机random各自生成对称密钥</li>
+<li>用生成的对称密钥加密一段握手信息，发送给服务端。双端验证。</li>
+<li>后续加密用生成的对称密钥加密<a id="more"></a>
+<h2 id="输入URL到页面渲染过程"><a href="#输入URL到页面渲染过程" class="headerlink" title="输入URL到页面渲染过程"></a>输入URL到页面渲染过程</h2></li>
+<li>浏览器进程拼接URL，加协议</li>
+<li>网络进程根据URl做DNS解析</li>
+<li>请求的资源返回给渲染进程</li>
+<li>渲染进程根据返回的状态码以及content-type来进行后续的流程</li>
+<li>是html类型则进行渲染流程</li>
+<li>生成CSSOM以及DOM</li>
+<li>生成Render树。</li>
+<li>根据render树生成图层树</li>
+<li>渲染进程对图层进行绘制，把图层绘制拆分成一个个的绘制指令，绘制指令组成绘制列表</li>
+<li>渲染进程的合成线程来进行实际的绘制操作</li>
+<li>合成线程在光栅化线程中执行光栅化（把图层转化成位图）</li>
+<li>光栅化采用GPU加速，因此实际绘制过程在GPU进程</li>
+<li>光栅化结束渲染进程通知浏览器进程</li>
+<li>浏览器进程接收drawquard命令，将其页面内容绘制到内存中，最后再将内存显示在屏幕上。</li>
+<li>done！</li>
+</ol>
+<h2 id="字符串翻转"><a href="#字符串翻转" class="headerlink" title="字符串翻转"></a>字符串翻转</h2><p>略</p>
+<h2 id="字符串转数组"><a href="#字符串转数组" class="headerlink" title="字符串转数组"></a>字符串转数组</h2><p>parseInt Number 两者区别<br>略</p>
+<h2 id="DNS解析过程"><a href="#DNS解析过程" class="headerlink" title="DNS解析过程"></a>DNS解析过程</h2><p>找本地缓存，没找到请求域名服务器</p>
+<h2 id="DNS劫持"><a href="#DNS劫持" class="headerlink" title="DNS劫持"></a>DNS劫持</h2><p>略</p>
+<h2 id="强缓存-协商缓存"><a href="#强缓存-协商缓存" class="headerlink" title="强缓存 协商缓存"></a>强缓存 协商缓存</h2><ul>
+<li><p>强缓存：</p>
+<ul>
+<li>Cache-Control</li>
+<li>Expire</li>
+</ul>
+</li>
+<li><p>协商缓存：</p>
+<ul>
+<li>If-Modified-Since</li>
+<li>Etag<br>其他略</li>
+</ul>
+</li>
+</ul>
+<h2 id="vue双向绑定原理"><a href="#vue双向绑定原理" class="headerlink" title="vue双向绑定原理"></a>vue双向绑定原理</h2><p>数据劫持 ➕ 发布订阅</p>
+<h2 id="vue响应式原理"><a href="#vue响应式原理" class="headerlink" title="vue响应式原理"></a>vue响应式原理</h2><p>依赖收集 + 依赖更细</p>
+<h2 id="react-fiber"><a href="#react-fiber" class="headerlink" title="react fiber"></a>react fiber</h2><ol>
+<li>根据component生成fiber树</li>
+<li>每个节点都对应一个fiber节点</li>
+<li>当前渲染在屏幕上的是current树</li>
+<li>current树有一个是alternate的指针指向wip树</li>
+<li>wip也有相同的指针指向current树</li>
+<li>wip树是fork了一份current树，这个叫做double buffering</li>
+<li>有两个阶段，一个是render，一个是commit</li>
+<li>render阶段可以被打断，commit阶段不可以被打断</li>
+<li>render阶段的任务主要根据插入的顺序来执行，通过使用requestIdlecallback这个api来实现任务的调度</li>
+<li>高优先级的任务可以打断低优先级的任务执行，比如用户输入等需要及时反馈的任务属于高优先级，而对于数据获取这类的任务属于低优先级</li>
+<li>react内部通过使用messageChannel来实现reqeustIdleCallback的polyfill</li>
+</ol>
+<h2 id="xss防御"><a href="#xss防御" class="headerlink" title="xss防御"></a>xss防御</h2><ol>
+<li>转码</li>
+<li>白名单</li>
+<li>过滤</li>
+</ol>
+<h2 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h2><ol>
+<li>SameSite<ul>
+<li>Lax</li>
+<li>Strict</li>
+<li>None</li>
+</ul>
+</li>
+<li>x-frame-option</li>
+<li>csp<ul>
+<li>default-src</li>
+<li>image-src</li>
+<li>media-src</li>
+<li>script-src</li>
+</ul>
+</li>
+<li>token</li>
+<li>refer/origin</li>
+</ol>
+<h2 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h2><ol>
+<li><p>webpack</p>
+<ul>
+<li>缩小构建体积（分包，tree-shaking，剔除第三方库不需要的模块）</li>
+<li>缓存（cache-loader，hard-source-webpack-plugin，dll）</li>
+<li>预加载（preload）</li>
+<li>减少请求资源数（mini-css-extract-plugin，html-webpack-plugin）</li>
+</ul>
+</li>
+<li><p>差异化服务</p>
+</li>
+<li><p>图片懒加载（非可视区域图片用placeholder替代或者低质量图片）</p>
+</li>
+<li><p>减少时间复杂度</p>
+</li>
+<li><p>非必要文件异步加载或动态加载模块</p>
+</li>
+<li><p>对核心内容启用SSR</p>
+</li>
+</ol>
+<h2 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h2><p>CORS</p>
+<p>img</p>
+<p>script</p>
+]]></content>
+      <tags>
+        <tag>article</tag>
+        <tag>conclusion</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>mutationObserver</title>
     <url>/2019/12/18/mutationObserver/</url>
     <content><![CDATA[<h3 id="MutationObserver-一个监听dom元素变化的接口"><a href="#MutationObserver-一个监听dom元素变化的接口" class="headerlink" title="MutationObserver,一个监听dom元素变化的接口"></a>MutationObserver,一个监听dom元素变化的接口</h3><p>dom元素观察者，监视 DOM 变动的接口，但是事件是异步的，需要等所有dom元素渲染完之后才执行<br>实例化一个observer对象,回调函数接收两个参数，一个是改变的属性所组成的一个对象数组，一个是实例本身</p>
@@ -1328,35 +1328,6 @@ createComponentInstance
       </tags>
   </entry>
   <entry>
-    <title>在JS文件使用svg加载svg文件</title>
-    <url>/2020/10/13/svgInJS/</url>
-    <content><![CDATA[<h3 id="怎么在js文件中用引用svg文件"><a href="#怎么在js文件中用引用svg文件" class="headerlink" title="怎么在js文件中用引用svg文件"></a>怎么在js文件中用引用svg文件</h3><p>使用webpack的require.context,它接收三个参数</p>
-<ul>
-<li>要搜索的文件夹目录</li>
-<li>是否还应该搜索它的子目录，</li>
-<li>以及一个匹配文件的正则表达式。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const req = require.context(<span class="string">'./svg'</span>, <span class="literal">false</span>, /\.svg$/)</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<p>req返回的是一个方法</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> webpackContext(req) &#123;</span><br><span class="line">	var id = webpackContextResolve(req);</span><br><span class="line">	<span class="built_in">return</span> __webpack_require__(id);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>包含三个属性</p>
-<ul>
-<li>id</li>
-<li>keys </li>
-<li>resolve<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">webpackContext.keys = <span class="keyword">function</span> <span class="function"><span class="title">webpackContextKeys</span></span>() &#123;</span><br><span class="line">	<span class="built_in">return</span> Object.keys(map);</span><br><span class="line">&#125;;</span><br><span class="line">webpackContext.resolve = webpackContextResolve;</span><br><span class="line">webpackContext.id = <span class="string">"./src/icons/svg sync \\.svg$"</span>;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<p>在使用<figure class="highlight plain"><figcaption><span>requireAll </span></figcaption><table><tr><td class="code"><pre><span class="line">![dom](/images/svg-in-js/map.png)</span><br><span class="line">![image](/images/svg-in-js/image.png)</span><br><span class="line">Module数组</span><br><span class="line">![module](/images/svg-in-js/module.png)</span><br><span class="line">__webpack_require__方法</span><br><span class="line">```bash</span><br><span class="line">function __webpack_require__(moduleId) &#123;</span><br><span class="line">/******/</span><br><span class="line">/******/ 		// Check if module is in cache</span><br><span class="line">/******/ 		if(installedModules[moduleId]) &#123;</span><br><span class="line">/******/ 			return installedModules[moduleId].exports;</span><br><span class="line">/******/ 		&#125;</span><br><span class="line">/******/ 		// Create a new module (and put it into the cache)</span><br><span class="line">/******/ 		var module = installedModules[moduleId] = &#123;</span><br><span class="line">/******/ 			i: moduleId,</span><br><span class="line">/******/ 			l: false,</span><br><span class="line">/******/ 			exports: &#123;&#125;,</span><br><span class="line">/******/ 			hot: hotCreateModule(moduleId),</span><br><span class="line">/******/ 			parents: (hotCurrentParentsTemp = hotCurrentParents, hotCurrentParents = [], hotCurrentParentsTemp),</span><br><span class="line">/******/ 			children: []</span><br><span class="line">/******/ 		&#125;;</span><br><span class="line">/******/</span><br><span class="line">/******/ 		// Execute the module function</span><br><span class="line">/******/ 		modules[moduleId].call(module.exports, module, module.exports, hotCreateRequire(moduleId));</span><br><span class="line">/******/</span><br><span class="line">/******/ 		// Flag the module as loaded</span><br><span class="line">/******/ 		module.l = true;</span><br><span class="line">/******/</span><br><span class="line">/******/ 		// Return the exports of the module</span><br><span class="line">/******/ 		return module.exports;</span><br><span class="line">/******/ 	&#125;</span><br></pre></td></tr></table></figure></p>
-<p>svg example</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/***/ <span class="string">"./src/icons/svg/bug.svg"</span>:</span><br><span class="line">/*!*******************************!*\</span><br><span class="line">  !*** ./src/icons/svg/bug.svg ***!</span><br><span class="line">  \*******************************/</span><br><span class="line">/*! exports provided: default */</span><br><span class="line">/***/ (<span class="keyword">function</span>(module, __webpack_exports__, __webpack_require__) &#123;</span><br><span class="line"></span><br><span class="line"><span class="string">"use strict"</span>;</span><br><span class="line"><span class="built_in">eval</span>(<span class="string">"__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! svg-baker-runtime/browser-symbol */ \"./node_modules/svg-baker-runtime/browser-symbol.js\");\n/* harmony import */ var svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! svg-sprite-loader/runtime/browser-sprite.build */ \"./node_modules/svg-sprite-loader/runtime/browser-sprite.build.js\");\n/* harmony import */ var svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1__);\n\n\nvar symbol = new svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0___default.a(&#123;\n  \"id\": \"icon-bug\",\n  \"use\": \"icon-bug-usage\",\n  \"viewBox\": \"0 0 128 128\",\n  \"content\": \"&lt;symbol xmlns=\\\"http://www.w3.org/2000/svg\\\" viewBox=\\\"0 0 128 128\\\" id=\\\"icon-bug\\\"&gt;&lt;path d=\\\"M127.88 73.143c0 1.412-.506 2.635-1.518 3.669-1.011 1.033-2.209 1.55-3.592 1.55h-17.887c0 9.296-1.783 17.178-5.35 23.645l16.609 17.044c1.011 1.034 1.517 2.257 1.517 3.67 0 1.412-.506 2.635-1.517 3.668-.958 1.033-2.155 1.55-3.593 1.55-1.438 0-2.635-.517-3.593-1.55l-15.811-16.063a15.49 15.49 0 0 1-1.196 1.06c-.532.434-1.65 1.208-3.353 2.322a50.104 50.104 0 0 1-5.192 2.974c-1.758.87-3.94 1.658-6.546 2.364-2.607.706-5.189 1.06-7.748 1.06V47.044H58.89v73.062c-2.716 0-5.417-.367-8.106-1.102-2.688-.734-5.003-1.631-6.945-2.692a66.769 66.769 0 0 1-5.268-3.179c-1.571-1.057-2.73-1.94-3.476-2.65L33.9 109.34l-14.611 16.877c-1.066 1.14-2.344 1.711-3.833 1.711-1.277 0-2.422-.434-3.434-1.304-1.012-.978-1.557-2.187-1.635-3.627-.079-1.44.333-2.705 1.236-3.794l16.129-18.51c-3.087-6.197-4.63-13.644-4.63-22.342H5.235c-1.383 0-2.58-.517-3.592-1.55S.125 74.545.125 73.132c0-1.412.506-2.635 1.518-3.668 1.012-1.034 2.21-1.55 3.592-1.55h17.887V43.939L9.308 29.833c-1.012-1.033-1.517-2.256-1.517-3.669 0-1.412.505-2.635 1.517-3.668 1.012-1.034 2.21-1.55 3.593-1.55s2.58.516 3.593 1.55l13.813 14.106h67.396l13.814-14.106c1.012-1.034 2.21-1.55 3.592-1.55 1.384 0 2.581.516 3.593 1.55 1.012 1.033 1.518 2.256 1.518 3.668 0 1.413-.506 2.636-1.518 3.67l-13.814 14.105v23.975h17.887c1.383 0 2.58.516 3.593 1.55 1.011 1.033 1.517 2.256 1.517 3.668l-.005.01zM89.552 26.175H38.448c0-7.23 2.489-13.386 7.466-18.469C50.892 2.623 56.92.082 64 .082c7.08 0 13.108 2.541 18.086 7.624 4.977 5.083 7.466 11.24 7.466 18.469z\\\" /&gt;&lt;/symbol&gt;\"\n&#125;);\nvar result = svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1___default.a.add(symbol);\n/* harmony default export */ __webpack_exports__[\"default\"] = (symbol);//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9zcmMvaWNvbnMvc3ZnL2J1Zy5zdmcuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvaWNvbnMvc3ZnL2J1Zy5zdmc/MjI4NiJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgU3ByaXRlU3ltYm9sIGZyb20gXCJzdmctYmFrZXItcnVudGltZS9icm93c2VyLXN5bWJvbFwiO1xuaW1wb3J0IHNwcml0ZSBmcm9tIFwic3ZnLXNwcml0ZS1sb2FkZXIvcnVudGltZS9icm93c2VyLXNwcml0ZS5idWlsZFwiO1xudmFyIHN5bWJvbCA9IG5ldyBTcHJpdGVTeW1ib2woe1xuICBcImlkXCI6IFwiaWNvbi1idWdcIixcbiAgXCJ1c2VcIjogXCJpY29uLWJ1Zy11c2FnZVwiLFxuICBcInZpZXdCb3hcIjogXCIwIDAgMTI4IDEyOFwiLFxuICBcImNvbnRlbnRcIjogXCI8c3ltYm9sIHhtbG5zPVxcXCJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Z1xcXCIgdmlld0JveD1cXFwiMCAwIDEyOCAxMjhcXFwiIGlkPVxcXCJpY29uLWJ1Z1xcXCI+PHBhdGggZD1cXFwiTTEyNy44OCA3My4xNDNjMCAxLjQxMi0uNTA2IDIuNjM1LTEuNTE4IDMuNjY5LTEuMDExIDEuMDMzLTIuMjA5IDEuNTUtMy41OTIgMS41NWgtMTcuODg3YzAgOS4yOTYtMS43ODMgMTcuMTc4LTUuMzUgMjMuNjQ1bDE2LjYwOSAxNy4wNDRjMS4wMTEgMS4wMzQgMS41MTcgMi4yNTcgMS41MTcgMy42NyAwIDEuNDEyLS41MDYgMi42MzUtMS41MTcgMy42NjgtLjk1OCAxLjAzMy0yLjE1NSAxLjU1LTMuNTkzIDEuNTUtMS40MzggMC0yLjYzNS0uNTE3LTMuNTkzLTEuNTVsLTE1LjgxMS0xNi4wNjNhMTUuNDkgMTUuNDkgMCAwIDEtMS4xOTYgMS4wNmMtLjUzMi40MzQtMS42NSAxLjIwOC0zLjM1MyAyLjMyMmE1MC4xMDQgNTAuMTA0IDAgMCAxLTUuMTkyIDIuOTc0Yy0xLjc1OC44Ny0zLjk0IDEuNjU4LTYuNTQ2IDIuMzY0LTIuNjA3LjcwNi01LjE4OSAxLjA2LTcuNzQ4IDEuMDZWNDcuMDQ0SDU4Ljg5djczLjA2MmMtMi43MTYgMC01LjQxNy0uMzY3LTguMTA2LTEuMTAyLTIuNjg4LS43MzQtNS4wMDMtMS42MzEtNi45NDUtMi42OTJhNjYuNzY5IDY2Ljc2OSAwIDAgMS01LjI2OC0zLjE3OWMtMS41NzEtMS4wNTctMi43My0xLjk0LTMuNDc2LTIuNjVMMzMuOSAxMDkuMzRsLTE0LjYxMSAxNi44NzdjLTEuMDY2IDEuMTQtMi4zNDQgMS43MTEtMy44MzMgMS43MTEtMS4yNzcgMC0yLjQyMi0uNDM0LTMuNDM0LTEuMzA0LTEuMDEyLS45NzgtMS41NTctMi4xODctMS42MzUtMy42MjctLjA3OS0xLjQ0LjMzMy0yLjcwNSAxLjIzNi0zLjc5NGwxNi4xMjktMTguNTFjLTMuMDg3LTYuMTk3LTQuNjMtMTMuNjQ0LTQuNjMtMjIuMzQySDUuMjM1Yy0xLjM4MyAwLTIuNTgtLjUxNy0zLjU5Mi0xLjU1Uy4xMjUgNzQuNTQ1LjEyNSA3My4xMzJjMC0xLjQxMi41MDYtMi42MzUgMS41MTgtMy42NjggMS4wMTItMS4wMzQgMi4yMS0xLjU1IDMuNTkyLTEuNTVoMTcuODg3VjQzLjkzOUw5LjMwOCAyOS44MzNjLTEuMDEyLTEuMDMzLTEuNTE3LTIuMjU2LTEuNTE3LTMuNjY5IDAtMS40MTIuNTA1LTIuNjM1IDEuNTE3LTMuNjY4IDEuMDEyLTEuMDM0IDIuMjEtMS41NSAzLjU5My0xLjU1czIuNTguNTE2IDMuNTkzIDEuNTVsMTMuODEzIDE0LjEwNmg2Ny4zOTZsMTMuODE0LTE0LjEwNmMxLjAxMi0xLjAzNCAyLjIxLTEuNTUgMy41OTItMS41NSAxLjM4NCAwIDIuNTgxLjUxNiAzLjU5MyAxLjU1IDEuMDEyIDEuMDMzIDEuNTE4IDIuMjU2IDEuNTE4IDMuNjY4IDAgMS40MTMtLjUwNiAyLjYzNi0xLjUxOCAzLjY3bC0xMy44MTQgMTQuMTA1djIzLjk3NWgxNy44ODdjMS4zODMgMCAyLjU4LjUxNiAzLjU5MyAxLjU1IDEuMDExIDEuMDMzIDEuNTE3IDIuMjU2IDEuNTE3IDMuNjY4bC0uMDA1LjAxek04OS41NTIgMjYuMTc1SDM4LjQ0OGMwLTcuMjMgMi40ODktMTMuMzg2IDcuNDY2LTE4LjQ2OUM1MC44OTIgMi42MjMgNTYuOTIuMDgyIDY0IC4wODJjNy4wOCAwIDEzLjEwOCAyLjU0MSAxOC4wODYgNy42MjQgNC45NzcgNS4wODMgNy40NjYgMTEuMjQgNy40NjYgMTguNDY5elxcXCIgLz48L3N5bWJvbD5cIlxufSk7XG52YXIgcmVzdWx0ID0gc3ByaXRlLmFkZChzeW1ib2wpO1xuZXhwb3J0IGRlZmF1bHQgc3ltYm9sIl0sIm1hcHBpbmdzIjoiQUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0EiLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./src/icons/svg/bug.svg\n"</span>);</span><br><span class="line"></span><br><span class="line">/***/ &#125;)</span><br></pre></td></tr></table></figure>
-
-<p>所以在JS中使用svg标签来加载对应的svg文件的时候只需要在svg标签加入use 然后给id属性赋值为对应symbol的id，比如<code>id=&quot;#icon-404&quot;</code></p>
-]]></content>
-  </entry>
-  <entry>
     <title>npm包的发布</title>
     <url>/2020/09/02/npm-pkg/</url>
     <content><![CDATA[<p><strong>趁趁趁着还不太忙，补个npm包的发布</strong></p>
@@ -1377,35 +1348,34 @@ createComponentInstance
       </tags>
   </entry>
   <entry>
-    <title>简单请求和复杂请求</title>
-    <url>/2020/09/16/request-of-complex-simply/</url>
-    <content><![CDATA[<h3 id="简单请求"><a href="#简单请求" class="headerlink" title="简单请求"></a>简单请求</h3><p>请求方法只能是以下三种：</p>
-<ol>
-<li>GET</li>
-<li>POST</li>
-<li>HEAD</li>
-</ol>
-<p>请求头只能用以下几种：</p>
-<ol>
-<li>Accept</li>
-<li>Accept-Language</li>
-<li>Content-Language</li>
-<li>Content-Type （需要注意额外的限制）</li>
-<li>DPR</li>
-<li>Downlink</li>
-<li>Save-Data</li>
-<li>Viewport-Width</li>
-<li>Width</li>
-</ol>
-<p>Content——Type只能有以下几种</p>
-<ol>
-<li>text/plain</li>
-<li>multipart/form-data</li>
-<li>application/x-www-form-urlencoded</li>
-</ol>
-<p>请求中的任意XMLHttpRequestUpload 对象均没有注册任何事件监听器；XMLHttpRequestUpload 对象可以使用 XMLHttpRequest.upload 属性访问。</p>
-<p>请求中没有使用 ReadableStream 对象。</p>
-<h3 id="复杂请求"><a href="#复杂请求" class="headerlink" title="复杂请求"></a>复杂请求</h3><p>非简单请求就是复杂亲求</p>
+    <title>在JS文件使用svg加载svg文件</title>
+    <url>/2020/10/13/svgInJS/</url>
+    <content><![CDATA[<h3 id="怎么在js文件中用引用svg文件"><a href="#怎么在js文件中用引用svg文件" class="headerlink" title="怎么在js文件中用引用svg文件"></a>怎么在js文件中用引用svg文件</h3><p>使用webpack的require.context,它接收三个参数</p>
+<ul>
+<li>要搜索的文件夹目录</li>
+<li>是否还应该搜索它的子目录，</li>
+<li>以及一个匹配文件的正则表达式。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const req = require.context(<span class="string">'./svg'</span>, <span class="literal">false</span>, /\.svg$/)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>req返回的是一个方法</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> webpackContext(req) &#123;</span><br><span class="line">	var id = webpackContextResolve(req);</span><br><span class="line">	<span class="built_in">return</span> __webpack_require__(id);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>包含三个属性</p>
+<ul>
+<li>id</li>
+<li>keys </li>
+<li>resolve<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">webpackContext.keys = <span class="keyword">function</span> <span class="function"><span class="title">webpackContextKeys</span></span>() &#123;</span><br><span class="line">	<span class="built_in">return</span> Object.keys(map);</span><br><span class="line">&#125;;</span><br><span class="line">webpackContext.resolve = webpackContextResolve;</span><br><span class="line">webpackContext.id = <span class="string">"./src/icons/svg sync \\.svg$"</span>;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>再使用<code>const requireAll = requireContext =&gt; requireContext.keys().map(requireContext)</code>之后，会得到一个Module的数组,数组的每一项就是执行import后的Module<br><img src="/images/svg-in-js/map.png" alt="dom"><br><img src="/images/svg-in-js/image.png" alt="image"><br>Module数组<br><img src="/images/svg-in-js/module.png" alt="module"><br><strong>webpack_require</strong>方法</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> __webpack_require__(moduleId) &#123;</span><br><span class="line">/******/</span><br><span class="line">/******/ 		// Check <span class="keyword">if</span> module is <span class="keyword">in</span> cache</span><br><span class="line">/******/ 		<span class="keyword">if</span>(installedModules[moduleId]) &#123;</span><br><span class="line">/******/ 			<span class="built_in">return</span> installedModules[moduleId].exports;</span><br><span class="line">/******/ 		&#125;</span><br><span class="line">/******/ 		// Create a new module (and put it into the cache)</span><br><span class="line">/******/ 		var module = installedModules[moduleId] = &#123;</span><br><span class="line">/******/ 			i: moduleId,</span><br><span class="line">/******/ 			l: <span class="literal">false</span>,</span><br><span class="line">/******/ 			exports: &#123;&#125;,</span><br><span class="line">/******/ 			hot: hotCreateModule(moduleId),</span><br><span class="line">/******/ 			parents: (hotCurrentParentsTemp = hotCurrentParents, hotCurrentParents = [], hotCurrentParentsTemp),</span><br><span class="line">/******/ 			children: []</span><br><span class="line">/******/ 		&#125;;</span><br><span class="line">/******/</span><br><span class="line">/******/ 		// Execute the module <span class="keyword">function</span></span><br><span class="line">/******/ 		modules[moduleId].call(module.exports, module, module.exports, hotCreateRequire(moduleId));</span><br><span class="line">/******/</span><br><span class="line">/******/ 		// Flag the module as loaded</span><br><span class="line">/******/ 		module.l = <span class="literal">true</span>;</span><br><span class="line">/******/</span><br><span class="line">/******/ 		// Return the exports of the module</span><br><span class="line">/******/ 		<span class="built_in">return</span> module.exports;</span><br><span class="line">/******/ 	&#125;</span><br></pre></td></tr></table></figure>
+
+<p>svg example</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/***/ <span class="string">"./src/icons/svg/bug.svg"</span>:</span><br><span class="line">/*!*******************************!*\</span><br><span class="line">  !*** ./src/icons/svg/bug.svg ***!</span><br><span class="line">  \*******************************/</span><br><span class="line">/*! exports provided: default */</span><br><span class="line">/***/ (<span class="keyword">function</span>(module, __webpack_exports__, __webpack_require__) &#123;</span><br><span class="line"></span><br><span class="line"><span class="string">"use strict"</span>;</span><br><span class="line"><span class="built_in">eval</span>(<span class="string">"__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! svg-baker-runtime/browser-symbol */ \"./node_modules/svg-baker-runtime/browser-symbol.js\");\n/* harmony import */ var svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! svg-sprite-loader/runtime/browser-sprite.build */ \"./node_modules/svg-sprite-loader/runtime/browser-sprite.build.js\");\n/* harmony import */ var svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1__);\n\n\nvar symbol = new svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0___default.a(&#123;\n  \"id\": \"icon-bug\",\n  \"use\": \"icon-bug-usage\",\n  \"viewBox\": \"0 0 128 128\",\n  \"content\": \"&lt;symbol xmlns=\\\"http://www.w3.org/2000/svg\\\" viewBox=\\\"0 0 128 128\\\" id=\\\"icon-bug\\\"&gt;&lt;path d=\\\"M127.88 73.143c0 1.412-.506 2.635-1.518 3.669-1.011 1.033-2.209 1.55-3.592 1.55h-17.887c0 9.296-1.783 17.178-5.35 23.645l16.609 17.044c1.011 1.034 1.517 2.257 1.517 3.67 0 1.412-.506 2.635-1.517 3.668-.958 1.033-2.155 1.55-3.593 1.55-1.438 0-2.635-.517-3.593-1.55l-15.811-16.063a15.49 15.49 0 0 1-1.196 1.06c-.532.434-1.65 1.208-3.353 2.322a50.104 50.104 0 0 1-5.192 2.974c-1.758.87-3.94 1.658-6.546 2.364-2.607.706-5.189 1.06-7.748 1.06V47.044H58.89v73.062c-2.716 0-5.417-.367-8.106-1.102-2.688-.734-5.003-1.631-6.945-2.692a66.769 66.769 0 0 1-5.268-3.179c-1.571-1.057-2.73-1.94-3.476-2.65L33.9 109.34l-14.611 16.877c-1.066 1.14-2.344 1.711-3.833 1.711-1.277 0-2.422-.434-3.434-1.304-1.012-.978-1.557-2.187-1.635-3.627-.079-1.44.333-2.705 1.236-3.794l16.129-18.51c-3.087-6.197-4.63-13.644-4.63-22.342H5.235c-1.383 0-2.58-.517-3.592-1.55S.125 74.545.125 73.132c0-1.412.506-2.635 1.518-3.668 1.012-1.034 2.21-1.55 3.592-1.55h17.887V43.939L9.308 29.833c-1.012-1.033-1.517-2.256-1.517-3.669 0-1.412.505-2.635 1.517-3.668 1.012-1.034 2.21-1.55 3.593-1.55s2.58.516 3.593 1.55l13.813 14.106h67.396l13.814-14.106c1.012-1.034 2.21-1.55 3.592-1.55 1.384 0 2.581.516 3.593 1.55 1.012 1.033 1.518 2.256 1.518 3.668 0 1.413-.506 2.636-1.518 3.67l-13.814 14.105v23.975h17.887c1.383 0 2.58.516 3.593 1.55 1.011 1.033 1.517 2.256 1.517 3.668l-.005.01zM89.552 26.175H38.448c0-7.23 2.489-13.386 7.466-18.469C50.892 2.623 56.92.082 64 .082c7.08 0 13.108 2.541 18.086 7.624 4.977 5.083 7.466 11.24 7.466 18.469z\\\" /&gt;&lt;/symbol&gt;\"\n&#125;);\nvar result = svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1___default.a.add(symbol);\n/* harmony default export */ __webpack_exports__[\"default\"] = (symbol);//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9zcmMvaWNvbnMvc3ZnL2J1Zy5zdmcuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvaWNvbnMvc3ZnL2J1Zy5zdmc/MjI4NiJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgU3ByaXRlU3ltYm9sIGZyb20gXCJzdmctYmFrZXItcnVudGltZS9icm93c2VyLXN5bWJvbFwiO1xuaW1wb3J0IHNwcml0ZSBmcm9tIFwic3ZnLXNwcml0ZS1sb2FkZXIvcnVudGltZS9icm93c2VyLXNwcml0ZS5idWlsZFwiO1xudmFyIHN5bWJvbCA9IG5ldyBTcHJpdGVTeW1ib2woe1xuICBcImlkXCI6IFwiaWNvbi1idWdcIixcbiAgXCJ1c2VcIjogXCJpY29uLWJ1Zy11c2FnZVwiLFxuICBcInZpZXdCb3hcIjogXCIwIDAgMTI4IDEyOFwiLFxuICBcImNvbnRlbnRcIjogXCI8c3ltYm9sIHhtbG5zPVxcXCJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Z1xcXCIgdmlld0JveD1cXFwiMCAwIDEyOCAxMjhcXFwiIGlkPVxcXCJpY29uLWJ1Z1xcXCI+PHBhdGggZD1cXFwiTTEyNy44OCA3My4xNDNjMCAxLjQxMi0uNTA2IDIuNjM1LTEuNTE4IDMuNjY5LTEuMDExIDEuMDMzLTIuMjA5IDEuNTUtMy41OTIgMS41NWgtMTcuODg3YzAgOS4yOTYtMS43ODMgMTcuMTc4LTUuMzUgMjMuNjQ1bDE2LjYwOSAxNy4wNDRjMS4wMTEgMS4wMzQgMS41MTcgMi4yNTcgMS41MTcgMy42NyAwIDEuNDEyLS41MDYgMi42MzUtMS41MTcgMy42NjgtLjk1OCAxLjAzMy0yLjE1NSAxLjU1LTMuNTkzIDEuNTUtMS40MzggMC0yLjYzNS0uNTE3LTMuNTkzLTEuNTVsLTE1LjgxMS0xNi4wNjNhMTUuNDkgMTUuNDkgMCAwIDEtMS4xOTYgMS4wNmMtLjUzMi40MzQtMS42NSAxLjIwOC0zLjM1MyAyLjMyMmE1MC4xMDQgNTAuMTA0IDAgMCAxLTUuMTkyIDIuOTc0Yy0xLjc1OC44Ny0zLjk0IDEuNjU4LTYuNTQ2IDIuMzY0LTIuNjA3LjcwNi01LjE4OSAxLjA2LTcuNzQ4IDEuMDZWNDcuMDQ0SDU4Ljg5djczLjA2MmMtMi43MTYgMC01LjQxNy0uMzY3LTguMTA2LTEuMTAyLTIuNjg4LS43MzQtNS4wMDMtMS42MzEtNi45NDUtMi42OTJhNjYuNzY5IDY2Ljc2OSAwIDAgMS01LjI2OC0zLjE3OWMtMS41NzEtMS4wNTctMi43My0xLjk0LTMuNDc2LTIuNjVMMzMuOSAxMDkuMzRsLTE0LjYxMSAxNi44NzdjLTEuMDY2IDEuMTQtMi4zNDQgMS43MTEtMy44MzMgMS43MTEtMS4yNzcgMC0yLjQyMi0uNDM0LTMuNDM0LTEuMzA0LTEuMDEyLS45NzgtMS41NTctMi4xODctMS42MzUtMy42MjctLjA3OS0xLjQ0LjMzMy0yLjcwNSAxLjIzNi0zLjc5NGwxNi4xMjktMTguNTFjLTMuMDg3LTYuMTk3LTQuNjMtMTMuNjQ0LTQuNjMtMjIuMzQySDUuMjM1Yy0xLjM4MyAwLTIuNTgtLjUxNy0zLjU5Mi0xLjU1Uy4xMjUgNzQuNTQ1LjEyNSA3My4xMzJjMC0xLjQxMi41MDYtMi42MzUgMS41MTgtMy42NjggMS4wMTItMS4wMzQgMi4yMS0xLjU1IDMuNTkyLTEuNTVoMTcuODg3VjQzLjkzOUw5LjMwOCAyOS44MzNjLTEuMDEyLTEuMDMzLTEuNTE3LTIuMjU2LTEuNTE3LTMuNjY5IDAtMS40MTIuNTA1LTIuNjM1IDEuNTE3LTMuNjY4IDEuMDEyLTEuMDM0IDIuMjEtMS41NSAzLjU5My0xLjU1czIuNTguNTE2IDMuNTkzIDEuNTVsMTMuODEzIDE0LjEwNmg2Ny4zOTZsMTMuODE0LTE0LjEwNmMxLjAxMi0xLjAzNCAyLjIxLTEuNTUgMy41OTItMS41NSAxLjM4NCAwIDIuNTgxLjUxNiAzLjU5MyAxLjU1IDEuMDEyIDEuMDMzIDEuNTE4IDIuMjU2IDEuNTE4IDMuNjY4IDAgMS40MTMtLjUwNiAyLjYzNi0xLjUxOCAzLjY3bC0xMy44MTQgMTQuMTA1djIzLjk3NWgxNy44ODdjMS4zODMgMCAyLjU4LjUxNiAzLjU5MyAxLjU1IDEuMDExIDEuMDMzIDEuNTE3IDIuMjU2IDEuNTE3IDMuNjY4bC0uMDA1LjAxek04OS41NTIgMjYuMTc1SDM4LjQ0OGMwLTcuMjMgMi40ODktMTMuMzg2IDcuNDY2LTE4LjQ2OUM1MC44OTIgMi42MjMgNTYuOTIuMDgyIDY0IC4wODJjNy4wOCAwIDEzLjEwOCAyLjU0MSAxOC4wODYgNy42MjQgNC45NzcgNS4wODMgNy40NjYgMTEuMjQgNy40NjYgMTguNDY5elxcXCIgLz48L3N5bWJvbD5cIlxufSk7XG52YXIgcmVzdWx0ID0gc3ByaXRlLmFkZChzeW1ib2wpO1xuZXhwb3J0IGRlZmF1bHQgc3ltYm9sIl0sIm1hcHBpbmdzIjoiQUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0EiLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./src/icons/svg/bug.svg\n"</span>);</span><br><span class="line"></span><br><span class="line">/***/ &#125;)</span><br></pre></td></tr></table></figure>
+
+<p>所以在JS中使用svg标签来加载对应的svg文件的时候只需要在svg标签加入use 然后给id属性赋值为对应symbol的id，比如<code>id=&quot;#icon-404&quot;</code></p>
 ]]></content>
   </entry>
   <entry>
@@ -1617,6 +1587,38 @@ createComponentInstance
         <tag>TypeScript</tag>
         <tag>Vue3</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>简单请求和复杂请求</title>
+    <url>/2020/09/16/request-of-complex-simply/</url>
+    <content><![CDATA[<h3 id="简单请求"><a href="#简单请求" class="headerlink" title="简单请求"></a>简单请求</h3><p>请求方法只能是以下三种：</p>
+<ol>
+<li>GET</li>
+<li>POST</li>
+<li>HEAD</li>
+</ol>
+<p>请求头只能用以下几种：</p>
+<ol>
+<li>Accept</li>
+<li>Accept-Language</li>
+<li>Content-Language</li>
+<li>Content-Type （需要注意额外的限制）</li>
+<li>DPR</li>
+<li>Downlink</li>
+<li>Save-Data</li>
+<li>Viewport-Width</li>
+<li>Width</li>
+</ol>
+<p>Content——Type只能有以下几种</p>
+<ol>
+<li>text/plain</li>
+<li>multipart/form-data</li>
+<li>application/x-www-form-urlencoded</li>
+</ol>
+<p>请求中的任意XMLHttpRequestUpload 对象均没有注册任何事件监听器；XMLHttpRequestUpload 对象可以使用 XMLHttpRequest.upload 属性访问。</p>
+<p>请求中没有使用 ReadableStream 对象。</p>
+<h3 id="复杂请求"><a href="#复杂请求" class="headerlink" title="复杂请求"></a>复杂请求</h3><p>非简单请求就是复杂亲求</p>
+]]></content>
   </entry>
   <entry>
     <title>JavaScript读书笔记</title>
@@ -1870,19 +1872,6 @@ createComponentInstance
       </tags>
   </entry>
   <entry>
-    <title>今日随笔</title>
-    <url>/2020/08/15/vue-react-new-release/</url>
-    <content><![CDATA[<p>react 更新了<br><img src="/images/update-of-frame/react.png" alt="react"></p>
-<p>vue脚手架更新</p>
-<p><img src="/images/update-of-frame/vue.jpeg" alt="vue"></p>
-<p>来玩~</p>
-]]></content>
-      <categories>
-        <category>vue</category>
-        <category>react</category>
-      </categories>
-  </entry>
-  <entry>
     <title>工具函数</title>
     <url>/2019/09/16/toolFunc/</url>
     <content><![CDATA[<h3 id="防抖"><a href="#防抖" class="headerlink" title="防抖"></a>防抖</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function debounce(func, wait) &#123;</span><br><span class="line">    let timeout = null;</span><br><span class="line">    return function () &#123;</span><br><span class="line">        let context = this;</span><br><span class="line">        let args = arguments;</span><br><span class="line"></span><br><span class="line">        if (timeout) &#123;</span><br><span class="line">          clearTimeout(timeout);</span><br><span class="line">          timeout = null;</span><br><span class="line">        &#125;;</span><br><span class="line">        </span><br><span class="line">        timeout = setTimeout(() =&gt; &#123;</span><br><span class="line">            func.apply(context, args);</span><br><span class="line">        &#125;, wait);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -2082,5 +2071,18 @@ createComponentInstance
       <tags>
         <tag>Vue</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>今日随笔</title>
+    <url>/2020/08/15/vue-react-new-release/</url>
+    <content><![CDATA[<p>react 更新了<br><img src="/images/update-of-frame/react.png" alt="react"></p>
+<p>vue脚手架更新</p>
+<p><img src="/images/update-of-frame/vue.jpeg" alt="vue"></p>
+<p>来玩~</p>
+]]></content>
+      <categories>
+        <category>vue</category>
+        <category>react</category>
+      </categories>
   </entry>
 </search>
