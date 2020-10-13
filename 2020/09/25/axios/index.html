@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"github.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="为什么 axios 既可以用 axios({})这样请求 ，也可以 axios.get()这样请求？在使axios.create的时候,调用了这个方法 1234567891011121314151617181920212223/** * Create an instance of Axios * * @param &amp;#123;Object&amp;#125; defaultConfig The defau">
+<meta property="og:type" content="article">
+<meta property="og:title" content="axios">
+<meta property="og:url" content="https://github.com/fnlearner/2020/09/25/axios/index.html">
+<meta property="og:site_name" content="Personal Blog">
+<meta property="og:description" content="为什么 axios 既可以用 axios({})这样请求 ，也可以 axios.get()这样请求？在使axios.create的时候,调用了这个方法 1234567891011121314151617181920212223/** * Create an instance of Axios * * @param &amp;#123;Object&amp;#125; defaultConfig The defau">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://github.com/images/axios/prototype.png">
+<meta property="og:updated_time" content="2020-10-07T09:41:15.630Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="axios">
+<meta name="twitter:description" content="为什么 axios 既可以用 axios({})这样请求 ，也可以 axios.get()这样请求？在使axios.create的时候,调用了这个方法 1234567891011121314151617181920212223/** * Create an instance of Axios * * @param &amp;#123;Object&amp;#125; defaultConfig The defau">
+<meta name="twitter:image" content="https://github.com/images/axios/prototype.png">
+
+<link rel="canonical" href="https://github.com/fnlearner/2020/09/25/axios/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>axios | Personal Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Personal Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/fnlearner/2020/09/25/axios/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="ZJS">
+      <meta itemprop="description" content="你找到我了呀！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Personal Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          axios
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-09-25 14:01:50" itemprop="dateCreated datePublished" datetime="2020-09-25T14:01:50+08:00">2020-09-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-07 17:41:15" itemprop="dateModified" datetime="2020-10-07T17:41:15+08:00">2020-10-07</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="为什么-axios-既可以用-axios-这样请求-，也可以-axios-get-这样请求？"><a href="#为什么-axios-既可以用-axios-这样请求-，也可以-axios-get-这样请求？" class="headerlink" title="为什么 axios 既可以用 axios({})这样请求 ，也可以 axios.get()这样请求？"></a>为什么 axios 既可以用 axios({})这样请求 ，也可以 axios.get()这样请求？</h3><p>在使<code>axios.create</code>的时候,调用了这个方法</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Create an instance of Axios</span><br><span class="line"> *</span><br><span class="line"> * @param &#123;Object&#125; defaultConfig The default config <span class="keyword">for</span> the instance</span><br><span class="line"> * @<span class="built_in">return</span> &#123;Axios&#125; A new instance of Axios</span><br><span class="line"> */</span><br><span class="line"><span class="keyword">function</span> createInstance(defaultConfig) &#123;</span><br><span class="line">  var context = new Axios(defaultConfig);//生成配置 和拦截器</span><br><span class="line">  <span class="comment"># 在这里，instance 是一个 wrapped 函数，将context作为参数传递给request，所以调用axios(&#123;&#125;)就是在调用request(&#123;&#125;)</span></span><br><span class="line">  var instance = <span class="built_in">bind</span>(Axios.prototype.request, context);</span><br><span class="line"></span><br><span class="line">  <span class="comment">#Copy axios.prototype to instance</span></span><br><span class="line">  <span class="comment"># 这个是把Axios原型链的东西挂载到instance上去</span></span><br><span class="line">  <span class="comment"># 因为instance 是个一个functoin，所以在直接赋值的时候不能直接看到</span></span><br><span class="line">  <span class="comment"># 能在instance 的prototype上可以看到</span></span><br><span class="line">  <span class="comment"># 所以在调用类似axios.get(）这类的方法是能正常运行</span></span><br><span class="line">  utils.extend(instance, Axios.prototype, context);</span><br><span class="line"></span><br><span class="line">  <span class="comment"># Copy context to instance</span></span><br><span class="line">  utils.extend(instance, context);</span><br><span class="line">  <span class="comment"># console.log(instance)</span></span><br><span class="line">  <span class="built_in">return</span> instance;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>从图中可以看到,方法之类的确实挂载到了原型链上<br><img src="/images/axios/prototype.png" alt="prototype"></p>
+<h3 id="cancalToken-怎么取消请求的"><a href="#cancalToken-怎么取消请求的" class="headerlink" title="cancalToken 怎么取消请求的"></a>cancalToken 怎么取消请求的</h3><p>那么其实什么时候需要取消请求，举一个很常见的例子，取消重复请求，就是当前已经发出请求的情况下，后续同样的请求如果发送就会被取消（如果是表单的提交也可以使用 dom 的 disabld 禁止点击 2333）<br>举个栗子：<br>在 axios 上是挂载了 Cancel 相应的东西</p>
+<ul>
+<li>axios.Cancel = require(‘./cancel/Cancel’);</li>
+<li>axios.CancelToken = require(‘./cancel/CancelToken’);</li>
+<li>axios.isCancel = require(‘./cancel/isCancel’);</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">var data = document.getElementById(<span class="string">"data"</span>).value;</span><br><span class="line">         const CancelToken = axios.CancelToken;</span><br><span class="line">         axios</span><br><span class="line">           .post(</span><br><span class="line">             <span class="string">"/post/server"</span>,</span><br><span class="line">             &#123;</span><br><span class="line">               data,</span><br><span class="line">             &#125;,</span><br><span class="line">             &#123;</span><br><span class="line">               cancelToken: new CancelToken((c) =&gt; &#123;</span><br><span class="line">                 cancel = c;</span><br><span class="line">                 console.log(c)</span><br><span class="line">               &#125;),</span><br><span class="line">             &#125;</span><br><span class="line">           )</span><br><span class="line">           .<span class="keyword">then</span>(<span class="keyword">function</span> (res) &#123;</span><br><span class="line">             output.className = <span class="string">"container"</span>;</span><br><span class="line">             output.innerHTML = res.data;</span><br><span class="line">           &#125;)</span><br><span class="line">           .catch(<span class="keyword">function</span> (err) &#123;</span><br><span class="line">             output.className = <span class="string">"container text-danger"</span>;</span><br><span class="line">             output.innerHTML = err.message;</span><br><span class="line">           &#125;);</span><br><span class="line">         cancel(<span class="string">'sdfsd'</span>);</span><br></pre></td></tr></table></figure>
+
+<p>然后这里 axios.post 实际上就是调用了<code>request</code>方法，方法的返回值是一个 promise，最后一个执行的 promise 是一个叫<code>dispatchRequest</code>的函数，函数位置在 core/dispatchRequest.js 文件下，因为返回的是一个 promise ，状态是 pendding，加入到微任务队列，然后执行主线程的<code>cancel</code>方法。cancel 方法是在初始化 cancelToken 的时候给 cancel 赋值了。</p>
+<p><code>cancelToken：</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">function</span> CancelToken(executor) &#123;</span><br><span class="line">  <span class="keyword">if</span> (typeof executor !== <span class="string">'function'</span>) &#123;</span><br><span class="line">    throw new TypeError(<span class="string">'executor must be a function.'</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  var resolvePromise;</span><br><span class="line">  <span class="comment"># 这里把resolve钩子赋值给resolvePromise 为了让cancel函数能够改变promise的状态</span></span><br><span class="line">  this.promise = new Promise(<span class="keyword">function</span> promiseExecutor(resolve) &#123;</span><br><span class="line">    resolvePromise = resolve;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  var token = this;</span><br><span class="line">  executor(<span class="keyword">function</span> cancel(message) &#123;</span><br><span class="line">    <span class="keyword">if</span> (token.reason) &#123;</span><br><span class="line">      <span class="comment"># Cancellation has already been requested</span></span><br><span class="line">      <span class="built_in">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    token.reason = new Cancel(message);</span><br><span class="line">    <span class="comment"># 这里改变promise状态位fulfilled</span></span><br><span class="line">    resolvePromise(token.reason);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>主线程任务执行完成的时候开始进入下一轮任务执行，没有宏任务需要执行，直接执行微任务，先执行刚刚 request 返回的 promise，其实是开始执行了<code>dispatchRequest</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">module.exports = <span class="keyword">function</span> dispatchRequest(config) &#123;</span><br><span class="line">  throwIfCancellationRequested(config);</span><br><span class="line">  <span class="comment"># 省略其他代码</span></span><br><span class="line">&#125;</span><br><span class="line">/**</span><br><span class="line"> * Throws a `Cancel` <span class="keyword">if</span> cancellation has been requested.</span><br><span class="line"> */</span><br><span class="line"><span class="keyword">function</span> throwIfCancellationRequested(config) &#123;</span><br><span class="line">  <span class="keyword">if</span> (config.cancelToken) &#123;</span><br><span class="line">      <span class="comment"># 这个方法挂载在canceltoken原型链傻姑娘</span></span><br><span class="line">    config.cancelToken.throwIfRequested();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">CancelToken.prototype.throwIfRequested = <span class="keyword">function</span> <span class="function"><span class="title">throwIfRequested</span></span>() &#123;</span><br><span class="line">  <span class="keyword">if</span> (this.reason) &#123;</span><br><span class="line">      <span class="comment"># 这里抛出错误，然后在主程序代码中的catch捕获，然后程序返回，不进行后续创建xhr对象的过程</span></span><br><span class="line">    throw this.reason;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>在xhr文件中看到有一段代码，长这样:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (config.cancelToken) &#123;</span><br><span class="line">      // Handle cancellation</span><br><span class="line">      config.cancelToken.promise.then(<span class="keyword">function</span> onCanceled(cancel) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!request) &#123;</span><br><span class="line">          <span class="built_in">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        request.abort();</span><br><span class="line">        reject(cancel);</span><br><span class="line">        // Clean up request</span><br><span class="line">        request = null;</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>那么上文中的resolvePromise改变后的promise就是在这里调用，那什么情况会到这里来执行请求，假如有A，B两个请求，A请求响应时间过长，然后等到B执行回调都回来的时候，直接把A请求给取（gan）消(diao)了</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/09/16/request-of-complex-simply/" rel="prev" title="简单请求和复杂请求">
+      <i class="fa fa-chevron-left"></i> 简单请求和复杂请求
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/10/07/item/" rel="next" title="item">
+      item <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么-axios-既可以用-axios-这样请求-，也可以-axios-get-这样请求？"><span class="nav-number">1.</span> <span class="nav-text">为什么 axios 既可以用 axios({})这样请求 ，也可以 axios.get()这样请求？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cancalToken-怎么取消请求的"><span class="nav-number">2.</span> <span class="nav-text">cancalToken 怎么取消请求的</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">ZJS</p>
+  <div class="site-description" itemprop="description">你找到我了呀！</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tagstags/">
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZJS</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

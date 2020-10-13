@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"github.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="防抖12345678910111213141516function debounce(func, wait) &amp;#123;    let timeout = null;    return function () &amp;#123;        let context = this;        let args = arguments;        if (timeout) &amp;#123;">
+<meta name="keywords" content="JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="工具函数">
+<meta property="og:url" content="https://github.com/fnlearner/2019/09/16/toolFunc/index.html">
+<meta property="og:site_name" content="Personal Blog">
+<meta property="og:description" content="防抖12345678910111213141516function debounce(func, wait) &amp;#123;    let timeout = null;    return function () &amp;#123;        let context = this;        let args = arguments;        if (timeout) &amp;#123;">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-10-07T09:41:15.635Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="工具函数">
+<meta name="twitter:description" content="防抖12345678910111213141516function debounce(func, wait) &amp;#123;    let timeout = null;    return function () &amp;#123;        let context = this;        let args = arguments;        if (timeout) &amp;#123;">
+
+<link rel="canonical" href="https://github.com/fnlearner/2019/09/16/toolFunc/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>工具函数 | Personal Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Personal Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/fnlearner/2019/09/16/toolFunc/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="ZJS">
+      <meta itemprop="description" content="你找到我了呀！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Personal Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          工具函数
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-09-16 17:19:58" itemprop="dateCreated datePublished" datetime="2019-09-16T17:19:58+08:00">2019-09-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-07 17:41:15" itemprop="dateModified" datetime="2020-10-07T17:41:15+08:00">2020-10-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/tool/" itemprop="url" rel="index"><span itemprop="name">tool</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="防抖"><a href="#防抖" class="headerlink" title="防抖"></a>防抖</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">function debounce(func, wait) &#123;</span><br><span class="line">    let timeout = null;</span><br><span class="line">    return function () &#123;</span><br><span class="line">        let context = this;</span><br><span class="line">        let args = arguments;</span><br><span class="line"></span><br><span class="line">        if (timeout) &#123;</span><br><span class="line">          clearTimeout(timeout);</span><br><span class="line">          timeout = null;</span><br><span class="line">        &#125;;</span><br><span class="line">        </span><br><span class="line">        timeout = setTimeout(() =&gt; &#123;</span><br><span class="line">            func.apply(context, args);</span><br><span class="line">        &#125;, wait);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+<h3 id="节流"><a href="#节流" class="headerlink" title="节流"></a>节流</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function throttle(func, wait) &#123;</span><br><span class="line">    let previous = 0;</span><br><span class="line">    return function() &#123;</span><br><span class="line">        let now = Date.now();</span><br><span class="line">        let context = this;</span><br><span class="line">        let args = arguments;</span><br><span class="line">        if (now - previous &gt; wait) &#123;</span><br><span class="line">            func.apply(context, args);</span><br><span class="line">            previous = now;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="判断是否是数组"><a href="#判断是否是数组" class="headerlink" title="判断是否是数组"></a>判断是否是数组</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let arr=[];</span><br><span class="line">Array.isArray(arr);</span><br><span class="line">//or</span><br><span class="line">Object.prototype.toString.call(arr) === &apos;[Object Array]&apos;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="时间戳转字符串"><a href="#时间戳转字符串" class="headerlink" title="时间戳转字符串"></a>时间戳转字符串</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">function getTime(_time,joiner,joiner2)&#123;</span><br><span class="line">  if(!time)&#123;</span><br><span class="line">    return &apos;&apos;;</span><br><span class="line">  &#125;</span><br><span class="line">  let time = new Date(_time);</span><br><span class="line">  const year = time.getFullYear();//获取年份</span><br><span class="line">  const month = time.getMonth()+1;//get the month of the time</span><br><span class="line">  const date = time.getDate()&lt;10 ? &apos;0&apos;+time.getDate():time.getDate();//get the day of the time;</span><br><span class="line">  const hour = time.getHours();</span><br><span class="line">  const minute = time.getMinutes();</span><br><span class="line">  const seconds = time.getSeconds();</span><br><span class="line">  const result = `$&#123;year&#125;$&#123;joiner&#125;$&#123;month&#125;$&#123;joiner&#125;$&#123;date&#125;  $&#123;hour&#125;$&#123;joiner2&#125;$&#123;minute&#125;$&#123;joiner2&#125;$&#123;seconds&#125;`;</span><br><span class="line">  return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="深合并"><a href="#深合并" class="headerlink" title="深合并"></a>深合并</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"> * @see merge</span><br><span class="line"> * @param &#123;Object&#125; obj1 Object to merge</span><br><span class="line"> * @returns &#123;Object&#125; Result of all merge properties</span><br><span class="line"> */</span><br><span class="line">function deepMerge(/* obj1, obj2, obj3, ... */) &#123;</span><br><span class="line">  var result = &#123;&#125;;</span><br><span class="line">  function assignValue(val, key) &#123;</span><br><span class="line">    if (typeof result[key] === &apos;object&apos; &amp;&amp; typeof val === &apos;object&apos;) &#123;</span><br><span class="line">      result[key] = deepMerge(result[key], val);</span><br><span class="line">    &#125; else if (typeof val === &apos;object&apos;) &#123;</span><br><span class="line">      result[key] = deepMerge(&#123;&#125;, val);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      result[key] = val;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  for (var i = 0, l = arguments.length; i &lt; l; i++) &#123;</span><br><span class="line">    forEach(arguments[i], assignValue);</span><br><span class="line">  &#125;</span><br><span class="line">  return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">const matchTime = /(?&lt;=\s+\-\s+)(.)+|(.)+(?=\s+\-\s+)/g;//将xx年xx月xx日-xx年xx月xx日的时间格式切割</span><br><span class="line">const regx_positiveInt = /^[0-9]*[1-9][0-9]*$/; //正整数</span><br><span class="line">const regx_positiveAndZeroInt = /^\d+$/; //非负整数（正整数和0）</span><br><span class="line">const regx_number = /^[0-9]*$/;//数字</span><br><span class="line">const regx_ip=/^((25[0-5]|2[0-4]\d|[01]?\d\d?)\.)&#123;3&#125;(25[0-5]|2[0-4]\d|[01]?\d\d?)$/;//IP地址</span><br></pre></td></tr></table></figure>
+
+<h3 id="大数相加"><a href="#大数相加" class="headerlink" title="大数相加"></a>大数相加</h3><p>由于JavaScript中不管整数还是小数都是Number类型，它的实现是遵循 IEEE 754标准，储存方式是以双精度浮点数储存的，可以表示十进制的15或者16位有效数字，所以当进行运算的数字超过这个范围的时候，就会用有精度缺失的问题，导致计算不准确，所以在大数加减的时候需要转成字符串来做，或者es6+有个BigInt类型也支持做大数加减，或者可以选择npm上的大数加减插件，比如number-precision</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">var addStrings = function(num1, num2) &#123;</span><br><span class="line">  const maxLen = Math.max.apply(null, [num1.length, num2.length]);</span><br><span class="line">  let result = &quot;&quot;;</span><br><span class="line">  let ans = 0;</span><br><span class="line">  if(num1.length&lt;maxLen)&#123;</span><br><span class="line">      num1 = num1.padStart(maxLen, &quot;0&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">  if(num2.length&lt;maxLen)&#123;</span><br><span class="line">      num2 = num2.padStart(maxLen, &quot;0&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">  for (let i = maxLen - 1; i &gt;= 0; --i) &#123;</span><br><span class="line">    const temp =ans+Number(num1[i]) + Number(num2[i]);</span><br><span class="line">    result=(temp % 10)+result;</span><br><span class="line">    ans = Math.floor(temp / 10);</span><br><span class="line">  &#125;</span><br><span class="line">  console.log(result);</span><br><span class="line">  return ans===1?ans+ result:result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="深克隆"><a href="#深克隆" class="headerlink" title="深克隆"></a>深克隆</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">const isObject = (item)=&gt;&#123;</span><br><span class="line">  return Object.prototype.toString.call(item) === &apos;[object Object]&apos;;</span><br><span class="line">&#125;</span><br><span class="line">const isArray = (item)=&gt;&#123;</span><br><span class="line">  return Object.prototype.toString.call(item) === &apos;[object Array]&apos;;</span><br><span class="line">&#125;</span><br><span class="line">const isDate = item =&gt;&#123;</span><br><span class="line">  return Object.prototype.toString.call(item) === &apos;[object Date]&apos;;</span><br><span class="line">&#125;</span><br><span class="line">const isFunction = item =&gt;&#123;</span><br><span class="line">  return Object.prototype.toString.call(item) === &apos;[object Function]&apos;;</span><br><span class="line">&#125;</span><br><span class="line">const deepClone=function(obj)&#123;</span><br><span class="line">    const cloneObj=isArray(obj)?[]:isObject(obj)?&#123;&#125;:&apos;&apos;;</span><br><span class="line">    for(let key in obj)&#123;</span><br><span class="line">      if(obj.hasOwnProperty(key))&#123;</span><br><span class="line">        if(isObject(obj[key])||isArray(obj[key]))&#123;</span><br><span class="line">          Object.assign(cloneObj,&#123;</span><br><span class="line">           [key]: deepClone(Reflect.get(obj,key))</span><br><span class="line">          &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">        else&#123;</span><br><span class="line">          cloneObj[key] = obj[key];</span><br><span class="line">        &#125;  </span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return cloneObj;</span><br><span class="line">&#125;</span><br><span class="line">function deepCopy(original) &#123;</span><br><span class="line">  if (Array.isArray(original)) &#123;</span><br><span class="line">    return original.map(elem =&gt; deepCopy(elem));</span><br><span class="line">  &#125; else if (typeof original === &apos;object&apos; &amp;&amp; original !== null) &#123;</span><br><span class="line">    return Object.fromEntries(</span><br><span class="line">      Object.entries(original)</span><br><span class="line">        .map(([k, v]) =&gt; [k, deepCopy(v)]));</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    // Primitive value: atomic, no need to copy</span><br><span class="line">    return original;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="深层更新"><a href="#深层更新" class="headerlink" title="深层更新"></a>深层更新</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">function deepUpdate(original, keys, value) &#123;</span><br><span class="line">  if (keys.length === 0) &#123;</span><br><span class="line">    return value;</span><br><span class="line">  &#125;</span><br><span class="line">  const currentKey = keys[0];</span><br><span class="line">  if (Array.isArray(original)) &#123;</span><br><span class="line">    return original.map(</span><br><span class="line">      (v, index) =&gt; index === currentKey</span><br><span class="line">        ? deepUpdate(v, keys.slice(1), value) // (A)</span><br><span class="line">        : v); // (B)</span><br><span class="line">  &#125; else if (typeof original === &apos;object&apos; &amp;&amp; original !== null) &#123;</span><br><span class="line">    return Object.fromEntries(</span><br><span class="line">      Object.entries(original).map(</span><br><span class="line">        (keyValuePair) =&gt; &#123;</span><br><span class="line">          const [k,v] = keyValuePair;</span><br><span class="line">          if (k === currentKey) &#123;</span><br><span class="line">            return [k, deepUpdate(v, keys.slice(1), value)]; // (C)</span><br><span class="line">          &#125; else &#123;</span><br><span class="line">            return keyValuePair; // (D)</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;));</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    // Primitive value</span><br><span class="line">    return original;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="深层冻结"><a href="#深层冻结" class="headerlink" title="深层冻结"></a>深层冻结</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">function deepFreeze(value) &#123;</span><br><span class="line">  if (Array.isArray(value)) &#123;</span><br><span class="line">    for (const element of value) &#123;</span><br><span class="line">      deepFreeze(element);</span><br><span class="line">    &#125;</span><br><span class="line">    Object.freeze(value);</span><br><span class="line">  &#125; else if (typeof value === &apos;object&apos; &amp;&amp; value !== null) &#123;</span><br><span class="line">    for (const v of Object.values(value)) &#123;</span><br><span class="line">      deepFreeze(v);</span><br><span class="line">    &#125;</span><br><span class="line">    Object.freeze(value);</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    // Nothing to do: primitive values are already immutable</span><br><span class="line">  &#125; </span><br><span class="line">  return value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="基于现有对象的自定义方法"><a href="#基于现有对象的自定义方法" class="headerlink" title="基于现有对象的自定义方法"></a>基于现有对象的自定义方法</h3><p>PS:(不建议直接污染原型链，类型Date.prototype.xxx=function(){}这样的写法)</p>
+<p>个人比较喜欢寄生组合继承或者es6的calss继承，比如要写一个基于Date的format方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">class DateSelf extends Date&#123;</span><br><span class="line">  constructor()&#123;</span><br><span class="line">    super();</span><br><span class="line">  &#125;</span><br><span class="line">  getAll(begin,end)&#123;</span><br><span class="line">    let arr=[];</span><br><span class="line">    var ab = begin.split(&quot;-&quot;);</span><br><span class="line">    var ae = end.split(&quot;-&quot;);</span><br><span class="line">    var db = new Date();</span><br><span class="line">    db.setUTCFullYear(ab[0], ab[1] - 1, ab[2]);</span><br><span class="line">    var de = new Date();</span><br><span class="line">    de.setUTCFullYear(ae[0], ae[1] - 1, ae[2]);</span><br><span class="line">    var unixDb = db.getTime();</span><br><span class="line">    var unixDe = de.getTime();</span><br><span class="line">    for (var k = unixDb; k &lt;= unixDe;) &#123;</span><br><span class="line">        // arr.push((new Date(parseInt(k))).format());</span><br><span class="line">        arr.push((DateSelf.formatter(parseInt(k))))</span><br><span class="line">        k = k + 24 * 60 * 60 * 1000;</span><br><span class="line">    &#125;</span><br><span class="line">    return arr;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">DateSelf.formatter=function(time)&#123;</span><br><span class="line">  var s = &apos;&apos;;</span><br><span class="line">  const k =  new Date(time)</span><br><span class="line">  var mouth = (k.getMonth() + 1)&gt;=10?(k.getMonth() + 1):(&apos;0&apos;+(k.getMonth() + 1));</span><br><span class="line">  var day = k.getDate()&gt;=10?k.getDate():(&apos;0&apos;+k.getDate());</span><br><span class="line">  s += k.getFullYear() + &apos;-&apos;; // 获取年份。</span><br><span class="line">  s += mouth + &quot;-&quot;; // 获取月份。</span><br><span class="line">  s += day; // 获取日。</span><br><span class="line">  return (s); // 返回日期。</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="判断对象类型"><a href="#判断对象类型" class="headerlink" title="判断对象类型"></a>判断对象类型</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Object.toType = (function toType(global) &#123;</span><br><span class="line">  return function(obj) &#123;</span><br><span class="line">    if (obj === global) &#123;</span><br><span class="line">      return &quot;global&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    return (&#123;&#125;).toString.call(obj).match(/\s([a-z|A-Z]+)/)[1].toLowerCase();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)(this)</span><br></pre></td></tr></table></figure>
+
+<h3 id="用promsie异步加载图像"><a href="#用promsie异步加载图像" class="headerlink" title="用promsie异步加载图像"></a>用promsie异步加载图像</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">functin load(image,attributes)&#123;</span><br><span class="line">  	if (!image) &#123;</span><br><span class="line">		return Promise.reject();</span><br><span class="line">	&#125; else if (typeof image === &apos;string&apos;) &#123;</span><br><span class="line">		/* Create a &lt;img&gt; from a string */</span><br><span class="line">		const src = image;</span><br><span class="line">		image = new Image();</span><br><span class="line">		Object.keys(attributes || &#123;&#125;).forEach(</span><br><span class="line">			name =&gt; image.setAttribute(name, attributes[name])</span><br><span class="line">		);</span><br><span class="line">		image.src = src;</span><br><span class="line">	&#125; else if (image.length !== undefined) &#123;</span><br><span class="line">		/* Treat as multiple images */</span><br><span class="line"></span><br><span class="line">		// Momentarily ignore errors</span><br><span class="line">		const reflected = [].map.call(image, img =&gt; load(img, attributes).catch(err =&gt; err));</span><br><span class="line"></span><br><span class="line">		return Promise.all(reflected).then(results =&gt; &#123;</span><br><span class="line">			const loaded = results.filter(x =&gt; x.naturalWidth);</span><br><span class="line">			if (loaded.length === results.length) &#123;</span><br><span class="line">				return loaded;</span><br><span class="line">			&#125;</span><br><span class="line">			return Promise.reject(&#123;</span><br><span class="line">				loaded,</span><br><span class="line">				errored: results.filter(x =&gt; !x.naturalWidth)</span><br><span class="line">			&#125;);</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125; else if (image.tagName.toUpperCase() !== &apos;IMG&apos;) &#123;</span><br><span class="line">		return Promise.reject();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	const promise = new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">		if (image.naturalWidth) &#123;</span><br><span class="line">			// If the browser can determine the naturalWidth the</span><br><span class="line">			// image is already loaded successfully</span><br><span class="line">			resolve(image);</span><br><span class="line">		&#125; else if (image.complete) &#123;</span><br><span class="line">			// If the image is complete but the naturalWidth is 0px</span><br><span class="line">			// it is probably broken</span><br><span class="line">			reject(image);</span><br><span class="line">		&#125; else &#123;</span><br><span class="line">			image.addEventListener(&apos;load&apos;, fulfill);</span><br><span class="line">			image.addEventListener(&apos;error&apos;, fulfill);</span><br><span class="line">		&#125;</span><br><span class="line">		function fulfill() &#123;</span><br><span class="line">			if (image.naturalWidth) &#123;</span><br><span class="line">				resolve(image);</span><br><span class="line">			&#125; else &#123;</span><br><span class="line">				reject(image);</span><br><span class="line">			&#125;</span><br><span class="line">			image.removeEventListener(&apos;load&apos;, fulfill);</span><br><span class="line">			image.removeEventListener(&apos;error&apos;, fulfill);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;);</span><br><span class="line">	promise.image = image;</span><br><span class="line">	return promise;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="获取类型"><a href="#获取类型" class="headerlink" title="获取类型"></a>获取类型</h3><p>({}).toString.call(obj) 的用法与 Object.prototype.toString.call(obj)一样。这两个返回的格式是[object [class]].</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">const toType = (obj) =&gt;&#123;</span><br><span class="line">   return (&#123;&#125;).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase()</span><br><span class="line">&#125;</span><br><span class="line">toType(&#123;a: 4&#125;); //&quot;object&quot;</span><br><span class="line">toType([1, 2, 3]); //&quot;array&quot;</span><br><span class="line">(function() &#123;console.log(toType(arguments))&#125;)(); //arguments</span><br><span class="line">toType(new ReferenceError); //&quot;error&quot;</span><br><span class="line">toType(new Date); //&quot;date&quot;</span><br><span class="line">toType(/a-z/); //&quot;regexp&quot;</span><br><span class="line">toType(Math); //&quot;math&quot;</span><br><span class="line">toType(JSON); //&quot;json&quot;</span><br><span class="line">toType(new Number(4)); //&quot;number&quot;</span><br><span class="line">toType(new String(&quot;abc&quot;)); //&quot;string&quot;</span><br><span class="line">toType(new Boolean(true)); //&quot;boolean&quot;</span><br><span class="line"></span><br><span class="line">//typeof 也可以判断类型,但是只能获取基本类型，引用类型统一返回object，所以尽量用toType的方法;instanceof也可以,然鹅instanceof是基于原型链判断的，如果继承的话</span><br><span class="line">  class MyArray extends Array&#123;</span><br><span class="line">    constructor()&#123;</span><br><span class="line">      super()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  const myArray = new MyArray();</span><br><span class="line">  console.log(`Array: $&#123;myArray instanceof Array&#125;`);</span><br><span class="line">  console.log(`MyArray :$&#123;myArray instanceof MyArray&#125;`);</span><br><span class="line">  //这样两个返回的都是true</span><br></pre></td></tr></table></figure>
+
+<p>几个内置对象没有构造函数，因此不能用instanceof来判断类型</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Math instanceof Math //TypeError</span><br></pre></td></tr></table></figure>
+
+<p>一个window可以包含多个iframe框架，意味着包含多个全局上下文，因此意味着每个类型有多个构造器，在这样的环境下，给定的对象类型不能保证是给定的构造函数的实例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">const ifFrame = document.createElement(&apos;iframe&apos;);</span><br><span class="line">document.body.appendChild(ifFrame);</span><br><span class="line">const IFrameArray = window.frames[1].Array; </span><br><span class="line">const array = new IFrameArray();</span><br><span class="line"></span><br><span class="line">array instanceof IFrameArray //true</span><br><span class="line">array instanceof Array // false</span><br></pre></td></tr></table></figure>
+
+<p>由于array的constructor是iframe中的Array,因此即使array 与 此时的window上下文中的Array都是数组范畴，但是instanceof是基于原型链来判断的，array的原型链是并没有指向当前window下的Array,因此array instanceof Array 为 false</p>
+<p>之前的toType有个问题,当toType的传参是window,window内置方法以及DOM时，有很长一串的结果返回时</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">toType(window);</span><br><span class="line">//&quot;global&quot; (Chrome) &quot;domwindow&quot; (Safari) &quot;window&quot; (FF/IE9) &quot;object&quot; (IE7/IE8)</span><br><span class="line"> </span><br><span class="line">toType(document);</span><br><span class="line">//&quot;htmldocument&quot; (Chrome/FF/Safari) &quot;document&quot; (IE9) &quot;object&quot; (IE7/IE8)</span><br><span class="line"> </span><br><span class="line">toType(document.createElement(&apos;a&apos;));</span><br><span class="line">//&quot;htmlanchorelement&quot; (Chrome/FF/Safari/IE) &quot;object&quot; (IE7/IE8)</span><br><span class="line"> </span><br><span class="line">toType(alert);</span><br><span class="line">//&quot;function&quot; (Chrome/FF/Safari/IE9) &quot;object&quot; (IE7/IE8)</span><br></pre></td></tr></table></figure>
+
+<p>改进一下toType方法,将这个方法挂载到Object上,但是不要挂载到prototype上，将这个方法写成IIFE+闭包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Object.toType = (function toType(global) &#123;</span><br><span class="line">  return function(obj) &#123;</span><br><span class="line">    if (obj === global) &#123;</span><br><span class="line">      return &quot;global&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    return (&#123;&#125;).toString.call(obj).match(/\s([a-z|A-Z]+)/)[1].toLowerCase();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)(this)</span><br><span class="line">Object.toType(window); //&quot;global&quot; (all browsers)</span><br><span class="line">Object.toType([1,2,3]); //&quot;array&quot; (all browsers)</span><br><span class="line">Object.toType(/a-z/); //&quot;regexp&quot; (all browsers)</span><br><span class="line">Object.toType(JSON); //&quot;json&quot; (all browsers)</span><br></pre></td></tr></table></figure>
+
+<p>这个方法也不是万能的,如果扔进来一个未知类型,则会抛出异常</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Object.toType(fff)//ReferenceError</span><br></pre></td></tr></table></figure>
+
+<p>玩个好玩的，应该可以用具名组匹配来获取类型</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Object.toType = (function(global)&#123;</span><br><span class="line">    const reg = /(?&lt;type&gt;(?&lt;=\s+?)[A-Za-z]+)/;</span><br><span class="line">    return function(obj)&#123;</span><br><span class="line">      if(obj === global)&#123;</span><br><span class="line">          return &apos;global&apos;;</span><br><span class="line">      &#125;</span><br><span class="line">      const matchObj = reg.exec(Object.prototype.toString.call(obj));</span><br><span class="line">      const type =  matchObj.groups.type;</span><br><span class="line">      return type;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)(this)</span><br></pre></td></tr></table></figure>
+
+<h3 id="takeRightWhile"><a href="#takeRightWhile" class="headerlink" title="takeRightWhile"></a>takeRightWhile</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const takeRightWhile = (arr, func) =&gt;</span><br><span class="line">  arr.reduceRight((acc, el) =&gt; (func(el) ? acc : [el, ...acc]), []);</span><br></pre></td></tr></table></figure>
+
+<p>用法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">takeRightWhile([1, 2, 3, 4], n =&gt; n &lt; 3); // [3, 4]</span><br></pre></td></tr></table></figure>
+
+<h3 id="zip"><a href="#zip" class="headerlink" title="zip"></a>zip</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">const zip = (...arrays) =&gt; &#123;</span><br><span class="line">  const maxLength = Math.max(...arrays.map(x =&gt; x.length));</span><br><span class="line">  return Array.from(&#123; length: maxLength &#125;).map((_, i) =&gt; &#123;</span><br><span class="line">    return Array.from(&#123; length: arrays.length &#125;, (_, k) =&gt; arrays[k][i]);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>用法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">zip([&apos;a&apos;, &apos;b&apos;], [1, 2], [true, false]); // [[&apos;a&apos;, 1, true], [&apos;b&apos;, 2, false]]</span><br><span class="line">zip([&apos;a&apos;], [1, 2], [true, false]); // [[&apos;a&apos;, 1, true], [undefined, 2, false]]</span><br></pre></td></tr></table></figure>
+
+<h3 id="聚合函数"><a href="#聚合函数" class="headerlink" title="聚合函数"></a>聚合函数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//单个参数</span><br><span class="line">const pipe = (...fns) =&gt; x =&gt; &#123;</span><br><span class="line">    return fns.reduceRight((v,fn)=&gt;&#123;</span><br><span class="line">       return fn(v);</span><br><span class="line">    &#125;,x)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>用法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">const square = v =&gt; v+1;</span><br><span class="line">const double = v =&gt; v+2;</span><br><span class="line">const addOne = v =&gt; v+3;</span><br><span class="line"></span><br><span class="line">const res = pipe(square,double,addOne);</span><br><span class="line">res(3)//9</span><br></pre></td></tr></table></figure>
+
+<h3 id="elementIsVisibleInViewport"><a href="#elementIsVisibleInViewport" class="headerlink" title="elementIsVisibleInViewport"></a>elementIsVisibleInViewport</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const elementIsVisibleInViewport = (el, partiallyVisible = false) =&gt; &#123;</span><br><span class="line">  const &#123; top, left, bottom, right &#125; = el.getBoundingClientRect();</span><br><span class="line">  const &#123; innerHeight, innerWidth &#125; = window;</span><br><span class="line">  return partiallyVisible</span><br><span class="line">    ? ((top &gt; 0 &amp;&amp; top &lt; innerHeight) || (bottom &gt; 0 &amp;&amp; bottom &lt; innerHeight)) &amp;&amp;</span><br><span class="line">        ((left &gt; 0 &amp;&amp; left &lt; innerWidth) || (right &gt; 0 &amp;&amp; right &lt; innerWidth))</span><br><span class="line">    : top &gt;= 0 &amp;&amp; left &gt;= 0 &amp;&amp; bottom &lt;= innerHeight &amp;&amp; right &lt;= innerWidth;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>用法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">elementIsVisibleInViewport(el); // false - (not fully visible)</span><br><span class="line">elementIsVisibleInViewport(el, true); // true - (partially visible)</span><br></pre></td></tr></table></figure>
+
+<h3 id="聚合函数-2"><a href="#聚合函数-2" class="headerlink" title="聚合函数(2)"></a>聚合函数(2)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//第一个函数允许多个参数，剩余函数仅允许一个参数</span><br><span class="line">const composeRight = (...fns) =&gt; fns.reduce((f,g)=&gt;(...args)=&gt;g(f(...args)));</span><br></pre></td></tr></table></figure>
+
+<p>用法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const add =(x,y) =&gt; x+y;</span><br><span class="line">const square = x =&gt; x**2;</span><br><span class="line">const addAndSquare = composeRight(add,square);</span><br></pre></td></tr></table></figure>
+
+<h3 id="uniqueSymmetricDifference"><a href="#uniqueSymmetricDifference" class="headerlink" title="uniqueSymmetricDifference"></a>uniqueSymmetricDifference</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const uniqueSymmetricDifference = (a, b) =&gt; [</span><br><span class="line">  ...new Set([...a.filter(v =&gt; !b.includes(v)), ...b.filter(v =&gt; !a.includes(v))])</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+
+<p>用法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uniqueSymmetricDifference([1, 2, 3], [1, 2, 4]); // [3, 4]</span><br></pre></td></tr></table></figure>
+
+<h3 id="获取长度"><a href="#获取长度" class="headerlink" title="获取长度"></a>获取长度</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const size = val =&gt;</span><br><span class="line">    Array.isArray(val)</span><br><span class="line">        ? val.length</span><br><span class="line">        : val &amp;&amp; typeof val === &apos;object&apos;</span><br><span class="line">        ? val.size || val.length || Object.keys(val).length</span><br><span class="line">        : typeof val === &apos;string&apos;</span><br><span class="line">            ? new Blob([val]).size</span><br><span class="line">            : 0;</span><br></pre></td></tr></table></figure>
+
+<h3 id="initialArrayWithRangeRight"><a href="#initialArrayWithRangeRight" class="headerlink" title="initialArrayWithRangeRight"></a>initialArrayWithRangeRight</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">const initialArrayWithRangeRight = (end,start = 0, step = 1) =&gt; &#123;</span><br><span class="line">    return Array.from(&#123;length:Math.ceil(end-start+1)/step&#125;).map((v,i,arr)=&gt;&#123;</span><br><span class="line">        return (arr.length-i-1)*step+start;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>用法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">initialArrayWithRangeRight(5)// [5,4,3,2,1,0]</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建加密hash"><a href="#创建加密hash" class="headerlink" title="创建加密hash"></a>创建加密hash</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const hashBrowser = val =&gt;</span><br><span class="line">  crypto.subtle.digest(&apos;SHA-256&apos;, new TextEncoder(&apos;utf-8&apos;).encode(val)).then(h =&gt; &#123;</span><br><span class="line">    let hexes = [],</span><br><span class="line">      view = new DataView(h);</span><br><span class="line">    for (let i = 0; i &lt; view.byteLength; i += 4)</span><br><span class="line">      hexes.push((&apos;00000000&apos; + view.getUint32(i).toString(16)).slice(-8));</span><br><span class="line">    return hexes.join(&apos;&apos;);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>用法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hashBrowser(JSON.stringify(&#123; a: &apos;a&apos;, b: [1, 2, 3, 4], foo: &#123; c: &apos;bar&apos; &#125; &#125;)).then(console.log); // &apos;04aa106279f5977f59f9067fa9712afc4aedc6f5862a8defc34552d8c7206393&apos;</span><br></pre></td></tr></table></figure>
+
+<h3 id="自定义事件"><a href="#自定义事件" class="headerlink" title="自定义事件"></a>自定义事件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const triggerEvnet = (el,eventType,detail) =&gt; el.dispatchEvent(new CustomEvent(eventType,detail));</span><br></pre></td></tr></table></figure>
+
+<p>用法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">triggerEvnet(document.getElementById(&apos;id&apos;),&apos;click&apos;);//触发前需要先注册方法，addEventListener或者attachEvent</span><br></pre></td></tr></table></figure>
+
+<h3 id="isWritableStream"><a href="#isWritableStream" class="headerlink" title="isWritableStream"></a>isWritableStream</h3><p>检查给定参数是否是可写的流体</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">const isWriteable = val =&gt; val !== null &amp;&amp;</span><br><span class="line">  typeof val === &apos;object&apos; &amp;&amp;</span><br><span class="line">  typeof val.pipe === &apos;function&apos; &amp;&amp;</span><br><span class="line">  typeof val._write === &apos;function&apos; &amp;&amp;</span><br><span class="line">  typeof val._writableState === &apos;object&apos;;</span><br></pre></td></tr></table></figure>
+
+<p>Node环境中使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const fs = require(&apos;fs&apos;);</span><br><span class="line">isWritableStream(fs.createWriteStream(&apos;test.txt&apos;)); // true</span><br></pre></td></tr></table></figure>
+
+<h3 id="打乱数组顺序"><a href="#打乱数组顺序" class="headerlink" title="打乱数组顺序"></a>打乱数组顺序</h3><p>洗牌算法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const shuffle = (arr) =&gt; &#123;</span><br><span class="line">  let m = arr.length;</span><br><span class="line">  while(m)&#123;</span><br><span class="line">    const i = Math.floor(Math.random()*m--);</span><br><span class="line">    [arr[i],arr[m]] =[arr[m],arr[i]]; </span><br><span class="line">  &#125;</span><br><span class="line">  return arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tagstags/JavaScript/" rel="tag"># JavaScript</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/09/06/Traversing/" rel="prev" title="Traversing">
+      <i class="fa fa-chevron-left"></i> Traversing
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/09/27/chorme-panel/" rel="next" title="Chrome调试工具的那点事">
+      Chrome调试工具的那点事 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#防抖"><span class="nav-number">1.</span> <span class="nav-text">防抖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#节流"><span class="nav-number">2.</span> <span class="nav-text">节流</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#判断是否是数组"><span class="nav-number">3.</span> <span class="nav-text">判断是否是数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#时间戳转字符串"><span class="nav-number">4.</span> <span class="nav-text">时间戳转字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#深合并"><span class="nav-number">5.</span> <span class="nav-text">深合并</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正则表达式"><span class="nav-number">6.</span> <span class="nav-text">正则表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大数相加"><span class="nav-number">7.</span> <span class="nav-text">大数相加</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#深克隆"><span class="nav-number">8.</span> <span class="nav-text">深克隆</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#深层更新"><span class="nav-number">9.</span> <span class="nav-text">深层更新</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#深层冻结"><span class="nav-number">10.</span> <span class="nav-text">深层冻结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于现有对象的自定义方法"><span class="nav-number">11.</span> <span class="nav-text">基于现有对象的自定义方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#判断对象类型"><span class="nav-number">12.</span> <span class="nav-text">判断对象类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用promsie异步加载图像"><span class="nav-number">13.</span> <span class="nav-text">用promsie异步加载图像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取类型"><span class="nav-number">14.</span> <span class="nav-text">获取类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#takeRightWhile"><span class="nav-number">15.</span> <span class="nav-text">takeRightWhile</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#zip"><span class="nav-number">16.</span> <span class="nav-text">zip</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#聚合函数"><span class="nav-number">17.</span> <span class="nav-text">聚合函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#elementIsVisibleInViewport"><span class="nav-number">18.</span> <span class="nav-text">elementIsVisibleInViewport</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#聚合函数-2"><span class="nav-number">19.</span> <span class="nav-text">聚合函数(2)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#uniqueSymmetricDifference"><span class="nav-number">20.</span> <span class="nav-text">uniqueSymmetricDifference</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取长度"><span class="nav-number">21.</span> <span class="nav-text">获取长度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#initialArrayWithRangeRight"><span class="nav-number">22.</span> <span class="nav-text">initialArrayWithRangeRight</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建加密hash"><span class="nav-number">23.</span> <span class="nav-text">创建加密hash</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义事件"><span class="nav-number">24.</span> <span class="nav-text">自定义事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#isWritableStream"><span class="nav-number">25.</span> <span class="nav-text">isWritableStream</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#打乱数组顺序"><span class="nav-number">26.</span> <span class="nav-text">打乱数组顺序</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">ZJS</p>
+  <div class="site-description" itemprop="description">你找到我了呀！</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tagstags/">
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZJS</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

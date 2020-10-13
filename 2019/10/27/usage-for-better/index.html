@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"github.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="变量声明123//变量声明用let or constlet a = 1;const b = 2;">
+<meta name="keywords" content="JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="优雅的书写方式">
+<meta property="og:url" content="https://github.com/fnlearner/2019/10/27/usage-for-better/index.html">
+<meta property="og:site_name" content="Personal Blog">
+<meta property="og:description" content="变量声明123//变量声明用let or constlet a = 1;const b = 2;">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-10-07T09:41:15.635Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="优雅的书写方式">
+<meta name="twitter:description" content="变量声明123//变量声明用let or constlet a = 1;const b = 2;">
+
+<link rel="canonical" href="https://github.com/fnlearner/2019/10/27/usage-for-better/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>优雅的书写方式 | Personal Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Personal Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/fnlearner/2019/10/27/usage-for-better/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="ZJS">
+      <meta itemprop="description" content="你找到我了呀！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Personal Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          优雅的书写方式
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-10-27 17:31:42" itemprop="dateCreated datePublished" datetime="2019-10-27T17:31:42+08:00">2019-10-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-07 17:41:15" itemprop="dateModified" datetime="2020-10-07T17:41:15+08:00">2020-10-07</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="变量声明"><a href="#变量声明" class="headerlink" title="变量声明"></a>变量声明</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//变量声明用let or const</span><br><span class="line">let a = 1;</span><br><span class="line">const b = 2;</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+<h3 id="对象属性赋值"><a href="#对象属性赋值" class="headerlink" title="对象属性赋值"></a>对象属性赋值</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">const getKey(key)&#123;</span><br><span class="line">  return `a key named $&#123;key&#125;`</span><br><span class="line">&#125;</span><br><span class="line">//使用动态属性作为键名，用计算后的属性</span><br><span class="line">const obj=&#123;</span><br><span class="line">  id:1,</span><br><span class="line">  name:&apos;John&apos;,</span><br><span class="line">  [getKey(&apos;enable&apos;)]:&apos;Tom&apos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="键名与键值的变量名相同，不需要写两遍"><a href="#键名与键值的变量名相同，不需要写两遍" class="headerlink" title="键名与键值的变量名相同，不需要写两遍"></a>键名与键值的变量名相同，不需要写两遍</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const name = &apos;John&apos;;</span><br><span class="line">const obj = &#123;</span><br><span class="line">  name</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="对象数据分组排序"><a href="#对象数据分组排序" class="headerlink" title="对象数据分组排序"></a>对象数据分组排序</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//解构赋值的排前面</span><br><span class="line">const name = &apos;John&apos;,age=2, grade = 80;</span><br><span class="line">const obj = &#123;</span><br><span class="line">  name,</span><br><span class="line">  age,</span><br><span class="line">  level:grade</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="属性声明"><a href="#属性声明" class="headerlink" title="属性声明"></a>属性声明</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//键名声明不需要写引号,仅有无效标识符需要加引号</span><br><span class="line">const obj = &#123;</span><br><span class="line">  a:1,</span><br><span class="line">  &apos;data-self:true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="不要直接调用Object-prototype的方法，比如hasOwnProperty"><a href="#不要直接调用Object-prototype的方法，比如hasOwnProperty" class="headerlink" title="不要直接调用Object.prototype的方法，比如hasOwnProperty"></a>不要直接调用Object.prototype的方法，比如hasOwnProperty</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">const obj = &#123;</span><br><span class="line">  a:1</span><br><span class="line">&#125;</span><br><span class="line">//不要直接用ojb.hasOwnProperty(Do not use obj.hasOwnProperty directly)</span><br><span class="line"></span><br><span class="line">Object.prototype.hasOwnProperty.call(obj,key)//use Object.prototype.call instead</span><br><span class="line">//or</span><br><span class="line">const has = Object.prototype.hasOwnProperty;</span><br><span class="line">has.call(obj,key)//</span><br></pre></td></tr></table></figure>
+
+<h3 id="use-the-object-spread-operator-instead-of-Object-assign-to-shallow-copy-objects"><a href="#use-the-object-spread-operator-instead-of-Object-assign-to-shallow-copy-objects" class="headerlink" title="use the object spread operator instead of Object.assign to shallow-copy objects"></a>use the object spread operator instead of Object.assign to shallow-copy objects</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const obj = &#123;</span><br><span class="line">  name:&apos;Tom&apos;</span><br><span class="line">&#125;</span><br><span class="line">const cloneObj =&#123;...obj,age:1&#125;//cloneObj -&gt; &#123;name:&apos;Tom&apos;,age:1&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="use-spread-operator-to-copy-Array"><a href="#use-spread-operator-to-copy-Array" class="headerlink" title="use spread operator to copy Array"></a>use spread operator to copy Array</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const arr = [1,2,3,4];</span><br><span class="line">const cloneArr = [...arr];//cloneArr - .[1,2,3,4]</span><br></pre></td></tr></table></figure>
+
+<h3 id="use-Array-from-or-spread-operator-to-convert-an-iterable-Object"><a href="#use-Array-from-or-spread-operator-to-convert-an-iterable-Object" class="headerlink" title="use Array.from() or spread operator to convert an iterable Object"></a>use Array.from() or spread operator to convert an iterable Object</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">const foo = document.querySelectorAll(&apos;.foo&apos;);//it is a nodelist</span><br><span class="line"></span><br><span class="line">const arrNode = Array.from(foo);</span><br><span class="line"></span><br><span class="line">//or</span><br><span class="line"></span><br><span class="line">const arrNode1 = [...foo];</span><br></pre></td></tr></table></figure>
+
+<h3 id="use-Array-from-instead-of-spread-operator-for-mapping-over-iterables-because-it-won’t-creat-an-intermediate-array"><a href="#use-Array-from-instead-of-spread-operator-for-mapping-over-iterables-because-it-won’t-creat-an-intermediate-array" class="headerlink" title="use Array.from() instead of spread operator  for mapping over iterables ,because it won’t creat an intermediate array"></a>use Array.from() instead of spread operator  for mapping over iterables ,because it won’t creat an intermediate array</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const foo =[1,2,3];</span><br><span class="line">const bar = Array.from(foo,function(item)&#123;</span><br><span class="line">  return Math.pow(item,2)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="use-object-destructuring-when-accessing-and-using-multiple-properties-of-an-object"><a href="#use-object-destructuring-when-accessing-and-using-multiple-properties-of-an-object" class="headerlink" title="use object destructuring when accessing and using multiple properties of an object."></a>use object destructuring when accessing and using multiple properties of an object.</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//No</span><br><span class="line">const render = param =&gt; &#123;</span><br><span class="line">  const firstName = param.firstName;</span><br><span class="line">  const secondName = param.secondName;</span><br><span class="line">&#125;</span><br><span class="line">//Yes,and maybe we should give them default value,or if firstName or secondName dont exist in param , they will be undefined</span><br><span class="line">const render = param =&gt;&#123;</span><br><span class="line">  const &#123;</span><br><span class="line">    firstName=&apos;&apos; ,secondName=&apos;&apos;</span><br><span class="line">  &#125; = param;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="use-array-destructuring-instead-of-arr-0"><a href="#use-array-destructuring-instead-of-arr-0" class="headerlink" title="use array destructuring instead of arr[0]."></a>use array destructuring instead of arr[0].</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const render = param =&gt;&#123;</span><br><span class="line">  const [firstName,secondName] = param;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="use-object-destructuring-if-u-dont-need-certaine-property"><a href="#use-object-destructuring-if-u-dont-need-certaine-property" class="headerlink" title="use object destructuring if u dont need certaine property"></a>use object destructuring if u dont need certaine property</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// if u dont need secondName,u can use object destructuring,and what u need exists in rest</span><br><span class="line">const render = param =&gt;&#123;</span><br><span class="line">  const &#123;</span><br><span class="line">    secondName,...rest</span><br><span class="line">  &#125; =param//rest-&gt; &#123;firstName,age&#125;</span><br><span class="line">&#125;</span><br><span class="line">render(&#123;</span><br><span class="line">  firstName,</span><br><span class="line">  secondName,</span><br><span class="line">  age</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="use-instead-of-‘’-or-“”"><a href="#use-instead-of-‘’-or-“”" class="headerlink" title="use `` instead of ‘’ or “”"></a>use `` instead of ‘’ or “”</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">const name = &apos;John&apos;;</span><br><span class="line">//No</span><br><span class="line">const wholeName = &apos;My name is&apos;+ name;</span><br><span class="line">//Yes</span><br><span class="line">const wholeName = `my name is $&#123;name&#125;`</span><br></pre></td></tr></table></figure>
+
+<h3 id="dont-declare-function-in-a-block-like-if-while-etc"><a href="#dont-declare-function-in-a-block-like-if-while-etc" class="headerlink" title="dont declare function in a block like if,while ,etc"></a>dont declare function in a block like if,while ,etc</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">//No</span><br><span class="line">if(true)&#123;</span><br><span class="line">  function test()&#123;</span><br><span class="line">    console.log(&apos;bad&apos;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">//Yes</span><br><span class="line">let test ;</span><br><span class="line">if(true)&#123;</span><br><span class="line">  test = () =&gt;&#123;</span><br><span class="line">    console.log(&apos;good&apos;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="use-spread-operator-…-instead-of-arguments-because-arguments-is-a-Array-like-Array-and-not-a-real-Array"><a href="#use-spread-operator-…-instead-of-arguments-because-arguments-is-a-Array-like-Array-and-not-a-real-Array" class="headerlink" title="use spread operator(…) instead of arguments,because arguments is a Array-like Array and not a real Array"></a>use spread operator(…) instead of arguments,because arguments is a Array-like Array and not a real Array</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//No</span><br><span class="line">const render = arguments =&gt; &#123;</span><br><span class="line">  const arr = Array.prototype.slice.call(arguments);</span><br><span class="line">&#125;</span><br><span class="line">//Yes</span><br><span class="line">const render =(...args) =&gt; &#123;</span><br><span class="line">  const arr = args;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="use-void-0-instead-of-undefined"><a href="#use-void-0-instead-of-undefined" class="headerlink" title="use void 0 instead of undefined"></a>use void 0 instead of undefined</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let undefined = 1;</span><br><span class="line">var a;</span><br><span class="line">console.log(a === undefined)// false</span><br><span class="line">console.log(a === void 0)//false</span><br></pre></td></tr></table></figure>
+
+<h3 id="in-a-module-with-single-export-use-default-export-instead-of-name-export"><a href="#in-a-module-with-single-export-use-default-export-instead-of-name-export" class="headerlink" title="in a module with single export use default export instead of name export"></a>in a module with single export use default export instead of name export</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export default function es6()&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tagstags/JavaScript/" rel="tag"># JavaScript</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/10/10/javascript-float-num/" rel="prev" title="javascript浮点数精度问题">
+      <i class="fa fa-chevron-left"></i> javascript浮点数精度问题
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/11/01/closure/" rel="next" title="思考如何使a==1&&a==2&&a==3为true">
+      思考如何使a==1&&a==2&&a==3为true <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#变量声明"><span class="nav-number">1.</span> <span class="nav-text">变量声明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对象属性赋值"><span class="nav-number">2.</span> <span class="nav-text">对象属性赋值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#键名与键值的变量名相同，不需要写两遍"><span class="nav-number">3.</span> <span class="nav-text">键名与键值的变量名相同，不需要写两遍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对象数据分组排序"><span class="nav-number">4.</span> <span class="nav-text">对象数据分组排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#属性声明"><span class="nav-number">5.</span> <span class="nav-text">属性声明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不要直接调用Object-prototype的方法，比如hasOwnProperty"><span class="nav-number">6.</span> <span class="nav-text">不要直接调用Object.prototype的方法，比如hasOwnProperty</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#use-the-object-spread-operator-instead-of-Object-assign-to-shallow-copy-objects"><span class="nav-number">7.</span> <span class="nav-text">use the object spread operator instead of Object.assign to shallow-copy objects</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#use-spread-operator-to-copy-Array"><span class="nav-number">8.</span> <span class="nav-text">use spread operator to copy Array</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#use-Array-from-or-spread-operator-to-convert-an-iterable-Object"><span class="nav-number">9.</span> <span class="nav-text">use Array.from() or spread operator to convert an iterable Object</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#use-Array-from-instead-of-spread-operator-for-mapping-over-iterables-because-it-won’t-creat-an-intermediate-array"><span class="nav-number">10.</span> <span class="nav-text">use Array.from() instead of spread operator  for mapping over iterables ,because it won’t creat an intermediate array</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#use-object-destructuring-when-accessing-and-using-multiple-properties-of-an-object"><span class="nav-number">11.</span> <span class="nav-text">use object destructuring when accessing and using multiple properties of an object.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#use-array-destructuring-instead-of-arr-0"><span class="nav-number">12.</span> <span class="nav-text">use array destructuring instead of arr[0].</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#use-object-destructuring-if-u-dont-need-certaine-property"><span class="nav-number">13.</span> <span class="nav-text">use object destructuring if u dont need certaine property</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#use-instead-of-‘’-or-“”"><span class="nav-number">14.</span> <span class="nav-text">use `` instead of ‘’ or “”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dont-declare-function-in-a-block-like-if-while-etc"><span class="nav-number">15.</span> <span class="nav-text">dont declare function in a block like if,while ,etc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#use-spread-operator-…-instead-of-arguments-because-arguments-is-a-Array-like-Array-and-not-a-real-Array"><span class="nav-number">16.</span> <span class="nav-text">use spread operator(…) instead of arguments,because arguments is a Array-like Array and not a real Array</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#use-void-0-instead-of-undefined"><span class="nav-number">17.</span> <span class="nav-text">use void 0 instead of undefined</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#in-a-module-with-single-export-use-default-export-instead-of-name-export"><span class="nav-number">18.</span> <span class="nav-text">in a module with single export use default export instead of name export</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">ZJS</p>
+  <div class="site-description" itemprop="description">你找到我了呀！</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tagstags/">
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZJS</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
