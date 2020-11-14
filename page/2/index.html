@@ -148,6 +148,90 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/fnlearner/2020/08/30/mianshi2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="ZJS">
+      <meta itemprop="description" content="你找到我了呀！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Personal Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/30/mianshi2/" class="post-title-link" itemprop="url">面试总结(2)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-30 21:31:44" itemprop="dateCreated datePublished" datetime="2020-08-30T21:31:44+08:00">2020-08-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-07 17:41:15" itemprop="dateModified" datetime="2020-10-07T17:41:15+08:00">2020-10-07</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="https握手过程"><a href="#https握手过程" class="headerlink" title="https握手过程"></a>https握手过程</h2><ol>
+<li>服务端生成公私钥</li>
+<li>服务端把公钥，加密的hash算法以及个人信息发送给CA</li>
+<li>CA把服务端发送来的明文信息用服务端发来的hash算法加密生成密文，然后用CA的私钥对密文进行加密生成签名</li>
+<li>CA把证书发还给服务端，证书内容包括签名，以及证书的颁发对象以及 颁发者等信息。</li>
+<li>服务端把证书和明文信息一起发送给客户端</li>
+<li>客户端接收服务端发送的证书，用内置在操作系统的公钥对签名进行解密，然后用服务端发来对hash算法对明文进行加密，如果两次生成的字符串相等，那么数据是可信的</li>
+<li>客户端在本地随机生成random1，发送给服务端</li>
+<li>服务端在本地随机生成random2，发送给客户端</li>
+<li>客户端在本地随机生成random3，然后用服务端发来的公钥对random3加密发送给服务端</li>
+<li>客户端服务端根据三个随机random各自生成对称密钥</li>
+<li>用生成的对称密钥加密一段握手信息，发送给服务端。双端验证。</li>
+<li>后续加密用生成的对称密钥加密
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/08/30/mianshi2/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://github.com/fnlearner/2020/08/15/vue-react-new-release/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -910,94 +994,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://github.com/fnlearner/2020/04/28/vuex/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="ZJS">
-      <meta itemprop="description" content="你找到我了呀！">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Personal Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/28/vuex/" class="post-title-link" itemprop="url">vuex</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-04-28 14:06:42" itemprop="dateCreated datePublished" datetime="2020-04-28T14:06:42+08:00">2020-04-28</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-07 17:41:15" itemprop="dateModified" datetime="2020-10-07T17:41:15+08:00">2020-10-07</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="vuex-简述"><a href="#vuex-简述" class="headerlink" title="vuex 简述"></a>vuex 简述</h2><p>vuex 本质上就是 vue 中的 mixin，store 在每个 vue 组建实例创建的时候通过 mixin 的方式注入的，mixin 就类似这样的格式</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">const mixComponent = &#123;</span><br><span class="line">    <span class="function"><span class="title">data</span></span>()&#123;</span><br><span class="line">        <span class="built_in">return</span> &#123;</span><br><span class="line">            message:<span class="string">'hello'</span>,</span><br><span class="line">            foo:<span class="string">'abc'</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">new Vue(&#123;</span><br><span class="line">    mixins:[mixComponent],</span><br><span class="line">    <span class="function"><span class="title">data</span></span>()&#123;</span><br><span class="line">        <span class="built_in">return</span> &#123;</span><br><span class="line">            message:<span class="string">'goodbye'</span>,</span><br><span class="line">            bar:<span class="string">'def'</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="function"><span class="title">created</span></span>()&#123;</span><br><span class="line">        console.log(this.<span class="variable">$data</span>)</span><br><span class="line">        <span class="comment"># =&gt; &#123;message:'goodbye',foo:'abc',bar:'def'&#125;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>当组建和混入的 mixins 含有同名选项时，这些选项将会以适当的方式进行合并，比如 mixins 中的 data 和组建的 data 有同名属性时，那么将会以组建中的数据为准。当具有同名的钩子函数时，那么同名的钩子函数将会组成一个数组，它们都将被调用。另外，mixins 中的钩子函数将会在组件自身钩子之前调用。<br>值为对象的选项时，它们将会被合并为一个对象，k-v 冲突时，取组件中的 kv。<br>而 vuex 正是全局的 mixins，将会在每个组件 create 的时候注入</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/04/28/vuex/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1063,7 +1063,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-count">41</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
