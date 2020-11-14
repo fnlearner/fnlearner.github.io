@@ -30,7 +30,7 @@
 <meta property="og:image" content="https://github.com/images/svg-in-js/map.png">
 <meta property="og:image" content="https://github.com/images/svg-in-js/image.png">
 <meta property="og:image" content="https://github.com/images/svg-in-js/module.png">
-<meta property="og:updated_time" content="2020-10-13T15:12:19.226Z">
+<meta property="og:updated_time" content="2020-10-21T13:33:43.111Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在JS文件使用svg加载svg文件">
 <meta name="twitter:description" content="怎么在js文件中用引用svg文件使用webpack的require.context,它接收三个参数  要搜索的文件夹目录 是否还应该搜索它的子目录， 以及一个匹配文件的正则表达式。1const req = require.context(&apos;./svg&apos;, false, /\.svg$/)    req返回的是一个方法 1234function webpackContext(req) &amp;#123;">
@@ -176,10 +176,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-10-13 21:27:37 / 修改时间：23:12:19" itemprop="dateCreated datePublished" datetime="2020-10-13T21:27:37+08:00">2020-10-13</time>
+              <time title="创建时间：2020-10-13 21:27:37" itemprop="dateCreated datePublished" datetime="2020-10-13T21:27:37+08:00">2020-10-13</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-21 21:33:43" itemprop="dateModified" datetime="2020-10-21T21:33:43+08:00">2020-10-21</time>
+              </span>
 
           
 
@@ -207,7 +213,8 @@
 <ul>
 <li>id</li>
 <li>keys </li>
-<li>resolve<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">webpackContext.keys = <span class="keyword">function</span> <span class="function"><span class="title">webpackContextKeys</span></span>() &#123;</span><br><span class="line">	<span class="built_in">return</span> Object.keys(map);</span><br><span class="line">&#125;;</span><br><span class="line">webpackContext.resolve = webpackContextResolve;</span><br><span class="line">webpackContext.id = <span class="string">"./src/icons/svg sync \\.svg$"</span>;</span><br></pre></td></tr></table></figure>
+<li>resolve<a id="more"></a>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">webpackContext.keys = <span class="keyword">function</span> <span class="function"><span class="title">webpackContextKeys</span></span>() &#123;</span><br><span class="line">	<span class="built_in">return</span> Object.keys(map);</span><br><span class="line">&#125;;</span><br><span class="line">webpackContext.resolve = webpackContextResolve;</span><br><span class="line">webpackContext.id = <span class="string">"./src/icons/svg sync \\.svg$"</span>;</span><br></pre></td></tr></table></figure>
 
 </li>
 </ul>
@@ -312,7 +319,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">39</span>
+          <span class="site-state-item-count">40</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
