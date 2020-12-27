@@ -155,6 +155,18 @@
       </tags>
   </entry>
   <entry>
+    <title>部署hexo踩坑记录</title>
+    <url>/2020/11/14/bugsForNode/</url>
+    <content><![CDATA[<p>在执行下面这句代码的时候</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g -d</span><br></pre></td></tr></table></figure>
+
+<p>报错信息</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Something<span class="string">'s wrong. Maybe you can find the solution here: https://hexo.io/docs/troubleshooting.html</span></span><br><span class="line"><span class="string">TypeError [ERR_INVALID_ARG_TYPE]: The "mode" argument must be integer. Received an instance of Object</span></span><br><span class="line"><span class="string">    at copyFile (fs.js:1924:10)</span></span><br><span class="line"><span class="string">    at tryCatcher (/Users/zjs/Desktop/blog/node_modules/bluebird/js/release/util.js:16:23)</span></span><br><span class="line"><span class="string">    at ret (eval at makeNodePromisifiedEval (/Users/zjs/.nvm/versions/node/v14.10.0/lib/node_modules/hexo-cli/node_modules/bluebird/js/release/promisify.js:184:12), &lt;anonymous&gt;:13:39)</span></span><br></pre></td></tr></table></figure>
+
+<p>解决方案<br> NodeJs 版本从 14 回到 12 就🉑️！</p>
+]]></content>
+  </entry>
+  <entry>
     <title>ObjectKeys</title>
     <url>/2020/07/07/ObjectKeys/</url>
     <content><![CDATA[<h3 id="Object-keys"><a href="#Object-keys" class="headerlink" title="Object.keys"></a>Object.keys</h3><p>上一个Object.keys()在js中的用法</p>
@@ -245,6 +257,24 @@
       </tags>
   </entry>
   <entry>
+    <title>Chrome调试工具的那点事</title>
+    <url>/2019/09/27/chorme-panel/</url>
+    <content><![CDATA[<h3 id><a href="#" class="headerlink" title="$_"></a>$_</h3><p>调试的过程中，你经常会通过打印查看一些变量的值，但如果你想看一下上次执行的结果呢？再输一遍表达式吗</p>
+<a id="more"></a>
+<p>这时候 $_ 就派上了用场，$_ 是对上次执行的结果的 引用 ：<br><img src="/images/chrome_panel/demo1.png" alt="demo"></p>
+<h3 id="-1"><a href="#-1" class="headerlink" title="$$"></a>$$</h3><p>用Jquery库的同学都知道$是Jquery的缩写，在Chrome的调试面板中，如果你没有定义$这个变量，它在 console 中就是对这一大串函数 document.querySelector 的别名。$$则是==Array.from(document.querySelector),返回的是一个数组，而不是一个nodeList，可以帮我们省却很多时间</p>
+<h3 id="0"><a href="#0" class="headerlink" title="$0"></a>$0</h3><p>$0保存的是当前选中节点的引用,$1是上个节点，$2是上上个,到4截止。</p>
+<h3 id="截屏"><a href="#截屏" class="headerlink" title="截屏"></a>截屏</h3><p>截屏的时候你们肯定用的是qq或者tim的ctrl+alt+a或者微信的alt+a，其实浏览器本身也支持截屏<br><img src="/images/chrome_panel/demo2.gif" alt="图片"></p>
+<h3 id="切换主题"><a href="#切换主题" class="headerlink" title="切换主题"></a>切换主题</h3><p><img src="/images/chrome_panel/demo3.gif" alt="图片"></p>
+<p>PS:Ummm,还有其他命令我就不玩啦。忘了说，ctrl+shift+p打开那个command面板</p>
+<h3 id="打断点"><a href="#打断点" class="headerlink" title="打断点"></a>打断点</h3><p>大部分人打断点都是这样打滴<br><img src="/images/chrome_panel/demo4.png" alt="图片"><br>然鹅如果你只想看第50次循环中的数据是什么样的，难道需要前面的49次都断电吗？烦不烦？所以你可以酱紫：<br><img src="/images/chrome_panel/demo5.gif" alt="图片"></p>
+<p>设置条件断点后，可以指定在某个条件的时候断点，并且在右侧可以移除所有断点而不用手动一个个点取消。</p>
+]]></content>
+      <tags>
+        <tag>Chrome</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>axios</title>
     <url>/2020/09/25/axios/</url>
     <content><![CDATA[<h3 id="为什么-axios-既可以用-axios-这样请求-，也可以-axios-get-这样请求？"><a href="#为什么-axios-既可以用-axios-这样请求-，也可以-axios-get-这样请求？" class="headerlink" title="为什么 axios 既可以用 axios({})这样请求 ，也可以 axios.get()这样请求？"></a>为什么 axios 既可以用 axios({})这样请求 ，也可以 axios.get()这样请求？</h3><p>在使<code>axios.create</code>的时候,调用了这个方法</p>
@@ -273,36 +303,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>部署hexo踩坑记录</title>
-    <url>/2020/11/14/bugsForNode/</url>
-    <content><![CDATA[<p>在执行下面这句代码的时候</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g -d</span><br></pre></td></tr></table></figure>
-
-<p>报错信息</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Something<span class="string">'s wrong. Maybe you can find the solution here: https://hexo.io/docs/troubleshooting.html</span></span><br><span class="line"><span class="string">TypeError [ERR_INVALID_ARG_TYPE]: The "mode" argument must be integer. Received an instance of Object</span></span><br><span class="line"><span class="string">    at copyFile (fs.js:1924:10)</span></span><br><span class="line"><span class="string">    at tryCatcher (/Users/zjs/Desktop/blog/node_modules/bluebird/js/release/util.js:16:23)</span></span><br><span class="line"><span class="string">    at ret (eval at makeNodePromisifiedEval (/Users/zjs/.nvm/versions/node/v14.10.0/lib/node_modules/hexo-cli/node_modules/bluebird/js/release/promisify.js:184:12), &lt;anonymous&gt;:13:39)</span></span><br></pre></td></tr></table></figure>
-
-<p>解决方案<br> NodeJs 版本从 14 回到 12 就🉑️！</p>
-]]></content>
-  </entry>
-  <entry>
-    <title>Chrome调试工具的那点事</title>
-    <url>/2019/09/27/chorme-panel/</url>
-    <content><![CDATA[<h3 id><a href="#" class="headerlink" title="$_"></a>$_</h3><p>调试的过程中，你经常会通过打印查看一些变量的值，但如果你想看一下上次执行的结果呢？再输一遍表达式吗</p>
-<a id="more"></a>
-<p>这时候 $_ 就派上了用场，$_ 是对上次执行的结果的 引用 ：<br><img src="/images/chrome_panel/demo1.png" alt="demo"></p>
-<h3 id="-1"><a href="#-1" class="headerlink" title="$$"></a>$$</h3><p>用Jquery库的同学都知道$是Jquery的缩写，在Chrome的调试面板中，如果你没有定义$这个变量，它在 console 中就是对这一大串函数 document.querySelector 的别名。$$则是==Array.from(document.querySelector),返回的是一个数组，而不是一个nodeList，可以帮我们省却很多时间</p>
-<h3 id="0"><a href="#0" class="headerlink" title="$0"></a>$0</h3><p>$0保存的是当前选中节点的引用,$1是上个节点，$2是上上个,到4截止。</p>
-<h3 id="截屏"><a href="#截屏" class="headerlink" title="截屏"></a>截屏</h3><p>截屏的时候你们肯定用的是qq或者tim的ctrl+alt+a或者微信的alt+a，其实浏览器本身也支持截屏<br><img src="/images/chrome_panel/demo2.gif" alt="图片"></p>
-<h3 id="切换主题"><a href="#切换主题" class="headerlink" title="切换主题"></a>切换主题</h3><p><img src="/images/chrome_panel/demo3.gif" alt="图片"></p>
-<p>PS:Ummm,还有其他命令我就不玩啦。忘了说，ctrl+shift+p打开那个command面板</p>
-<h3 id="打断点"><a href="#打断点" class="headerlink" title="打断点"></a>打断点</h3><p>大部分人打断点都是这样打滴<br><img src="/images/chrome_panel/demo4.png" alt="图片"><br>然鹅如果你只想看第50次循环中的数据是什么样的，难道需要前面的49次都断电吗？烦不烦？所以你可以酱紫：<br><img src="/images/chrome_panel/demo5.gif" alt="图片"></p>
-<p>设置条件断点后，可以指定在某个条件的时候断点，并且在右侧可以移除所有断点而不用手动一个个点取消。</p>
-]]></content>
-      <tags>
-        <tag>Chrome</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>思考如何使a==1&amp;&amp;a==2&amp;&amp;a==3为true</title>
     <url>/2019/11/01/closure/</url>
     <content><![CDATA[<p>涉及运算符比较过程，运算符在比较两个值是否相等的时候做了什么,第二个涉及闭包JS比较两个数值是否相等可以用== 和=== ，<a id="more"></a>其中 == 会有隐式类型转换的操作，===则不会,在两个数比较时，先调用valueOf,如果返回的不是原始类型，继续调用toString,如果不是原始类型，抛出异常</p>
@@ -317,22 +317,6 @@
       <tags>
         <tag>JavaScript</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>随笔</title>
-    <url>/2020/10/21/conclusion/</url>
-    <content><![CDATA[<h3 id="笔记一"><a href="#笔记一" class="headerlink" title="笔记一"></a>笔记一</h3><p>在vue项目中使用ts-class的形式来编写组件的时候，要记得在export上面➕<code>@Component</code>装饰器，不然组件不能正常注册</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">import &#123;</span><br><span class="line">    Component,</span><br><span class="line">    Vue,</span><br><span class="line">    InjectReactive</span><br><span class="line">&#125; from <span class="string">'vue-property-decorator'</span>;</span><br><span class="line"></span><br><span class="line">@Component</span><br><span class="line">class Child extends Vue &#123;</span><br><span class="line">    @InjectReactive() node: number;</span><br><span class="line">    <span class="function"><span class="title">mounted</span></span>() &#123;</span><br><span class="line">        console.log(this.node)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>如果在页面中需要用到子组件的情况，需要像这样注册,并且<code>@Component</code>装饰器只需要写一次</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">import &#123;</span><br><span class="line">    Vue,</span><br><span class="line">    Component,</span><br><span class="line">    ProvideReactive</span><br><span class="line">&#125; from <span class="string">'vue-property-decorator'</span>;</span><br><span class="line">import Child from <span class="string">'./child.vue'</span></span><br><span class="line">@Component(&#123;</span><br><span class="line">    components: &#123;</span><br><span class="line">        Child</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line">class Parent extends Vue &#123;</span><br><span class="line">    @ProvideReactive() node = &#123;&#125;</span><br><span class="line">    <span class="function"><span class="title">mounted</span></span>() &#123;</span><br><span class="line">        this.node = 1</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="笔记二-—-ProvideReactive来做数据透传的注意点"><a href="#笔记二-—-ProvideReactive来做数据透传的注意点" class="headerlink" title="笔记二 — ProvideReactive来做数据透传的注意点"></a>笔记二 — ProvideReactive来做数据透传的注意点</h3><p>如果在组件中使用Provide来进行数据透传的话，数据是不带响应式的。如果需要数据具有响应式，那么需要用ProvideReactive来做属性的透传，代码例子可以看上一个代码，另外由于在路由跳转的时候，有时候会有Provide的值重新定义的问题，这时候控制台会抛出异常，具体可以看这个<br><a href="https://github.com/kaorun343/vue-property-decorator/issues/277">issue</a>,有临时的解决方案</p>
-<h3 id="笔记三-—-在弹窗中保证数据的实时性"><a href="#笔记三-—-在弹窗中保证数据的实时性" class="headerlink" title="笔记三 — 在弹窗中保证数据的实时性"></a>笔记三 — 在弹窗中保证数据的实时性</h3><p>需要把数据以Provide的形式传递给弹窗，但是数据仅仅只在第一次显示的时候是正常的数据，在关闭弹窗后再一次开启弹窗，显示的数据是上一次的数据。原因暂时不知道。所以我在关闭弹窗的时候同时用v-if来销毁元素，这样每次打开的元素都是一个最新的元素，同时这个时候获取到的数据也是最新的数据。</p>
-<h3 id="笔记四-—-数据获取完后保证子组件获取最新的数据"><a href="#笔记四-—-数据获取完后保证子组件获取最新的数据" class="headerlink" title="笔记四 — 数据获取完后保证子组件获取最新的数据"></a>笔记四 — 数据获取完后保证子组件获取最新的数据</h3><p>在父组件用axios获取数据的时候，然后传递给子组件，但是子组件渲染的时候是定义时就给的默认值。<br>原因：父组件在请求数据的时候，子组件的生命周期已经走完并且已经渲染完成，所以这时候是拿不到请求后返回的真实数据<br>方案：我这里用v-if来判断获取的数据的长度是否为空来判断是否要渲染子组件，缺点：数据量很大的时候会有很长时间的空白。</p>
-<h3 id="笔记五-—-自定义组件绑定v-models"><a href="#笔记五-—-自定义组件绑定v-models" class="headerlink" title="笔记五 — 自定义组件绑定v-models"></a>笔记五 — 自定义组件绑定v-models</h3><p>想让自定义组件能够使用v-model语法糖，这样子组件的数据就可以实时的反馈到父组件中去</p>
-<p>在vue中，对input来说，v-model是value和input事件的语法糖，对于checkbox来说，监听的事件是change，给对应的元素添加对应的事件，然后在自组件emit出去，把相应的value值绑定到对应的dom元素中去。</p>
-]]></content>
   </entry>
   <entry>
     <title>GET 和 POST 的区别</title>
@@ -364,6 +348,57 @@
 <h3 id="delete"><a href="#delete" class="headerlink" title="delete"></a>delete</h3><p>删除方法用来删除资源</p>
 <h3 id="options"><a href="#options" class="headerlink" title="options"></a>options</h3><p>是复杂请求的预检请求</p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>今日随笔(7-29)</title>
+    <url>/2020/07/29/essay-1/</url>
+    <content><![CDATA[<h2 id="runAsync"><a href="#runAsync" class="headerlink" title="runAsync"></a>runAsync</h2><p>使用 web worker 在一个单独的线程中执行函数，能够允许执行不阻塞 UI 渲染的耗时函数</p>
+<ol>
+<li><p>使用 blob 形式的 url 来创建<code>worker</code>,<code>worker</code>的内容应该是函数的系列化版本，然后立即返回函数的返回值</p>
+</li>
+<li><p>返回值是一个<code>promise</code>，它监听了<code>worker</code>的<code>onmessage</code> and <code>onerror</code>两个事件，返回从主线程发送过来的数据或者是抛出一个错误</p>
+<a id="more"></a>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const runAsync = fn =&gt; &#123;</span><br><span class="line">  const worker = new Worker(</span><br><span class="line">    URL.createObjectURL(new Blob([`postMessage((<span class="variable">$&#123;fn&#125;</span>)());`]), &#123;</span><br><span class="line">      <span class="built_in">type</span>: <span class="string">'application/javascript; charset=utf-8'</span></span><br><span class="line">    &#125;)</span><br><span class="line">  );</span><br><span class="line">  <span class="built_in">return</span> new Promise((res, rej) =&gt; &#123;</span><br><span class="line">    worker.onmessage = (&#123; data &#125;) =&gt; &#123;</span><br><span class="line">      res(data), worker.terminate();</span><br><span class="line">    &#125;;</span><br><span class="line">    worker.onerror = err =&gt; &#123;</span><br><span class="line">      rej(err), worker.terminate();</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>example</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"> const longRunningFunction = () =&gt; &#123;</span><br><span class="line">      <span class="built_in">let</span> result = 0;</span><br><span class="line">      <span class="keyword">for</span> (<span class="built_in">let</span> i = 0; i &lt; 1000; i++)</span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">let</span> j = 0; j &lt; 700; j++)</span><br><span class="line">          <span class="keyword">for</span> (<span class="built_in">let</span> k = 0; k &lt; 300; k++) result = result + i + j + k;</span><br><span class="line"></span><br><span class="line">      <span class="built_in">return</span> result;</span><br><span class="line">&#125;;</span><br><span class="line">runAsync(longRunningFunction).<span class="keyword">then</span>(console.log); // 209685000000</span><br></pre></td></tr></table></figure>
+
+<p>然后由于代码是在不同的上下文执行的，因此所有的变量以及函数声明都要在内部定义,<br>比如下面这个是不行滴。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">let</span> outsideVariable = 50;</span><br><span class="line">runAsync(() =&gt; typeof outsideVariable).<span class="keyword">then</span>(console.log); // <span class="string">'undefined'</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Copy-to-Clipboard"><a href="#Copy-to-Clipboard" class="headerlink" title="Copy to Clipboard"></a>Copy to Clipboard</h2><ol>
+<li>创建一个<code>textarea</code>或者<code>input</code>元素添加到<code>document</code>中，让它的值等于要我们想要复制到粘贴板上的值</li>
+<li>使用<code>HTMLInputElement.select()</code> 选择 刚刚创建的元素的内容</li>
+<li>调用<code>Document.execCommand(&#39;copy&#39;)</code>复制刚刚选中的内容</li>
+<li>将刚刚创建的元素移除</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const copy = val=&gt;&#123;</span><br><span class="line">    const el = document.createElement(<span class="string">'input'</span>)</span><br><span class="line">    input.value = val</span><br><span class="line">    document.body.appendChild(el)</span><br><span class="line">    el.select()</span><br><span class="line">    document.execCommand(<span class="string">'copy'</span>)</span><br><span class="line">    documnet.body.removeChild(el)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>但是在执行这个方法的时候，在插入以及移除元素的时候可能会发生闪烁，一个常见的解决方案就是把创建的这个元素放置在不可见区域，看一下改造后的方法</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const copyToClipboard = str =&gt; &#123;</span><br><span class="line">  const el = document.createElement(<span class="string">'textarea'</span>);</span><br><span class="line">  el.value = str;</span><br><span class="line">  el.setAttribute(<span class="string">'readonly'</span>, <span class="string">''</span>);</span><br><span class="line">  el.style.position = <span class="string">'absolute'</span>;</span><br><span class="line">  el.style.left = <span class="string">'-9999px'</span>;</span><br><span class="line">  document.body.appendChild(el);</span><br><span class="line">  el.select();</span><br><span class="line">  document.execCommand(<span class="string">'copy'</span>);</span><br><span class="line">  document.body.removeChild(el);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="修改-url-来重载页面"><a href="#修改-url-来重载页面" class="headerlink" title="修改 url 来重载页面"></a>修改 url 来重载页面</h2><br>
+
+<p><strong>使用 h5 的 history</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const nextURL = <span class="string">'https://my-website.com/page_b'</span>;</span><br><span class="line">const nextTitle = <span class="string">'My new page title'</span>;</span><br><span class="line">const nextState = &#123; additionalInformation: <span class="string">'Updated the URL with JS'</span> &#125;;</span><br><span class="line"><span class="comment"># 在浏览器历史新建一个入口并且无需重新加载</span></span><br><span class="line">window.history.pushState(nextState, nextTitle, nextURL);</span><br><span class="line"><span class="comment"># 取代当前入口</span></span><br><span class="line">window.history.replaceState(nextState, nextTitle, nextURL);</span><br></pre></td></tr></table></figure>
+
+<p>history api 只允许访问同源网站，所以你不能导航到域名完全不一样的网站</p>
+<p><strong>location</strong></p>
+<p>location api 是比较旧的东西了，它需要重载页面才可以改变浏览器记录</p>
+<h2 id="获取当前-url"><a href="#获取当前-url" class="headerlink" title="获取当前 url"></a>获取当前 url</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const getBaseUrl = url =&gt;&#123;</span><br><span class="line">    <span class="built_in">return</span> url.indexOf(<span class="string">'?'</span>) &gt;0 ?url.slice(0,url.indexOf(<span class="string">'?'</span>)):url</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>EXAMPLES</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">getBaseURL(<span class="string">'http://url.com/page?name=Adam&amp;surname=Smith'</span>);</span><br><span class="line"><span class="comment"># 'http://url.com/page'</span></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>essay</category>
+      </categories>
+      <tags>
+        <tag>essay</tag>
+      </tags>
   </entry>
   <entry>
     <title>今日随笔(7-30)</title>
@@ -418,55 +453,130 @@
       </tags>
   </entry>
   <entry>
-    <title>今日随笔(7-29)</title>
-    <url>/2020/07/29/essay-1/</url>
-    <content><![CDATA[<h2 id="runAsync"><a href="#runAsync" class="headerlink" title="runAsync"></a>runAsync</h2><p>使用 web worker 在一个单独的线程中执行函数，能够允许执行不阻塞 UI 渲染的耗时函数</p>
-<ol>
-<li><p>使用 blob 形式的 url 来创建<code>worker</code>,<code>worker</code>的内容应该是函数的系列化版本，然后立即返回函数的返回值</p>
-</li>
-<li><p>返回值是一个<code>promise</code>，它监听了<code>worker</code>的<code>onmessage</code> and <code>onerror</code>两个事件，返回从主线程发送过来的数据或者是抛出一个错误</p>
-<a id="more"></a>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const runAsync = fn =&gt; &#123;</span><br><span class="line">  const worker = new Worker(</span><br><span class="line">    URL.createObjectURL(new Blob([`postMessage((<span class="variable">$&#123;fn&#125;</span>)());`]), &#123;</span><br><span class="line">      <span class="built_in">type</span>: <span class="string">'application/javascript; charset=utf-8'</span></span><br><span class="line">    &#125;)</span><br><span class="line">  );</span><br><span class="line">  <span class="built_in">return</span> new Promise((res, rej) =&gt; &#123;</span><br><span class="line">    worker.onmessage = (&#123; data &#125;) =&gt; &#123;</span><br><span class="line">      res(data), worker.terminate();</span><br><span class="line">    &#125;;</span><br><span class="line">    worker.onerror = err =&gt; &#123;</span><br><span class="line">      rej(err), worker.terminate();</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+    <title>今日随笔(8-6)</title>
+    <url>/2020/08/06/essay-4/</url>
+    <content><![CDATA[<p>先看代码</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const a = 1</span><br><span class="line">[...[1,2,3]].forEach(item=&gt;console.log(item))</span><br></pre></td></tr></table></figure>
 
-</li>
-</ol>
-<p>example</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"> const longRunningFunction = () =&gt; &#123;</span><br><span class="line">      <span class="built_in">let</span> result = 0;</span><br><span class="line">      <span class="keyword">for</span> (<span class="built_in">let</span> i = 0; i &lt; 1000; i++)</span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">let</span> j = 0; j &lt; 700; j++)</span><br><span class="line">          <span class="keyword">for</span> (<span class="built_in">let</span> k = 0; k &lt; 300; k++) result = result + i + j + k;</span><br><span class="line"></span><br><span class="line">      <span class="built_in">return</span> result;</span><br><span class="line">&#125;;</span><br><span class="line">runAsync(longRunningFunction).<span class="keyword">then</span>(console.log); // 209685000000</span><br></pre></td></tr></table></figure>
+<p>乍一看，是不是感觉挺正常的，在浏览器的log窗口应该能输出1，2，3，才对<br>然后在浏览器跑一下，发现</p>
+<p><img src="/images/essay-4/unexpected_error.png.png" alt="error"></p>
+<p>然后emm排查了一下，语法是没问题的，浏览器版本是最新的开发版本，es6的语法肯定是支持的，那问题其实就是a=1 后面漏了分号，所以代码就成了这样</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const a = 1[...[1,2,3]].forEach(item=&gt;console.log(item))</span><br></pre></td></tr></table></figure>
 
-<p>然后由于代码是在不同的上下文执行的，因此所有的变量以及函数声明都要在内部定义,<br>比如下面这个是不行滴。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">let</span> outsideVariable = 50;</span><br><span class="line">runAsync(() =&gt; typeof outsideVariable).<span class="keyword">then</span>(console.log); // <span class="string">'undefined'</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="Copy-to-Clipboard"><a href="#Copy-to-Clipboard" class="headerlink" title="Copy to Clipboard"></a>Copy to Clipboard</h2><ol>
-<li>创建一个<code>textarea</code>或者<code>input</code>元素添加到<code>document</code>中，让它的值等于要我们想要复制到粘贴板上的值</li>
-<li>使用<code>HTMLInputElement.select()</code> 选择 刚刚创建的元素的内容</li>
-<li>调用<code>Document.execCommand(&#39;copy&#39;)</code>复制刚刚选中的内容</li>
-<li>将刚刚创建的元素移除</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const copy = val=&gt;&#123;</span><br><span class="line">    const el = document.createElement(<span class="string">'input'</span>)</span><br><span class="line">    input.value = val</span><br><span class="line">    document.body.appendChild(el)</span><br><span class="line">    el.select()</span><br><span class="line">    document.execCommand(<span class="string">'copy'</span>)</span><br><span class="line">    documnet.body.removeChild(el)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>但是在执行这个方法的时候，在插入以及移除元素的时候可能会发生闪烁，一个常见的解决方案就是把创建的这个元素放置在不可见区域，看一下改造后的方法</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const copyToClipboard = str =&gt; &#123;</span><br><span class="line">  const el = document.createElement(<span class="string">'textarea'</span>);</span><br><span class="line">  el.value = str;</span><br><span class="line">  el.setAttribute(<span class="string">'readonly'</span>, <span class="string">''</span>);</span><br><span class="line">  el.style.position = <span class="string">'absolute'</span>;</span><br><span class="line">  el.style.left = <span class="string">'-9999px'</span>;</span><br><span class="line">  document.body.appendChild(el);</span><br><span class="line">  el.select();</span><br><span class="line">  document.execCommand(<span class="string">'copy'</span>);</span><br><span class="line">  document.body.removeChild(el);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="修改-url-来重载页面"><a href="#修改-url-来重载页面" class="headerlink" title="修改 url 来重载页面"></a>修改 url 来重载页面</h2><br>
-
-<p><strong>使用 h5 的 history</strong></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const nextURL = <span class="string">'https://my-website.com/page_b'</span>;</span><br><span class="line">const nextTitle = <span class="string">'My new page title'</span>;</span><br><span class="line">const nextState = &#123; additionalInformation: <span class="string">'Updated the URL with JS'</span> &#125;;</span><br><span class="line"><span class="comment"># 在浏览器历史新建一个入口并且无需重新加载</span></span><br><span class="line">window.history.pushState(nextState, nextTitle, nextURL);</span><br><span class="line"><span class="comment"># 取代当前入口</span></span><br><span class="line">window.history.replaceState(nextState, nextTitle, nextURL);</span><br></pre></td></tr></table></figure>
-
-<p>history api 只允许访问同源网站，所以你不能导航到域名完全不一样的网站</p>
-<p><strong>location</strong></p>
-<p>location api 是比较旧的东西了，它需要重载页面才可以改变浏览器记录</p>
-<h2 id="获取当前-url"><a href="#获取当前-url" class="headerlink" title="获取当前 url"></a>获取当前 url</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const getBaseUrl = url =&gt;&#123;</span><br><span class="line">    <span class="built_in">return</span> url.indexOf(<span class="string">'?'</span>) &gt;0 ?url.slice(0,url.indexOf(<span class="string">'?'</span>)):url</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>EXAMPLES</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">getBaseURL(<span class="string">'http://url.com/page?name=Adam&amp;surname=Smith'</span>);</span><br><span class="line"><span class="comment"># 'http://url.com/page'</span></span><br></pre></td></tr></table></figure>
-
+<p>那代码成了这样那肯定不能正确解析了～</p>
+<p>果然，漏写分号不是好习惯～</p>
 ]]></content>
-      <categories>
-        <category>essay</category>
-      </categories>
+  </entry>
+  <entry>
+    <title>今日随笔(2020-10-11)</title>
+    <url>/2020/10/11/essay-5/</url>
+    <content><![CDATA[<h3 id="命令行文件的上传与下载"><a href="#命令行文件的上传与下载" class="headerlink" title="命令行文件的上传与下载"></a>命令行文件的上传与下载</h3><p>文件的上传和下载命令都是scp</p>
+<p><strong>上传</strong><br>从服务器上下载文件 scp username@servername:/path/filename /Users/mac/Desktop（本地目录，例如：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">scp root@47.98.37.170:/root/test.txt /Users/mac/Desktop就是将服务器上的/root/test.txt下载到本地的/Users/mac/Desktop目录下。注意两个地址之间有空格！</span><br></pre></td></tr></table></figure>
+
+<p><strong>下载</strong><br>上传本地文件到服务器 scp /path/filename username@servername:/path ;</p>
+<p>note： 下载命令就是将两个路径换一个位置就行了。</p>
+<h3 id="TS-4-0的一些更新"><a href="#TS-4-0的一些更新" class="headerlink" title="TS 4.0的一些更新"></a>TS 4.0的一些更新</h3><h4 id="类型解构"><a href="#类型解构" class="headerlink" title="类型解构"></a>类型解构</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> Strings = [string, string];</span><br><span class="line"><span class="built_in">type</span> Numbers = number[]</span><br><span class="line"></span><br><span class="line"><span class="built_in">type</span> Unbounded = [...Strings, ...Numbers, boolean];</span><br><span class="line"><span class="comment"># // [string, string, ...Array&lt;number | boolean&gt;]</span></span><br><span class="line"><span class="comment"># 按照官方的解释就是解构一个已知长度的类型的时候，那么最后的结果类型也是没有任何限制的，在解构类型之后添加的类型声明都要添加到被解构类型的类型中去</span></span><br></pre></td></tr></table></figure>
+
+<p>—待续哈，明天更新</p>
+]]></content>
       <tags>
-        <tag>essay</tag>
+        <tag>TypeScript Upload</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>今日随笔(2020-12-27)</title>
+    <url>/2020/12/27/essay-6/</url>
+    <content><![CDATA[<ol>
+<li>在vue ts class给数组添加值时报错<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> default class App&#123;</span><br><span class="line">    list =[]</span><br><span class="line">    <span class="function"><span class="title">_push</span></span>()&#123;</span><br><span class="line">        this.list.push(1)</span><br><span class="line">        <span class="comment"># error </span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>由于定义的list是never类型的数组，所以不能够直接添加元素，所以在定义数组的时候需要显示定义类型</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">list = [] as number[]</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>line-height 属性同样会影响伪元素的高度</li>
+<li>ts class 自定义vue双向绑定<br>v-model默认监听input事件，如果是checkbox或者radio<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">@Modle(<span class="string">'change'</span>) value:any</span><br><span class="line"><span class="comment"># 这样vue会监听change，$emit('change')改变外部绑定的值</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+]]></content>
+  </entry>
+  <entry>
+    <title>理解 flex-basis</title>
+    <url>/2020/11/14/flex/</url>
+    <content><![CDATA[<p>上个html代码</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&lt;div class=<span class="string">"parent"</span>&gt;</span><br><span class="line">  &lt;div class=<span class="string">"child"</span>&gt;Child&lt;/div&gt;</span><br><span class="line">  &lt;div class=<span class="string">"child"</span>&gt;Child&lt;/div&gt;</span><br><span class="line">  &lt;div class=<span class="string">"child"</span>&gt;Child&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<p>css≠</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">.parent &#123;</span><br><span class="line">  display: flex;</span><br><span class="line">&#125;</span><br><span class="line">.child &#123;</span><br><span class="line">  flex: 0 1 auto; /* Default flex value */</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<html>
+<style>
+body{
+    body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+}
+.parent {
+  display: flex;
+}
+.child {
+  flex: 0 1 auto; /* Default flex value */
+  /* 上面的代码相当于是
+  *flex-grow:0; flex-shrink:1;flex-basis:auto;s
+  *
+  */
+}
+.child-grow{
+    flex:1 0 auto;
+}
+.child-flex{
+    flex:1 1 auto
+}
+</style>
+<div class="parent">
+  <div class="child">Child</div>
+  <div class="child">Child</div>
+  <div class="child">Child</div>
+</div>
+</html>
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">.child &#123;</span><br><span class="line">  flex: [flex-grow] [flex-shrink] [flex-basis];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><span id="showCssText"><span></span></span></p>
+<p><button id="toggle">toggle</button></p>
+<script>
+const btn = document.getElementById("toggle");
+btn.addEventListener('click',function(){
+        const span = document.getElementById('showCssText');
+        [...document.getElementsByClassName('child')].forEach(item=>{
+            const classList = item.classList;
+            // console.log(classList)
+            if(classList.length === 1 ){
+                classList.add('child-grow')
+                span.innerText = 'flex:1 0 auto;'
+            }else if(classList.length === 2){
+                classList.add('child-flex')
+                span.innerText = 'flex:1 1 auto'
+            }else{
+                classList.remove('child-flex')
+                classList.remove('child-grow')
+                span.innerText = 'flex: 0 1 auto; '
+            }
+        })
+})
+</script>
+
+
+<p>flex-basic 默认是auto，告诉元素保持一个理想的尺寸；但是默认情况下的元素宽度是多少？auto告诉元素它的宽度由它的内容决定。为了让子元素占据父元素的所有空间，可以给子元素的宽度设置为<code>width:100%</code>,或者<code>flex-basis:100%</code>,或者<code>flex-grow:1</code>。</p>
+<p>当给flex 的第三值 ，也就是 flex-basis 设置成1000px时，它会试着占据1000px的空间，如果不行，它会等比例占据其他元素的空间，但是其他元素内的文本长度同样会影响这个元素的位置分配；但是在更小的屏幕上可能会发现实际宽度并没有1000px，这是因为给了shrink，这个值告诉元素需要它等值缩小</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">.child-three &#123;</span><br><span class="line">  flex: 0 1 1000px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果grow 和 shrink都是0，那么元素不会等比例压缩，basis如果超出父元素宽度，那直接超出</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">.child-three &#123;</span><br><span class="line">  flex: 0 0 1000px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
   </entry>
   <entry>
     <title>docker</title>
@@ -527,35 +637,19 @@
       </tags>
   </entry>
   <entry>
-    <title>今日随笔(8-6)</title>
-    <url>/2020/08/06/essay-4/</url>
-    <content><![CDATA[<p>先看代码</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const a = 1</span><br><span class="line">[...[1,2,3]].forEach(item=&gt;console.log(item))</span><br></pre></td></tr></table></figure>
-
-<p>乍一看，是不是感觉挺正常的，在浏览器的log窗口应该能输出1，2，3，才对<br>然后在浏览器跑一下，发现</p>
-<p><img src="/images/essay-4/unexpected_error.png.png" alt="error"></p>
-<p>然后emm排查了一下，语法是没问题的，浏览器版本是最新的开发版本，es6的语法肯定是支持的，那问题其实就是a=1 后面漏了分号，所以代码就成了这样</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const a = 1[...[1,2,3]].forEach(item=&gt;console.log(item))</span><br></pre></td></tr></table></figure>
-
-<p>那代码成了这样那肯定不能正确解析了～</p>
-<p>果然，漏写分号不是好习惯～</p>
-]]></content>
-  </entry>
-  <entry>
-    <title>今日随笔(2020-10-11)</title>
-    <url>/2020/10/11/essay-5/</url>
-    <content><![CDATA[<h3 id="命令行文件的上传与下载"><a href="#命令行文件的上传与下载" class="headerlink" title="命令行文件的上传与下载"></a>命令行文件的上传与下载</h3><p>文件的上传和下载命令都是scp</p>
-<p><strong>上传</strong><br>从服务器上下载文件 scp username@servername:/path/filename /Users/mac/Desktop（本地目录，例如：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">scp root@47.98.37.170:/root/test.txt /Users/mac/Desktop就是将服务器上的/root/test.txt下载到本地的/Users/mac/Desktop目录下。注意两个地址之间有空格！</span><br></pre></td></tr></table></figure>
-
-<p><strong>下载</strong><br>上传本地文件到服务器 scp /path/filename username@servername:/path ;</p>
-<p>note： 下载命令就是将两个路径换一个位置就行了。</p>
-<h3 id="TS-4-0的一些更新"><a href="#TS-4-0的一些更新" class="headerlink" title="TS 4.0的一些更新"></a>TS 4.0的一些更新</h3><h4 id="类型解构"><a href="#类型解构" class="headerlink" title="类型解构"></a>类型解构</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> Strings = [string, string];</span><br><span class="line"><span class="built_in">type</span> Numbers = number[]</span><br><span class="line"></span><br><span class="line"><span class="built_in">type</span> Unbounded = [...Strings, ...Numbers, boolean];</span><br><span class="line"><span class="comment"># // [string, string, ...Array&lt;number | boolean&gt;]</span></span><br><span class="line"><span class="comment"># 按照官方的解释就是解构一个已知长度的类型的时候，那么最后的结果类型也是没有任何限制的，在解构类型之后添加的类型声明都要添加到被解构类型的类型中去</span></span><br></pre></td></tr></table></figure>
-
-<p>—待续哈，明天更新</p>
+    <title>内网穿透</title>
+    <url>/2020/01/08/intranet-contacts/</url>
+    <content><![CDATA[<p>内网穿透就是把本地服务映射到具有公网IP地址的服务器上，通过访问在公网上的机器，就可以访问到内网</p>
+<a id="more"></a>
+<p>工具挺多的，今天刚用的ngrok，感觉不太稳定，不过能凑活用吧，内网穿透这玩意儿对移动端开发来说挺方便的，把电脑上的本地服务映射到外网端口，然后这样手机也就可以访问在电脑上的服务了，也能热更</p>
+<p>使用也挺方便的，google搜索ngrok，然后下载</p>
+<p><img src="/images/intranet-contacts/demo1.png" alt="图片"></p>
+<p>然后就是这样了</p>
+<p><img src="/images/intranet-contacts/demo2.png" alt="图片"></p>
+<p>然后你发现不管本地还是ngrok给你生成的地址，你都可以访问到本地开启的服务，但是每次开启的时候IP都不一样hhh</p>
 ]]></content>
       <tags>
-        <tag>TypeScript Upload</tag>
+        <tag>tool</tag>
       </tags>
   </entry>
   <entry>
@@ -661,84 +755,9 @@
         <category>git</category>
       </categories>
       <tags>
-        <tag>git</tag>
         <tag>tool</tag>
+        <tag>git</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>理解 flex-basis</title>
-    <url>/2020/11/14/flex/</url>
-    <content><![CDATA[<p>上个html代码</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&lt;div class=<span class="string">"parent"</span>&gt;</span><br><span class="line">  &lt;div class=<span class="string">"child"</span>&gt;Child&lt;/div&gt;</span><br><span class="line">  &lt;div class=<span class="string">"child"</span>&gt;Child&lt;/div&gt;</span><br><span class="line">  &lt;div class=<span class="string">"child"</span>&gt;Child&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
-
-<p>css</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">.parent &#123;</span><br><span class="line">  display: flex;</span><br><span class="line">&#125;</span><br><span class="line">.child &#123;</span><br><span class="line">  flex: 0 1 auto; /* Default flex value */</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<html>
-<style>
-body{
-    body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
-    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-}
-}
-.parent {
-  display: flex;
-}
-.child {
-  flex: 0 1 auto; /* Default flex value */
-  /* 上面的代码相当于是
-  *flex-grow:0; flex-shrink:1;flex-basis:auto;s
-  *
-  */
-}
-.child-grow{
-    flex:1 0 auto;
-}
-.child-flex{
-    flex:1 1 auto
-}
-</style>
-<div class="parent">
-  <div class="child">Child</div>
-  <div class="child">Child</div>
-  <div class="child">Child</div>
-</div>
-</html>
-
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">.child &#123;</span><br><span class="line">  flex: [flex-grow] [flex-shrink] [flex-basis];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><span id="showCssText"><span></span></span></p>
-<p><button id="toggle">toggle</button></p>
-<script>
-const btn = document.getElementById("toggle");
-btn.addEventListener('click',function(){
-        const span = document.getElementById('showCssText');
-        [...document.getElementsByClassName('child')].forEach(item=>{
-            const classList = item.classList;
-            // console.log(classList)
-            if(classList.length === 1 ){
-                classList.add('child-grow')
-                span.innerText = 'flex:1 0 auto;'
-            }else if(classList.length === 2){
-                classList.add('child-flex')
-                span.innerText = 'flex:1 1 auto'
-            }else{
-                classList.remove('child-flex')
-                classList.remove('child-grow')
-                span.innerText = 'flex: 0 1 auto; '
-            }
-        })
-})
-</script>
-
-
-<p>flex-basic 默认是auto，告诉元素保持一个理想的尺寸；但是默认情况下的元素宽度是多少？auto告诉元素它的宽度由它的内容决定。为了让子元素占据父元素的所有空间，可以给子元素的宽度设置为<code>width:100%</code>,或者<code>flex-basis:100%</code>,或者<code>flex-grow:1</code>。</p>
-<p>当给flex 的第三值 ，也就是 flex-basis 设置成1000px时，它会试着占据1000px的空间，如果不行，它会等比例占据其他元素的空间，但是其他元素内的文本长度同样会影响这个元素的位置分配；但是在更小的屏幕上可能会发现实际宽度并没有1000px，这是因为给了shrink，这个值告诉元素需要它等值缩小</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">.child-three &#123;</span><br><span class="line">  flex: 0 1 1000px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>如果grow 和 shrink都是0，那么元素不会等比例压缩，basis如果超出父元素宽度，那直接超出</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">.child-three &#123;</span><br><span class="line">  flex: 0 0 1000px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
   </entry>
   <entry>
     <title>基于Hexo搭建个人博客</title>
@@ -778,38 +797,6 @@ btn.addEventListener('click',function(){
       <tags>
         <tag>hexo</tag>
         <tag>blog</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>内网穿透</title>
-    <url>/2020/01/08/intranet-contacts/</url>
-    <content><![CDATA[<p>内网穿透就是把本地服务映射到具有公网IP地址的服务器上，通过访问在公网上的机器，就可以访问到内网</p>
-<a id="more"></a>
-<p>工具挺多的，今天刚用的ngrok，感觉不太稳定，不过能凑活用吧，内网穿透这玩意儿对移动端开发来说挺方便的，把电脑上的本地服务映射到外网端口，然后这样手机也就可以访问在电脑上的服务了，也能热更</p>
-<p>使用也挺方便的，google搜索ngrok，然后下载</p>
-<p><img src="/images/intranet-contacts/demo1.png" alt="图片"></p>
-<p>然后就是这样了</p>
-<p><img src="/images/intranet-contacts/demo2.png" alt="图片"></p>
-<p>然后你发现不管本地还是ngrok给你生成的地址，你都可以访问到本地开启的服务，但是每次开启的时候IP都不一样hhh</p>
-]]></content>
-      <tags>
-        <tag>tool</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>item</title>
-    <url>/2020/10/07/item/</url>
-    <content><![CDATA[<h3 id="Proposal-for-a-item-method-on-all-the-built-in-indexables"><a href="#Proposal-for-a-item-method-on-all-the-built-in-indexables" class="headerlink" title="Proposal for a .item() method on all the built-in indexables"></a>Proposal for a .item() method on all the built-in indexables</h3><p>这个方法是给有索引对象内置的一个方法，那么这个方法接收一个 number 类型的 index，对象能够根据 index 来确定值。那其实看到这会有个问题，具备索引的对象自己就能根据索引来确定值了，那么这个方法出现的意义是为什么？它其实是用负值的 index 来获取值，比如</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const arr =[1,2,3]</span><br><span class="line">arr.item(-1) // 3</span><br></pre></td></tr></table></figure>
-
-<p>是这样的用法。<br>那么这个方法是挂载在 String，Array，TypeArray 这三个数据结构的原型链上。<br>然后对于 dom 结构中类型 document.getElementById()这样的返回 NodeList 结构在经过 Array.from 转化之后同样会挂载 item 方法</p>
-<p>但是这个方法目前还处于 stage3 阶段，因此是不能直接使用的 hhhh。但是官方给出了 polyfill</p>
-<p>Like this:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> item(n) &#123;</span><br><span class="line">	<span class="comment"># ToInteger() abstract op</span></span><br><span class="line">	n = Math.trunc(n) || 0;</span><br><span class="line">	<span class="comment"># Allow negative indexing from the end</span></span><br><span class="line">	<span class="keyword">if</span>(n &lt; 0) n += this.length;</span><br><span class="line">	<span class="comment"># OOB access is guaranteed to return undefined</span></span><br><span class="line">	<span class="keyword">if</span>(n &lt; 0 || n &gt;= this.length) <span class="built_in">return</span> undefined;</span><br><span class="line">	<span class="comment"># Otherwise, this is just normal property access</span></span><br><span class="line">	<span class="built_in">return</span> this[n];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Other TypedArray constructors omitted for brevity.</span></span><br><span class="line"><span class="keyword">for</span> (<span class="built_in">let</span> C of [Array, String, Uint8Array]) &#123;</span><br><span class="line">    Object.defineProperty(C.prototype, <span class="string">"item"</span>,</span><br><span class="line">                          &#123; value: item,</span><br><span class="line">                            writable: <span class="literal">true</span>,</span><br><span class="line">                            enumerable: <span class="literal">false</span>,</span><br><span class="line">                            configurable: <span class="literal">true</span> &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <tags>
-        <tag>JavaScript</tag>
       </tags>
   </entry>
   <entry>
@@ -860,6 +847,34 @@ btn.addEventListener('click',function(){
 ]]></content>
       <tags>
         <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>leetcode第1003之检查替换后的词是否有效</title>
+    <url>/2019/08/08/leetcode-1003/</url>
+    <content><![CDATA[<p>描述：: 给定有效字符串 “abc”。<br>对于任何有效的字符串 V，我们可以将 V 分成两个部分 X 和 Y，使得 X + Y（X 与 Y 连接）等于 V。（X 或 Y 可以为空。）那么，X + “abc” + Y 也同样是有效的。<br>例如，如果 S = “abc”，则有效字符串的示例是：”abc”，”aabcbc”，”abcabc”，”abcabcababcc”。无效字符串的示例是：”abccba”，”ab”，”cababc”，”bac”。<br>如果给定字符串 S 有效，则返回 true；否则，返回 false</p>
+<a id="more"></a>
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * @param &#123;string&#125; S</span><br><span class="line"> * @<span class="built_in">return</span> &#123;boolean&#125;</span><br><span class="line"> */</span><br><span class="line">var isValid = <span class="keyword">function</span>(S) &#123;</span><br><span class="line">    <span class="built_in">let</span> temp= <span class="string">''</span>;</span><br><span class="line">    <span class="keyword">while</span>(S.indexOf(<span class="string">'abc'</span>)!=-1)&#123;</span><br><span class="line">        temp= S.split(<span class="string">'abc'</span>).filter(item=&gt;item).join(<span class="string">""</span>);</span><br><span class="line">        S = temp;</span><br><span class="line">    &#125;</span><br><span class="line">    const isFlag=(str)=&gt;&#123;</span><br><span class="line">         <span class="built_in">return</span> str ==<span class="string">''</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> isFlag(S);</span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>leetcode第70之爬楼梯</title>
+    <url>/2019/08/08/leetcode-70/</url>
+    <content><![CDATA[<p>描述：假设你正在爬楼梯。需要 n 阶你才能到达楼顶。</p>
+<p>每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？</p>
+<p>注意：给定 n 是一个正整数。<br>两种写法，一种递归，一种开循环。<br>写递归有一个问题，当数据量庞大的时候，递归会爆栈，开循环就不存在爆栈的问题，因为循环只是在一个调用栈执行的，并且不会像递归一样重复计算值。</p>
+<a id="more"></a>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 爬楼梯</span><br><span class="line"> * @param &#123;number&#125; n</span><br><span class="line"> * @<span class="built_in">return</span> &#123;number&#125;</span><br><span class="line"> */</span><br><span class="line">var climbStairs = <span class="keyword">function</span>(n) &#123;</span><br><span class="line">    <span class="built_in">let</span> ans =[1,2];</span><br><span class="line">    <span class="keyword">if</span>(n==1||n==2)&#123;</span><br><span class="line">        <span class="built_in">return</span> ans[n-1];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">let</span> i = 2;i&lt;n;i++)&#123;</span><br><span class="line">        ans[i]=ans[i-1]+ans[i-2];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> ans[n-1]</span><br><span class="line"></span><br><span class="line">    // <span class="keyword">else</span> &#123;</span><br><span class="line">    //     <span class="built_in">return</span> climbStairs(n-1)+climbStairs(n-2);</span><br><span class="line">    // &#125;</span><br><span class="line">&#125;;</span><br><span class="line">console.log(<span class="string">"climbStairs(44):"</span>, climbStairs(44));</span><br><span class="line">// climbStairs(3)</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>leetcode</tag>
       </tags>
   </entry>
   <entry>
@@ -920,34 +935,6 @@ btn.addEventListener('click',function(){
       </tags>
   </entry>
   <entry>
-    <title>leetcode第1003之检查替换后的词是否有效</title>
-    <url>/2019/08/08/leetcode-1003/</url>
-    <content><![CDATA[<p>描述：: 给定有效字符串 “abc”。<br>对于任何有效的字符串 V，我们可以将 V 分成两个部分 X 和 Y，使得 X + Y（X 与 Y 连接）等于 V。（X 或 Y 可以为空。）那么，X + “abc” + Y 也同样是有效的。<br>例如，如果 S = “abc”，则有效字符串的示例是：”abc”，”aabcbc”，”abcabc”，”abcabcababcc”。无效字符串的示例是：”abccba”，”ab”，”cababc”，”bac”。<br>如果给定字符串 S 有效，则返回 true；否则，返回 false</p>
-<a id="more"></a>
-
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * @param &#123;string&#125; S</span><br><span class="line"> * @<span class="built_in">return</span> &#123;boolean&#125;</span><br><span class="line"> */</span><br><span class="line">var isValid = <span class="keyword">function</span>(S) &#123;</span><br><span class="line">    <span class="built_in">let</span> temp= <span class="string">''</span>;</span><br><span class="line">    <span class="keyword">while</span>(S.indexOf(<span class="string">'abc'</span>)!=-1)&#123;</span><br><span class="line">        temp= S.split(<span class="string">'abc'</span>).filter(item=&gt;item).join(<span class="string">""</span>);</span><br><span class="line">        S = temp;</span><br><span class="line">    &#125;</span><br><span class="line">    const isFlag=(str)=&gt;&#123;</span><br><span class="line">         <span class="built_in">return</span> str ==<span class="string">''</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> isFlag(S);</span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>leetcode</category>
-      </categories>
-      <tags>
-        <tag>leetcode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>leetcode第70之爬楼梯</title>
-    <url>/2019/08/08/leetcode-70/</url>
-    <content><![CDATA[<p>描述：假设你正在爬楼梯。需要 n 阶你才能到达楼顶。</p>
-<p>每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？</p>
-<p>注意：给定 n 是一个正整数。<br>两种写法，一种递归，一种开循环。<br>写递归有一个问题，当数据量庞大的时候，递归会爆栈，开循环就不存在爆栈的问题，因为循环只是在一个调用栈执行的，并且不会像递归一样重复计算值。</p>
-<a id="more"></a>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 爬楼梯</span><br><span class="line"> * @param &#123;number&#125; n</span><br><span class="line"> * @<span class="built_in">return</span> &#123;number&#125;</span><br><span class="line"> */</span><br><span class="line">var climbStairs = <span class="keyword">function</span>(n) &#123;</span><br><span class="line">    <span class="built_in">let</span> ans =[1,2];</span><br><span class="line">    <span class="keyword">if</span>(n==1||n==2)&#123;</span><br><span class="line">        <span class="built_in">return</span> ans[n-1];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">let</span> i = 2;i&lt;n;i++)&#123;</span><br><span class="line">        ans[i]=ans[i-1]+ans[i-2];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> ans[n-1]</span><br><span class="line"></span><br><span class="line">    // <span class="keyword">else</span> &#123;</span><br><span class="line">    //     <span class="built_in">return</span> climbStairs(n-1)+climbStairs(n-2);</span><br><span class="line">    // &#125;</span><br><span class="line">&#125;;</span><br><span class="line">console.log(<span class="string">"climbStairs(44):"</span>, climbStairs(44));</span><br><span class="line">// climbStairs(3)</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <tags>
-        <tag>leetcode</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>leetcode第73之矩阵置0</title>
     <url>/2019/08/08/leetcode-73/</url>
     <content><![CDATA[<p>描述：: 给定一个 m x n 的矩阵，如果一个元素为 0，则将其所在行和列的所有元素都设为 0。请使用原地算法。</p>
@@ -957,6 +944,21 @@ btn.addEventListener('click',function(){
 
 <p>题解：将0所在的行列储存起来作为标记，第二次循环的时候判断元素当前所在行或者列是否在标记的行或列即可</p>
 ]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>leetcode第55之跳跃游戏</title>
+    <url>/2019/08/08/leetcode_55/</url>
+    <content><![CDATA[<p> 描述:给定一个非负整数数组，你最初位于数组的第一个位置。</p>
+<p>数组中的每个元素代表你在该位置可以跳跃的最大长度。</p>
+<p>判断你是否能够到达最后一个位置</p>
+<a id="more"></a>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * @param &#123;number[]&#125; nums</span><br><span class="line"> * @<span class="built_in">return</span> &#123;boolean&#125;</span><br><span class="line"> */</span><br><span class="line"> </span><br><span class="line">var canJump = <span class="keyword">function</span>(nums) &#123;</span><br><span class="line">    const length = nums.length;</span><br><span class="line">    <span class="built_in">let</span> lastIndex = nums.length-1;</span><br><span class="line">    const res = [];</span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">let</span> i=lastIndex;i&gt;=0;--i)&#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[i]+i&gt;=lastIndex)&#123;</span><br><span class="line">             </span><br><span class="line">                lastIndex = i;</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> lastIndex == 0 ;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>leetcode</category>
       </categories>
@@ -980,19 +982,20 @@ btn.addEventListener('click',function(){
       </tags>
   </entry>
   <entry>
-    <title>leetcode第55之跳跃游戏</title>
-    <url>/2019/08/08/leetcode_55/</url>
-    <content><![CDATA[<p> 描述:给定一个非负整数数组，你最初位于数组的第一个位置。</p>
-<p>数组中的每个元素代表你在该位置可以跳跃的最大长度。</p>
-<p>判断你是否能够到达最后一个位置</p>
-<a id="more"></a>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * @param &#123;number[]&#125; nums</span><br><span class="line"> * @<span class="built_in">return</span> &#123;boolean&#125;</span><br><span class="line"> */</span><br><span class="line"> </span><br><span class="line">var canJump = <span class="keyword">function</span>(nums) &#123;</span><br><span class="line">    const length = nums.length;</span><br><span class="line">    <span class="built_in">let</span> lastIndex = nums.length-1;</span><br><span class="line">    const res = [];</span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">let</span> i=lastIndex;i&gt;=0;--i)&#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[i]+i&gt;=lastIndex)&#123;</span><br><span class="line">             </span><br><span class="line">                lastIndex = i;</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> lastIndex == 0 ;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>leetcode</category>
-      </categories>
-      <tags>
-        <tag>leetcode</tag>
-      </tags>
+    <title>随笔</title>
+    <url>/2020/10/21/conclusion/</url>
+    <content><![CDATA[<h3 id="笔记一"><a href="#笔记一" class="headerlink" title="笔记一"></a>笔记一</h3><p>在vue项目中使用ts-class的形式来编写组件的时候，要记得在export上面➕<code>@Component</code>装饰器，不然组件不能正常注册</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">import &#123;</span><br><span class="line">    Component,</span><br><span class="line">    Vue,</span><br><span class="line">    InjectReactive</span><br><span class="line">&#125; from <span class="string">'vue-property-decorator'</span>;</span><br><span class="line"></span><br><span class="line">@Component</span><br><span class="line">class Child extends Vue &#123;</span><br><span class="line">    @InjectReactive() node: number;</span><br><span class="line">    <span class="function"><span class="title">mounted</span></span>() &#123;</span><br><span class="line">        console.log(this.node)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果在页面中需要用到子组件的情况，需要像这样注册,并且<code>@Component</code>装饰器只需要写一次</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">import &#123;</span><br><span class="line">    Vue,</span><br><span class="line">    Component,</span><br><span class="line">    ProvideReactive</span><br><span class="line">&#125; from <span class="string">'vue-property-decorator'</span>;</span><br><span class="line">import Child from <span class="string">'./child.vue'</span></span><br><span class="line">@Component(&#123;</span><br><span class="line">    components: &#123;</span><br><span class="line">        Child</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line">class Parent extends Vue &#123;</span><br><span class="line">    @ProvideReactive() node = &#123;&#125;</span><br><span class="line">    <span class="function"><span class="title">mounted</span></span>() &#123;</span><br><span class="line">        this.node = 1</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="笔记二-—-ProvideReactive来做数据透传的注意点"><a href="#笔记二-—-ProvideReactive来做数据透传的注意点" class="headerlink" title="笔记二 — ProvideReactive来做数据透传的注意点"></a>笔记二 — ProvideReactive来做数据透传的注意点</h3><p>如果在组件中使用Provide来进行数据透传的话，数据是不带响应式的。如果需要数据具有响应式，那么需要用ProvideReactive来做属性的透传，代码例子可以看上一个代码，另外由于在路由跳转的时候，有时候会有Provide的值重新定义的问题，这时候控制台会抛出异常，具体可以看这个<br><a href="https://github.com/kaorun343/vue-property-decorator/issues/277">issue</a>,有临时的解决方案</p>
+<h3 id="笔记三-—-在弹窗中保证数据的实时性"><a href="#笔记三-—-在弹窗中保证数据的实时性" class="headerlink" title="笔记三 — 在弹窗中保证数据的实时性"></a>笔记三 — 在弹窗中保证数据的实时性</h3><p>需要把数据以Provide的形式传递给弹窗，但是数据仅仅只在第一次显示的时候是正常的数据，在关闭弹窗后再一次开启弹窗，显示的数据是上一次的数据。原因暂时不知道。所以我在关闭弹窗的时候同时用v-if来销毁元素，这样每次打开的元素都是一个最新的元素，同时这个时候获取到的数据也是最新的数据。</p>
+<h3 id="笔记四-—-数据获取完后保证子组件获取最新的数据"><a href="#笔记四-—-数据获取完后保证子组件获取最新的数据" class="headerlink" title="笔记四 — 数据获取完后保证子组件获取最新的数据"></a>笔记四 — 数据获取完后保证子组件获取最新的数据</h3><p>在父组件用axios获取数据的时候，然后传递给子组件，但是子组件渲染的时候是定义时就给的默认值。<br>原因：父组件在请求数据的时候，子组件的生命周期已经走完并且已经渲染完成，所以这时候是拿不到请求后返回的真实数据<br>方案：我这里用v-if来判断获取的数据的长度是否为空来判断是否要渲染子组件，缺点：数据量很大的时候会有很长时间的空白。</p>
+<h3 id="笔记五-—-自定义组件绑定v-models"><a href="#笔记五-—-自定义组件绑定v-models" class="headerlink" title="笔记五 — 自定义组件绑定v-models"></a>笔记五 — 自定义组件绑定v-models</h3><p>想让自定义组件能够使用v-model语法糖，这样子组件的数据就可以实时的反馈到父组件中去</p>
+<p>在vue中，对input来说，v-model是value和input事件的语法糖，对于checkbox来说，监听的事件是change，给对应的元素添加对应的事件，然后在自组件emit出去，把相应的value值绑定到对应的dom元素中去。</p>
+]]></content>
   </entry>
   <entry>
     <title>链表</title>
@@ -1054,6 +1057,181 @@ btn.addEventListener('click',function(){
       <tags>
         <tag>JavaScript</tag>
         <tag>listNode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>item</title>
+    <url>/2020/10/07/item/</url>
+    <content><![CDATA[<h3 id="Proposal-for-a-item-method-on-all-the-built-in-indexables"><a href="#Proposal-for-a-item-method-on-all-the-built-in-indexables" class="headerlink" title="Proposal for a .item() method on all the built-in indexables"></a>Proposal for a .item() method on all the built-in indexables</h3><p>这个方法是给有索引对象内置的一个方法，那么这个方法接收一个 number 类型的 index，对象能够根据 index 来确定值。那其实看到这会有个问题，具备索引的对象自己就能根据索引来确定值了，那么这个方法出现的意义是为什么？它其实是用负值的 index 来获取值，比如</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const arr =[1,2,3]</span><br><span class="line">arr.item(-1) // 3</span><br></pre></td></tr></table></figure>
+
+<p>是这样的用法。<br>那么这个方法是挂载在 String，Array，TypeArray 这三个数据结构的原型链上。<br>然后对于 dom 结构中类型 document.getElementById()这样的返回 NodeList 结构在经过 Array.from 转化之后同样会挂载 item 方法</p>
+<p>但是这个方法目前还处于 stage3 阶段，因此是不能直接使用的 hhhh。但是官方给出了 polyfill</p>
+<p>Like this:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> item(n) &#123;</span><br><span class="line">	<span class="comment"># ToInteger() abstract op</span></span><br><span class="line">	n = Math.trunc(n) || 0;</span><br><span class="line">	<span class="comment"># Allow negative indexing from the end</span></span><br><span class="line">	<span class="keyword">if</span>(n &lt; 0) n += this.length;</span><br><span class="line">	<span class="comment"># OOB access is guaranteed to return undefined</span></span><br><span class="line">	<span class="keyword">if</span>(n &lt; 0 || n &gt;= this.length) <span class="built_in">return</span> undefined;</span><br><span class="line">	<span class="comment"># Otherwise, this is just normal property access</span></span><br><span class="line">	<span class="built_in">return</span> this[n];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Other TypedArray constructors omitted for brevity.</span></span><br><span class="line"><span class="keyword">for</span> (<span class="built_in">let</span> C of [Array, String, Uint8Array]) &#123;</span><br><span class="line">    Object.defineProperty(C.prototype, <span class="string">"item"</span>,</span><br><span class="line">                          &#123; value: item,</span><br><span class="line">                            writable: <span class="literal">true</span>,</span><br><span class="line">                            enumerable: <span class="literal">false</span>,</span><br><span class="line">                            configurable: <span class="literal">true</span> &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>npm包的发布</title>
+    <url>/2020/09/02/npm-pkg/</url>
+    <content><![CDATA[<p><strong>趁趁趁着还不太忙，补个npm包的发布</strong></p>
+<ul>
+<li>那么首先就是<code>npm init -y</code>初始化一个npm仓库</li>
+<li>然后<code>touch index.js</code>创建index文件</li>
+<li>安装<code>chalk figlet commander</code>这几个包，⚠️一定一定要装开发依赖！！</li>
+<li>然后coding</li>
+<li>要记得在package文件加上bin字段，value是对象，key是要在<code>terminal</code>运行的命令，key对应的对象是要执行的文件</li>
+<li>⚠️一定一定要记得在执行的文件的头部要加<code>#!/usr/bin/env node</code>(心塞，查了好久才找到)！！！</li>
+<li>coding结束要用<code>npm link</code>本地调试一个，记住npm的repo不要定位到淘宝的去！！</li>
+<li>没有账号的记得注册，然后用npm login 登陆一下</li>
+<li>npm publish，⚠️一定一定要记得改版本号！！如果publish的时候403了，maybe是你的包重名了，记得去npm上查一下你的包有没有跟别人的重了(踩坑踩的那叫一踩一个准hhh)<br>Done！</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>npm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>面试总结(2)</title>
+    <url>/2020/08/30/mianshi2/</url>
+    <content><![CDATA[<h2 id="https握手过程"><a href="#https握手过程" class="headerlink" title="https握手过程"></a>https握手过程</h2><ol>
+<li>服务端生成公私钥</li>
+<li>服务端把公钥，加密的hash算法以及个人信息发送给CA</li>
+<li>CA把服务端发送来的明文信息用服务端发来的hash算法加密生成密文，然后用CA的私钥对密文进行加密生成签名</li>
+<li>CA把证书发还给服务端，证书内容包括签名，以及证书的颁发对象以及 颁发者等信息。</li>
+<li>服务端把证书和明文信息一起发送给客户端</li>
+<li>客户端接收服务端发送的证书，用内置在操作系统的公钥对签名进行解密，然后用服务端发来对hash算法对明文进行加密，如果两次生成的字符串相等，那么数据是可信的</li>
+<li>客户端在本地随机生成random1，发送给服务端</li>
+<li>服务端在本地随机生成random2，发送给客户端</li>
+<li>客户端在本地随机生成random3，然后用服务端发来的公钥对random3加密发送给服务端</li>
+<li>客户端服务端根据三个随机random各自生成对称密钥</li>
+<li>用生成的对称密钥加密一段握手信息，发送给服务端。双端验证。</li>
+<li>后续加密用生成的对称密钥加密<a id="more"></a>
+<h2 id="输入URL到页面渲染过程"><a href="#输入URL到页面渲染过程" class="headerlink" title="输入URL到页面渲染过程"></a>输入URL到页面渲染过程</h2></li>
+<li>浏览器进程拼接URL，加协议</li>
+<li>网络进程根据URl做DNS解析</li>
+<li>请求的资源返回给渲染进程</li>
+<li>渲染进程根据返回的状态码以及content-type来进行后续的流程</li>
+<li>是html类型则进行渲染流程</li>
+<li>生成CSSOM以及DOM</li>
+<li>生成Render树。</li>
+<li>根据render树生成图层树</li>
+<li>渲染进程对图层进行绘制，把图层绘制拆分成一个个的绘制指令，绘制指令组成绘制列表</li>
+<li>渲染进程的合成线程来进行实际的绘制操作</li>
+<li>合成线程在光栅化线程中执行光栅化（把图层转化成位图）</li>
+<li>光栅化采用GPU加速，因此实际绘制过程在GPU进程</li>
+<li>光栅化结束渲染进程通知浏览器进程</li>
+<li>浏览器进程接收drawquard命令，将其页面内容绘制到内存中，最后再将内存显示在屏幕上。</li>
+<li>done！</li>
+</ol>
+<h2 id="字符串翻转"><a href="#字符串翻转" class="headerlink" title="字符串翻转"></a>字符串翻转</h2><p>略</p>
+<h2 id="字符串转数组"><a href="#字符串转数组" class="headerlink" title="字符串转数组"></a>字符串转数组</h2><p>parseInt Number 两者区别<br>略</p>
+<h2 id="DNS解析过程"><a href="#DNS解析过程" class="headerlink" title="DNS解析过程"></a>DNS解析过程</h2><p>找本地缓存，没找到请求域名服务器</p>
+<h2 id="DNS劫持"><a href="#DNS劫持" class="headerlink" title="DNS劫持"></a>DNS劫持</h2><p>略</p>
+<h2 id="强缓存-协商缓存"><a href="#强缓存-协商缓存" class="headerlink" title="强缓存 协商缓存"></a>强缓存 协商缓存</h2><ul>
+<li><p>强缓存：</p>
+<ul>
+<li>Cache-Control</li>
+<li>Expire</li>
+</ul>
+</li>
+<li><p>协商缓存：</p>
+<ul>
+<li>If-Modified-Since</li>
+<li>Etag<br>其他略</li>
+</ul>
+</li>
+</ul>
+<h2 id="vue双向绑定原理"><a href="#vue双向绑定原理" class="headerlink" title="vue双向绑定原理"></a>vue双向绑定原理</h2><p>数据劫持 ➕ 发布订阅</p>
+<h2 id="vue响应式原理"><a href="#vue响应式原理" class="headerlink" title="vue响应式原理"></a>vue响应式原理</h2><p>依赖收集 + 依赖更细</p>
+<h2 id="react-fiber"><a href="#react-fiber" class="headerlink" title="react fiber"></a>react fiber</h2><ol>
+<li>根据component生成fiber树</li>
+<li>每个节点都对应一个fiber节点</li>
+<li>当前渲染在屏幕上的是current树</li>
+<li>current树有一个是alternate的指针指向wip树</li>
+<li>wip也有相同的指针指向current树</li>
+<li>wip树是fork了一份current树，这个叫做double buffering</li>
+<li>有两个阶段，一个是render，一个是commit</li>
+<li>render阶段可以被打断，commit阶段不可以被打断</li>
+<li>render阶段的任务主要根据插入的顺序来执行，通过使用requestIdlecallback这个api来实现任务的调度</li>
+<li>高优先级的任务可以打断低优先级的任务执行，比如用户输入等需要及时反馈的任务属于高优先级，而对于数据获取这类的任务属于低优先级</li>
+<li>react内部通过使用messageChannel来实现reqeustIdleCallback的polyfill</li>
+</ol>
+<h2 id="xss防御"><a href="#xss防御" class="headerlink" title="xss防御"></a>xss防御</h2><ol>
+<li>转码</li>
+<li>白名单</li>
+<li>过滤</li>
+</ol>
+<h2 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h2><ol>
+<li>SameSite<ul>
+<li>Lax</li>
+<li>Strict</li>
+<li>None</li>
+</ul>
+</li>
+<li>x-frame-option</li>
+<li>csp<ul>
+<li>default-src</li>
+<li>image-src</li>
+<li>media-src</li>
+<li>script-src</li>
+</ul>
+</li>
+<li>token</li>
+<li>refer/origin</li>
+</ol>
+<h2 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h2><ol>
+<li><p>webpack</p>
+<ul>
+<li>缩小构建体积（分包，tree-shaking，剔除第三方库不需要的模块）</li>
+<li>缓存（cache-loader，hard-source-webpack-plugin，dll）</li>
+<li>预加载（preload）</li>
+<li>减少请求资源数（mini-css-extract-plugin，html-webpack-plugin）</li>
+</ul>
+</li>
+<li><p>差异化服务</p>
+</li>
+<li><p>图片懒加载（非可视区域图片用placeholder替代或者低质量图片）</p>
+</li>
+<li><p>减少时间复杂度</p>
+</li>
+<li><p>非必要文件异步加载或动态加载模块</p>
+</li>
+<li><p>对核心内容启用SSR</p>
+</li>
+</ol>
+<h2 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h2><p>CORS</p>
+<p>img</p>
+<p>script</p>
+]]></content>
+      <tags>
+        <tag>article</tag>
+        <tag>conclusion</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>mutationObserver</title>
+    <url>/2019/12/18/mutationObserver/</url>
+    <content><![CDATA[<h3 id="MutationObserver-一个监听dom元素变化的接口"><a href="#MutationObserver-一个监听dom元素变化的接口" class="headerlink" title="MutationObserver,一个监听dom元素变化的接口"></a>MutationObserver,一个监听dom元素变化的接口</h3><p>dom元素观察者，监视 DOM 变动的接口，但是事件是异步的，需要等所有dom元素渲染完之后才执行<br>实例化一个observer对象,回调函数接收两个参数，一个是改变的属性所组成的一个对象数组，一个是实例本身</p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const observer = new MutationObserver(mutationCallback);</span><br></pre></td></tr></table></figure>
+
+<p>以下是它的属性介绍<br>|  属性   | 类型  | 描述  |<br>|  —-  | —-  | —- |<br>| childList  | Boolean |是否观察子节点的变动<br>| attributes  | Boolean |是否观察属性的变动<br>| characterData  | Boolean |是否节点内容或节点文本的变动<br>| subtree  | Boolean |是否观察所有后代节点的变动<br>| attributeOldValue  | Boolean |观察 attributes 变动时，是否记录变动前的属性值<br>| characterDataOldValue  | Boolean |观察 characterData 变动时，是否记录变动前的属性值<br>| attributeFilter  | Boolean |表示需要观察的特定属性（比如[‘class’,’src’]），不在此数组中的属性变化时将被忽略</p>
+<p>实例初始化后,实例调用observe来监听targetNode属性的变化，需要监听的属性放在config中</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const config = &#123;</span><br><span class="line">    attributes:true,</span><br><span class="line">    childList:true,</span><br><span class="line">    subtree:true</span><br><span class="line">&#125;</span><br><span class="line">const targetNode = document.getElementById(&apos;test&apos;);</span><br><span class="line">observer.observe(targetNode,config)</span><br></pre></td></tr></table></figure>
+
+<p>回调函数中可以这样写</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const mutationCallback = (mutationList)=&gt;&#123;</span><br><span class="line">  for(let mutation of mutationList)&#123;</span><br><span class="line">    const type = mutation.type;</span><br><span class="line">    switch(type)&#123;</span><br><span class="line">      case &apos;childList&apos;:</span><br><span class="line">        console.log(&apos;A child node has added or removed&apos;);</span><br><span class="line">        break;</span><br><span class="line">      case &apos;attributes&apos;:</span><br><span class="line">        console.log(`the $&#123;mutation.attributaName&#125; attribute was modified`);</span><br><span class="line">        break;</span><br><span class="line">      case &apos;subtree&apos;:</span><br><span class="line">        console.log(&apos;the subtree was modified&apos;;)</span><br><span class="line">        break</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>基本这样就可以完成了一个对dom元素的监听了</p>
+<p>当不想监听dom元素变化的时候,可以用disconnect来取消监听</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">observer.disconnnet()</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>mutation</tag>
       </tags>
   </entry>
   <entry>
@@ -1257,163 +1435,36 @@ btn.addEventListener('click',function(){
 ]]></content>
   </entry>
   <entry>
-    <title>面试总结(2)</title>
-    <url>/2020/08/30/mianshi2/</url>
-    <content><![CDATA[<h2 id="https握手过程"><a href="#https握手过程" class="headerlink" title="https握手过程"></a>https握手过程</h2><ol>
-<li>服务端生成公私钥</li>
-<li>服务端把公钥，加密的hash算法以及个人信息发送给CA</li>
-<li>CA把服务端发送来的明文信息用服务端发来的hash算法加密生成密文，然后用CA的私钥对密文进行加密生成签名</li>
-<li>CA把证书发还给服务端，证书内容包括签名，以及证书的颁发对象以及 颁发者等信息。</li>
-<li>服务端把证书和明文信息一起发送给客户端</li>
-<li>客户端接收服务端发送的证书，用内置在操作系统的公钥对签名进行解密，然后用服务端发来对hash算法对明文进行加密，如果两次生成的字符串相等，那么数据是可信的</li>
-<li>客户端在本地随机生成random1，发送给服务端</li>
-<li>服务端在本地随机生成random2，发送给客户端</li>
-<li>客户端在本地随机生成random3，然后用服务端发来的公钥对random3加密发送给服务端</li>
-<li>客户端服务端根据三个随机random各自生成对称密钥</li>
-<li>用生成的对称密钥加密一段握手信息，发送给服务端。双端验证。</li>
-<li>后续加密用生成的对称密钥加密<a id="more"></a>
-<h2 id="输入URL到页面渲染过程"><a href="#输入URL到页面渲染过程" class="headerlink" title="输入URL到页面渲染过程"></a>输入URL到页面渲染过程</h2></li>
-<li>浏览器进程拼接URL，加协议</li>
-<li>网络进程根据URl做DNS解析</li>
-<li>请求的资源返回给渲染进程</li>
-<li>渲染进程根据返回的状态码以及content-type来进行后续的流程</li>
-<li>是html类型则进行渲染流程</li>
-<li>生成CSSOM以及DOM</li>
-<li>生成Render树。</li>
-<li>根据render树生成图层树</li>
-<li>渲染进程对图层进行绘制，把图层绘制拆分成一个个的绘制指令，绘制指令组成绘制列表</li>
-<li>渲染进程的合成线程来进行实际的绘制操作</li>
-<li>合成线程在光栅化线程中执行光栅化（把图层转化成位图）</li>
-<li>光栅化采用GPU加速，因此实际绘制过程在GPU进程</li>
-<li>光栅化结束渲染进程通知浏览器进程</li>
-<li>浏览器进程接收drawquard命令，将其页面内容绘制到内存中，最后再将内存显示在屏幕上。</li>
-<li>done！</li>
+    <title>简单请求和复杂请求</title>
+    <url>/2020/09/16/request-of-complex-simply/</url>
+    <content><![CDATA[<h3 id="简单请求"><a href="#简单请求" class="headerlink" title="简单请求"></a>简单请求</h3><p>请求方法只能是以下三种：</p>
+<ol>
+<li>GET</li>
+<li>POST</li>
+<li>HEAD</li>
 </ol>
-<h2 id="字符串翻转"><a href="#字符串翻转" class="headerlink" title="字符串翻转"></a>字符串翻转</h2><p>略</p>
-<h2 id="字符串转数组"><a href="#字符串转数组" class="headerlink" title="字符串转数组"></a>字符串转数组</h2><p>parseInt Number 两者区别<br>略</p>
-<h2 id="DNS解析过程"><a href="#DNS解析过程" class="headerlink" title="DNS解析过程"></a>DNS解析过程</h2><p>找本地缓存，没找到请求域名服务器</p>
-<h2 id="DNS劫持"><a href="#DNS劫持" class="headerlink" title="DNS劫持"></a>DNS劫持</h2><p>略</p>
-<h2 id="强缓存-协商缓存"><a href="#强缓存-协商缓存" class="headerlink" title="强缓存 协商缓存"></a>强缓存 协商缓存</h2><ul>
-<li><p>强缓存：</p>
-<ul>
-<li>Cache-Control</li>
-<li>Expire</li>
-</ul>
-</li>
-<li><p>协商缓存：</p>
-<ul>
-<li>If-Modified-Since</li>
-<li>Etag<br>其他略</li>
-</ul>
-</li>
-</ul>
-<h2 id="vue双向绑定原理"><a href="#vue双向绑定原理" class="headerlink" title="vue双向绑定原理"></a>vue双向绑定原理</h2><p>数据劫持 ➕ 发布订阅</p>
-<h2 id="vue响应式原理"><a href="#vue响应式原理" class="headerlink" title="vue响应式原理"></a>vue响应式原理</h2><p>依赖收集 + 依赖更细</p>
-<h2 id="react-fiber"><a href="#react-fiber" class="headerlink" title="react fiber"></a>react fiber</h2><ol>
-<li>根据component生成fiber树</li>
-<li>每个节点都对应一个fiber节点</li>
-<li>当前渲染在屏幕上的是current树</li>
-<li>current树有一个是alternate的指针指向wip树</li>
-<li>wip也有相同的指针指向current树</li>
-<li>wip树是fork了一份current树，这个叫做double buffering</li>
-<li>有两个阶段，一个是render，一个是commit</li>
-<li>render阶段可以被打断，commit阶段不可以被打断</li>
-<li>render阶段的任务主要根据插入的顺序来执行，通过使用requestIdlecallback这个api来实现任务的调度</li>
-<li>高优先级的任务可以打断低优先级的任务执行，比如用户输入等需要及时反馈的任务属于高优先级，而对于数据获取这类的任务属于低优先级</li>
-<li>react内部通过使用messageChannel来实现reqeustIdleCallback的polyfill</li>
+<p>请求头只能用以下几种：</p>
+<ol>
+<li>Accept</li>
+<li>Accept-Language</li>
+<li>Content-Language</li>
+<li>Content-Type （需要注意额外的限制）</li>
+<li>DPR</li>
+<li>Downlink</li>
+<li>Save-Data</li>
+<li>Viewport-Width</li>
+<li>Width</li>
 </ol>
-<h2 id="xss防御"><a href="#xss防御" class="headerlink" title="xss防御"></a>xss防御</h2><ol>
-<li>转码</li>
-<li>白名单</li>
-<li>过滤</li>
+<p>Content——Type只能有以下几种</p>
+<ol>
+<li>text/plain</li>
+<li>multipart/form-data</li>
+<li>application/x-www-form-urlencoded</li>
 </ol>
-<h2 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h2><ol>
-<li>SameSite<ul>
-<li>Lax</li>
-<li>Strict</li>
-<li>None</li>
-</ul>
-</li>
-<li>x-frame-option</li>
-<li>csp<ul>
-<li>default-src</li>
-<li>image-src</li>
-<li>media-src</li>
-<li>script-src</li>
-</ul>
-</li>
-<li>token</li>
-<li>refer/origin</li>
-</ol>
-<h2 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h2><ol>
-<li><p>webpack</p>
-<ul>
-<li>缩小构建体积（分包，tree-shaking，剔除第三方库不需要的模块）</li>
-<li>缓存（cache-loader，hard-source-webpack-plugin，dll）</li>
-<li>预加载（preload）</li>
-<li>减少请求资源数（mini-css-extract-plugin，html-webpack-plugin）</li>
-</ul>
-</li>
-<li><p>差异化服务</p>
-</li>
-<li><p>图片懒加载（非可视区域图片用placeholder替代或者低质量图片）</p>
-</li>
-<li><p>减少时间复杂度</p>
-</li>
-<li><p>非必要文件异步加载或动态加载模块</p>
-</li>
-<li><p>对核心内容启用SSR</p>
-</li>
-</ol>
-<h2 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h2><p>CORS</p>
-<p>img</p>
-<p>script</p>
+<p>请求中的任意XMLHttpRequestUpload 对象均没有注册任何事件监听器；XMLHttpRequestUpload 对象可以使用 XMLHttpRequest.upload 属性访问。</p>
+<p>请求中没有使用 ReadableStream 对象。</p>
+<h3 id="复杂请求"><a href="#复杂请求" class="headerlink" title="复杂请求"></a>复杂请求</h3><p>非简单请求就是复杂亲求</p>
 ]]></content>
-      <tags>
-        <tag>article</tag>
-        <tag>conclusion</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>mutationObserver</title>
-    <url>/2019/12/18/mutationObserver/</url>
-    <content><![CDATA[<h3 id="MutationObserver-一个监听dom元素变化的接口"><a href="#MutationObserver-一个监听dom元素变化的接口" class="headerlink" title="MutationObserver,一个监听dom元素变化的接口"></a>MutationObserver,一个监听dom元素变化的接口</h3><p>dom元素观察者，监视 DOM 变动的接口，但是事件是异步的，需要等所有dom元素渲染完之后才执行<br>实例化一个observer对象,回调函数接收两个参数，一个是改变的属性所组成的一个对象数组，一个是实例本身</p>
-<a id="more"></a>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const observer = new MutationObserver(mutationCallback);</span><br></pre></td></tr></table></figure>
-
-<p>以下是它的属性介绍<br>|  属性   | 类型  | 描述  |<br>|  —-  | —-  | —- |<br>| childList  | Boolean |是否观察子节点的变动<br>| attributes  | Boolean |是否观察属性的变动<br>| characterData  | Boolean |是否节点内容或节点文本的变动<br>| subtree  | Boolean |是否观察所有后代节点的变动<br>| attributeOldValue  | Boolean |观察 attributes 变动时，是否记录变动前的属性值<br>| characterDataOldValue  | Boolean |观察 characterData 变动时，是否记录变动前的属性值<br>| attributeFilter  | Boolean |表示需要观察的特定属性（比如[‘class’,’src’]），不在此数组中的属性变化时将被忽略</p>
-<p>实例初始化后,实例调用observe来监听targetNode属性的变化，需要监听的属性放在config中</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const config = &#123;</span><br><span class="line">    attributes:true,</span><br><span class="line">    childList:true,</span><br><span class="line">    subtree:true</span><br><span class="line">&#125;</span><br><span class="line">const targetNode = document.getElementById(&apos;test&apos;);</span><br><span class="line">observer.observe(targetNode,config)</span><br></pre></td></tr></table></figure>
-
-<p>回调函数中可以这样写</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const mutationCallback = (mutationList)=&gt;&#123;</span><br><span class="line">  for(let mutation of mutationList)&#123;</span><br><span class="line">    const type = mutation.type;</span><br><span class="line">    switch(type)&#123;</span><br><span class="line">      case &apos;childList&apos;:</span><br><span class="line">        console.log(&apos;A child node has added or removed&apos;);</span><br><span class="line">        break;</span><br><span class="line">      case &apos;attributes&apos;:</span><br><span class="line">        console.log(`the $&#123;mutation.attributaName&#125; attribute was modified`);</span><br><span class="line">        break;</span><br><span class="line">      case &apos;subtree&apos;:</span><br><span class="line">        console.log(&apos;the subtree was modified&apos;;)</span><br><span class="line">        break</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>基本这样就可以完成了一个对dom元素的监听了</p>
-<p>当不想监听dom元素变化的时候,可以用disconnect来取消监听</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">observer.disconnnet()</span><br></pre></td></tr></table></figure>]]></content>
-      <tags>
-        <tag>mutation</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>npm包的发布</title>
-    <url>/2020/09/02/npm-pkg/</url>
-    <content><![CDATA[<p><strong>趁趁趁着还不太忙，补个npm包的发布</strong></p>
-<ul>
-<li>那么首先就是<code>npm init -y</code>初始化一个npm仓库</li>
-<li>然后<code>touch index.js</code>创建index文件</li>
-<li>安装<code>chalk figlet commander</code>这几个包，⚠️一定一定要装开发依赖！！</li>
-<li>然后coding</li>
-<li>要记得在package文件加上bin字段，value是对象，key是要在<code>terminal</code>运行的命令，key对应的对象是要执行的文件</li>
-<li>⚠️一定一定要记得在执行的文件的头部要加<code>#!/usr/bin/env node</code>(心塞，查了好久才找到)！！！</li>
-<li>coding结束要用<code>npm link</code>本地调试一个，记住npm的repo不要定位到淘宝的去！！</li>
-<li>没有账号的记得注册，然后用npm login 登陆一下</li>
-<li>npm publish，⚠️一定一定要记得改版本号！！如果publish的时候403了，maybe是你的包重名了，记得去npm上查一下你的包有没有跟别人的重了(踩坑踩的那叫一踩一个准hhh)<br>Done！</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>npm</tag>
-      </tags>
   </entry>
   <entry>
     <title>provide of vue3</title>
@@ -1867,70 +1918,6 @@ createComponentInstance
       </tags>
   </entry>
   <entry>
-    <title>简单请求和复杂请求</title>
-    <url>/2020/09/16/request-of-complex-simply/</url>
-    <content><![CDATA[<h3 id="简单请求"><a href="#简单请求" class="headerlink" title="简单请求"></a>简单请求</h3><p>请求方法只能是以下三种：</p>
-<ol>
-<li>GET</li>
-<li>POST</li>
-<li>HEAD</li>
-</ol>
-<p>请求头只能用以下几种：</p>
-<ol>
-<li>Accept</li>
-<li>Accept-Language</li>
-<li>Content-Language</li>
-<li>Content-Type （需要注意额外的限制）</li>
-<li>DPR</li>
-<li>Downlink</li>
-<li>Save-Data</li>
-<li>Viewport-Width</li>
-<li>Width</li>
-</ol>
-<p>Content——Type只能有以下几种</p>
-<ol>
-<li>text/plain</li>
-<li>multipart/form-data</li>
-<li>application/x-www-form-urlencoded</li>
-</ol>
-<p>请求中的任意XMLHttpRequestUpload 对象均没有注册任何事件监听器；XMLHttpRequestUpload 对象可以使用 XMLHttpRequest.upload 属性访问。</p>
-<p>请求中没有使用 ReadableStream 对象。</p>
-<h3 id="复杂请求"><a href="#复杂请求" class="headerlink" title="复杂请求"></a>复杂请求</h3><p>非简单请求就是复杂亲求</p>
-]]></content>
-  </entry>
-  <entry>
-    <title>在JS文件使用svg加载svg文件</title>
-    <url>/2020/10/13/svgInJS/</url>
-    <content><![CDATA[<h3 id="怎么在js文件中用引用svg文件"><a href="#怎么在js文件中用引用svg文件" class="headerlink" title="怎么在js文件中用引用svg文件"></a>怎么在js文件中用引用svg文件</h3><p>使用webpack的require.context,它接收三个参数</p>
-<ul>
-<li>要搜索的文件夹目录</li>
-<li>是否还应该搜索它的子目录，</li>
-<li>以及一个匹配文件的正则表达式。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const req = require.context(<span class="string">'./svg'</span>, <span class="literal">false</span>, /\.svg$/)</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<p>req返回的是一个方法</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> webpackContext(req) &#123;</span><br><span class="line">	var id = webpackContextResolve(req);</span><br><span class="line">	<span class="built_in">return</span> __webpack_require__(id);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>包含三个属性</p>
-<ul>
-<li>id</li>
-<li>keys </li>
-<li>resolve<a id="more"></a>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">webpackContext.keys = <span class="keyword">function</span> <span class="function"><span class="title">webpackContextKeys</span></span>() &#123;</span><br><span class="line">	<span class="built_in">return</span> Object.keys(map);</span><br><span class="line">&#125;;</span><br><span class="line">webpackContext.resolve = webpackContextResolve;</span><br><span class="line">webpackContext.id = <span class="string">"./src/icons/svg sync \\.svg$"</span>;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<p>再使用<code>const requireAll = requireContext =&gt; requireContext.keys().map(requireContext)</code>之后，会得到一个Module的数组,数组的每一项就是执行import后的Module<br><img src="/images/svg-in-js/map.png" alt="dom"><br><img src="/images/svg-in-js/image.png" alt="image"><br>Module数组<br><img src="/images/svg-in-js/module.png" alt="module"><br><strong>webpack_require</strong>方法</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> __webpack_require__(moduleId) &#123;</span><br><span class="line">/******/</span><br><span class="line">/******/ 		// Check <span class="keyword">if</span> module is <span class="keyword">in</span> cache</span><br><span class="line">/******/ 		<span class="keyword">if</span>(installedModules[moduleId]) &#123;</span><br><span class="line">/******/ 			<span class="built_in">return</span> installedModules[moduleId].exports;</span><br><span class="line">/******/ 		&#125;</span><br><span class="line">/******/ 		// Create a new module (and put it into the cache)</span><br><span class="line">/******/ 		var module = installedModules[moduleId] = &#123;</span><br><span class="line">/******/ 			i: moduleId,</span><br><span class="line">/******/ 			l: <span class="literal">false</span>,</span><br><span class="line">/******/ 			exports: &#123;&#125;,</span><br><span class="line">/******/ 			hot: hotCreateModule(moduleId),</span><br><span class="line">/******/ 			parents: (hotCurrentParentsTemp = hotCurrentParents, hotCurrentParents = [], hotCurrentParentsTemp),</span><br><span class="line">/******/ 			children: []</span><br><span class="line">/******/ 		&#125;;</span><br><span class="line">/******/</span><br><span class="line">/******/ 		// Execute the module <span class="keyword">function</span></span><br><span class="line">/******/ 		modules[moduleId].call(module.exports, module, module.exports, hotCreateRequire(moduleId));</span><br><span class="line">/******/</span><br><span class="line">/******/ 		// Flag the module as loaded</span><br><span class="line">/******/ 		module.l = <span class="literal">true</span>;</span><br><span class="line">/******/</span><br><span class="line">/******/ 		// Return the exports of the module</span><br><span class="line">/******/ 		<span class="built_in">return</span> module.exports;</span><br><span class="line">/******/ 	&#125;</span><br></pre></td></tr></table></figure>
-
-<p>svg example</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/***/ <span class="string">"./src/icons/svg/bug.svg"</span>:</span><br><span class="line">/*!*******************************!*\</span><br><span class="line">  !*** ./src/icons/svg/bug.svg ***!</span><br><span class="line">  \*******************************/</span><br><span class="line">/*! exports provided: default */</span><br><span class="line">/***/ (<span class="keyword">function</span>(module, __webpack_exports__, __webpack_require__) &#123;</span><br><span class="line"></span><br><span class="line"><span class="string">"use strict"</span>;</span><br><span class="line"><span class="built_in">eval</span>(<span class="string">"__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! svg-baker-runtime/browser-symbol */ \"./node_modules/svg-baker-runtime/browser-symbol.js\");\n/* harmony import */ var svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! svg-sprite-loader/runtime/browser-sprite.build */ \"./node_modules/svg-sprite-loader/runtime/browser-sprite.build.js\");\n/* harmony import */ var svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1__);\n\n\nvar symbol = new svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0___default.a(&#123;\n  \"id\": \"icon-bug\",\n  \"use\": \"icon-bug-usage\",\n  \"viewBox\": \"0 0 128 128\",\n  \"content\": \"&lt;symbol xmlns=\\\"http://www.w3.org/2000/svg\\\" viewBox=\\\"0 0 128 128\\\" id=\\\"icon-bug\\\"&gt;&lt;path d=\\\"M127.88 73.143c0 1.412-.506 2.635-1.518 3.669-1.011 1.033-2.209 1.55-3.592 1.55h-17.887c0 9.296-1.783 17.178-5.35 23.645l16.609 17.044c1.011 1.034 1.517 2.257 1.517 3.67 0 1.412-.506 2.635-1.517 3.668-.958 1.033-2.155 1.55-3.593 1.55-1.438 0-2.635-.517-3.593-1.55l-15.811-16.063a15.49 15.49 0 0 1-1.196 1.06c-.532.434-1.65 1.208-3.353 2.322a50.104 50.104 0 0 1-5.192 2.974c-1.758.87-3.94 1.658-6.546 2.364-2.607.706-5.189 1.06-7.748 1.06V47.044H58.89v73.062c-2.716 0-5.417-.367-8.106-1.102-2.688-.734-5.003-1.631-6.945-2.692a66.769 66.769 0 0 1-5.268-3.179c-1.571-1.057-2.73-1.94-3.476-2.65L33.9 109.34l-14.611 16.877c-1.066 1.14-2.344 1.711-3.833 1.711-1.277 0-2.422-.434-3.434-1.304-1.012-.978-1.557-2.187-1.635-3.627-.079-1.44.333-2.705 1.236-3.794l16.129-18.51c-3.087-6.197-4.63-13.644-4.63-22.342H5.235c-1.383 0-2.58-.517-3.592-1.55S.125 74.545.125 73.132c0-1.412.506-2.635 1.518-3.668 1.012-1.034 2.21-1.55 3.592-1.55h17.887V43.939L9.308 29.833c-1.012-1.033-1.517-2.256-1.517-3.669 0-1.412.505-2.635 1.517-3.668 1.012-1.034 2.21-1.55 3.593-1.55s2.58.516 3.593 1.55l13.813 14.106h67.396l13.814-14.106c1.012-1.034 2.21-1.55 3.592-1.55 1.384 0 2.581.516 3.593 1.55 1.012 1.033 1.518 2.256 1.518 3.668 0 1.413-.506 2.636-1.518 3.67l-13.814 14.105v23.975h17.887c1.383 0 2.58.516 3.593 1.55 1.011 1.033 1.517 2.256 1.517 3.668l-.005.01zM89.552 26.175H38.448c0-7.23 2.489-13.386 7.466-18.469C50.892 2.623 56.92.082 64 .082c7.08 0 13.108 2.541 18.086 7.624 4.977 5.083 7.466 11.24 7.466 18.469z\\\" /&gt;&lt;/symbol&gt;\"\n&#125;);\nvar result = svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1___default.a.add(symbol);\n/* harmony default export */ __webpack_exports__[\"default\"] = (symbol);//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9zcmMvaWNvbnMvc3ZnL2J1Zy5zdmcuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvaWNvbnMvc3ZnL2J1Zy5zdmc/MjI4NiJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgU3ByaXRlU3ltYm9sIGZyb20gXCJzdmctYmFrZXItcnVudGltZS9icm93c2VyLXN5bWJvbFwiO1xuaW1wb3J0IHNwcml0ZSBmcm9tIFwic3ZnLXNwcml0ZS1sb2FkZXIvcnVudGltZS9icm93c2VyLXNwcml0ZS5idWlsZFwiO1xudmFyIHN5bWJvbCA9IG5ldyBTcHJpdGVTeW1ib2woe1xuICBcImlkXCI6IFwiaWNvbi1idWdcIixcbiAgXCJ1c2VcIjogXCJpY29uLWJ1Zy11c2FnZVwiLFxuICBcInZpZXdCb3hcIjogXCIwIDAgMTI4IDEyOFwiLFxuICBcImNvbnRlbnRcIjogXCI8c3ltYm9sIHhtbG5zPVxcXCJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Z1xcXCIgdmlld0JveD1cXFwiMCAwIDEyOCAxMjhcXFwiIGlkPVxcXCJpY29uLWJ1Z1xcXCI+PHBhdGggZD1cXFwiTTEyNy44OCA3My4xNDNjMCAxLjQxMi0uNTA2IDIuNjM1LTEuNTE4IDMuNjY5LTEuMDExIDEuMDMzLTIuMjA5IDEuNTUtMy41OTIgMS41NWgtMTcuODg3YzAgOS4yOTYtMS43ODMgMTcuMTc4LTUuMzUgMjMuNjQ1bDE2LjYwOSAxNy4wNDRjMS4wMTEgMS4wMzQgMS41MTcgMi4yNTcgMS41MTcgMy42NyAwIDEuNDEyLS41MDYgMi42MzUtMS41MTcgMy42NjgtLjk1OCAxLjAzMy0yLjE1NSAxLjU1LTMuNTkzIDEuNTUtMS40MzggMC0yLjYzNS0uNTE3LTMuNTkzLTEuNTVsLTE1LjgxMS0xNi4wNjNhMTUuNDkgMTUuNDkgMCAwIDEtMS4xOTYgMS4wNmMtLjUzMi40MzQtMS42NSAxLjIwOC0zLjM1MyAyLjMyMmE1MC4xMDQgNTAuMTA0IDAgMCAxLTUuMTkyIDIuOTc0Yy0xLjc1OC44Ny0zLjk0IDEuNjU4LTYuNTQ2IDIuMzY0LTIuNjA3LjcwNi01LjE4OSAxLjA2LTcuNzQ4IDEuMDZWNDcuMDQ0SDU4Ljg5djczLjA2MmMtMi43MTYgMC01LjQxNy0uMzY3LTguMTA2LTEuMTAyLTIuNjg4LS43MzQtNS4wMDMtMS42MzEtNi45NDUtMi42OTJhNjYuNzY5IDY2Ljc2OSAwIDAgMS01LjI2OC0zLjE3OWMtMS41NzEtMS4wNTctMi43My0xLjk0LTMuNDc2LTIuNjVMMzMuOSAxMDkuMzRsLTE0LjYxMSAxNi44NzdjLTEuMDY2IDEuMTQtMi4zNDQgMS43MTEtMy44MzMgMS43MTEtMS4yNzcgMC0yLjQyMi0uNDM0LTMuNDM0LTEuMzA0LTEuMDEyLS45NzgtMS41NTctMi4xODctMS42MzUtMy42MjctLjA3OS0xLjQ0LjMzMy0yLjcwNSAxLjIzNi0zLjc5NGwxNi4xMjktMTguNTFjLTMuMDg3LTYuMTk3LTQuNjMtMTMuNjQ0LTQuNjMtMjIuMzQySDUuMjM1Yy0xLjM4MyAwLTIuNTgtLjUxNy0zLjU5Mi0xLjU1Uy4xMjUgNzQuNTQ1LjEyNSA3My4xMzJjMC0xLjQxMi41MDYtMi42MzUgMS41MTgtMy42NjggMS4wMTItMS4wMzQgMi4yMS0xLjU1IDMuNTkyLTEuNTVoMTcuODg3VjQzLjkzOUw5LjMwOCAyOS44MzNjLTEuMDEyLTEuMDMzLTEuNTE3LTIuMjU2LTEuNTE3LTMuNjY5IDAtMS40MTIuNTA1LTIuNjM1IDEuNTE3LTMuNjY4IDEuMDEyLTEuMDM0IDIuMjEtMS41NSAzLjU5My0xLjU1czIuNTguNTE2IDMuNTkzIDEuNTVsMTMuODEzIDE0LjEwNmg2Ny4zOTZsMTMuODE0LTE0LjEwNmMxLjAxMi0xLjAzNCAyLjIxLTEuNTUgMy41OTItMS41NSAxLjM4NCAwIDIuNTgxLjUxNiAzLjU5MyAxLjU1IDEuMDEyIDEuMDMzIDEuNTE4IDIuMjU2IDEuNTE4IDMuNjY4IDAgMS40MTMtLjUwNiAyLjYzNi0xLjUxOCAzLjY3bC0xMy44MTQgMTQuMTA1djIzLjk3NWgxNy44ODdjMS4zODMgMCAyLjU4LjUxNiAzLjU5MyAxLjU1IDEuMDExIDEuMDMzIDEuNTE3IDIuMjU2IDEuNTE3IDMuNjY4bC0uMDA1LjAxek04OS41NTIgMjYuMTc1SDM4LjQ0OGMwLTcuMjMgMi40ODktMTMuMzg2IDcuNDY2LTE4LjQ2OUM1MC44OTIgMi42MjMgNTYuOTIuMDgyIDY0IC4wODJjNy4wOCAwIDEzLjEwOCAyLjU0MSAxOC4wODYgNy42MjQgNC45NzcgNS4wODMgNy40NjYgMTEuMjQgNy40NjYgMTguNDY5elxcXCIgLz48L3N5bWJvbD5cIlxufSk7XG52YXIgcmVzdWx0ID0gc3ByaXRlLmFkZChzeW1ib2wpO1xuZXhwb3J0IGRlZmF1bHQgc3ltYm9sIl0sIm1hcHBpbmdzIjoiQUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0EiLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./src/icons/svg/bug.svg\n"</span>);</span><br><span class="line"></span><br><span class="line">/***/ &#125;)</span><br></pre></td></tr></table></figure>
-
-<p>所以在JS中使用svg标签来加载对应的svg文件的时候只需要在svg标签加入use 然后给id属性赋值为对应symbol的id，比如<code>id=&quot;#icon-404&quot;</code></p>
-]]></content>
-  </entry>
-  <entry>
     <title>工具函数</title>
     <url>/2019/09/16/toolFunc/</url>
     <content><![CDATA[<h3 id="防抖"><a href="#防抖" class="headerlink" title="防抖"></a>防抖</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function debounce(func, wait) &#123;</span><br><span class="line">    let timeout = null;</span><br><span class="line">    return function () &#123;</span><br><span class="line">        let context = this;</span><br><span class="line">        let args = arguments;</span><br><span class="line"></span><br><span class="line">        if (timeout) &#123;</span><br><span class="line">          clearTimeout(timeout);</span><br><span class="line">          timeout = null;</span><br><span class="line">        &#125;;</span><br><span class="line">        </span><br><span class="line">        timeout = setTimeout(() =&gt; &#123;</span><br><span class="line">            func.apply(context, args);</span><br><span class="line">        &#125;, wait);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -2188,5 +2175,37 @@ createComponentInstance
       <tags>
         <tag>Vue</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>在JS文件使用svg加载svg文件</title>
+    <url>/2020/10/13/svgInJS/</url>
+    <content><![CDATA[<h3 id="怎么在js文件中用引用svg文件"><a href="#怎么在js文件中用引用svg文件" class="headerlink" title="怎么在js文件中用引用svg文件"></a>怎么在js文件中用引用svg文件</h3><p>使用webpack的require.context,它接收三个参数</p>
+<ul>
+<li>要搜索的文件夹目录</li>
+<li>是否还应该搜索它的子目录，</li>
+<li>以及一个匹配文件的正则表达式。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const req = require.context(<span class="string">'./svg'</span>, <span class="literal">false</span>, /\.svg$/)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>req返回的是一个方法</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> webpackContext(req) &#123;</span><br><span class="line">	var id = webpackContextResolve(req);</span><br><span class="line">	<span class="built_in">return</span> __webpack_require__(id);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>包含三个属性</p>
+<ul>
+<li>id</li>
+<li>keys </li>
+<li>resolve<a id="more"></a>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">webpackContext.keys = <span class="keyword">function</span> <span class="function"><span class="title">webpackContextKeys</span></span>() &#123;</span><br><span class="line">	<span class="built_in">return</span> Object.keys(map);</span><br><span class="line">&#125;;</span><br><span class="line">webpackContext.resolve = webpackContextResolve;</span><br><span class="line">webpackContext.id = <span class="string">"./src/icons/svg sync \\.svg$"</span>;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>再使用<code>const requireAll = requireContext =&gt; requireContext.keys().map(requireContext)</code>之后，会得到一个Module的数组,数组的每一项就是执行import后的Module<br><img src="/images/svg-in-js/map.png" alt="dom"><br><img src="/images/svg-in-js/image.png" alt="image"><br>Module数组<br><img src="/images/svg-in-js/module.png" alt="module"><br><strong>webpack_require</strong>方法</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> __webpack_require__(moduleId) &#123;</span><br><span class="line">/******/</span><br><span class="line">/******/ 		// Check <span class="keyword">if</span> module is <span class="keyword">in</span> cache</span><br><span class="line">/******/ 		<span class="keyword">if</span>(installedModules[moduleId]) &#123;</span><br><span class="line">/******/ 			<span class="built_in">return</span> installedModules[moduleId].exports;</span><br><span class="line">/******/ 		&#125;</span><br><span class="line">/******/ 		// Create a new module (and put it into the cache)</span><br><span class="line">/******/ 		var module = installedModules[moduleId] = &#123;</span><br><span class="line">/******/ 			i: moduleId,</span><br><span class="line">/******/ 			l: <span class="literal">false</span>,</span><br><span class="line">/******/ 			exports: &#123;&#125;,</span><br><span class="line">/******/ 			hot: hotCreateModule(moduleId),</span><br><span class="line">/******/ 			parents: (hotCurrentParentsTemp = hotCurrentParents, hotCurrentParents = [], hotCurrentParentsTemp),</span><br><span class="line">/******/ 			children: []</span><br><span class="line">/******/ 		&#125;;</span><br><span class="line">/******/</span><br><span class="line">/******/ 		// Execute the module <span class="keyword">function</span></span><br><span class="line">/******/ 		modules[moduleId].call(module.exports, module, module.exports, hotCreateRequire(moduleId));</span><br><span class="line">/******/</span><br><span class="line">/******/ 		// Flag the module as loaded</span><br><span class="line">/******/ 		module.l = <span class="literal">true</span>;</span><br><span class="line">/******/</span><br><span class="line">/******/ 		// Return the exports of the module</span><br><span class="line">/******/ 		<span class="built_in">return</span> module.exports;</span><br><span class="line">/******/ 	&#125;</span><br></pre></td></tr></table></figure>
+
+<p>svg example</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/***/ <span class="string">"./src/icons/svg/bug.svg"</span>:</span><br><span class="line">/*!*******************************!*\</span><br><span class="line">  !*** ./src/icons/svg/bug.svg ***!</span><br><span class="line">  \*******************************/</span><br><span class="line">/*! exports provided: default */</span><br><span class="line">/***/ (<span class="keyword">function</span>(module, __webpack_exports__, __webpack_require__) &#123;</span><br><span class="line"></span><br><span class="line"><span class="string">"use strict"</span>;</span><br><span class="line"><span class="built_in">eval</span>(<span class="string">"__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! svg-baker-runtime/browser-symbol */ \"./node_modules/svg-baker-runtime/browser-symbol.js\");\n/* harmony import */ var svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! svg-sprite-loader/runtime/browser-sprite.build */ \"./node_modules/svg-sprite-loader/runtime/browser-sprite.build.js\");\n/* harmony import */ var svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1__);\n\n\nvar symbol = new svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0___default.a(&#123;\n  \"id\": \"icon-bug\",\n  \"use\": \"icon-bug-usage\",\n  \"viewBox\": \"0 0 128 128\",\n  \"content\": \"&lt;symbol xmlns=\\\"http://www.w3.org/2000/svg\\\" viewBox=\\\"0 0 128 128\\\" id=\\\"icon-bug\\\"&gt;&lt;path d=\\\"M127.88 73.143c0 1.412-.506 2.635-1.518 3.669-1.011 1.033-2.209 1.55-3.592 1.55h-17.887c0 9.296-1.783 17.178-5.35 23.645l16.609 17.044c1.011 1.034 1.517 2.257 1.517 3.67 0 1.412-.506 2.635-1.517 3.668-.958 1.033-2.155 1.55-3.593 1.55-1.438 0-2.635-.517-3.593-1.55l-15.811-16.063a15.49 15.49 0 0 1-1.196 1.06c-.532.434-1.65 1.208-3.353 2.322a50.104 50.104 0 0 1-5.192 2.974c-1.758.87-3.94 1.658-6.546 2.364-2.607.706-5.189 1.06-7.748 1.06V47.044H58.89v73.062c-2.716 0-5.417-.367-8.106-1.102-2.688-.734-5.003-1.631-6.945-2.692a66.769 66.769 0 0 1-5.268-3.179c-1.571-1.057-2.73-1.94-3.476-2.65L33.9 109.34l-14.611 16.877c-1.066 1.14-2.344 1.711-3.833 1.711-1.277 0-2.422-.434-3.434-1.304-1.012-.978-1.557-2.187-1.635-3.627-.079-1.44.333-2.705 1.236-3.794l16.129-18.51c-3.087-6.197-4.63-13.644-4.63-22.342H5.235c-1.383 0-2.58-.517-3.592-1.55S.125 74.545.125 73.132c0-1.412.506-2.635 1.518-3.668 1.012-1.034 2.21-1.55 3.592-1.55h17.887V43.939L9.308 29.833c-1.012-1.033-1.517-2.256-1.517-3.669 0-1.412.505-2.635 1.517-3.668 1.012-1.034 2.21-1.55 3.593-1.55s2.58.516 3.593 1.55l13.813 14.106h67.396l13.814-14.106c1.012-1.034 2.21-1.55 3.592-1.55 1.384 0 2.581.516 3.593 1.55 1.012 1.033 1.518 2.256 1.518 3.668 0 1.413-.506 2.636-1.518 3.67l-13.814 14.105v23.975h17.887c1.383 0 2.58.516 3.593 1.55 1.011 1.033 1.517 2.256 1.517 3.668l-.005.01zM89.552 26.175H38.448c0-7.23 2.489-13.386 7.466-18.469C50.892 2.623 56.92.082 64 .082c7.08 0 13.108 2.541 18.086 7.624 4.977 5.083 7.466 11.24 7.466 18.469z\\\" /&gt;&lt;/symbol&gt;\"\n&#125;);\nvar result = svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1___default.a.add(symbol);\n/* harmony default export */ __webpack_exports__[\"default\"] = (symbol);//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9zcmMvaWNvbnMvc3ZnL2J1Zy5zdmcuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvaWNvbnMvc3ZnL2J1Zy5zdmc/MjI4NiJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgU3ByaXRlU3ltYm9sIGZyb20gXCJzdmctYmFrZXItcnVudGltZS9icm93c2VyLXN5bWJvbFwiO1xuaW1wb3J0IHNwcml0ZSBmcm9tIFwic3ZnLXNwcml0ZS1sb2FkZXIvcnVudGltZS9icm93c2VyLXNwcml0ZS5idWlsZFwiO1xudmFyIHN5bWJvbCA9IG5ldyBTcHJpdGVTeW1ib2woe1xuICBcImlkXCI6IFwiaWNvbi1idWdcIixcbiAgXCJ1c2VcIjogXCJpY29uLWJ1Zy11c2FnZVwiLFxuICBcInZpZXdCb3hcIjogXCIwIDAgMTI4IDEyOFwiLFxuICBcImNvbnRlbnRcIjogXCI8c3ltYm9sIHhtbG5zPVxcXCJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Z1xcXCIgdmlld0JveD1cXFwiMCAwIDEyOCAxMjhcXFwiIGlkPVxcXCJpY29uLWJ1Z1xcXCI+PHBhdGggZD1cXFwiTTEyNy44OCA3My4xNDNjMCAxLjQxMi0uNTA2IDIuNjM1LTEuNTE4IDMuNjY5LTEuMDExIDEuMDMzLTIuMjA5IDEuNTUtMy41OTIgMS41NWgtMTcuODg3YzAgOS4yOTYtMS43ODMgMTcuMTc4LTUuMzUgMjMuNjQ1bDE2LjYwOSAxNy4wNDRjMS4wMTEgMS4wMzQgMS41MTcgMi4yNTcgMS41MTcgMy42NyAwIDEuNDEyLS41MDYgMi42MzUtMS41MTcgMy42NjgtLjk1OCAxLjAzMy0yLjE1NSAxLjU1LTMuNTkzIDEuNTUtMS40MzggMC0yLjYzNS0uNTE3LTMuNTkzLTEuNTVsLTE1LjgxMS0xNi4wNjNhMTUuNDkgMTUuNDkgMCAwIDEtMS4xOTYgMS4wNmMtLjUzMi40MzQtMS42NSAxLjIwOC0zLjM1MyAyLjMyMmE1MC4xMDQgNTAuMTA0IDAgMCAxLTUuMTkyIDIuOTc0Yy0xLjc1OC44Ny0zLjk0IDEuNjU4LTYuNTQ2IDIuMzY0LTIuNjA3LjcwNi01LjE4OSAxLjA2LTcuNzQ4IDEuMDZWNDcuMDQ0SDU4Ljg5djczLjA2MmMtMi43MTYgMC01LjQxNy0uMzY3LTguMTA2LTEuMTAyLTIuNjg4LS43MzQtNS4wMDMtMS42MzEtNi45NDUtMi42OTJhNjYuNzY5IDY2Ljc2OSAwIDAgMS01LjI2OC0zLjE3OWMtMS41NzEtMS4wNTctMi43My0xLjk0LTMuNDc2LTIuNjVMMzMuOSAxMDkuMzRsLTE0LjYxMSAxNi44NzdjLTEuMDY2IDEuMTQtMi4zNDQgMS43MTEtMy44MzMgMS43MTEtMS4yNzcgMC0yLjQyMi0uNDM0LTMuNDM0LTEuMzA0LTEuMDEyLS45NzgtMS41NTctMi4xODctMS42MzUtMy42MjctLjA3OS0xLjQ0LjMzMy0yLjcwNSAxLjIzNi0zLjc5NGwxNi4xMjktMTguNTFjLTMuMDg3LTYuMTk3LTQuNjMtMTMuNjQ0LTQuNjMtMjIuMzQySDUuMjM1Yy0xLjM4MyAwLTIuNTgtLjUxNy0zLjU5Mi0xLjU1Uy4xMjUgNzQuNTQ1LjEyNSA3My4xMzJjMC0xLjQxMi41MDYtMi42MzUgMS41MTgtMy42NjggMS4wMTItMS4wMzQgMi4yMS0xLjU1IDMuNTkyLTEuNTVoMTcuODg3VjQzLjkzOUw5LjMwOCAyOS44MzNjLTEuMDEyLTEuMDMzLTEuNTE3LTIuMjU2LTEuNTE3LTMuNjY5IDAtMS40MTIuNTA1LTIuNjM1IDEuNTE3LTMuNjY4IDEuMDEyLTEuMDM0IDIuMjEtMS41NSAzLjU5My0xLjU1czIuNTguNTE2IDMuNTkzIDEuNTVsMTMuODEzIDE0LjEwNmg2Ny4zOTZsMTMuODE0LTE0LjEwNmMxLjAxMi0xLjAzNCAyLjIxLTEuNTUgMy41OTItMS41NSAxLjM4NCAwIDIuNTgxLjUxNiAzLjU5MyAxLjU1IDEuMDEyIDEuMDMzIDEuNTE4IDIuMjU2IDEuNTE4IDMuNjY4IDAgMS40MTMtLjUwNiAyLjYzNi0xLjUxOCAzLjY3bC0xMy44MTQgMTQuMTA1djIzLjk3NWgxNy44ODdjMS4zODMgMCAyLjU4LjUxNiAzLjU5MyAxLjU1IDEuMDExIDEuMDMzIDEuNTE3IDIuMjU2IDEuNTE3IDMuNjY4bC0uMDA1LjAxek04OS41NTIgMjYuMTc1SDM4LjQ0OGMwLTcuMjMgMi40ODktMTMuMzg2IDcuNDY2LTE4LjQ2OUM1MC44OTIgMi42MjMgNTYuOTIuMDgyIDY0IC4wODJjNy4wOCAwIDEzLjEwOCAyLjU0MSAxOC4wODYgNy42MjQgNC45NzcgNS4wODMgNy40NjYgMTEuMjQgNy40NjYgMTguNDY5elxcXCIgLz48L3N5bWJvbD5cIlxufSk7XG52YXIgcmVzdWx0ID0gc3ByaXRlLmFkZChzeW1ib2wpO1xuZXhwb3J0IGRlZmF1bHQgc3ltYm9sIl0sIm1hcHBpbmdzIjoiQUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0EiLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./src/icons/svg/bug.svg\n"</span>);</span><br><span class="line"></span><br><span class="line">/***/ &#125;)</span><br></pre></td></tr></table></figure>
+
+<p>所以在JS中使用svg标签来加载对应的svg文件的时候只需要在svg标签加入use 然后给id属性赋值为对应symbol的id，比如<code>id=&quot;#icon-404&quot;</code></p>
+]]></content>
   </entry>
 </search>
