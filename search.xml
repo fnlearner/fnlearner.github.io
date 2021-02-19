@@ -1,32 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Javscript复杂判断</title>
-    <url>/2019/08/07/Javscript_complex_judge/</url>
-    <content><![CDATA[<p>在公司维护前人代码的时候，经常会遇见一堆的if-else语句</p>
-<h3 id="if-else"><a href="#if-else" class="headerlink" title="if-else"></a>if-else</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const flag = (status)=&gt;&#123;</span><br><span class="line">    if(status ==0)&#123;</span><br><span class="line">        //do somethind</span><br><span class="line">    &#125;else if(status==1)&#123;</span><br><span class="line">        //do somethind</span><br><span class="line">    &#125;else if(status ==2)&#123;</span><br><span class="line">        //do something</span><br><span class="line">    &#125;else if(status ==3)&#123;</span><br><span class="line">        //do something</span><br><span class="line">    &#125;</span><br><span class="line">    //...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<a id="more"></a>
-<p>或许还可以用switch-case的写法</p>
-<h3 id="switch-case"><a href="#switch-case" class="headerlink" title="switch-case"></a>switch-case</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const flag = (status)=&gt;&#123;</span><br><span class="line">    swtich(status)&#123;</span><br><span class="line">        case 0:</span><br><span class="line">            //do something</span><br><span class="line">            break;</span><br><span class="line">        case 1:</span><br><span class="line">        case 2:</span><br><span class="line">            //do something</span><br><span class="line">            break;</span><br><span class="line">        case 3:</span><br><span class="line">            //do something</span><br><span class="line">            break;</span><br><span class="line">        default:</span><br><span class="line">            return ;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>假如case 1和 case 2的处理情况都一样，可以像上面的写法.</p>
-<p>然鹅如果需要判断的条件多的时候，如果继续用if-else的写法，那么工作量会翻倍</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const flag = (status,type)=&gt;&#123;</span><br><span class="line">    if(type==0)&#123;</span><br><span class="line">        if(status ==0)&#123;</span><br><span class="line">            //do somethind</span><br><span class="line">        &#125;else if(status==1)&#123;</span><br><span class="line">            //do somethind</span><br><span class="line">        &#125;else if(status ==2)&#123;</span><br><span class="line">            //do something</span><br><span class="line">        &#125;else if(status ==3)&#123;</span><br><span class="line">            //do something</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;else if(type==1)&#123;</span><br><span class="line">         if(status ==0)&#123;</span><br><span class="line">            //do somethind</span><br><span class="line">        &#125;else if(status==1)&#123;</span><br><span class="line">            //do somethind</span><br><span class="line">        &#125;else if(status ==2)&#123;</span><br><span class="line">            //do something</span><br><span class="line">        &#125;else if(status ==3)&#123;</span><br><span class="line">            //do something</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这种写法太麻瓜了吧，简直反人类</p>
-<h3 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const actions = ()=&gt;&#123;</span><br><span class="line">    function A()&#123;</span><br><span class="line">        return &apos;A&apos;</span><br><span class="line">    &#125;</span><br><span class="line">    function B()&#123;</span><br><span class="line">        return &apos;B&apos;</span><br><span class="line">    &#125;</span><br><span class="line">    return new Map([</span><br><span class="line">        [&apos;0_0&apos;,A],</span><br><span class="line">        [&apos;0_1&apos;,A],</span><br><span class="line">        [&apos;0_2&apos;,B]</span><br><span class="line">    ])</span><br><span class="line">&#125;</span><br><span class="line">const flag =(status ,type)=&gt;&#123;</span><br><span class="line">    const action = actions().get(`$&#123;type&#125;_$&#123;status&#125;`);</span><br><span class="line">    console.log(action());</span><br><span class="line">&#125;</span><br><span class="line">flag(0,0);//A</span><br></pre></td></tr></table></figure>
-
-<p>直接将逻辑封装起来，然后在另一个函数调用，看起来就干净很多！！！</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const actions = ()=&gt;&#123;</span><br><span class="line">    function A()&#123;</span><br><span class="line">        return &apos;A&apos;</span><br><span class="line">    &#125;</span><br><span class="line">    function B()&#123;</span><br><span class="line">        return &apos;B&apos;</span><br><span class="line">    &#125;</span><br><span class="line">    return new Map([</span><br><span class="line">        [/^0_[0-3]/,A],</span><br><span class="line">        [/1_[0-2]/,A],</span><br><span class="line">        [/1_1/,B]</span><br><span class="line">    ])</span><br><span class="line">&#125;</span><br><span class="line">const flag =(status ,type)=&gt;&#123;</span><br><span class="line">     const action = [...actions()].filter(([key,value])=&gt;&#123;</span><br><span class="line">        return key.test(`$&#123;type&#125;_$&#123;status&#125;`)</span><br><span class="line">    &#125;)</span><br><span class="line">    action.forEach(([_,value])=&gt;&#123;</span><br><span class="line">        console.log(&quot;value.apply(this):&quot;, value.apply(this));//A</span><br><span class="line">        value.call(this);</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line">flag(1,1);</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>JavaScript</category>
-      </categories>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>自适应布局</title>
     <url>/2019/08/07/Adaptive/</url>
     <content><![CDATA[<h2 id="grid"><a href="#grid" class="headerlink" title="grid"></a>grid</h2><p>css</p>
@@ -150,8 +124,34 @@
         <category>JavaScript</category>
       </categories>
       <tags>
-        <tag>JavaScript</tag>
         <tag>css</tag>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Javscript复杂判断</title>
+    <url>/2019/08/07/Javscript_complex_judge/</url>
+    <content><![CDATA[<p>在公司维护前人代码的时候，经常会遇见一堆的if-else语句</p>
+<h3 id="if-else"><a href="#if-else" class="headerlink" title="if-else"></a>if-else</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const flag = (status)=&gt;&#123;</span><br><span class="line">    if(status ==0)&#123;</span><br><span class="line">        //do somethind</span><br><span class="line">    &#125;else if(status==1)&#123;</span><br><span class="line">        //do somethind</span><br><span class="line">    &#125;else if(status ==2)&#123;</span><br><span class="line">        //do something</span><br><span class="line">    &#125;else if(status ==3)&#123;</span><br><span class="line">        //do something</span><br><span class="line">    &#125;</span><br><span class="line">    //...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+<p>或许还可以用switch-case的写法</p>
+<h3 id="switch-case"><a href="#switch-case" class="headerlink" title="switch-case"></a>switch-case</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const flag = (status)=&gt;&#123;</span><br><span class="line">    swtich(status)&#123;</span><br><span class="line">        case 0:</span><br><span class="line">            //do something</span><br><span class="line">            break;</span><br><span class="line">        case 1:</span><br><span class="line">        case 2:</span><br><span class="line">            //do something</span><br><span class="line">            break;</span><br><span class="line">        case 3:</span><br><span class="line">            //do something</span><br><span class="line">            break;</span><br><span class="line">        default:</span><br><span class="line">            return ;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>假如case 1和 case 2的处理情况都一样，可以像上面的写法.</p>
+<p>然鹅如果需要判断的条件多的时候，如果继续用if-else的写法，那么工作量会翻倍</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const flag = (status,type)=&gt;&#123;</span><br><span class="line">    if(type==0)&#123;</span><br><span class="line">        if(status ==0)&#123;</span><br><span class="line">            //do somethind</span><br><span class="line">        &#125;else if(status==1)&#123;</span><br><span class="line">            //do somethind</span><br><span class="line">        &#125;else if(status ==2)&#123;</span><br><span class="line">            //do something</span><br><span class="line">        &#125;else if(status ==3)&#123;</span><br><span class="line">            //do something</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;else if(type==1)&#123;</span><br><span class="line">         if(status ==0)&#123;</span><br><span class="line">            //do somethind</span><br><span class="line">        &#125;else if(status==1)&#123;</span><br><span class="line">            //do somethind</span><br><span class="line">        &#125;else if(status ==2)&#123;</span><br><span class="line">            //do something</span><br><span class="line">        &#125;else if(status ==3)&#123;</span><br><span class="line">            //do something</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这种写法太麻瓜了吧，简直反人类</p>
+<h3 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const actions = ()=&gt;&#123;</span><br><span class="line">    function A()&#123;</span><br><span class="line">        return &apos;A&apos;</span><br><span class="line">    &#125;</span><br><span class="line">    function B()&#123;</span><br><span class="line">        return &apos;B&apos;</span><br><span class="line">    &#125;</span><br><span class="line">    return new Map([</span><br><span class="line">        [&apos;0_0&apos;,A],</span><br><span class="line">        [&apos;0_1&apos;,A],</span><br><span class="line">        [&apos;0_2&apos;,B]</span><br><span class="line">    ])</span><br><span class="line">&#125;</span><br><span class="line">const flag =(status ,type)=&gt;&#123;</span><br><span class="line">    const action = actions().get(`$&#123;type&#125;_$&#123;status&#125;`);</span><br><span class="line">    console.log(action());</span><br><span class="line">&#125;</span><br><span class="line">flag(0,0);//A</span><br></pre></td></tr></table></figure>
+
+<p>直接将逻辑封装起来，然后在另一个函数调用，看起来就干净很多！！！</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const actions = ()=&gt;&#123;</span><br><span class="line">    function A()&#123;</span><br><span class="line">        return &apos;A&apos;</span><br><span class="line">    &#125;</span><br><span class="line">    function B()&#123;</span><br><span class="line">        return &apos;B&apos;</span><br><span class="line">    &#125;</span><br><span class="line">    return new Map([</span><br><span class="line">        [/^0_[0-3]/,A],</span><br><span class="line">        [/1_[0-2]/,A],</span><br><span class="line">        [/1_1/,B]</span><br><span class="line">    ])</span><br><span class="line">&#125;</span><br><span class="line">const flag =(status ,type)=&gt;&#123;</span><br><span class="line">     const action = [...actions()].filter(([key,value])=&gt;&#123;</span><br><span class="line">        return key.test(`$&#123;type&#125;_$&#123;status&#125;`)</span><br><span class="line">    &#125;)</span><br><span class="line">    action.forEach(([_,value])=&gt;&#123;</span><br><span class="line">        console.log(&quot;value.apply(this):&quot;, value.apply(this));//A</span><br><span class="line">        value.call(this);</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line">flag(1,1);</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>JavaScript</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
       </tags>
   </entry>
   <entry>
@@ -389,6 +389,58 @@
       </tags>
   </entry>
   <entry>
+    <title>今日随笔(7-30)</title>
+    <url>/2020/07/30/essay-2/</url>
+    <content><![CDATA[<h2 id="用-ts-开发-react-组件"><a href="#用-ts-开发-react-组件" class="headerlink" title="用 ts 开发 react 组件"></a>用 ts 开发 react 组件</h2><br>
+
+<p><strong>基础函数式组件</strong></p>
+<p>不用传递任何的 prop，直接返回一个 jsx 作为 react 组件</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">Title</span></span>() &#123;</span><br><span class="line">  <span class="built_in">return</span> &lt;h1&gt;Welcome to this application&lt;/h1&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+<p><strong>带有 prop 的函数式组件</strong></p>
+<p>声明 props 类型并将 prop 传递给 jsx</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> GreetingProps = &#123;</span><br><span class="line">  name: string;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> Greeting(props: GreetingProps) &#123;</span><br><span class="line">  <span class="built_in">return</span> &lt;p&gt;Hi &#123;props.name&#125; 👋&lt;/p&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对 prop 进行解构或许可读性更好</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> Greeting(&#123; name &#125;: GreetingProps) &#123;</span><br><span class="line">  <span class="built_in">return</span> &lt;p&gt;Hi &#123;name&#125; 👋&lt;/p&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>假如 GreetingProps 中的 name 可选，那么就要给 name 一个默认值，以防 name 会变成 undefined</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> LoginMsgProps = &#123;</span><br><span class="line">  name?: string;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> LoginMsg(&#123; name = <span class="string">"Guest"</span> &#125;: LoginMsgProps) &#123;</span><br><span class="line">  <span class="built_in">return</span> &lt;p&gt;Logged <span class="keyword">in</span> as &#123;name&#125;&lt;/p&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Children</strong></p>
+<p>对于 children，更倾向于显示定义，而对于 ReactNode 类型来说，已经能够接受大多数的东西，比如 jsx，string 字符串等等</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> CardProps = &#123;</span><br><span class="line">  title: string;</span><br><span class="line">  children: React.ReactNode;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> <span class="keyword">function</span> Card(&#123; title, children &#125;: CardProps) &#123;</span><br><span class="line">  <span class="built_in">return</span> (</span><br><span class="line">    &lt;section className=<span class="string">"cards"</span>&gt;</span><br><span class="line">      &lt;h2&gt;&#123;title&#125;&lt;/h2&gt;</span><br><span class="line">      &#123;children&#125;</span><br><span class="line">    &lt;/section&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当不需要 children 元素时，可以显示定义 children 的类型为 never</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> SaveButtonProps = &#123;</span><br><span class="line"></span><br><span class="line">  children: never</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样当传递了 children 时就会抛出错误</p>
+<p><strong>对 html 元素使用拓展符</strong></p>
+<p>拓展符对于 html 元素来说是个很好的特性，因为它能帮助你确保你把所有的 html 属性都给挪到你需要的元素上</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> ButtonProps = JSX.IntrinsicElements[<span class="string">"button"</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> Button(&#123; ...allProps &#125;: ButtonProps) &#123;</span><br><span class="line">  <span class="built_in">return</span> &lt;button &#123;...allProps&#125; /&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>属性可以自定义设计</strong></p>
+<p>当需要对 html 某些属性进行约束时，可以对它们进行自定义设定</p>
+<p>如下这个例子，对 type 进行类型约束，这样仅能被赋予<code>&quot;primary&quot; | &quot;secondary&quot;</code>这两个值了</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> StyledButton = Omit&lt;</span><br><span class="line">  JSX.IntrinsicElements[<span class="string">"button"</span>],</span><br><span class="line">  <span class="string">"type"</span> | <span class="string">"className"</span></span><br><span class="line">&gt; &amp; &#123;</span><br><span class="line">  <span class="built_in">type</span>: <span class="string">"primary"</span> | <span class="string">"secondary"</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> StyledButton(&#123; <span class="built_in">type</span>, ...allProps &#125;: StyledButton) &#123;</span><br><span class="line">  <span class="built_in">return</span> &lt;Button className=&#123;`btn-<span class="variable">$&#123;type&#125;</span>`&#125; /&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Required</strong></p>
+<p>为了防止被 omit 出来的属性会忘记进行添加，封装一个 helper 来进行约束,</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> MakeRequired&lt;T, K extends keyof T&gt; = Omit&lt;T, K&gt; &amp;</span><br><span class="line">  Required&lt;&#123; [P <span class="keyword">in</span> K]: T[P] &#125;&gt;;</span><br></pre></td></tr></table></figure>
+
+<p>这样既可以将需要约束的属性omit出来，同时还能够防止忘记添加被omit出来的属性</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> ImgProps</span><br><span class="line">  = MakeRequired&lt;</span><br><span class="line">    JSX.IntrinsicElements[<span class="string">"img"</span>],</span><br><span class="line">    <span class="string">"alt"</span> | <span class="string">"src"</span></span><br><span class="line">  &gt;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> <span class="keyword">function</span> Img(&#123; alt, ...allProps &#125;: ImgProps) &#123;</span><br><span class="line">  <span class="built_in">return</span> &lt;img alt=&#123;alt&#125; &#123;...allProps&#125; /&gt;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const zz = &lt;Img alt=<span class="string">"..."</span> src=<span class="string">"..."</span> /&gt;;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>essay</category>
+      </categories>
+      <tags>
+        <tag>essay</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>docker</title>
     <url>/2020/07/31/essay-3/</url>
     <content><![CDATA[<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>Docker 是由开发人员和系统管理员 构建 、运行和容器共享的应用程序的一个平台。使用容器部署应用程序称之为集装箱化。</p>
@@ -447,56 +499,22 @@
       </tags>
   </entry>
   <entry>
-    <title>今日随笔(7-30)</title>
-    <url>/2020/07/30/essay-2/</url>
-    <content><![CDATA[<h2 id="用-ts-开发-react-组件"><a href="#用-ts-开发-react-组件" class="headerlink" title="用 ts 开发 react 组件"></a>用 ts 开发 react 组件</h2><br>
+    <title>部署hexo踩坑记录</title>
+    <url>/2020/11/14/bugsForNode/</url>
+    <content><![CDATA[<p>在执行下面这句代码的时候</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g -d</span><br></pre></td></tr></table></figure>
 
-<p><strong>基础函数式组件</strong></p>
-<p>不用传递任何的 prop，直接返回一个 jsx 作为 react 组件</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">Title</span></span>() &#123;</span><br><span class="line">  <span class="built_in">return</span> &lt;h1&gt;Welcome to this application&lt;/h1&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>报错信息</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Something<span class="string">'s wrong. Maybe you can find the solution here: https://hexo.io/docs/troubleshooting.html</span></span><br><span class="line"><span class="string">TypeError [ERR_INVALID_ARG_TYPE]: The "mode" argument must be integer. Received an instance of Object</span></span><br><span class="line"><span class="string">    at copyFile (fs.js:1924:10)</span></span><br><span class="line"><span class="string">    at tryCatcher (/Users/zjs/Desktop/blog/node_modules/bluebird/js/release/util.js:16:23)</span></span><br><span class="line"><span class="string">    at ret (eval at makeNodePromisifiedEval (/Users/zjs/.nvm/versions/node/v14.10.0/lib/node_modules/hexo-cli/node_modules/bluebird/js/release/promisify.js:184:12), &lt;anonymous&gt;:13:39)</span></span><br></pre></td></tr></table></figure>
 
-<a id="more"></a>
-<p><strong>带有 prop 的函数式组件</strong></p>
-<p>声明 props 类型并将 prop 传递给 jsx</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> GreetingProps = &#123;</span><br><span class="line">  name: string;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> Greeting(props: GreetingProps) &#123;</span><br><span class="line">  <span class="built_in">return</span> &lt;p&gt;Hi &#123;props.name&#125; 👋&lt;/p&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>对 prop 进行解构或许可读性更好</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> Greeting(&#123; name &#125;: GreetingProps) &#123;</span><br><span class="line">  <span class="built_in">return</span> &lt;p&gt;Hi &#123;name&#125; 👋&lt;/p&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>假如 GreetingProps 中的 name 可选，那么就要给 name 一个默认值，以防 name 会变成 undefined</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> LoginMsgProps = &#123;</span><br><span class="line">  name?: string;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> LoginMsg(&#123; name = <span class="string">"Guest"</span> &#125;: LoginMsgProps) &#123;</span><br><span class="line">  <span class="built_in">return</span> &lt;p&gt;Logged <span class="keyword">in</span> as &#123;name&#125;&lt;/p&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>Children</strong></p>
-<p>对于 children，更倾向于显示定义，而对于 ReactNode 类型来说，已经能够接受大多数的东西，比如 jsx，string 字符串等等</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> CardProps = &#123;</span><br><span class="line">  title: string;</span><br><span class="line">  children: React.ReactNode;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> <span class="keyword">function</span> Card(&#123; title, children &#125;: CardProps) &#123;</span><br><span class="line">  <span class="built_in">return</span> (</span><br><span class="line">    &lt;section className=<span class="string">"cards"</span>&gt;</span><br><span class="line">      &lt;h2&gt;&#123;title&#125;&lt;/h2&gt;</span><br><span class="line">      &#123;children&#125;</span><br><span class="line">    &lt;/section&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>当不需要 children 元素时，可以显示定义 children 的类型为 never</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> SaveButtonProps = &#123;</span><br><span class="line"></span><br><span class="line">  children: never</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这样当传递了 children 时就会抛出错误</p>
-<p><strong>对 html 元素使用拓展符</strong></p>
-<p>拓展符对于 html 元素来说是个很好的特性，因为它能帮助你确保你把所有的 html 属性都给挪到你需要的元素上</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> ButtonProps = JSX.IntrinsicElements[<span class="string">"button"</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> Button(&#123; ...allProps &#125;: ButtonProps) &#123;</span><br><span class="line">  <span class="built_in">return</span> &lt;button &#123;...allProps&#125; /&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>属性可以自定义设计</strong></p>
-<p>当需要对 html 某些属性进行约束时，可以对它们进行自定义设定</p>
-<p>如下这个例子，对 type 进行类型约束，这样仅能被赋予<code>&quot;primary&quot; | &quot;secondary&quot;</code>这两个值了</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> StyledButton = Omit&lt;</span><br><span class="line">  JSX.IntrinsicElements[<span class="string">"button"</span>],</span><br><span class="line">  <span class="string">"type"</span> | <span class="string">"className"</span></span><br><span class="line">&gt; &amp; &#123;</span><br><span class="line">  <span class="built_in">type</span>: <span class="string">"primary"</span> | <span class="string">"secondary"</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> StyledButton(&#123; <span class="built_in">type</span>, ...allProps &#125;: StyledButton) &#123;</span><br><span class="line">  <span class="built_in">return</span> &lt;Button className=&#123;`btn-<span class="variable">$&#123;type&#125;</span>`&#125; /&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>Required</strong></p>
-<p>为了防止被 omit 出来的属性会忘记进行添加，封装一个 helper 来进行约束,</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> MakeRequired&lt;T, K extends keyof T&gt; = Omit&lt;T, K&gt; &amp;</span><br><span class="line">  Required&lt;&#123; [P <span class="keyword">in</span> K]: T[P] &#125;&gt;;</span><br></pre></td></tr></table></figure>
-
-<p>这样既可以将需要约束的属性omit出来，同时还能够防止忘记添加被omit出来的属性</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> ImgProps</span><br><span class="line">  = MakeRequired&lt;</span><br><span class="line">    JSX.IntrinsicElements[<span class="string">"img"</span>],</span><br><span class="line">    <span class="string">"alt"</span> | <span class="string">"src"</span></span><br><span class="line">  &gt;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> <span class="keyword">function</span> Img(&#123; alt, ...allProps &#125;: ImgProps) &#123;</span><br><span class="line">  <span class="built_in">return</span> &lt;img alt=&#123;alt&#125; &#123;...allProps&#125; /&gt;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const zz = &lt;Img alt=<span class="string">"..."</span> src=<span class="string">"..."</span> /&gt;;</span><br></pre></td></tr></table></figure>
-
+<p>解决方案<br> NodeJs 版本从 14 回到 12 就🉑️！</p>
 ]]></content>
-      <categories>
-        <category>essay</category>
-      </categories>
-      <tags>
-        <tag>essay</tag>
-      </tags>
+  </entry>
+  <entry>
+    <title>今日随笔</title>
+    <url>/2021/01/10/essay-7/</url>
+    <content><![CDATA[<p><img src="/images/essay-7/essay.png" alt="essay"></p>
+]]></content>
   </entry>
   <entry>
     <title>今日随笔(8-6)</title>
@@ -511,34 +529,6 @@
 
 <p>那代码成了这样那肯定不能正确解析了～</p>
 <p>果然，漏写分号不是好习惯～</p>
-]]></content>
-  </entry>
-  <entry>
-    <title>部署hexo踩坑记录</title>
-    <url>/2020/11/14/bugsForNode/</url>
-    <content><![CDATA[<p>在执行下面这句代码的时候</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g -d</span><br></pre></td></tr></table></figure>
-
-<p>报错信息</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Something<span class="string">'s wrong. Maybe you can find the solution here: https://hexo.io/docs/troubleshooting.html</span></span><br><span class="line"><span class="string">TypeError [ERR_INVALID_ARG_TYPE]: The "mode" argument must be integer. Received an instance of Object</span></span><br><span class="line"><span class="string">    at copyFile (fs.js:1924:10)</span></span><br><span class="line"><span class="string">    at tryCatcher (/Users/zjs/Desktop/blog/node_modules/bluebird/js/release/util.js:16:23)</span></span><br><span class="line"><span class="string">    at ret (eval at makeNodePromisifiedEval (/Users/zjs/.nvm/versions/node/v14.10.0/lib/node_modules/hexo-cli/node_modules/bluebird/js/release/promisify.js:184:12), &lt;anonymous&gt;:13:39)</span></span><br></pre></td></tr></table></figure>
-
-<p>解决方案<br> NodeJs 版本从 14 回到 12 就🉑️！</p>
-]]></content>
-  </entry>
-  <entry>
-    <title>随笔</title>
-    <url>/2020/10/21/conclusion/</url>
-    <content><![CDATA[<h3 id="笔记一"><a href="#笔记一" class="headerlink" title="笔记一"></a>笔记一</h3><p>在vue项目中使用ts-class的形式来编写组件的时候，要记得在export上面➕<code>@Component</code>装饰器，不然组件不能正常注册</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">import &#123;</span><br><span class="line">    Component,</span><br><span class="line">    Vue,</span><br><span class="line">    InjectReactive</span><br><span class="line">&#125; from <span class="string">'vue-property-decorator'</span>;</span><br><span class="line"></span><br><span class="line">@Component</span><br><span class="line">class Child extends Vue &#123;</span><br><span class="line">    @InjectReactive() node: number;</span><br><span class="line">    <span class="function"><span class="title">mounted</span></span>() &#123;</span><br><span class="line">        console.log(this.node)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>如果在页面中需要用到子组件的情况，需要像这样注册,并且<code>@Component</code>装饰器只需要写一次</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">import &#123;</span><br><span class="line">    Vue,</span><br><span class="line">    Component,</span><br><span class="line">    ProvideReactive</span><br><span class="line">&#125; from <span class="string">'vue-property-decorator'</span>;</span><br><span class="line">import Child from <span class="string">'./child.vue'</span></span><br><span class="line">@Component(&#123;</span><br><span class="line">    components: &#123;</span><br><span class="line">        Child</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line">class Parent extends Vue &#123;</span><br><span class="line">    @ProvideReactive() node = &#123;&#125;</span><br><span class="line">    <span class="function"><span class="title">mounted</span></span>() &#123;</span><br><span class="line">        this.node = 1</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="笔记二-—-ProvideReactive来做数据透传的注意点"><a href="#笔记二-—-ProvideReactive来做数据透传的注意点" class="headerlink" title="笔记二 — ProvideReactive来做数据透传的注意点"></a>笔记二 — ProvideReactive来做数据透传的注意点</h3><p>如果在组件中使用Provide来进行数据透传的话，数据是不带响应式的。如果需要数据具有响应式，那么需要用ProvideReactive来做属性的透传，代码例子可以看上一个代码，另外由于在路由跳转的时候，有时候会有Provide的值重新定义的问题，这时候控制台会抛出异常，具体可以看这个<br><a href="https://github.com/kaorun343/vue-property-decorator/issues/277">issue</a>,有临时的解决方案</p>
-<h3 id="笔记三-—-在弹窗中保证数据的实时性"><a href="#笔记三-—-在弹窗中保证数据的实时性" class="headerlink" title="笔记三 — 在弹窗中保证数据的实时性"></a>笔记三 — 在弹窗中保证数据的实时性</h3><p>需要把数据以Provide的形式传递给弹窗，但是数据仅仅只在第一次显示的时候是正常的数据，在关闭弹窗后再一次开启弹窗，显示的数据是上一次的数据。原因暂时不知道。所以我在关闭弹窗的时候同时用v-if来销毁元素，这样每次打开的元素都是一个最新的元素，同时这个时候获取到的数据也是最新的数据。</p>
-<h3 id="笔记四-—-数据获取完后保证子组件获取最新的数据"><a href="#笔记四-—-数据获取完后保证子组件获取最新的数据" class="headerlink" title="笔记四 — 数据获取完后保证子组件获取最新的数据"></a>笔记四 — 数据获取完后保证子组件获取最新的数据</h3><p>在父组件用axios获取数据的时候，然后传递给子组件，但是子组件渲染的时候是定义时就给的默认值。<br>原因：父组件在请求数据的时候，子组件的生命周期已经走完并且已经渲染完成，所以这时候是拿不到请求后返回的真实数据<br>方案：我这里用v-if来判断获取的数据的长度是否为空来判断是否要渲染子组件，缺点：数据量很大的时候会有很长时间的空白。</p>
-<h3 id="笔记五-—-自定义组件绑定v-models"><a href="#笔记五-—-自定义组件绑定v-models" class="headerlink" title="笔记五 — 自定义组件绑定v-models"></a>笔记五 — 自定义组件绑定v-models</h3><p>想让自定义组件能够使用v-model语法糖，这样子组件的数据就可以实时的反馈到父组件中去</p>
-<p>在vue中，对input来说，v-model是value和input事件的语法糖，对于checkbox来说，监听的事件是change，给对应的元素添加对应的事件，然后在自组件emit出去，把相应的value值绑定到对应的dom元素中去。</p>
 ]]></content>
   </entry>
   <entry>
@@ -561,12 +551,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>今日随笔</title>
-    <url>/2021/01/10/essay-7/</url>
-    <content><![CDATA[<p><img src="/images/essay-7/essay.png" alt="essay"></p>
-]]></content>
-  </entry>
-  <entry>
     <title>今日随笔(2020-10-11)</title>
     <url>/2020/10/11/essay-5/</url>
     <content><![CDATA[<h3 id="命令行文件的上传与下载"><a href="#命令行文件的上传与下载" class="headerlink" title="命令行文件的上传与下载"></a>命令行文件的上传与下载</h3><p>文件的上传和下载命令都是scp</p>
@@ -584,103 +568,20 @@
       </tags>
   </entry>
   <entry>
-    <title>今日随笔(1-31)</title>
-    <url>/2021/01/31/essay-8/</url>
-    <content><![CDATA[<h3 id="null-vs-undefined"><a href="#null-vs-undefined" class="headerlink" title="null vs undefined"></a>null vs undefined</h3><p>The ECMAScript language specification describes them as follows:</p>
-<ul>
-<li>undefined 是被使用但是没有被赋值</li>
-<li>null 是对变量一个显示对声明一个值</li>
-</ul>
-<p>在JS中，每个变量能够同时被赋值引用类型和原始类型。因此，如果null意味着 不是一个对象，JS也需要一个初值意味着 既不是 引用类型 也不是 原始类型。那个值就是undefined。</p>
-<a id="more"></a>
-<p>If a variable myVar has not been initialized yet, its value is undefined:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">let</span> myVar;</span><br><span class="line">assert.equal(myVar, undefined);</span><br></pre></td></tr></table></figure>
+    <title>随笔</title>
+    <url>/2020/10/21/conclusion/</url>
+    <content><![CDATA[<h3 id="笔记一"><a href="#笔记一" class="headerlink" title="笔记一"></a>笔记一</h3><p>在vue项目中使用ts-class的形式来编写组件的时候，要记得在export上面➕<code>@Component</code>装饰器，不然组件不能正常注册</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">import &#123;</span><br><span class="line">    Component,</span><br><span class="line">    Vue,</span><br><span class="line">    InjectReactive</span><br><span class="line">&#125; from <span class="string">'vue-property-decorator'</span>;</span><br><span class="line"></span><br><span class="line">@Component</span><br><span class="line">class Child extends Vue &#123;</span><br><span class="line">    @InjectReactive() node: number;</span><br><span class="line">    <span class="function"><span class="title">mounted</span></span>() &#123;</span><br><span class="line">        console.log(this.node)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>If a property .unknownProp is missing, accessing the property produces the values undefined:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const obj = &#123;&#125;;</span><br><span class="line">assert.equal(obj.unknownProp, undefined);</span><br></pre></td></tr></table></figure>
+<p>如果在页面中需要用到子组件的情况，需要像这样注册,并且<code>@Component</code>装饰器只需要写一次</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">import &#123;</span><br><span class="line">    Vue,</span><br><span class="line">    Component,</span><br><span class="line">    ProvideReactive</span><br><span class="line">&#125; from <span class="string">'vue-property-decorator'</span>;</span><br><span class="line">import Child from <span class="string">'./child.vue'</span></span><br><span class="line">@Component(&#123;</span><br><span class="line">    components: &#123;</span><br><span class="line">        Child</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line">class Parent extends Vue &#123;</span><br><span class="line">    @ProvideReactive() node = &#123;&#125;</span><br><span class="line">    <span class="function"><span class="title">mounted</span></span>() &#123;</span><br><span class="line">        this.node = 1</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>If a function does not explicitly return anything, the function implicitly returns undefined:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">myFunc</span></span>() &#123;&#125;</span><br><span class="line">assert.equal(myFunc(), undefined);</span><br></pre></td></tr></table></figure>
-
-<p>If a function has a return statement without an argument, the function implicitly returns undefined:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">myFunc</span></span>() &#123;</span><br><span class="line">  <span class="built_in">return</span>;</span><br><span class="line">&#125;</span><br><span class="line">assert.equal(myFunc(), undefined);</span><br></pre></td></tr></table></figure>
-
-<p>If a parameter x is omitted, the language initializes that parameter with undefined:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> myFunc(x) &#123;</span><br><span class="line">  assert.equal(x, undefined);</span><br><span class="line">&#125;</span><br><span class="line">myFunc();</span><br></pre></td></tr></table></figure>
-
-<p>Optional chaining via obj?.someProp returns undefined if obj is undefined or null:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"> &gt; undefined?.someProp</span><br><span class="line">undefined</span><br><span class="line">&gt; null?.someProp</span><br><span class="line">undefined</span><br></pre></td></tr></table></figure>
-
-<p>The prototype of an object is either an object or, at the end of a chain of prototypes, null. Object.prototype does not have a prototype:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; Object.getPrototypeOf(Object.prototype)</span><br><span class="line">null</span><br></pre></td></tr></table></figure>
-
-<p>If we match a regular expression (such as /a/) against a string (such as ‘x’), we either get an object with matching data (if matching was successful) or null (if matching failed)(有结果就返回匹配对象，没结果返回null):</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; /a/.<span class="built_in">exec</span>(<span class="string">'x'</span>)</span><br><span class="line">null</span><br></pre></td></tr></table></figure>
-
-<p>The JSON data format does not support undefined, only null:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; JSON.stringify(&#123;a: undefined, b: null&#125;)</span><br><span class="line"><span class="string">'&#123;"b":null&#125;'</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="Operators-that-treat-undefined-and-or-null-specially"><a href="#Operators-that-treat-undefined-and-or-null-specially" class="headerlink" title="Operators that treat undefined and/or null specially"></a>Operators that treat undefined and/or null specially</h3><h4 id="undefined-and-parameter-default-values"><a href="#undefined-and-parameter-default-values" class="headerlink" title="undefined and parameter default values"></a>undefined and parameter default values</h4><p>参数默认值的使用情况：</p>
-<ul>
-<li>参数没传</li>
-<li>参数的值是undefined</li>
-</ul>
-<p>For example</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> myFunc(arg=<span class="string">'abc'</span>) &#123;</span><br><span class="line">  <span class="built_in">return</span> arg;</span><br><span class="line">&#125;</span><br><span class="line">assert.equal(myFunc(<span class="string">'hello'</span>), <span class="string">'hello'</span>);</span><br><span class="line">assert.equal(myFunc(), <span class="string">'abc'</span>);</span><br><span class="line">assert.equal(myFunc(undefined), <span class="string">'abc'</span>);</span><br></pre></td></tr></table></figure>
-
-<h4 id="undefined-and-destructuring-default-values"><a href="#undefined-and-destructuring-default-values" class="headerlink" title="undefined and destructuring default values"></a>undefined and destructuring default values</h4><p>解构给默认值跟参数给默认值一样，匹配到undefined给默认值<br>Default values in destructuring work similarly to parameter default values – they are used if a variable either has no match in the data or if it matches undefined:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const [a=<span class="string">'a'</span>] = [];</span><br><span class="line">assert.equal(a, <span class="string">'a'</span>);</span><br><span class="line"></span><br><span class="line">const [b=<span class="string">'b'</span>] = [undefined];</span><br><span class="line">assert.equal(b, <span class="string">'b'</span>);</span><br><span class="line"></span><br><span class="line">const &#123;prop: c=<span class="string">'c'</span>&#125; = &#123;&#125;;</span><br><span class="line">assert.equal(c, <span class="string">'c'</span>);</span><br><span class="line"></span><br><span class="line">const &#123;prop: d=<span class="string">'d'</span>&#125; = &#123;prop: undefined&#125;;</span><br><span class="line">assert.equal(d, <span class="string">'d'</span>);</span><br></pre></td></tr></table></figure>
-
-<h4 id="undefined-and-null-and-optional-chaining"><a href="#undefined-and-null-and-optional-chaining" class="headerlink" title="undefined and null and optional chaining"></a>undefined and null and optional chaining</h4><p>When there is optional chaining via value?.prop:</p>
-<ul>
-<li>If value is undefined or null, return undefined. That is, this happens whenever value.prop would throw an exception.</li>
-<li>Otherwise, return value.prop.</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> getProp(value) &#123;</span><br><span class="line">  <span class="comment"># optional static property access</span></span><br><span class="line">  <span class="built_in">return</span> value?.prop;</span><br><span class="line">&#125;</span><br><span class="line">assert.equal(</span><br><span class="line">  getProp(&#123;prop: 123&#125;), 123);</span><br><span class="line">assert.equal(</span><br><span class="line">  getProp(undefined), undefined);</span><br><span class="line">assert.equal(</span><br><span class="line">  getProp(null), undefined);</span><br></pre></td></tr></table></figure>
-
-<p>The following two operations work similarly:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">obj?.[«expr»] // optional dynamic property access</span><br><span class="line">func?.(«arg0», «arg1») // optional <span class="keyword">function</span> or method call</span><br></pre></td></tr></table></figure>
-
-<h4 id="undefined-and-null-and-nullish-coalescing"><a href="#undefined-and-null-and-nullish-coalescing" class="headerlink" title="undefined and null and nullish coalescing"></a>undefined and null and nullish coalescing</h4><p>nullish coalescing 的使用比较 简单，如果值是undefined 或者null的时候取后者</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; undefined ?? <span class="string">'default value'</span></span><br><span class="line"><span class="string">'default value'</span></span><br><span class="line">&gt; null ?? <span class="string">'default value'</span></span><br><span class="line"><span class="string">'default value'</span></span><br><span class="line"></span><br><span class="line">&gt; 0 ?? <span class="string">'default value'</span></span><br><span class="line">0</span><br><span class="line">&gt; 123 ?? <span class="string">'default value'</span></span><br><span class="line">123</span><br><span class="line">&gt; <span class="string">''</span> ?? <span class="string">'default value'</span></span><br><span class="line"><span class="string">''</span></span><br><span class="line">&gt; <span class="string">'abc'</span> ?? <span class="string">'default value'</span></span><br><span class="line"><span class="string">'abc'</span></span><br></pre></td></tr></table></figure>
-
-<p>The nullish coalescing assignment operator ??= combines nullish coalescing with assignment:</p>
-<p>??=  就是把 取值和赋值合起来</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> setName(obj) &#123;</span><br><span class="line">  obj.name ??= <span class="string">'(Unnamed)'</span>;</span><br><span class="line">  <span class="built_in">return</span> obj;</span><br><span class="line">&#125;</span><br><span class="line">assert.deepEqual(</span><br><span class="line">  setName(&#123;&#125;),</span><br><span class="line">  &#123;name: <span class="string">'(Unnamed)'</span>&#125;</span><br><span class="line">);</span><br><span class="line">assert.deepEqual(</span><br><span class="line">  setName(&#123;name: undefined&#125;),</span><br><span class="line">  &#123;name: <span class="string">'(Unnamed)'</span>&#125;</span><br><span class="line">);</span><br><span class="line">assert.deepEqual(</span><br><span class="line">  setName(&#123;name: null&#125;),</span><br><span class="line">  &#123;name: <span class="string">'(Unnamed)'</span>&#125;</span><br><span class="line">);</span><br><span class="line">assert.deepEqual(</span><br><span class="line">  setName(&#123;name: <span class="string">'Jane'</span>&#125;),</span><br><span class="line">  &#123;name: <span class="string">'Jane'</span>&#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>]]></content>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>今日随笔(2-10)</title>
-    <url>/2021/02/10/essay-9/</url>
-    <content><![CDATA[<h4 id="NaN-和-Number-isNaN"><a href="#NaN-和-Number-isNaN" class="headerlink" title="NaN 和 Number.isNaN"></a>NaN 和 Number.isNaN</h4><hr>
-<p>全局属性 NaN 的值表示不是一个数字（Not-A-Number）。</p>
-<p>NaN 属性的初始值就是 NaN，和 Number.NaN 的值一样。在现代浏览器中（ES5中）， NaN 属性是一个不可配置（non-configurable），不可写（non-writable）的属性。但在ES3中，这个属性的值是可以被更改的，但是也应该避免覆盖。  — mdn</p>
-<a id="more"></a>
-<p>NaN是唯一一个自身不相等的数字，判断一个值是否是NaN，主要是用两种方法来判断，一个是NaN，一个是Number.isNaN。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">NaN === NaN;        // <span class="literal">false</span></span><br><span class="line">Number.NaN === NaN; // <span class="literal">false</span></span><br><span class="line">isNaN(NaN);         // <span class="literal">true</span></span><br><span class="line">isNaN(Number.NaN);  // <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> valueIsNaN(v) &#123; <span class="built_in">return</span> v !== v; &#125;</span><br><span class="line">valueIsNaN(1);          // <span class="literal">false</span></span><br><span class="line">valueIsNaN(NaN);        // <span class="literal">true</span></span><br><span class="line">valueIsNaN(Number.NaN); // <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-
-<p>对于两个方法还是有所不同的：如果当前值是NaN，或者将其强制转换为数字后将是NaN，则前者将返回true。而后者仅当值当前为NaN时才为true：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">isNaN(<span class="string">'hello world'</span>);        // <span class="literal">true</span> <span class="string">'hello world'</span>转数字失败变成NaN。</span><br><span class="line">Number.isNaN(<span class="string">'hello world'</span>); // <span class="literal">false</span></span><br></pre></td></tr></table></figure>
-
-<p>对于NaN方法：</p>
-<ul>
-<li>Let num be ? ToNumber(number).</li>
-<li>If num is NaN, return true.</li>
-<li>Otherwise, return false.</li>
-</ul>
-<p>而对于Number.isNaN来说：</p>
-<ul>
-<li>If Type(number) is not Number, return false.</li>
-<li>If number is NaN, return true.</li>
-<li>Otherwise, return false.</li>
-</ul>
-<p>可以看到规范中定义的两个方法在第一步中对传递进来对参数的处理方式并不一样。因此这两个方法是有所区别的。</p>
+<h3 id="笔记二-—-ProvideReactive来做数据透传的注意点"><a href="#笔记二-—-ProvideReactive来做数据透传的注意点" class="headerlink" title="笔记二 — ProvideReactive来做数据透传的注意点"></a>笔记二 — ProvideReactive来做数据透传的注意点</h3><p>如果在组件中使用Provide来进行数据透传的话，数据是不带响应式的。如果需要数据具有响应式，那么需要用ProvideReactive来做属性的透传，代码例子可以看上一个代码，另外由于在路由跳转的时候，有时候会有Provide的值重新定义的问题，这时候控制台会抛出异常，具体可以看这个<br><a href="https://github.com/kaorun343/vue-property-decorator/issues/277">issue</a>,有临时的解决方案</p>
+<h3 id="笔记三-—-在弹窗中保证数据的实时性"><a href="#笔记三-—-在弹窗中保证数据的实时性" class="headerlink" title="笔记三 — 在弹窗中保证数据的实时性"></a>笔记三 — 在弹窗中保证数据的实时性</h3><p>需要把数据以Provide的形式传递给弹窗，但是数据仅仅只在第一次显示的时候是正常的数据，在关闭弹窗后再一次开启弹窗，显示的数据是上一次的数据。原因暂时不知道。所以我在关闭弹窗的时候同时用v-if来销毁元素，这样每次打开的元素都是一个最新的元素，同时这个时候获取到的数据也是最新的数据。</p>
+<h3 id="笔记四-—-数据获取完后保证子组件获取最新的数据"><a href="#笔记四-—-数据获取完后保证子组件获取最新的数据" class="headerlink" title="笔记四 — 数据获取完后保证子组件获取最新的数据"></a>笔记四 — 数据获取完后保证子组件获取最新的数据</h3><p>在父组件用axios获取数据的时候，然后传递给子组件，但是子组件渲染的时候是定义时就给的默认值。<br>原因：父组件在请求数据的时候，子组件的生命周期已经走完并且已经渲染完成，所以这时候是拿不到请求后返回的真实数据<br>方案：我这里用v-if来判断获取的数据的长度是否为空来判断是否要渲染子组件，缺点：数据量很大的时候会有很长时间的空白。</p>
+<h3 id="笔记五-—-自定义组件绑定v-models"><a href="#笔记五-—-自定义组件绑定v-models" class="headerlink" title="笔记五 — 自定义组件绑定v-models"></a>笔记五 — 自定义组件绑定v-models</h3><p>想让自定义组件能够使用v-model语法糖，这样子组件的数据就可以实时的反馈到父组件中去</p>
+<p>在vue中，对input来说，v-model是value和input事件的语法糖，对于checkbox来说，监听的事件是change，给对应的元素添加对应的事件，然后在自组件emit出去，把相应的value值绑定到对应的dom元素中去。</p>
 ]]></content>
-      <tags>
-        <tag>JavsScript</tag>
-      </tags>
   </entry>
   <entry>
     <title>git常用命令集合</title>
@@ -846,6 +747,171 @@
       </tags>
   </entry>
   <entry>
+    <title>item</title>
+    <url>/2020/10/07/item/</url>
+    <content><![CDATA[<h3 id="Proposal-for-a-item-method-on-all-the-built-in-indexables"><a href="#Proposal-for-a-item-method-on-all-the-built-in-indexables" class="headerlink" title="Proposal for a .item() method on all the built-in indexables"></a>Proposal for a .item() method on all the built-in indexables</h3><p>这个方法是给有索引对象内置的一个方法，那么这个方法接收一个 number 类型的 index，对象能够根据 index 来确定值。那其实看到这会有个问题，具备索引的对象自己就能根据索引来确定值了，那么这个方法出现的意义是为什么？它其实是用负值的 index 来获取值，比如</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const arr =[1,2,3]</span><br><span class="line">arr.item(-1) // 3</span><br></pre></td></tr></table></figure>
+
+<p>是这样的用法。<br>那么这个方法是挂载在 String，Array，TypeArray 这三个数据结构的原型链上。<br>然后对于 dom 结构中类型 document.getElementById()这样的返回 NodeList 结构在经过 Array.from 转化之后同样会挂载 item 方法</p>
+<p>但是这个方法目前还处于 stage3 阶段，因此是不能直接使用的 hhhh。但是官方给出了 polyfill</p>
+<p>Like this:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> item(n) &#123;</span><br><span class="line">	<span class="comment"># ToInteger() abstract op</span></span><br><span class="line">	n = Math.trunc(n) || 0;</span><br><span class="line">	<span class="comment"># Allow negative indexing from the end</span></span><br><span class="line">	<span class="keyword">if</span>(n &lt; 0) n += this.length;</span><br><span class="line">	<span class="comment"># OOB access is guaranteed to return undefined</span></span><br><span class="line">	<span class="keyword">if</span>(n &lt; 0 || n &gt;= this.length) <span class="built_in">return</span> undefined;</span><br><span class="line">	<span class="comment"># Otherwise, this is just normal property access</span></span><br><span class="line">	<span class="built_in">return</span> this[n];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Other TypedArray constructors omitted for brevity.</span></span><br><span class="line"><span class="keyword">for</span> (<span class="built_in">let</span> C of [Array, String, Uint8Array]) &#123;</span><br><span class="line">    Object.defineProperty(C.prototype, <span class="string">"item"</span>,</span><br><span class="line">                          &#123; value: item,</span><br><span class="line">                            writable: <span class="literal">true</span>,</span><br><span class="line">                            enumerable: <span class="literal">false</span>,</span><br><span class="line">                            configurable: <span class="literal">true</span> &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>今日随笔(2-10)</title>
+    <url>/2021/02/10/essay-9/</url>
+    <content><![CDATA[<h4 id="NaN-和-Number-isNaN"><a href="#NaN-和-Number-isNaN" class="headerlink" title="NaN 和 Number.isNaN"></a>NaN 和 Number.isNaN</h4><hr>
+<p>全局属性 NaN 的值表示不是一个数字（Not-A-Number）。</p>
+<p>NaN 属性的初始值就是 NaN，和 Number.NaN 的值一样。在现代浏览器中（ES5中）， NaN 属性是一个不可配置（non-configurable），不可写（non-writable）的属性。但在ES3中，这个属性的值是可以被更改的，但是也应该避免覆盖。  — mdn</p>
+<a id="more"></a>
+<p>NaN是唯一一个自身不相等的数字，判断一个值是否是NaN，主要是用两种方法来判断，一个是NaN，一个是Number.isNaN。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">NaN === NaN;        // <span class="literal">false</span></span><br><span class="line">Number.NaN === NaN; // <span class="literal">false</span></span><br><span class="line">isNaN(NaN);         // <span class="literal">true</span></span><br><span class="line">isNaN(Number.NaN);  // <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> valueIsNaN(v) &#123; <span class="built_in">return</span> v !== v; &#125;</span><br><span class="line">valueIsNaN(1);          // <span class="literal">false</span></span><br><span class="line">valueIsNaN(NaN);        // <span class="literal">true</span></span><br><span class="line">valueIsNaN(Number.NaN); // <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<p>对于两个方法还是有所不同的：如果当前值是NaN，或者将其强制转换为数字后将是NaN，则前者将返回true。而后者仅当值当前为NaN时才为true：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">isNaN(<span class="string">'hello world'</span>);        // <span class="literal">true</span> <span class="string">'hello world'</span>转数字失败变成NaN。</span><br><span class="line">Number.isNaN(<span class="string">'hello world'</span>); // <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+<p>对于NaN方法：</p>
+<ul>
+<li>Let num be ? ToNumber(number).</li>
+<li>If num is NaN, return true.</li>
+<li>Otherwise, return false.</li>
+</ul>
+<p>而对于Number.isNaN来说：</p>
+<ul>
+<li>If Type(number) is not Number, return false.</li>
+<li>If number is NaN, return true.</li>
+<li>Otherwise, return false.</li>
+</ul>
+<p>可以看到规范中定义的两个方法在第一步中对传递进来对参数的处理方式并不一样。因此这两个方法是有所区别的。</p>
+]]></content>
+      <tags>
+        <tag>JavsScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>今日随笔(1-31)</title>
+    <url>/2021/01/31/essay-8/</url>
+    <content><![CDATA[<h3 id="null-vs-undefined"><a href="#null-vs-undefined" class="headerlink" title="null vs undefined"></a>null vs undefined</h3><p>The ECMAScript language specification describes them as follows:</p>
+<ul>
+<li>undefined 是被使用但是没有被赋值</li>
+<li>null 是对变量一个显示对声明一个值</li>
+</ul>
+<p>在JS中，每个变量能够同时被赋值引用类型和原始类型。因此，如果null意味着 不是一个对象，JS也需要一个初值意味着 既不是 引用类型 也不是 原始类型。那个值就是undefined。</p>
+<a id="more"></a>
+<p>If a variable myVar has not been initialized yet, its value is undefined:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">let</span> myVar;</span><br><span class="line">assert.equal(myVar, undefined);</span><br></pre></td></tr></table></figure>
+
+<p>If a property .unknownProp is missing, accessing the property produces the values undefined:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const obj = &#123;&#125;;</span><br><span class="line">assert.equal(obj.unknownProp, undefined);</span><br></pre></td></tr></table></figure>
+
+<p>If a function does not explicitly return anything, the function implicitly returns undefined:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">myFunc</span></span>() &#123;&#125;</span><br><span class="line">assert.equal(myFunc(), undefined);</span><br></pre></td></tr></table></figure>
+
+<p>If a function has a return statement without an argument, the function implicitly returns undefined:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">myFunc</span></span>() &#123;</span><br><span class="line">  <span class="built_in">return</span>;</span><br><span class="line">&#125;</span><br><span class="line">assert.equal(myFunc(), undefined);</span><br></pre></td></tr></table></figure>
+
+<p>If a parameter x is omitted, the language initializes that parameter with undefined:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> myFunc(x) &#123;</span><br><span class="line">  assert.equal(x, undefined);</span><br><span class="line">&#125;</span><br><span class="line">myFunc();</span><br></pre></td></tr></table></figure>
+
+<p>Optional chaining via obj?.someProp returns undefined if obj is undefined or null:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"> &gt; undefined?.someProp</span><br><span class="line">undefined</span><br><span class="line">&gt; null?.someProp</span><br><span class="line">undefined</span><br></pre></td></tr></table></figure>
+
+<p>The prototype of an object is either an object or, at the end of a chain of prototypes, null. Object.prototype does not have a prototype:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; Object.getPrototypeOf(Object.prototype)</span><br><span class="line">null</span><br></pre></td></tr></table></figure>
+
+<p>If we match a regular expression (such as /a/) against a string (such as ‘x’), we either get an object with matching data (if matching was successful) or null (if matching failed)(有结果就返回匹配对象，没结果返回null):</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; /a/.<span class="built_in">exec</span>(<span class="string">'x'</span>)</span><br><span class="line">null</span><br></pre></td></tr></table></figure>
+
+<p>The JSON data format does not support undefined, only null:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; JSON.stringify(&#123;a: undefined, b: null&#125;)</span><br><span class="line"><span class="string">'&#123;"b":null&#125;'</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Operators-that-treat-undefined-and-or-null-specially"><a href="#Operators-that-treat-undefined-and-or-null-specially" class="headerlink" title="Operators that treat undefined and/or null specially"></a>Operators that treat undefined and/or null specially</h3><h4 id="undefined-and-parameter-default-values"><a href="#undefined-and-parameter-default-values" class="headerlink" title="undefined and parameter default values"></a>undefined and parameter default values</h4><p>参数默认值的使用情况：</p>
+<ul>
+<li>参数没传</li>
+<li>参数的值是undefined</li>
+</ul>
+<p>For example</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> myFunc(arg=<span class="string">'abc'</span>) &#123;</span><br><span class="line">  <span class="built_in">return</span> arg;</span><br><span class="line">&#125;</span><br><span class="line">assert.equal(myFunc(<span class="string">'hello'</span>), <span class="string">'hello'</span>);</span><br><span class="line">assert.equal(myFunc(), <span class="string">'abc'</span>);</span><br><span class="line">assert.equal(myFunc(undefined), <span class="string">'abc'</span>);</span><br></pre></td></tr></table></figure>
+
+<h4 id="undefined-and-destructuring-default-values"><a href="#undefined-and-destructuring-default-values" class="headerlink" title="undefined and destructuring default values"></a>undefined and destructuring default values</h4><p>解构给默认值跟参数给默认值一样，匹配到undefined给默认值<br>Default values in destructuring work similarly to parameter default values – they are used if a variable either has no match in the data or if it matches undefined:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const [a=<span class="string">'a'</span>] = [];</span><br><span class="line">assert.equal(a, <span class="string">'a'</span>);</span><br><span class="line"></span><br><span class="line">const [b=<span class="string">'b'</span>] = [undefined];</span><br><span class="line">assert.equal(b, <span class="string">'b'</span>);</span><br><span class="line"></span><br><span class="line">const &#123;prop: c=<span class="string">'c'</span>&#125; = &#123;&#125;;</span><br><span class="line">assert.equal(c, <span class="string">'c'</span>);</span><br><span class="line"></span><br><span class="line">const &#123;prop: d=<span class="string">'d'</span>&#125; = &#123;prop: undefined&#125;;</span><br><span class="line">assert.equal(d, <span class="string">'d'</span>);</span><br></pre></td></tr></table></figure>
+
+<h4 id="undefined-and-null-and-optional-chaining"><a href="#undefined-and-null-and-optional-chaining" class="headerlink" title="undefined and null and optional chaining"></a>undefined and null and optional chaining</h4><p>When there is optional chaining via value?.prop:</p>
+<ul>
+<li>If value is undefined or null, return undefined. That is, this happens whenever value.prop would throw an exception.</li>
+<li>Otherwise, return value.prop.</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> getProp(value) &#123;</span><br><span class="line">  <span class="comment"># optional static property access</span></span><br><span class="line">  <span class="built_in">return</span> value?.prop;</span><br><span class="line">&#125;</span><br><span class="line">assert.equal(</span><br><span class="line">  getProp(&#123;prop: 123&#125;), 123);</span><br><span class="line">assert.equal(</span><br><span class="line">  getProp(undefined), undefined);</span><br><span class="line">assert.equal(</span><br><span class="line">  getProp(null), undefined);</span><br></pre></td></tr></table></figure>
+
+<p>The following two operations work similarly:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">obj?.[«expr»] // optional dynamic property access</span><br><span class="line">func?.(«arg0», «arg1») // optional <span class="keyword">function</span> or method call</span><br></pre></td></tr></table></figure>
+
+<h4 id="undefined-and-null-and-nullish-coalescing"><a href="#undefined-and-null-and-nullish-coalescing" class="headerlink" title="undefined and null and nullish coalescing"></a>undefined and null and nullish coalescing</h4><p>nullish coalescing 的使用比较 简单，如果值是undefined 或者null的时候取后者</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; undefined ?? <span class="string">'default value'</span></span><br><span class="line"><span class="string">'default value'</span></span><br><span class="line">&gt; null ?? <span class="string">'default value'</span></span><br><span class="line"><span class="string">'default value'</span></span><br><span class="line"></span><br><span class="line">&gt; 0 ?? <span class="string">'default value'</span></span><br><span class="line">0</span><br><span class="line">&gt; 123 ?? <span class="string">'default value'</span></span><br><span class="line">123</span><br><span class="line">&gt; <span class="string">''</span> ?? <span class="string">'default value'</span></span><br><span class="line"><span class="string">''</span></span><br><span class="line">&gt; <span class="string">'abc'</span> ?? <span class="string">'default value'</span></span><br><span class="line"><span class="string">'abc'</span></span><br></pre></td></tr></table></figure>
+
+<p>The nullish coalescing assignment operator ??= combines nullish coalescing with assignment:</p>
+<p>??=  就是把 取值和赋值合起来</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> setName(obj) &#123;</span><br><span class="line">  obj.name ??= <span class="string">'(Unnamed)'</span>;</span><br><span class="line">  <span class="built_in">return</span> obj;</span><br><span class="line">&#125;</span><br><span class="line">assert.deepEqual(</span><br><span class="line">  setName(&#123;&#125;),</span><br><span class="line">  &#123;name: <span class="string">'(Unnamed)'</span>&#125;</span><br><span class="line">);</span><br><span class="line">assert.deepEqual(</span><br><span class="line">  setName(&#123;name: undefined&#125;),</span><br><span class="line">  &#123;name: <span class="string">'(Unnamed)'</span>&#125;</span><br><span class="line">);</span><br><span class="line">assert.deepEqual(</span><br><span class="line">  setName(&#123;name: null&#125;),</span><br><span class="line">  &#123;name: <span class="string">'(Unnamed)'</span>&#125;</span><br><span class="line">);</span><br><span class="line">assert.deepEqual(</span><br><span class="line">  setName(&#123;name: <span class="string">'Jane'</span>&#125;),</span><br><span class="line">  &#123;name: <span class="string">'Jane'</span>&#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>javascript浮点数精度问题</title>
+    <url>/2019/10/10/javascript-float-num/</url>
+    <content><![CDATA[<h3 id="浮点数陷阱"><a href="#浮点数陷阱" class="headerlink" title="浮点数陷阱"></a>浮点数陷阱</h3><p>原文：<a href="https://zhuanlan.zhihu.com/ne-fe" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/ne-fe</a></p>
+<p>众所周知，JavaScript 浮点数运算时经常遇到会 0.000000001 和 0.999999999 这样奇怪的结果，如 0.1+0.2=0.30000000000000004、1-0.9=0.09999999999999998，很多人知道这是浮点数误差问题，但具体就说不清楚了。本文帮你理清这背后的原理以及解决方案，还会向你解释JS中的大数危机和四则运算中会遇到的坑。</p>
+<a id="more"></a>
+<h3 id="浮点数的储存"><a href="#浮点数的储存" class="headerlink" title="浮点数的储存"></a>浮点数的储存</h3><p>首先要搞清楚 JavaScript 如何存储小数。和其它语言如 Java 和 Python 不同，JavaScript 中所有数字包括整数和小数都只有一种类型 — Number。它的实现遵循 IEEE 754 标准，使用 64 位固定长度来表示，也就是标准的 double 双精度浮点数（相关的还有float 32位单精度）。</p>
+<p>这样的存储结构优点是可以归一化处理整数和小数，节省存储空间。</p>
+<p>64位比特又可分为三个部分：</p>
+<ul>
+<li>符号位S：第 1 位是正负数符号位（sign），0代表正数，1代表负数</li>
+<li>指数位E：中间的 11 位存储指数（exponent），用来表示次方数</li>
+<li>尾数位M：最后的 52 位是尾数（mantissa），超出的部分自动进一舍零</li>
+</ul>
+<p><img src="/images/javascript_float_num/demo1.png" alt="图片"></p>
+<p>实际数字就可以用以下公式来计算：<br><img src="/images/javascript_float_num/demo2.png" alt="图片"></p>
+<p>公式推导过程见维基百科<a href="https://zh.wikipedia.org/wiki/%E9%9B%99%E7%B2%BE%E5%BA%A6%E6%B5%AE%E9%BB%9E%E6%95%B8" target="_blank" rel="noopener">wiki</a></p>
+<h3 id="为什么0-1-0-2-0-30000000000000004"><a href="#为什么0-1-0-2-0-30000000000000004" class="headerlink" title="为什么0.1+0.2 =0.30000000000000004?"></a>为什么0.1+0.2 =0.30000000000000004?</h3><p>0.1 转成二进制表示为 0.0001100110011001100(1100循环)，1.100110011001100x2^-4，所以 E=-4+1023=1019；M 舍去首位的1，得到 100110011…。<br>转化成十进制后为 0.100000000000000005551115123126，因此就出现了浮点误差。<br>接着0.1+0.2计算步骤为</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">0.00011001100110011001100110011001100110011001100110011010 +</span><br><span class="line">0.0011001100110011001100110011001100110011001100110011010 =</span><br><span class="line">0.0100110011001100110011001100110011001100110011001100111</span><br><span class="line">// 转成十进制正好是 0.30000000000000004</span><br></pre></td></tr></table></figure>
+
+<p>因为 mantissa 固定长度是 52 位，再加上省略的一位，最多可以表示的数是 2^53=9007199254740992，对应科学计数尾数是 9.007199254740992，这也是 JS 最多能表示的精度，如果整数大于 9007199254740992 会出现什么情况呢？<br>由于 E 最大值是 1023，所以最大可以表示的整数是 2^1024 - 1，这就是能表示的最大整数。但你并不能这样计算这个数字，因为从 2^1024 开始就变成了 Infinity</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Math.pow(2, 1023)</span><br><span class="line">//8.98846567431158e+307</span><br><span class="line"></span><br><span class="line">//Math.pow(2, 1024)</span><br><span class="line">Infinity</span><br></pre></td></tr></table></figure>
+
+<p>那么对于 (2^53, 2^63) 之间的数会出现什么情况呢？</p>
+<ul>
+<li>(2^53, 2^54) 之间的数会两个选一个，只能精确表示偶数</li>
+<li>(2^54, 2^55) 之间的数会四个选一个，只能精确表示4个倍数</li>
+<li>… 依次跳过更多2的倍数<br>下面这张图能很好的表示 JavaScript 中浮点数和实数（Real Number）之间的对应关系<br><img src="/images/javascript_float_num/demo3.jfif" alt="real number"></li>
+</ul>
+<p>要想解决大数的问题你可以引用第三方库 bignumber.js，原理是把所有数字当作字符串，重新实现了计算逻辑，缺点是性能比原生的差很多</p>
+<h3 id="toPrecision-vs-toFixed"><a href="#toPrecision-vs-toFixed" class="headerlink" title="toPrecision vs toFixed"></a>toPrecision vs toFixed</h3><p>数据处理时，这两个函数很容易混淆。它们的共同点是把数字转成字符串供展示使用。注意在计算的中间过程不要使用，只用于最终结果。</p>
+<p>不同点就需要注意一下</p>
+<ul>
+<li>toPrecision 是处理精度，精度是从左至右第一个不为0的数开始数起。</li>
+<li>toFixed 是小数点后指定位数取整，从小数点开始数起。</li>
+</ul>
+<p>两者都能对多余数字做凑整处理，也有些人用 toFixed 来做四舍五入，但一定要知道它是有 Bug 的。</p>
+<p>如：1.005.toFixed(2) 返回的是 1.00 而不是 1.01。</p>
+<p>原因： 1.005 实际对应的数字是 1.00499999999999989，在四舍五入时全部被舍去！</p>
+<p>解法：使用专业的四舍五入函数 Math.round() 来处理。但 Math.round(1.005 * 100) / 100 还是不行，因为 1.005 * 100 = 100.49999999999999。还需要把乘法和除法精度误差都解决后再使用 Math.round。</p>
+<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><ul>
+<li><a href="https://github.com/dt-fe/number-precision">https://github.com/dt-fe/number-precision</a></li>
+<li>BigInt</li>
+<li>Number.EPSILON,表示 1 与Number可表示的大于 1 的最小的浮点数之间的差值。如果两个数的差值小于这个，就认为这两个数相等</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>jsonp实现</title>
     <url>/2019/11/28/jsonp/</url>
     <content><![CDATA[<p>由于浏览器的同源策略，所以当不同源发送请求时，会发生跨域，请求返回的结果被浏览器所拦截，其中一个解决办法就是用jsonp,jquery中的ajax中就支持了jsonp的数据类型</p>
@@ -903,53 +969,31 @@
       </tags>
   </entry>
   <entry>
-    <title>javascript浮点数精度问题</title>
-    <url>/2019/10/10/javascript-float-num/</url>
-    <content><![CDATA[<h3 id="浮点数陷阱"><a href="#浮点数陷阱" class="headerlink" title="浮点数陷阱"></a>浮点数陷阱</h3><p>原文：<a href="https://zhuanlan.zhihu.com/ne-fe" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/ne-fe</a></p>
-<p>众所周知，JavaScript 浮点数运算时经常遇到会 0.000000001 和 0.999999999 这样奇怪的结果，如 0.1+0.2=0.30000000000000004、1-0.9=0.09999999999999998，很多人知道这是浮点数误差问题，但具体就说不清楚了。本文帮你理清这背后的原理以及解决方案，还会向你解释JS中的大数危机和四则运算中会遇到的坑。</p>
+    <title>leetcode第1003之检查替换后的词是否有效</title>
+    <url>/2019/08/08/leetcode-1003/</url>
+    <content><![CDATA[<p>描述：: 给定有效字符串 “abc”。<br>对于任何有效的字符串 V，我们可以将 V 分成两个部分 X 和 Y，使得 X + Y（X 与 Y 连接）等于 V。（X 或 Y 可以为空。）那么，X + “abc” + Y 也同样是有效的。<br>例如，如果 S = “abc”，则有效字符串的示例是：”abc”，”aabcbc”，”abcabc”，”abcabcababcc”。无效字符串的示例是：”abccba”，”ab”，”cababc”，”bac”。<br>如果给定字符串 S 有效，则返回 true；否则，返回 false</p>
 <a id="more"></a>
-<h3 id="浮点数的储存"><a href="#浮点数的储存" class="headerlink" title="浮点数的储存"></a>浮点数的储存</h3><p>首先要搞清楚 JavaScript 如何存储小数。和其它语言如 Java 和 Python 不同，JavaScript 中所有数字包括整数和小数都只有一种类型 — Number。它的实现遵循 IEEE 754 标准，使用 64 位固定长度来表示，也就是标准的 double 双精度浮点数（相关的还有float 32位单精度）。</p>
-<p>这样的存储结构优点是可以归一化处理整数和小数，节省存储空间。</p>
-<p>64位比特又可分为三个部分：</p>
-<ul>
-<li>符号位S：第 1 位是正负数符号位（sign），0代表正数，1代表负数</li>
-<li>指数位E：中间的 11 位存储指数（exponent），用来表示次方数</li>
-<li>尾数位M：最后的 52 位是尾数（mantissa），超出的部分自动进一舍零</li>
-</ul>
-<p><img src="/images/javascript_float_num/demo1.png" alt="图片"></p>
-<p>实际数字就可以用以下公式来计算：<br><img src="/images/javascript_float_num/demo2.png" alt="图片"></p>
-<p>公式推导过程见维基百科<a href="https://zh.wikipedia.org/wiki/%E9%9B%99%E7%B2%BE%E5%BA%A6%E6%B5%AE%E9%BB%9E%E6%95%B8" target="_blank" rel="noopener">wiki</a></p>
-<h3 id="为什么0-1-0-2-0-30000000000000004"><a href="#为什么0-1-0-2-0-30000000000000004" class="headerlink" title="为什么0.1+0.2 =0.30000000000000004?"></a>为什么0.1+0.2 =0.30000000000000004?</h3><p>0.1 转成二进制表示为 0.0001100110011001100(1100循环)，1.100110011001100x2^-4，所以 E=-4+1023=1019；M 舍去首位的1，得到 100110011…。<br>转化成十进制后为 0.100000000000000005551115123126，因此就出现了浮点误差。<br>接着0.1+0.2计算步骤为</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">0.00011001100110011001100110011001100110011001100110011010 +</span><br><span class="line">0.0011001100110011001100110011001100110011001100110011010 =</span><br><span class="line">0.0100110011001100110011001100110011001100110011001100111</span><br><span class="line">// 转成十进制正好是 0.30000000000000004</span><br></pre></td></tr></table></figure>
 
-<p>因为 mantissa 固定长度是 52 位，再加上省略的一位，最多可以表示的数是 2^53=9007199254740992，对应科学计数尾数是 9.007199254740992，这也是 JS 最多能表示的精度，如果整数大于 9007199254740992 会出现什么情况呢？<br>由于 E 最大值是 1023，所以最大可以表示的整数是 2^1024 - 1，这就是能表示的最大整数。但你并不能这样计算这个数字，因为从 2^1024 开始就变成了 Infinity</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Math.pow(2, 1023)</span><br><span class="line">//8.98846567431158e+307</span><br><span class="line"></span><br><span class="line">//Math.pow(2, 1024)</span><br><span class="line">Infinity</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * @param &#123;string&#125; S</span><br><span class="line"> * @<span class="built_in">return</span> &#123;boolean&#125;</span><br><span class="line"> */</span><br><span class="line">var isValid = <span class="keyword">function</span>(S) &#123;</span><br><span class="line">    <span class="built_in">let</span> temp= <span class="string">''</span>;</span><br><span class="line">    <span class="keyword">while</span>(S.indexOf(<span class="string">'abc'</span>)!=-1)&#123;</span><br><span class="line">        temp= S.split(<span class="string">'abc'</span>).filter(item=&gt;item).join(<span class="string">""</span>);</span><br><span class="line">        S = temp;</span><br><span class="line">    &#125;</span><br><span class="line">    const isFlag=(str)=&gt;&#123;</span><br><span class="line">         <span class="built_in">return</span> str ==<span class="string">''</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> isFlag(S);</span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>leetcode第70之爬楼梯</title>
+    <url>/2019/08/08/leetcode-70/</url>
+    <content><![CDATA[<p>描述：假设你正在爬楼梯。需要 n 阶你才能到达楼顶。</p>
+<p>每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？</p>
+<p>注意：给定 n 是一个正整数。<br>两种写法，一种递归，一种开循环。<br>写递归有一个问题，当数据量庞大的时候，递归会爆栈，开循环就不存在爆栈的问题，因为循环只是在一个调用栈执行的，并且不会像递归一样重复计算值。</p>
+<a id="more"></a>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 爬楼梯</span><br><span class="line"> * @param &#123;number&#125; n</span><br><span class="line"> * @<span class="built_in">return</span> &#123;number&#125;</span><br><span class="line"> */</span><br><span class="line">var climbStairs = <span class="keyword">function</span>(n) &#123;</span><br><span class="line">    <span class="built_in">let</span> ans =[1,2];</span><br><span class="line">    <span class="keyword">if</span>(n==1||n==2)&#123;</span><br><span class="line">        <span class="built_in">return</span> ans[n-1];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">let</span> i = 2;i&lt;n;i++)&#123;</span><br><span class="line">        ans[i]=ans[i-1]+ans[i-2];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> ans[n-1]</span><br><span class="line"></span><br><span class="line">    // <span class="keyword">else</span> &#123;</span><br><span class="line">    //     <span class="built_in">return</span> climbStairs(n-1)+climbStairs(n-2);</span><br><span class="line">    // &#125;</span><br><span class="line">&#125;;</span><br><span class="line">console.log(<span class="string">"climbStairs(44):"</span>, climbStairs(44));</span><br><span class="line">// climbStairs(3)</span><br></pre></td></tr></table></figure>
 
-<p>那么对于 (2^53, 2^63) 之间的数会出现什么情况呢？</p>
-<ul>
-<li>(2^53, 2^54) 之间的数会两个选一个，只能精确表示偶数</li>
-<li>(2^54, 2^55) 之间的数会四个选一个，只能精确表示4个倍数</li>
-<li>… 依次跳过更多2的倍数<br>下面这张图能很好的表示 JavaScript 中浮点数和实数（Real Number）之间的对应关系<br><img src="/images/javascript_float_num/demo3.jfif" alt="real number"></li>
-</ul>
-<p>要想解决大数的问题你可以引用第三方库 bignumber.js，原理是把所有数字当作字符串，重新实现了计算逻辑，缺点是性能比原生的差很多</p>
-<h3 id="toPrecision-vs-toFixed"><a href="#toPrecision-vs-toFixed" class="headerlink" title="toPrecision vs toFixed"></a>toPrecision vs toFixed</h3><p>数据处理时，这两个函数很容易混淆。它们的共同点是把数字转成字符串供展示使用。注意在计算的中间过程不要使用，只用于最终结果。</p>
-<p>不同点就需要注意一下</p>
-<ul>
-<li>toPrecision 是处理精度，精度是从左至右第一个不为0的数开始数起。</li>
-<li>toFixed 是小数点后指定位数取整，从小数点开始数起。</li>
-</ul>
-<p>两者都能对多余数字做凑整处理，也有些人用 toFixed 来做四舍五入，但一定要知道它是有 Bug 的。</p>
-<p>如：1.005.toFixed(2) 返回的是 1.00 而不是 1.01。</p>
-<p>原因： 1.005 实际对应的数字是 1.00499999999999989，在四舍五入时全部被舍去！</p>
-<p>解法：使用专业的四舍五入函数 Math.round() 来处理。但 Math.round(1.005 * 100) / 100 还是不行，因为 1.005 * 100 = 100.49999999999999。还需要把乘法和除法精度误差都解决后再使用 Math.round。</p>
-<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><ul>
-<li><a href="https://github.com/dt-fe/number-precision">https://github.com/dt-fe/number-precision</a></li>
-<li>BigInt</li>
-<li>Number.EPSILON,表示 1 与Number可表示的大于 1 的最小的浮点数之间的差值。如果两个数的差值小于这个，就认为这两个数相等</li>
-</ul>
 ]]></content>
       <tags>
-        <tag>JavaScript</tag>
+        <tag>leetcode</tag>
       </tags>
   </entry>
   <entry>
@@ -1028,50 +1072,6 @@ btn.addEventListener('click',function(){
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">.child-three &#123;</span><br><span class="line">  flex: 0 0 1000px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
   </entry>
   <entry>
-    <title>leetcode第1003之检查替换后的词是否有效</title>
-    <url>/2019/08/08/leetcode-1003/</url>
-    <content><![CDATA[<p>描述：: 给定有效字符串 “abc”。<br>对于任何有效的字符串 V，我们可以将 V 分成两个部分 X 和 Y，使得 X + Y（X 与 Y 连接）等于 V。（X 或 Y 可以为空。）那么，X + “abc” + Y 也同样是有效的。<br>例如，如果 S = “abc”，则有效字符串的示例是：”abc”，”aabcbc”，”abcabc”，”abcabcababcc”。无效字符串的示例是：”abccba”，”ab”，”cababc”，”bac”。<br>如果给定字符串 S 有效，则返回 true；否则，返回 false</p>
-<a id="more"></a>
-
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * @param &#123;string&#125; S</span><br><span class="line"> * @<span class="built_in">return</span> &#123;boolean&#125;</span><br><span class="line"> */</span><br><span class="line">var isValid = <span class="keyword">function</span>(S) &#123;</span><br><span class="line">    <span class="built_in">let</span> temp= <span class="string">''</span>;</span><br><span class="line">    <span class="keyword">while</span>(S.indexOf(<span class="string">'abc'</span>)!=-1)&#123;</span><br><span class="line">        temp= S.split(<span class="string">'abc'</span>).filter(item=&gt;item).join(<span class="string">""</span>);</span><br><span class="line">        S = temp;</span><br><span class="line">    &#125;</span><br><span class="line">    const isFlag=(str)=&gt;&#123;</span><br><span class="line">         <span class="built_in">return</span> str ==<span class="string">''</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> isFlag(S);</span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>leetcode</category>
-      </categories>
-      <tags>
-        <tag>leetcode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>leetcode第70之爬楼梯</title>
-    <url>/2019/08/08/leetcode-70/</url>
-    <content><![CDATA[<p>描述：假设你正在爬楼梯。需要 n 阶你才能到达楼顶。</p>
-<p>每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？</p>
-<p>注意：给定 n 是一个正整数。<br>两种写法，一种递归，一种开循环。<br>写递归有一个问题，当数据量庞大的时候，递归会爆栈，开循环就不存在爆栈的问题，因为循环只是在一个调用栈执行的，并且不会像递归一样重复计算值。</p>
-<a id="more"></a>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 爬楼梯</span><br><span class="line"> * @param &#123;number&#125; n</span><br><span class="line"> * @<span class="built_in">return</span> &#123;number&#125;</span><br><span class="line"> */</span><br><span class="line">var climbStairs = <span class="keyword">function</span>(n) &#123;</span><br><span class="line">    <span class="built_in">let</span> ans =[1,2];</span><br><span class="line">    <span class="keyword">if</span>(n==1||n==2)&#123;</span><br><span class="line">        <span class="built_in">return</span> ans[n-1];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">let</span> i = 2;i&lt;n;i++)&#123;</span><br><span class="line">        ans[i]=ans[i-1]+ans[i-2];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> ans[n-1]</span><br><span class="line"></span><br><span class="line">    // <span class="keyword">else</span> &#123;</span><br><span class="line">    //     <span class="built_in">return</span> climbStairs(n-1)+climbStairs(n-2);</span><br><span class="line">    // &#125;</span><br><span class="line">&#125;;</span><br><span class="line">console.log(<span class="string">"climbStairs(44):"</span>, climbStairs(44));</span><br><span class="line">// climbStairs(3)</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <tags>
-        <tag>leetcode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>item</title>
-    <url>/2020/10/07/item/</url>
-    <content><![CDATA[<h3 id="Proposal-for-a-item-method-on-all-the-built-in-indexables"><a href="#Proposal-for-a-item-method-on-all-the-built-in-indexables" class="headerlink" title="Proposal for a .item() method on all the built-in indexables"></a>Proposal for a .item() method on all the built-in indexables</h3><p>这个方法是给有索引对象内置的一个方法，那么这个方法接收一个 number 类型的 index，对象能够根据 index 来确定值。那其实看到这会有个问题，具备索引的对象自己就能根据索引来确定值了，那么这个方法出现的意义是为什么？它其实是用负值的 index 来获取值，比如</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const arr =[1,2,3]</span><br><span class="line">arr.item(-1) // 3</span><br></pre></td></tr></table></figure>
-
-<p>是这样的用法。<br>那么这个方法是挂载在 String，Array，TypeArray 这三个数据结构的原型链上。<br>然后对于 dom 结构中类型 document.getElementById()这样的返回 NodeList 结构在经过 Array.from 转化之后同样会挂载 item 方法</p>
-<p>但是这个方法目前还处于 stage3 阶段，因此是不能直接使用的 hhhh。但是官方给出了 polyfill</p>
-<p>Like this:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> item(n) &#123;</span><br><span class="line">	<span class="comment"># ToInteger() abstract op</span></span><br><span class="line">	n = Math.trunc(n) || 0;</span><br><span class="line">	<span class="comment"># Allow negative indexing from the end</span></span><br><span class="line">	<span class="keyword">if</span>(n &lt; 0) n += this.length;</span><br><span class="line">	<span class="comment"># OOB access is guaranteed to return undefined</span></span><br><span class="line">	<span class="keyword">if</span>(n &lt; 0 || n &gt;= this.length) <span class="built_in">return</span> undefined;</span><br><span class="line">	<span class="comment"># Otherwise, this is just normal property access</span></span><br><span class="line">	<span class="built_in">return</span> this[n];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Other TypedArray constructors omitted for brevity.</span></span><br><span class="line"><span class="keyword">for</span> (<span class="built_in">let</span> C of [Array, String, Uint8Array]) &#123;</span><br><span class="line">    Object.defineProperty(C.prototype, <span class="string">"item"</span>,</span><br><span class="line">                          &#123; value: item,</span><br><span class="line">                            writable: <span class="literal">true</span>,</span><br><span class="line">                            enumerable: <span class="literal">false</span>,</span><br><span class="line">                            configurable: <span class="literal">true</span> &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>leetcode第73之矩阵置0</title>
     <url>/2019/08/08/leetcode-73/</url>
     <content><![CDATA[<p>描述：: 给定一个 m x n 的矩阵，如果一个元素为 0，则将其所在行和列的所有元素都设为 0。请使用原地算法。</p>
@@ -1081,6 +1081,21 @@ btn.addEventListener('click',function(){
 
 <p>题解：将0所在的行列储存起来作为标记，第二次循环的时候判断元素当前所在行或者列是否在标记的行或列即可</p>
 ]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>leetcode第55之跳跃游戏</title>
+    <url>/2019/08/08/leetcode_55/</url>
+    <content><![CDATA[<p> 描述:给定一个非负整数数组，你最初位于数组的第一个位置。</p>
+<p>数组中的每个元素代表你在该位置可以跳跃的最大长度。</p>
+<p>判断你是否能够到达最后一个位置</p>
+<a id="more"></a>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * @param &#123;number[]&#125; nums</span><br><span class="line"> * @<span class="built_in">return</span> &#123;boolean&#125;</span><br><span class="line"> */</span><br><span class="line"> </span><br><span class="line">var canJump = <span class="keyword">function</span>(nums) &#123;</span><br><span class="line">    const length = nums.length;</span><br><span class="line">    <span class="built_in">let</span> lastIndex = nums.length-1;</span><br><span class="line">    const res = [];</span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">let</span> i=lastIndex;i&gt;=0;--i)&#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[i]+i&gt;=lastIndex)&#123;</span><br><span class="line">             </span><br><span class="line">                lastIndex = i;</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> lastIndex == 0 ;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>leetcode</category>
       </categories>
@@ -1163,139 +1178,6 @@ btn.addEventListener('click',function(){
       <tags>
         <tag>JavaScript</tag>
         <tag>listNode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>leetcode第55之跳跃游戏</title>
-    <url>/2019/08/08/leetcode_55/</url>
-    <content><![CDATA[<p> 描述:给定一个非负整数数组，你最初位于数组的第一个位置。</p>
-<p>数组中的每个元素代表你在该位置可以跳跃的最大长度。</p>
-<p>判断你是否能够到达最后一个位置</p>
-<a id="more"></a>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * @param &#123;number[]&#125; nums</span><br><span class="line"> * @<span class="built_in">return</span> &#123;boolean&#125;</span><br><span class="line"> */</span><br><span class="line"> </span><br><span class="line">var canJump = <span class="keyword">function</span>(nums) &#123;</span><br><span class="line">    const length = nums.length;</span><br><span class="line">    <span class="built_in">let</span> lastIndex = nums.length-1;</span><br><span class="line">    const res = [];</span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">let</span> i=lastIndex;i&gt;=0;--i)&#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[i]+i&gt;=lastIndex)&#123;</span><br><span class="line">             </span><br><span class="line">                lastIndex = i;</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> lastIndex == 0 ;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>leetcode</category>
-      </categories>
-      <tags>
-        <tag>leetcode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>面试总结(2)</title>
-    <url>/2020/08/30/mianshi2/</url>
-    <content><![CDATA[<h2 id="https握手过程"><a href="#https握手过程" class="headerlink" title="https握手过程"></a>https握手过程</h2><ol>
-<li>服务端生成公私钥</li>
-<li>服务端把公钥，加密的hash算法以及个人信息发送给CA</li>
-<li>CA把服务端发送来的明文信息用服务端发来的hash算法加密生成密文，然后用CA的私钥对密文进行加密生成签名</li>
-<li>CA把证书发还给服务端，证书内容包括签名，以及证书的颁发对象以及 颁发者等信息。</li>
-<li>服务端把证书和明文信息一起发送给客户端</li>
-<li>客户端接收服务端发送的证书，用内置在操作系统的公钥对签名进行解密，然后用服务端发来对hash算法对明文进行加密，如果两次生成的字符串相等，那么数据是可信的</li>
-<li>客户端在本地随机生成random1，发送给服务端</li>
-<li>服务端在本地随机生成random2，发送给客户端</li>
-<li>客户端在本地随机生成random3，然后用服务端发来的公钥对random3加密发送给服务端</li>
-<li>客户端服务端根据三个随机random各自生成对称密钥</li>
-<li>用生成的对称密钥加密一段握手信息，发送给服务端。双端验证。</li>
-<li>后续加密用生成的对称密钥加密<a id="more"></a>
-<h2 id="输入URL到页面渲染过程"><a href="#输入URL到页面渲染过程" class="headerlink" title="输入URL到页面渲染过程"></a>输入URL到页面渲染过程</h2></li>
-<li>浏览器进程拼接URL，加协议</li>
-<li>网络进程根据URl做DNS解析</li>
-<li>请求的资源返回给渲染进程</li>
-<li>渲染进程根据返回的状态码以及content-type来进行后续的流程</li>
-<li>是html类型则进行渲染流程</li>
-<li>生成CSSOM以及DOM</li>
-<li>生成Render树。</li>
-<li>根据render树生成图层树</li>
-<li>渲染进程对图层进行绘制，把图层绘制拆分成一个个的绘制指令，绘制指令组成绘制列表</li>
-<li>渲染进程的合成线程来进行实际的绘制操作</li>
-<li>合成线程在光栅化线程中执行光栅化（把图层转化成位图）</li>
-<li>光栅化采用GPU加速，因此实际绘制过程在GPU进程</li>
-<li>光栅化结束渲染进程通知浏览器进程</li>
-<li>浏览器进程接收drawquard命令，将其页面内容绘制到内存中，最后再将内存显示在屏幕上。</li>
-<li>done！</li>
-</ol>
-<h2 id="字符串翻转"><a href="#字符串翻转" class="headerlink" title="字符串翻转"></a>字符串翻转</h2><p>略</p>
-<h2 id="字符串转数组"><a href="#字符串转数组" class="headerlink" title="字符串转数组"></a>字符串转数组</h2><p>parseInt Number 两者区别<br>略</p>
-<h2 id="DNS解析过程"><a href="#DNS解析过程" class="headerlink" title="DNS解析过程"></a>DNS解析过程</h2><p>找本地缓存，没找到请求域名服务器</p>
-<h2 id="DNS劫持"><a href="#DNS劫持" class="headerlink" title="DNS劫持"></a>DNS劫持</h2><p>略</p>
-<h2 id="强缓存-协商缓存"><a href="#强缓存-协商缓存" class="headerlink" title="强缓存 协商缓存"></a>强缓存 协商缓存</h2><ul>
-<li><p>强缓存：</p>
-<ul>
-<li>Cache-Control</li>
-<li>Expire</li>
-</ul>
-</li>
-<li><p>协商缓存：</p>
-<ul>
-<li>If-Modified-Since</li>
-<li>Etag<br>其他略</li>
-</ul>
-</li>
-</ul>
-<h2 id="vue双向绑定原理"><a href="#vue双向绑定原理" class="headerlink" title="vue双向绑定原理"></a>vue双向绑定原理</h2><p>数据劫持 ➕ 发布订阅</p>
-<h2 id="vue响应式原理"><a href="#vue响应式原理" class="headerlink" title="vue响应式原理"></a>vue响应式原理</h2><p>依赖收集 + 依赖更细</p>
-<h2 id="react-fiber"><a href="#react-fiber" class="headerlink" title="react fiber"></a>react fiber</h2><ol>
-<li>根据component生成fiber树</li>
-<li>每个节点都对应一个fiber节点</li>
-<li>当前渲染在屏幕上的是current树</li>
-<li>current树有一个是alternate的指针指向wip树</li>
-<li>wip也有相同的指针指向current树</li>
-<li>wip树是fork了一份current树，这个叫做double buffering</li>
-<li>有两个阶段，一个是render，一个是commit</li>
-<li>render阶段可以被打断，commit阶段不可以被打断</li>
-<li>render阶段的任务主要根据插入的顺序来执行，通过使用requestIdlecallback这个api来实现任务的调度</li>
-<li>高优先级的任务可以打断低优先级的任务执行，比如用户输入等需要及时反馈的任务属于高优先级，而对于数据获取这类的任务属于低优先级</li>
-<li>react内部通过使用messageChannel来实现reqeustIdleCallback的polyfill</li>
-</ol>
-<h2 id="xss防御"><a href="#xss防御" class="headerlink" title="xss防御"></a>xss防御</h2><ol>
-<li>转码</li>
-<li>白名单</li>
-<li>过滤</li>
-</ol>
-<h2 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h2><ol>
-<li>SameSite<ul>
-<li>Lax</li>
-<li>Strict</li>
-<li>None</li>
-</ul>
-</li>
-<li>x-frame-option</li>
-<li>csp<ul>
-<li>default-src</li>
-<li>image-src</li>
-<li>media-src</li>
-<li>script-src</li>
-</ul>
-</li>
-<li>token</li>
-<li>refer/origin</li>
-</ol>
-<h2 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h2><ol>
-<li><p>webpack</p>
-<ul>
-<li>缩小构建体积（分包，tree-shaking，剔除第三方库不需要的模块）</li>
-<li>缓存（cache-loader，hard-source-webpack-plugin，dll）</li>
-<li>预加载（preload）</li>
-<li>减少请求资源数（mini-css-extract-plugin，html-webpack-plugin）</li>
-</ul>
-</li>
-<li><p>差异化服务</p>
-</li>
-<li><p>图片懒加载（非可视区域图片用placeholder替代或者低质量图片）</p>
-</li>
-<li><p>减少时间复杂度</p>
-</li>
-<li><p>非必要文件异步加载或动态加载模块</p>
-</li>
-<li><p>对核心内容启用SSR</p>
-</li>
-</ol>
-<h2 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h2><p>CORS</p>
-<p>img</p>
-<p>script</p>
-]]></content>
-      <tags>
-        <tag>article</tag>
-        <tag>conclusion</tag>
       </tags>
   </entry>
   <entry>
@@ -1499,6 +1381,124 @@ btn.addEventListener('click',function(){
 ]]></content>
   </entry>
   <entry>
+    <title>面试总结(2)</title>
+    <url>/2020/08/30/mianshi2/</url>
+    <content><![CDATA[<h2 id="https握手过程"><a href="#https握手过程" class="headerlink" title="https握手过程"></a>https握手过程</h2><ol>
+<li>服务端生成公私钥</li>
+<li>服务端把公钥，加密的hash算法以及个人信息发送给CA</li>
+<li>CA把服务端发送来的明文信息用服务端发来的hash算法加密生成密文，然后用CA的私钥对密文进行加密生成签名</li>
+<li>CA把证书发还给服务端，证书内容包括签名，以及证书的颁发对象以及 颁发者等信息。</li>
+<li>服务端把证书和明文信息一起发送给客户端</li>
+<li>客户端接收服务端发送的证书，用内置在操作系统的公钥对签名进行解密，然后用服务端发来对hash算法对明文进行加密，如果两次生成的字符串相等，那么数据是可信的</li>
+<li>客户端在本地随机生成random1，发送给服务端</li>
+<li>服务端在本地随机生成random2，发送给客户端</li>
+<li>客户端在本地随机生成random3，然后用服务端发来的公钥对random3加密发送给服务端</li>
+<li>客户端服务端根据三个随机random各自生成对称密钥</li>
+<li>用生成的对称密钥加密一段握手信息，发送给服务端。双端验证。</li>
+<li>后续加密用生成的对称密钥加密<a id="more"></a>
+<h2 id="输入URL到页面渲染过程"><a href="#输入URL到页面渲染过程" class="headerlink" title="输入URL到页面渲染过程"></a>输入URL到页面渲染过程</h2></li>
+<li>浏览器进程拼接URL，加协议</li>
+<li>网络进程根据URl做DNS解析</li>
+<li>请求的资源返回给渲染进程</li>
+<li>渲染进程根据返回的状态码以及content-type来进行后续的流程</li>
+<li>是html类型则进行渲染流程</li>
+<li>生成CSSOM以及DOM</li>
+<li>生成Render树。</li>
+<li>根据render树生成图层树</li>
+<li>渲染进程对图层进行绘制，把图层绘制拆分成一个个的绘制指令，绘制指令组成绘制列表</li>
+<li>渲染进程的合成线程来进行实际的绘制操作</li>
+<li>合成线程在光栅化线程中执行光栅化（把图层转化成位图）</li>
+<li>光栅化采用GPU加速，因此实际绘制过程在GPU进程</li>
+<li>光栅化结束渲染进程通知浏览器进程</li>
+<li>浏览器进程接收drawquard命令，将其页面内容绘制到内存中，最后再将内存显示在屏幕上。</li>
+<li>done！</li>
+</ol>
+<h2 id="字符串翻转"><a href="#字符串翻转" class="headerlink" title="字符串翻转"></a>字符串翻转</h2><p>略</p>
+<h2 id="字符串转数组"><a href="#字符串转数组" class="headerlink" title="字符串转数组"></a>字符串转数组</h2><p>parseInt Number 两者区别<br>略</p>
+<h2 id="DNS解析过程"><a href="#DNS解析过程" class="headerlink" title="DNS解析过程"></a>DNS解析过程</h2><p>找本地缓存，没找到请求域名服务器</p>
+<h2 id="DNS劫持"><a href="#DNS劫持" class="headerlink" title="DNS劫持"></a>DNS劫持</h2><p>略</p>
+<h2 id="强缓存-协商缓存"><a href="#强缓存-协商缓存" class="headerlink" title="强缓存 协商缓存"></a>强缓存 协商缓存</h2><ul>
+<li><p>强缓存：</p>
+<ul>
+<li>Cache-Control</li>
+<li>Expire</li>
+</ul>
+</li>
+<li><p>协商缓存：</p>
+<ul>
+<li>If-Modified-Since</li>
+<li>Etag<br>其他略</li>
+</ul>
+</li>
+</ul>
+<h2 id="vue双向绑定原理"><a href="#vue双向绑定原理" class="headerlink" title="vue双向绑定原理"></a>vue双向绑定原理</h2><p>数据劫持 ➕ 发布订阅</p>
+<h2 id="vue响应式原理"><a href="#vue响应式原理" class="headerlink" title="vue响应式原理"></a>vue响应式原理</h2><p>依赖收集 + 依赖更细</p>
+<h2 id="react-fiber"><a href="#react-fiber" class="headerlink" title="react fiber"></a>react fiber</h2><ol>
+<li>根据component生成fiber树</li>
+<li>每个节点都对应一个fiber节点</li>
+<li>当前渲染在屏幕上的是current树</li>
+<li>current树有一个是alternate的指针指向wip树</li>
+<li>wip也有相同的指针指向current树</li>
+<li>wip树是fork了一份current树，这个叫做double buffering</li>
+<li>有两个阶段，一个是render，一个是commit</li>
+<li>render阶段可以被打断，commit阶段不可以被打断</li>
+<li>render阶段的任务主要根据插入的顺序来执行，通过使用requestIdlecallback这个api来实现任务的调度</li>
+<li>高优先级的任务可以打断低优先级的任务执行，比如用户输入等需要及时反馈的任务属于高优先级，而对于数据获取这类的任务属于低优先级</li>
+<li>react内部通过使用messageChannel来实现reqeustIdleCallback的polyfill</li>
+</ol>
+<h2 id="xss防御"><a href="#xss防御" class="headerlink" title="xss防御"></a>xss防御</h2><ol>
+<li>转码</li>
+<li>白名单</li>
+<li>过滤</li>
+</ol>
+<h2 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h2><ol>
+<li>SameSite<ul>
+<li>Lax</li>
+<li>Strict</li>
+<li>None</li>
+</ul>
+</li>
+<li>x-frame-option</li>
+<li>csp<ul>
+<li>default-src</li>
+<li>image-src</li>
+<li>media-src</li>
+<li>script-src</li>
+</ul>
+</li>
+<li>token</li>
+<li>refer/origin</li>
+</ol>
+<h2 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h2><ol>
+<li><p>webpack</p>
+<ul>
+<li>缩小构建体积（分包，tree-shaking，剔除第三方库不需要的模块）</li>
+<li>缓存（cache-loader，hard-source-webpack-plugin，dll）</li>
+<li>预加载（preload）</li>
+<li>减少请求资源数（mini-css-extract-plugin，html-webpack-plugin）</li>
+</ul>
+</li>
+<li><p>差异化服务</p>
+</li>
+<li><p>图片懒加载（非可视区域图片用placeholder替代或者低质量图片）</p>
+</li>
+<li><p>减少时间复杂度</p>
+</li>
+<li><p>非必要文件异步加载或动态加载模块</p>
+</li>
+<li><p>对核心内容启用SSR</p>
+</li>
+</ol>
+<h2 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h2><p>CORS</p>
+<p>img</p>
+<p>script</p>
+]]></content>
+      <tags>
+        <tag>article</tag>
+        <tag>conclusion</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>npm包的发布</title>
     <url>/2020/09/02/npm-pkg/</url>
     <content><![CDATA[<p><strong>趁趁趁着还不太忙，补个npm包的发布</strong></p>
@@ -1538,30 +1538,6 @@ btn.addEventListener('click',function(){
       <tags>
         <tag>mutation</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>元素定位</title>
-    <url>/2020/12/31/location/</url>
-    <content><![CDATA[<ol>
-<li><p>focus</p>
-<ul>
-<li><p>Options</p>
-<p>An optional object providing options to control aspects of the focusing process. This object may contain the following property:</p>
-<ul>
-<li><p>preventScroll Optional</p>
-<p> A Boolean value indicating whether or not the browser should scroll the document to bring the newly-focused element into view. A value of false for preventScroll (the default) means that the browser will scroll the element into view after focusing it. If preventScroll is set to true, no scrolling will occur.</p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>计算元素的scrollTop，让滚动列表的scrollTop的值等于元素的scrollTop</p>
-</li>
-<li><p>scrollIntoView</p>
-<p> <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView" target="_blank" rel="noopener">文档</a></p>
-</li>
-</ol>
-]]></content>
   </entry>
   <entry>
     <title>provide of vue3</title>
@@ -1809,6 +1785,62 @@ createComponentInstance
       </tags>
   </entry>
   <entry>
+    <title>简单请求和复杂请求</title>
+    <url>/2020/09/16/request-of-complex-simply/</url>
+    <content><![CDATA[<h3 id="简单请求"><a href="#简单请求" class="headerlink" title="简单请求"></a>简单请求</h3><p>请求方法只能是以下三种：</p>
+<ol>
+<li>GET</li>
+<li>POST</li>
+<li>HEAD</li>
+</ol>
+<p>请求头只能用以下几种：</p>
+<ol>
+<li>Accept</li>
+<li>Accept-Language</li>
+<li>Content-Language</li>
+<li>Content-Type （需要注意额外的限制）</li>
+<li>DPR</li>
+<li>Downlink</li>
+<li>Save-Data</li>
+<li>Viewport-Width</li>
+<li>Width</li>
+</ol>
+<p>Content——Type只能有以下几种</p>
+<ol>
+<li>text/plain</li>
+<li>multipart/form-data</li>
+<li>application/x-www-form-urlencoded</li>
+</ol>
+<p>请求中的任意XMLHttpRequestUpload 对象均没有注册任何事件监听器；XMLHttpRequestUpload 对象可以使用 XMLHttpRequest.upload 属性访问。</p>
+<p>请求中没有使用 ReadableStream 对象。</p>
+<h3 id="复杂请求"><a href="#复杂请求" class="headerlink" title="复杂请求"></a>复杂请求</h3><p>非简单请求就是复杂亲求</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>元素定位</title>
+    <url>/2020/12/31/location/</url>
+    <content><![CDATA[<ol>
+<li><p>focus</p>
+<ul>
+<li><p>Options</p>
+<p>An optional object providing options to control aspects of the focusing process. This object may contain the following property:</p>
+<ul>
+<li><p>preventScroll Optional</p>
+<p> A Boolean value indicating whether or not the browser should scroll the document to bring the newly-focused element into view. A value of false for preventScroll (the default) means that the browser will scroll the element into view after focusing it. If preventScroll is set to true, no scrolling will occur.</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>计算元素的scrollTop，让滚动列表的scrollTop的值等于元素的scrollTop</p>
+</li>
+<li><p>scrollIntoView</p>
+<p> <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView" target="_blank" rel="noopener">文档</a></p>
+</li>
+</ol>
+]]></content>
+  </entry>
+  <entry>
     <title>JavaScript读书笔记</title>
     <url>/2019/08/05/readingNote-JS/</url>
     <content><![CDATA[<h2 id="new运算符的实现"><a href="#new运算符的实现" class="headerlink" title="new运算符的实现"></a>new运算符的实现</h2><h3 id="定义一个函数，以及原型链的方法"><a href="#定义一个函数，以及原型链的方法" class="headerlink" title="定义一个函数，以及原型链的方法"></a>定义一个函数，以及原型链的方法</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> Testfoo(name) &#123;</span><br><span class="line">    console.log(this[name]) </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Testfoo.prototype.sayHello= <span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">    console.log(<span class="string">'hello'</span>);</span><br><span class="line">    <span class="built_in">return</span> 1;</span><br><span class="line">&#125;</span><br><span class="line">//使用new运算符</span><br><span class="line"><span class="built_in">let</span> aaa = new Testfoo();</span><br><span class="line">aaa.sayHello();//输出hello</span><br><span class="line">//不使用new运算符</span><br><span class="line"><span class="built_in">let</span> testObj  = &#123;&#125;;//创建空对象</span><br><span class="line">testObj=Object.create(Testfoo.prototype);//创建一个具有Testfoo的原型链的空方法</span><br><span class="line">Testfoo.call(testObj);//指定this</span><br><span class="line">console.log(<span class="string">'testObj'</span>,testObj.sayHello());//输出hello</span><br></pre></td></tr></table></figure>
@@ -2015,38 +2047,6 @@ createComponentInstance
       </tags>
   </entry>
   <entry>
-    <title>简单请求和复杂请求</title>
-    <url>/2020/09/16/request-of-complex-simply/</url>
-    <content><![CDATA[<h3 id="简单请求"><a href="#简单请求" class="headerlink" title="简单请求"></a>简单请求</h3><p>请求方法只能是以下三种：</p>
-<ol>
-<li>GET</li>
-<li>POST</li>
-<li>HEAD</li>
-</ol>
-<p>请求头只能用以下几种：</p>
-<ol>
-<li>Accept</li>
-<li>Accept-Language</li>
-<li>Content-Language</li>
-<li>Content-Type （需要注意额外的限制）</li>
-<li>DPR</li>
-<li>Downlink</li>
-<li>Save-Data</li>
-<li>Viewport-Width</li>
-<li>Width</li>
-</ol>
-<p>Content——Type只能有以下几种</p>
-<ol>
-<li>text/plain</li>
-<li>multipart/form-data</li>
-<li>application/x-www-form-urlencoded</li>
-</ol>
-<p>请求中的任意XMLHttpRequestUpload 对象均没有注册任何事件监听器；XMLHttpRequestUpload 对象可以使用 XMLHttpRequest.upload 属性访问。</p>
-<p>请求中没有使用 ReadableStream 对象。</p>
-<h3 id="复杂请求"><a href="#复杂请求" class="headerlink" title="复杂请求"></a>复杂请求</h3><p>非简单请求就是复杂亲求</p>
-]]></content>
-  </entry>
-  <entry>
     <title>优雅的书写方式</title>
     <url>/2019/10/27/usage-for-better/</url>
     <content><![CDATA[<h3 id="变量声明"><a href="#变量声明" class="headerlink" title="变量声明"></a>变量声明</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//变量声明用let or const</span><br><span class="line">let a = 1;</span><br><span class="line">const b = 2;</span><br></pre></td></tr></table></figure>
@@ -2090,19 +2090,6 @@ createComponentInstance
       <tags>
         <tag>JavaScript</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>今日随笔</title>
-    <url>/2020/08/15/vue-react-new-release/</url>
-    <content><![CDATA[<p>react 更新了<br><img src="/images/update-of-frame/react.png" alt="react"></p>
-<p>vue脚手架更新</p>
-<p><img src="/images/update-of-frame/vue.jpeg" alt="vue"></p>
-<p>来玩~</p>
-]]></content>
-      <categories>
-        <category>vue</category>
-        <category>react</category>
-      </categories>
   </entry>
   <entry>
     <title>工具函数</title>
@@ -2224,6 +2211,19 @@ createComponentInstance
       </tags>
   </entry>
   <entry>
+    <title>今日随笔</title>
+    <url>/2020/08/15/vue-react-new-release/</url>
+    <content><![CDATA[<p>react 更新了<br><img src="/images/update-of-frame/react.png" alt="react"></p>
+<p>vue脚手架更新</p>
+<p><img src="/images/update-of-frame/vue.jpeg" alt="vue"></p>
+<p>来玩~</p>
+]]></content>
+      <categories>
+        <category>vue</category>
+        <category>react</category>
+      </categories>
+  </entry>
+  <entry>
     <title>vuex</title>
     <url>/2020/04/28/vuex/</url>
     <content><![CDATA[<h2 id="vuex-简述"><a href="#vuex-简述" class="headerlink" title="vuex 简述"></a>vuex 简述</h2><p>vuex 本质上就是 vue 中的 mixin，store 在每个 vue 组建实例创建的时候通过 mixin 的方式注入的，mixin 就类似这样的格式</p>
@@ -2303,6 +2303,20 @@ createComponentInstance
       </categories>
       <tags>
         <tag>Vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>节流</title>
+    <url>/2021/02/19/throttle/</url>
+    <content><![CDATA[<h5 id="创建一个节流函数在给定的毫秒中最多调用一次"><a href="#创建一个节流函数在给定的毫秒中最多调用一次" class="headerlink" title="创建一个节流函数在给定的毫秒中最多调用一次"></a>创建一个节流函数在给定的毫秒中最多调用一次</h5><p>Creates a throttled function that only invokes the provided function at most once per every wait milliseconds</p>
+<hr>
+<p>使用setTimeout 和 clearTimeout 对给定对方法节流。fn使用<code>Function.prototype.apply()</code>this上下文应用到函数中并且提供必要到参数arguments。使用<code>Date.now()</code>收集上一次函数的调用时间。没有给定第二个参数 <code>wait</code>的情况，默认设置时间间隔为0</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const throttle = (fn, <span class="built_in">wait</span>) =&gt; &#123;</span><br><span class="line">  <span class="built_in">let</span> inThrottle, lastFn, lastTime;</span><br><span class="line">  <span class="built_in">return</span> <span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">    const context = this,</span><br><span class="line">      args = arguments;</span><br><span class="line">    <span class="keyword">if</span> (!inThrottle) &#123;</span><br><span class="line">      fn.apply(context, args);</span><br><span class="line">      lastTime = Date.now();</span><br><span class="line">      inThrottle = <span class="literal">true</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      clearTimeout(lastFn);</span><br><span class="line">      lastFn = setTimeout(<span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">        <span class="keyword">if</span> (Date.now() - lastTime &gt;= <span class="built_in">wait</span>) &#123;</span><br><span class="line">          fn.apply(context, args);</span><br><span class="line">          lastTime = Date.now();</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;, Math.max(<span class="built_in">wait</span> - (Date.now() - lastTime), 0));</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h5 id="for-instance"><a href="#for-instance" class="headerlink" title="for instance"></a>for instance</h5><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">window.addEventListener(</span><br><span class="line">  <span class="string">'resize'</span>,</span><br><span class="line">  throttle(<span class="keyword">function</span>(evt) &#123;</span><br><span class="line">    console.log(window.innerWidth);</span><br><span class="line">    console.log(window.innerHeight);</span><br><span class="line">  &#125;, 250)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>JavaScript</tag>
       </tags>
   </entry>
   <entry>
