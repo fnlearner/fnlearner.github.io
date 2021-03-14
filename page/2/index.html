@@ -188,6 +188,93 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/fnlearner/2020/10/13/svgInJS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="ZJS">
+      <meta itemprop="description" content="你找到我了呀！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Personal Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/13/svgInJS/" class="post-title-link" itemprop="url">在JS文件使用svg加载svg文件</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-13 21:27:37" itemprop="dateCreated datePublished" datetime="2020-10-13T21:27:37+08:00">2020-10-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-21 21:33:43" itemprop="dateModified" datetime="2020-10-21T21:33:43+08:00">2020-10-21</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="怎么在js文件中用引用svg文件"><a href="#怎么在js文件中用引用svg文件" class="headerlink" title="怎么在js文件中用引用svg文件"></a>怎么在js文件中用引用svg文件</h3><p>使用webpack的require.context,它接收三个参数</p>
+<ul>
+<li>要搜索的文件夹目录</li>
+<li>是否还应该搜索它的子目录，</li>
+<li>以及一个匹配文件的正则表达式。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const req = require.context(<span class="string">'./svg'</span>, <span class="literal">false</span>, /\.svg$/)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>req返回的是一个方法</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> webpackContext(req) &#123;</span><br><span class="line">	var id = webpackContextResolve(req);</span><br><span class="line">	<span class="built_in">return</span> __webpack_require__(id);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>包含三个属性</p>
+<ul>
+<li>id</li>
+<li>keys </li>
+<li>resolve
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/10/13/svgInJS/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://github.com/fnlearner/2020/10/11/essay-5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -914,80 +1001,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://github.com/fnlearner/2020/08/06/essay-4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="ZJS">
-      <meta itemprop="description" content="你找到我了呀！">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Personal Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/06/essay-4/" class="post-title-link" itemprop="url">今日随笔(8-6)</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-06 22:20:44" itemprop="dateCreated datePublished" datetime="2020-08-06T22:20:44+08:00">2020-08-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-07 17:41:15" itemprop="dateModified" datetime="2020-10-07T17:41:15+08:00">2020-10-07</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>先看代码</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const a = 1</span><br><span class="line">[...[1,2,3]].forEach(item=&gt;console.log(item))</span><br></pre></td></tr></table></figure>
-
-<p>乍一看，是不是感觉挺正常的，在浏览器的log窗口应该能输出1，2，3，才对<br>然后在浏览器跑一下，发现</p>
-<p><img src="/images/essay-4/unexpected_error.png.png" alt="error"></p>
-<p>然后emm排查了一下，语法是没问题的，浏览器版本是最新的开发版本，es6的语法肯定是支持的，那问题其实就是a=1 后面漏了分号，所以代码就成了这样</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const a = 1[...[1,2,3]].forEach(item=&gt;console.log(item))</span><br></pre></td></tr></table></figure>
-
-<p>那代码成了这样那肯定不能正确解析了～</p>
-<p>果然，漏写分号不是好习惯～</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1059,7 +1072,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">47</span>
+          <span class="site-state-item-count">48</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
