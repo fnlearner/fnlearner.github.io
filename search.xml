@@ -1552,6 +1552,7 @@ btn.addEventListener('click',function(){
 <h3 id="加载自定义图片作为底图"><a href="#加载自定义图片作为底图" class="headerlink" title="加载自定义图片作为底图"></a>加载自定义图片作为底图</h3><p>在加载自定义图片作为底图时，我把url给image对象</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> img = <span class="keyword">new</span> Image()</span><br><span class="line"><span class="keyword">const</span> url = <span class="string">'/static/img.ppng'</span></span><br><span class="line">img.url = url</span><br></pre></td></tr></table></figure>
 
+<a id="more"></a>
 <p>在渲染map对象时，我用到是layer下的image，在给定的source这个属性值，我用ImageCanvas来渲染自定义的图层。这是一开始写的代码,但是在这段代码中，会有两个问题：</p>
 <ul>
 <li>第一个问题是在画布初始渲染的时候会渲染不出来的，必须在缩放层级之后画布才能正常显示；</li>
