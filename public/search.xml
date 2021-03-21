@@ -27,134 +27,6 @@
       </tags>
   </entry>
   <entry>
-    <title>自适应布局</title>
-    <url>/2019/08/07/Adaptive/</url>
-    <content><![CDATA[<h2 id="grid"><a href="#grid" class="headerlink" title="grid"></a>grid</h2><p>css</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.main&#123;</span><br><span class="line">        display: grid;</span><br><span class="line">        grid-template-columns:repeat(auto-fill,27rem);</span><br><span class="line">        grid-gap:3rem 1.5rem;</span><br><span class="line">&#125;       </span><br><span class="line">.main &gt; .item&#123;</span><br><span class="line">        background-color: blue;</span><br><span class="line">        width:100%;</span><br><span class="line">        height: 100px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>html</p>
-<a id="more"></a>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;div class=&quot;main&quot;&gt;</span><br><span class="line">                &lt;div class=&quot;item&quot;&gt;&lt;/div&gt;</span><br><span class="line">                &lt;div class=&quot;item&quot;&gt;&lt;/div&gt;</span><br><span class="line">                &lt;div class=&quot;item&quot;&gt;&lt;/div&gt;</span><br><span class="line">                &lt;div class=&quot;item&quot;&gt;&lt;/div&gt;</span><br><span class="line">                &lt;div class=&quot;item&quot;&gt;&lt;/div&gt;</span><br><span class="line">                &lt;div class=&quot;item&quot;&gt;&lt;/div&gt;</span><br><span class="line">                &lt;div class=&quot;item&quot;&gt;&lt;/div&gt;</span><br><span class="line">                &lt;div class=&quot;item&quot;&gt;&lt;/div&gt;</span><br><span class="line">                &lt;div class=&quot;item&quot;&gt;&lt;/div&gt;</span><br><span class="line">                &lt;div class=&quot;item&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
-
-<p>以上代码效果能让每一行都尽量铺满</p>
-<html>
-    <head><meta name="generator" content="Hexo 3.9.0">
-        <style>
-            .main{
-                display: grid;
-                grid-template-columns:repeat(auto-fill,27rem);
-                grid-gap:3rem 1.5rem;
-            }
-            .main > .item{
-                  background:linear-gradient(45deg,black,transparent);
-                width:100%;
-                height: 100px;
-            }
-        </style>
-    </head>
-    <body>
-            <div class="main">
-                <div class="item"></div>
-                <div class="item"></div>
-                <div class="item"></div>
-                <div class="item"></div>
-                <div class="item"></div>
-                <div class="item"></div>
-                <div class="item"></div>
-                <div class="item"></div>
-                <div class="item"></div>
-                <div class="item"></div>
-            </div>
-    </body>
-</html>
-
-<h2 id="table"><a href="#table" class="headerlink" title="table"></a>table</h2><p>css</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.container&#123;</span><br><span class="line">    display: table;</span><br><span class="line">    width: 100%;</span><br><span class="line">    border-spacing: 30px 0;</span><br><span class="line">&#125;</span><br><span class="line">.container &gt;div&#123;</span><br><span class="line">    display: table-cell;</span><br><span class="line">    background-color: #00ffff;</span><br><span class="line">    border: 1px solid black;</span><br><span class="line">    height: 200px;</span><br><span class="line">    width: 25vw;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>html</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;div class=&quot;container&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;item&quot;&gt;item&lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;item&quot;&gt;item&lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;item&quot;&gt;item&lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;item&quot;&gt;item&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
-
-<html>
-    <head><meta name="generator" content="Hexo 3.9.0">
-        <style>
-            .container{
-                display: table;
-                width: 100%;
-                border-spacing: 30px 0;
-            }
-            .container >.item{
-                display: table-cell;
-                background-color: #00ffff;
-                border: 1px solid black;
-                height: 200px;
-                width: 25vw;
-            }
-        </style>
-    </head>
-    <body>
-     <div class="container">
-        <div class="item">item</div>
-        <div class="item">item</div>
-        <div class="item">item</div>
-        <div class="item">item</div>
-    </div>
-    </body>
-</html>
-
-<h2 id="flex"><a href="#flex" class="headerlink" title="flex"></a>flex</h2><p>css</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.main&#123;</span><br><span class="line">    display: flex;</span><br><span class="line">    flex-wrap: wrap;</span><br><span class="line">    justify-content: flex-start;             </span><br><span class="line">&#125;</span><br><span class="line">.main &gt; .item&#123;</span><br><span class="line">    width: 300px;</span><br><span class="line">    background:linear-gradient(45deg,black,transparent);</span><br><span class="line">    height: 100px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>html</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;div class=&quot;main&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;item&quot;&gt;&lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;item&quot;&gt;&lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;item&quot;&gt;&lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;item&quot;&gt;&lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;item&quot;&gt;&lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;item&quot;&gt;&lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;item&quot;&gt;&lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;item&quot;&gt;&lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;item&quot;&gt;&lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;item&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
-
-<html>
-    <head><meta name="generator" content="Hexo 3.9.0">
-        <style>
-            .main{
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: flex-start;
-            }
-            .main > .item{
-                width: 300px;
-                background:linear-gradient(45deg,black,transparent);
-                height: 100px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="main">
-            <div class="item"></div>
-            <div class="item"></div>
-            <div class="item"></div>
-            <div class="item"></div>
-            <div class="item"></div>
-            <div class="item"></div>
-            <div class="item"></div>
-            <div class="item"></div>
-            <div class="item"></div>
-            <div class="item"></div>
-        </div>
-    </body>
-</html>
-
-<p>以下<a href="https://juejin.im/post/5b90e07ce51d450e6a2dd140" target="_blank" rel="noopener">原文</a></p>
-<h2 id="媒体查询"><a href="#媒体查询" class="headerlink" title="媒体查询"></a>媒体查询</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@media screen and (min-width:240px) &#123;</span><br><span class="line">    html, body, button, input, select, textarea &#123;</span><br><span class="line">        font-size:9px;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">@media screen and (min-width:320px) &#123;</span><br><span class="line">	html, body, button, input, select, textarea &#123;</span><br><span class="line">		font-size:12px;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">// 红米Note2</span><br><span class="line">@media screen and (min-width:360px) &#123;</span><br><span class="line">	html, body, button, input, select, textarea &#123;</span><br><span class="line">		font-size:13.5px;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">@media screen and (min-width:375px) &#123;</span><br><span class="line">	html, body, button, input, select, textarea &#123;</span><br><span class="line">		font-size:14.0625px;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="JS设置html的font-size大小"><a href="#JS设置html的font-size大小" class="headerlink" title="JS设置html的font-size大小"></a>JS设置html的font-size大小</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">document.documentElement.style.fontSize = document.documentElement.clientWidth / 750 + &apos;px&apos;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="vw"><a href="#vw" class="headerlink" title="vw"></a>vw</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//使用vw设置，vw也是一个相对单位，100vw等于屏幕宽度</span><br><span class="line">html&#123;</span><br><span class="line">    font-size: 10vw;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>JavaScript</category>
-      </categories>
-      <tags>
-        <tag>JavaScript</tag>
-        <tag>css</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>ObjectKeys</title>
     <url>/2020/07/07/ObjectKeys/</url>
     <content><![CDATA[<h3 id="Object-keys"><a href="#Object-keys" class="headerlink" title="Object.keys"></a>Object.keys</h3><p>上一个Object.keys()在js中的用法</p>
@@ -273,6 +145,18 @@
 ]]></content>
   </entry>
   <entry>
+    <title>部署hexo踩坑记录</title>
+    <url>/2020/11/14/bugsForNode/</url>
+    <content><![CDATA[<p>在执行下面这句代码的时候</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g -d</span><br></pre></td></tr></table></figure>
+
+<p>报错信息</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Something<span class="string">'s wrong. Maybe you can find the solution here: https://hexo.io/docs/troubleshooting.html</span></span><br><span class="line"><span class="string">TypeError [ERR_INVALID_ARG_TYPE]: The "mode" argument must be integer. Received an instance of Object</span></span><br><span class="line"><span class="string">    at copyFile (fs.js:1924:10)</span></span><br><span class="line"><span class="string">    at tryCatcher (/Users/zjs/Desktop/blog/node_modules/bluebird/js/release/util.js:16:23)</span></span><br><span class="line"><span class="string">    at ret (eval at makeNodePromisifiedEval (/Users/zjs/.nvm/versions/node/v14.10.0/lib/node_modules/hexo-cli/node_modules/bluebird/js/release/promisify.js:184:12), &lt;anonymous&gt;:13:39)</span></span><br></pre></td></tr></table></figure>
+
+<p>解决方案<br> NodeJs 版本从 14 回到 12 就🉑️！</p>
+]]></content>
+  </entry>
+  <entry>
     <title>Chrome调试工具的那点事</title>
     <url>/2019/09/27/chorme-panel/</url>
     <content><![CDATA[<h3 id><a href="#" class="headerlink" title="$_"></a>$_</h3><p>调试的过程中，你经常会通过打印查看一些变量的值，但如果你想看一下上次执行的结果呢？再输一遍表达式吗</p>
@@ -288,6 +172,134 @@
 ]]></content>
       <tags>
         <tag>Chrome</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>自适应布局</title>
+    <url>/2019/08/07/adaptive/</url>
+    <content><![CDATA[<h2 id="grid"><a href="#grid" class="headerlink" title="grid"></a>grid</h2><p>css</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.main</span>&#123;</span><br><span class="line">        <span class="attribute">display</span>: grid;</span><br><span class="line">        <span class="attribute">grid-template-columns</span>:<span class="built_in">repeat</span>(auto-fill,<span class="number">27rem</span>);</span><br><span class="line">        <span class="attribute">grid-gap</span>:<span class="number">3rem</span> <span class="number">1.5rem</span>;</span><br><span class="line">&#125;       </span><br><span class="line"><span class="selector-class">.main</span> &gt; <span class="selector-class">.item</span>&#123;</span><br><span class="line">        <span class="attribute">background-color</span>: blue;</span><br><span class="line">        <span class="attribute">width</span>:<span class="number">100%</span>;</span><br><span class="line">        <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>html</p>
+<a id="more"></a>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"main"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"item"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"item"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"item"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"item"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"item"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"item"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"item"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"item"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"item"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"item"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>以上代码效果能让每一行都尽量铺满</p>
+<html>
+    <head><meta name="generator" content="Hexo 3.9.0">
+        <style>
+            .main{
+                display: grid;
+                grid-template-columns:repeat(auto-fill,27rem);
+                grid-gap:3rem 1.5rem;
+            }
+            .main > .item{
+                  background:linear-gradient(45deg,black,transparent);
+                width:100%;
+                height: 100px;
+            }
+        </style>
+    </head>
+    <body>
+            <div class="main">
+                <div class="item"></div>
+                <div class="item"></div>
+                <div class="item"></div>
+                <div class="item"></div>
+                <div class="item"></div>
+                <div class="item"></div>
+                <div class="item"></div>
+                <div class="item"></div>
+                <div class="item"></div>
+                <div class="item"></div>
+            </div>
+    </body>
+</html>
+
+<h2 id="table"><a href="#table" class="headerlink" title="table"></a>table</h2><p>css</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.container</span>&#123;</span><br><span class="line">    <span class="attribute">display</span>: table;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">    <span class="attribute">border-spacing</span>: <span class="number">30px</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.container</span> &gt;<span class="selector-tag">div</span>&#123;</span><br><span class="line">    <span class="attribute">display</span>: table-cell;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#00ffff</span>;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">1px</span> solid black;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">200px</span>;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">25vw</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>html</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"item"</span>&gt;</span>item<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"item"</span>&gt;</span>item<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"item"</span>&gt;</span>item<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"item"</span>&gt;</span>item<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<html>
+    <head><meta name="generator" content="Hexo 3.9.0">
+        <style>
+            .container{
+                display: table;
+                width: 100%;
+                border-spacing: 30px 0;
+            }
+            .container >.item{
+                display: table-cell;
+                background-color: #00ffff;
+                border: 1px solid black;
+                height: 200px;
+                width: 25vw;
+            }
+        </style>
+    </head>
+    <body>
+     <div class="container">
+        <div class="item">item</div>
+        <div class="item">item</div>
+        <div class="item">item</div>
+        <div class="item">item</div>
+    </div>
+    </body>
+</html>
+
+<h2 id="flex"><a href="#flex" class="headerlink" title="flex"></a>flex</h2><p>css</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.main</span>&#123;</span><br><span class="line">    <span class="attribute">display</span>: flex;</span><br><span class="line">    <span class="attribute">flex-wrap</span>: wrap;</span><br><span class="line">    <span class="attribute">justify-content</span>: flex-start;             </span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.main</span> &gt; <span class="selector-class">.item</span>&#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">300px</span>;</span><br><span class="line">    <span class="attribute">background</span>:<span class="built_in">linear-gradient</span>(<span class="number">45deg</span>,black,transparent);</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>html</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"main"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"item"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"item"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"item"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"item"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"item"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"item"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"item"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"item"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"item"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"item"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<html>
+    <head><meta name="generator" content="Hexo 3.9.0">
+        <style>
+            .main{
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: flex-start;
+            }
+            .main > .item{
+                width: 300px;
+                background:linear-gradient(45deg,black,transparent);
+                height: 100px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="main">
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+        </div>
+    </body>
+</html>
+
+<p>以下<a href="https://juejin.im/post/5b90e07ce51d450e6a2dd140" target="_blank" rel="noopener">原文</a></p>
+<h2 id="媒体查询"><a href="#媒体查询" class="headerlink" title="媒体查询"></a>媒体查询</h2><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="keyword">@media</span> screen <span class="keyword">and</span> (<span class="attribute">min-width:</span><span class="number">240px</span>) &#123;</span><br><span class="line">    <span class="selector-tag">html</span>, <span class="selector-tag">body</span>, <span class="selector-tag">button</span>, <span class="selector-tag">input</span>, <span class="selector-tag">select</span>, <span class="selector-tag">textarea</span> &#123;</span><br><span class="line">        <span class="attribute">font-size</span>:<span class="number">9px</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@media</span> screen <span class="keyword">and</span> (<span class="attribute">min-width:</span><span class="number">320px</span>) &#123;</span><br><span class="line">	<span class="selector-tag">html</span>, <span class="selector-tag">body</span>, <span class="selector-tag">button</span>, <span class="selector-tag">input</span>, <span class="selector-tag">select</span>, <span class="selector-tag">textarea</span> &#123;</span><br><span class="line">		<span class="attribute">font-size</span>:<span class="number">12px</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">// 红米Note2</span><br><span class="line"><span class="keyword">@media</span> screen <span class="keyword">and</span> (<span class="attribute">min-width:</span><span class="number">360px</span>) &#123;</span><br><span class="line">	<span class="selector-tag">html</span>, <span class="selector-tag">body</span>, <span class="selector-tag">button</span>, <span class="selector-tag">input</span>, <span class="selector-tag">select</span>, <span class="selector-tag">textarea</span> &#123;</span><br><span class="line">		<span class="attribute">font-size</span>:<span class="number">13.5px</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@media</span> screen <span class="keyword">and</span> (<span class="attribute">min-width:</span><span class="number">375px</span>) &#123;</span><br><span class="line">	<span class="selector-tag">html</span>, <span class="selector-tag">body</span>, <span class="selector-tag">button</span>, <span class="selector-tag">input</span>, <span class="selector-tag">select</span>, <span class="selector-tag">textarea</span> &#123;</span><br><span class="line">		<span class="attribute">font-size</span>:<span class="number">14.0625px</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="JS设置html的font-size大小"><a href="#JS设置html的font-size大小" class="headerlink" title="JS设置html的font-size大小"></a>JS设置html的font-size大小</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.documentElement.style.fontSize = <span class="built_in">document</span>.documentElement.clientWidth / <span class="number">750</span> + <span class="string">'px'</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="vw"><a href="#vw" class="headerlink" title="vw"></a>vw</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//使用vw设置，vw也是一个相对单位，100vw等于屏幕宽度</span><br><span class="line">html&#123;</span><br><span class="line">    font-size: 10vw;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>JavaScript</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+        <tag>css</tag>
       </tags>
   </entry>
   <entry>
@@ -387,18 +399,6 @@
       <tags>
         <tag>essay</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>部署hexo踩坑记录</title>
-    <url>/2020/11/14/bugsForNode/</url>
-    <content><![CDATA[<p>在执行下面这句代码的时候</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g -d</span><br></pre></td></tr></table></figure>
-
-<p>报错信息</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Something<span class="string">'s wrong. Maybe you can find the solution here: https://hexo.io/docs/troubleshooting.html</span></span><br><span class="line"><span class="string">TypeError [ERR_INVALID_ARG_TYPE]: The "mode" argument must be integer. Received an instance of Object</span></span><br><span class="line"><span class="string">    at copyFile (fs.js:1924:10)</span></span><br><span class="line"><span class="string">    at tryCatcher (/Users/zjs/Desktop/blog/node_modules/bluebird/js/release/util.js:16:23)</span></span><br><span class="line"><span class="string">    at ret (eval at makeNodePromisifiedEval (/Users/zjs/.nvm/versions/node/v14.10.0/lib/node_modules/hexo-cli/node_modules/bluebird/js/release/promisify.js:184:12), &lt;anonymous&gt;:13:39)</span></span><br></pre></td></tr></table></figure>
-
-<p>解决方案<br> NodeJs 版本从 14 回到 12 就🉑️！</p>
-]]></content>
   </entry>
   <entry>
     <title>随笔</title>
@@ -546,7 +546,7 @@
     <url>/2021/03/21/essay-11/</url>
     <content><![CDATA[<h4 id="How-to-Make-Badass-Shadows"><a href="#How-to-Make-Badass-Shadows" class="headerlink" title="How to Make Badass Shadows"></a>How to Make Badass Shadows</h4><p><a href="https://blog.prototypr.io/how-to-make-badass-shadows-564b3a30aba4" target="_blank" rel="noopener">Tips to help create better UI shadows.</a>  </p>
 <h4 id="Jest"><a href="#Jest" class="headerlink" title="Jest"></a>Jest</h4><p><a href="https://pragmaticpineapple.com/7-ways-to-debug-jest-tests-in-terminal/" target="_blank" rel="noopener">7 Ways to Debug Jest Tests in Terminal</a></p>
-]]></content>
+<a id="more"></a>]]></content>
       <tags>
         <tag>JavaScript</tag>
         <tag>css</tag>
@@ -729,211 +729,6 @@
       </tags>
   </entry>
   <entry>
-    <title>基于Hexo搭建个人博客</title>
-    <url>/2019/08/05/hexo-config/</url>
-    <content><![CDATA[<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><ol>
-<li>安装Node</li>
-<li>安装hexo-cli</li>
-<li>确保有github账号</li>
-<li>安装git</li>
-</ol>
-<a id="more"></a>
-<h2 id="构建hexo项目"><a href="#构建hexo项目" class="headerlink" title="构建hexo项目"></a>构建hexo项目</h2><h3 id="初始化hexo项目-项目名一定要用这个格式，xxx代表的是你的GitHub账号的名称"><a href="#初始化hexo项目-项目名一定要用这个格式，xxx代表的是你的GitHub账号的名称" class="headerlink" title="初始化hexo项目,项目名一定要用这个格式，xxx代表的是你的GitHub账号的名称"></a>初始化hexo项目,项目名一定要用这个格式，xxx代表的是你的GitHub账号的名称</h3><p><code>hexo init xxx.github.io</code></p>
-<h3 id="进入文件夹"><a href="#进入文件夹" class="headerlink" title="进入文件夹"></a>进入文件夹</h3><p><code>cd xxx.github.io</code></p>
-<h3 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h3><p><code>npm i</code></p>
-<h3 id="运行项目"><a href="#运行项目" class="headerlink" title="运行项目"></a>运行项目</h3><p><code>hexo server</code></p>
-<h3 id="搭建新的post-新搭建的post支持markdown语法，只要专注写文就OK"><a href="#搭建新的post-新搭建的post支持markdown语法，只要专注写文就OK" class="headerlink" title="搭建新的post,新搭建的post支持markdown语法，只要专注写文就OK"></a>搭建新的post,新搭建的post支持markdown语法，只要专注写文就OK</h3><p><code>hexo new post_name</code></p>
-<h2 id="生成静态文件并部署"><a href="#生成静态文件并部署" class="headerlink" title="生成静态文件并部署"></a>生成静态文件并部署</h2><h3 id="配置根目录下的-config-yml文件"><a href="#配置根目录下的-config-yml文件" class="headerlink" title="配置根目录下的_config.yml文件"></a>配置根目录下的_config.yml文件</h3><p>  ①url是你要部署的地址(github地址或者自己的网站地址，如果不是部署在根目录下，url填写为具体部署的文件夹路径，root为/fileName/),fileName为具体的要部署的文件夹名称<br>  ②配置deploy参数，type为git，repo为仓库地址，ssh和https均可以，branch为要部署的分支</p>
-<h3 id="安装依赖包"><a href="#安装依赖包" class="headerlink" title="安装依赖包"></a>安装依赖包</h3><p><code>npm install hexo-deployer-git --save</code></p>
-<h3 id="清除缓存文件"><a href="#清除缓存文件" class="headerlink" title="清除缓存文件"></a>清除缓存文件</h3><p><code>hexo clean</code></p>
-<h3 id="生成静态文件"><a href="#生成静态文件" class="headerlink" title="生成静态文件"></a>生成静态文件</h3><p><code>hexo generate</code><br>可以简写为</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo g</span><br></pre></td></tr></table></figure>
-
-<h3 id="部署到服务器上"><a href="#部署到服务器上" class="headerlink" title="部署到服务器上"></a>部署到服务器上</h3><p><code>hexo deploy</code><br>可以简写为</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo d</span><br></pre></td></tr></table></figure>
-
-<h3 id="更换主题"><a href="#更换主题" class="headerlink" title="更换主题"></a>更换主题</h3><p>  我选择的是next，拥有丰富而简单的配置，结合第三方服务，打造属于您自己的博客,在hexo根目录运行以下命令，会在themes文件夹下生成一个next的子模块<br>  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git submodule add https://github.com/iissnan/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure></p>
-<p>  在根目录下的_config.yml配置theme：next主题就可以生效了(关于更多submodule用法自行google)</p>
-<h2 id="访问"><a href="#访问" class="headerlink" title="访问"></a>访问</h2><p> 部署完成后就可以直接访问了，在浏览器输入栏中输入xxx.github.io即可（xxx为你的GitHub账号名称）</p>
-<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><ol>
-<li>记得把你的代码push到你的remote repo上，不然只能在一台电脑做开发啦</li>
-<li>另外，由于在当前仓库下有子模块存在，因此当你在另外一台电脑clone你的项目的时候，子模块是不会自动更新的,所以请运行以下命令来更新子模块，否则项目不完整<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git submodule update --init --recursive</span><br></pre></td></tr></table></figure></li>
-</ol>
-]]></content>
-      <categories>
-        <category>tool</category>
-      </categories>
-      <tags>
-        <tag>hexo</tag>
-        <tag>blog</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>内网穿透</title>
-    <url>/2020/01/08/intranet-contacts/</url>
-    <content><![CDATA[<p>内网穿透就是把本地服务映射到具有公网IP地址的服务器上，通过访问在公网上的机器，就可以访问到内网</p>
-<a id="more"></a>
-<p>工具挺多的，今天刚用的ngrok，感觉不太稳定，不过能凑活用吧，内网穿透这玩意儿对移动端开发来说挺方便的，把电脑上的本地服务映射到外网端口，然后这样手机也就可以访问在电脑上的服务了，也能热更</p>
-<p>使用也挺方便的，google搜索ngrok，然后下载</p>
-<p><img src="/images/intranet-contacts/demo1.png" alt="图片"></p>
-<p>然后就是这样了</p>
-<p><img src="/images/intranet-contacts/demo2.png" alt="图片"></p>
-<p>然后你发现不管本地还是ngrok给你生成的地址，你都可以访问到本地开启的服务，但是每次开启的时候IP都不一样hhh</p>
-]]></content>
-      <tags>
-        <tag>tool</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>今日随笔(2-10)</title>
-    <url>/2021/02/10/essay-9/</url>
-    <content><![CDATA[<h4 id="NaN-和-Number-isNaN"><a href="#NaN-和-Number-isNaN" class="headerlink" title="NaN 和 Number.isNaN"></a>NaN 和 Number.isNaN</h4><hr>
-<p>全局属性 NaN 的值表示不是一个数字（Not-A-Number）。</p>
-<p>NaN 属性的初始值就是 NaN，和 Number.NaN 的值一样。在现代浏览器中（ES5中）， NaN 属性是一个不可配置（non-configurable），不可写（non-writable）的属性。但在ES3中，这个属性的值是可以被更改的，但是也应该避免覆盖。  — mdn</p>
-<a id="more"></a>
-<p>NaN是唯一一个自身不相等的数字，判断一个值是否是NaN，主要是用两种方法来判断，一个是NaN，一个是Number.isNaN。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">NaN === NaN;        // <span class="literal">false</span></span><br><span class="line">Number.NaN === NaN; // <span class="literal">false</span></span><br><span class="line">isNaN(NaN);         // <span class="literal">true</span></span><br><span class="line">isNaN(Number.NaN);  // <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> valueIsNaN(v) &#123; <span class="built_in">return</span> v !== v; &#125;</span><br><span class="line">valueIsNaN(1);          // <span class="literal">false</span></span><br><span class="line">valueIsNaN(NaN);        // <span class="literal">true</span></span><br><span class="line">valueIsNaN(Number.NaN); // <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-
-<p>对于两个方法还是有所不同的：如果当前值是NaN，或者将其强制转换为数字后将是NaN，则前者将返回true。而后者仅当值当前为NaN时才为true：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">isNaN(<span class="string">'hello world'</span>);        // <span class="literal">true</span> <span class="string">'hello world'</span>转数字失败变成NaN。</span><br><span class="line">Number.isNaN(<span class="string">'hello world'</span>); // <span class="literal">false</span></span><br></pre></td></tr></table></figure>
-
-<p>对于NaN方法：</p>
-<ul>
-<li>Let num be ? ToNumber(number).</li>
-<li>If num is NaN, return true.</li>
-<li>Otherwise, return false.</li>
-</ul>
-<p>而对于Number.isNaN来说：</p>
-<ul>
-<li>If Type(number) is not Number, return false.</li>
-<li>If number is NaN, return true.</li>
-<li>Otherwise, return false.</li>
-</ul>
-<p>可以看到规范中定义的两个方法在第一步中对传递进来对参数的处理方式并不一样。因此这两个方法是有所区别的。</p>
-]]></content>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>javascript浮点数精度问题</title>
-    <url>/2019/10/10/javascript-float-num/</url>
-    <content><![CDATA[<h3 id="浮点数陷阱"><a href="#浮点数陷阱" class="headerlink" title="浮点数陷阱"></a>浮点数陷阱</h3><p>原文：<a href="https://zhuanlan.zhihu.com/ne-fe" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/ne-fe</a></p>
-<p>众所周知，JavaScript 浮点数运算时经常遇到会 0.000000001 和 0.999999999 这样奇怪的结果，如 0.1+0.2=0.30000000000000004、1-0.9=0.09999999999999998，很多人知道这是浮点数误差问题，但具体就说不清楚了。本文帮你理清这背后的原理以及解决方案，还会向你解释JS中的大数危机和四则运算中会遇到的坑。</p>
-<a id="more"></a>
-<h3 id="浮点数的储存"><a href="#浮点数的储存" class="headerlink" title="浮点数的储存"></a>浮点数的储存</h3><p>首先要搞清楚 JavaScript 如何存储小数。和其它语言如 Java 和 Python 不同，JavaScript 中所有数字包括整数和小数都只有一种类型 — Number。它的实现遵循 IEEE 754 标准，使用 64 位固定长度来表示，也就是标准的 double 双精度浮点数（相关的还有float 32位单精度）。</p>
-<p>这样的存储结构优点是可以归一化处理整数和小数，节省存储空间。</p>
-<p>64位比特又可分为三个部分：</p>
-<ul>
-<li>符号位S：第 1 位是正负数符号位（sign），0代表正数，1代表负数</li>
-<li>指数位E：中间的 11 位存储指数（exponent），用来表示次方数</li>
-<li>尾数位M：最后的 52 位是尾数（mantissa），超出的部分自动进一舍零</li>
-</ul>
-<p><img src="/images/javascript_float_num/demo1.png" alt="图片"></p>
-<p>实际数字就可以用以下公式来计算：<br><img src="/images/javascript_float_num/demo2.png" alt="图片"></p>
-<p>公式推导过程见维基百科<a href="https://zh.wikipedia.org/wiki/%E9%9B%99%E7%B2%BE%E5%BA%A6%E6%B5%AE%E9%BB%9E%E6%95%B8" target="_blank" rel="noopener">wiki</a></p>
-<h3 id="为什么0-1-0-2-0-30000000000000004"><a href="#为什么0-1-0-2-0-30000000000000004" class="headerlink" title="为什么0.1+0.2 =0.30000000000000004?"></a>为什么0.1+0.2 =0.30000000000000004?</h3><p>0.1 转成二进制表示为 0.0001100110011001100(1100循环)，1.100110011001100x2^-4，所以 E=-4+1023=1019；M 舍去首位的1，得到 100110011…。<br>转化成十进制后为 0.100000000000000005551115123126，因此就出现了浮点误差。<br>接着0.1+0.2计算步骤为</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">0.00011001100110011001100110011001100110011001100110011010 +</span><br><span class="line">0.0011001100110011001100110011001100110011001100110011010 =</span><br><span class="line">0.0100110011001100110011001100110011001100110011001100111</span><br><span class="line">// 转成十进制正好是 0.30000000000000004</span><br></pre></td></tr></table></figure>
-
-<p>因为 mantissa 固定长度是 52 位，再加上省略的一位，最多可以表示的数是 2^53=9007199254740992，对应科学计数尾数是 9.007199254740992，这也是 JS 最多能表示的精度，如果整数大于 9007199254740992 会出现什么情况呢？<br>由于 E 最大值是 1023，所以最大可以表示的整数是 2^1024 - 1，这就是能表示的最大整数。但你并不能这样计算这个数字，因为从 2^1024 开始就变成了 Infinity</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Math.pow(2, 1023)</span><br><span class="line">//8.98846567431158e+307</span><br><span class="line"></span><br><span class="line">//Math.pow(2, 1024)</span><br><span class="line">Infinity</span><br></pre></td></tr></table></figure>
-
-<p>那么对于 (2^53, 2^63) 之间的数会出现什么情况呢？</p>
-<ul>
-<li>(2^53, 2^54) 之间的数会两个选一个，只能精确表示偶数</li>
-<li>(2^54, 2^55) 之间的数会四个选一个，只能精确表示4个倍数</li>
-<li>… 依次跳过更多2的倍数<br>下面这张图能很好的表示 JavaScript 中浮点数和实数（Real Number）之间的对应关系<br><img src="/images/javascript_float_num/demo3.jfif" alt="real number"></li>
-</ul>
-<p>要想解决大数的问题你可以引用第三方库 bignumber.js，原理是把所有数字当作字符串，重新实现了计算逻辑，缺点是性能比原生的差很多</p>
-<h3 id="toPrecision-vs-toFixed"><a href="#toPrecision-vs-toFixed" class="headerlink" title="toPrecision vs toFixed"></a>toPrecision vs toFixed</h3><p>数据处理时，这两个函数很容易混淆。它们的共同点是把数字转成字符串供展示使用。注意在计算的中间过程不要使用，只用于最终结果。</p>
-<p>不同点就需要注意一下</p>
-<ul>
-<li>toPrecision 是处理精度，精度是从左至右第一个不为0的数开始数起。</li>
-<li>toFixed 是小数点后指定位数取整，从小数点开始数起。</li>
-</ul>
-<p>两者都能对多余数字做凑整处理，也有些人用 toFixed 来做四舍五入，但一定要知道它是有 Bug 的。</p>
-<p>如：1.005.toFixed(2) 返回的是 1.00 而不是 1.01。</p>
-<p>原因： 1.005 实际对应的数字是 1.00499999999999989，在四舍五入时全部被舍去！</p>
-<p>解法：使用专业的四舍五入函数 Math.round() 来处理。但 Math.round(1.005 * 100) / 100 还是不行，因为 1.005 * 100 = 100.49999999999999。还需要把乘法和除法精度误差都解决后再使用 Math.round。</p>
-<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><ul>
-<li><a href="https://github.com/dt-fe/number-precision">https://github.com/dt-fe/number-precision</a></li>
-<li>BigInt</li>
-<li>Number.EPSILON,表示 1 与Number可表示的大于 1 的最小的浮点数之间的差值。如果两个数的差值小于这个，就认为这两个数相等</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>今日随笔(1-31)</title>
-    <url>/2021/01/31/essay-8/</url>
-    <content><![CDATA[<h3 id="null-vs-undefined"><a href="#null-vs-undefined" class="headerlink" title="null vs undefined"></a>null vs undefined</h3><p>The ECMAScript language specification describes them as follows:</p>
-<ul>
-<li>undefined 是被使用但是没有被赋值</li>
-<li>null 是对变量一个显示对声明一个值</li>
-</ul>
-<p>在JS中，每个变量能够同时被赋值引用类型和原始类型。因此，如果null意味着 不是一个对象，JS也需要一个初值意味着 既不是 引用类型 也不是 原始类型。那个值就是undefined。</p>
-<a id="more"></a>
-<p>If a variable myVar has not been initialized yet, its value is undefined:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">let</span> myVar;</span><br><span class="line">assert.equal(myVar, undefined);</span><br></pre></td></tr></table></figure>
-
-<p>If a property .unknownProp is missing, accessing the property produces the values undefined:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const obj = &#123;&#125;;</span><br><span class="line">assert.equal(obj.unknownProp, undefined);</span><br></pre></td></tr></table></figure>
-
-<p>If a function does not explicitly return anything, the function implicitly returns undefined:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">myFunc</span></span>() &#123;&#125;</span><br><span class="line">assert.equal(myFunc(), undefined);</span><br></pre></td></tr></table></figure>
-
-<p>If a function has a return statement without an argument, the function implicitly returns undefined:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">myFunc</span></span>() &#123;</span><br><span class="line">  <span class="built_in">return</span>;</span><br><span class="line">&#125;</span><br><span class="line">assert.equal(myFunc(), undefined);</span><br></pre></td></tr></table></figure>
-
-<p>If a parameter x is omitted, the language initializes that parameter with undefined:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> myFunc(x) &#123;</span><br><span class="line">  assert.equal(x, undefined);</span><br><span class="line">&#125;</span><br><span class="line">myFunc();</span><br></pre></td></tr></table></figure>
-
-<p>Optional chaining via obj?.someProp returns undefined if obj is undefined or null:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"> &gt; undefined?.someProp</span><br><span class="line">undefined</span><br><span class="line">&gt; null?.someProp</span><br><span class="line">undefined</span><br></pre></td></tr></table></figure>
-
-<p>The prototype of an object is either an object or, at the end of a chain of prototypes, null. Object.prototype does not have a prototype:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; Object.getPrototypeOf(Object.prototype)</span><br><span class="line">null</span><br></pre></td></tr></table></figure>
-
-<p>If we match a regular expression (such as /a/) against a string (such as ‘x’), we either get an object with matching data (if matching was successful) or null (if matching failed)(有结果就返回匹配对象，没结果返回null):</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; /a/.<span class="built_in">exec</span>(<span class="string">'x'</span>)</span><br><span class="line">null</span><br></pre></td></tr></table></figure>
-
-<p>The JSON data format does not support undefined, only null:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; JSON.stringify(&#123;a: undefined, b: null&#125;)</span><br><span class="line"><span class="string">'&#123;"b":null&#125;'</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="Operators-that-treat-undefined-and-or-null-specially"><a href="#Operators-that-treat-undefined-and-or-null-specially" class="headerlink" title="Operators that treat undefined and/or null specially"></a>Operators that treat undefined and/or null specially</h3><h4 id="undefined-and-parameter-default-values"><a href="#undefined-and-parameter-default-values" class="headerlink" title="undefined and parameter default values"></a>undefined and parameter default values</h4><p>参数默认值的使用情况：</p>
-<ul>
-<li>参数没传</li>
-<li>参数的值是undefined</li>
-</ul>
-<p>For example</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> myFunc(arg=<span class="string">'abc'</span>) &#123;</span><br><span class="line">  <span class="built_in">return</span> arg;</span><br><span class="line">&#125;</span><br><span class="line">assert.equal(myFunc(<span class="string">'hello'</span>), <span class="string">'hello'</span>);</span><br><span class="line">assert.equal(myFunc(), <span class="string">'abc'</span>);</span><br><span class="line">assert.equal(myFunc(undefined), <span class="string">'abc'</span>);</span><br></pre></td></tr></table></figure>
-
-<h4 id="undefined-and-destructuring-default-values"><a href="#undefined-and-destructuring-default-values" class="headerlink" title="undefined and destructuring default values"></a>undefined and destructuring default values</h4><p>解构给默认值跟参数给默认值一样，匹配到undefined给默认值<br>Default values in destructuring work similarly to parameter default values – they are used if a variable either has no match in the data or if it matches undefined:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const [a=<span class="string">'a'</span>] = [];</span><br><span class="line">assert.equal(a, <span class="string">'a'</span>);</span><br><span class="line"></span><br><span class="line">const [b=<span class="string">'b'</span>] = [undefined];</span><br><span class="line">assert.equal(b, <span class="string">'b'</span>);</span><br><span class="line"></span><br><span class="line">const &#123;prop: c=<span class="string">'c'</span>&#125; = &#123;&#125;;</span><br><span class="line">assert.equal(c, <span class="string">'c'</span>);</span><br><span class="line"></span><br><span class="line">const &#123;prop: d=<span class="string">'d'</span>&#125; = &#123;prop: undefined&#125;;</span><br><span class="line">assert.equal(d, <span class="string">'d'</span>);</span><br></pre></td></tr></table></figure>
-
-<h4 id="undefined-and-null-and-optional-chaining"><a href="#undefined-and-null-and-optional-chaining" class="headerlink" title="undefined and null and optional chaining"></a>undefined and null and optional chaining</h4><p>When there is optional chaining via value?.prop:</p>
-<ul>
-<li>If value is undefined or null, return undefined. That is, this happens whenever value.prop would throw an exception.</li>
-<li>Otherwise, return value.prop.</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> getProp(value) &#123;</span><br><span class="line">  <span class="comment"># optional static property access</span></span><br><span class="line">  <span class="built_in">return</span> value?.prop;</span><br><span class="line">&#125;</span><br><span class="line">assert.equal(</span><br><span class="line">  getProp(&#123;prop: 123&#125;), 123);</span><br><span class="line">assert.equal(</span><br><span class="line">  getProp(undefined), undefined);</span><br><span class="line">assert.equal(</span><br><span class="line">  getProp(null), undefined);</span><br></pre></td></tr></table></figure>
-
-<p>The following two operations work similarly:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">obj?.[«expr»] // optional dynamic property access</span><br><span class="line">func?.(«arg0», «arg1») // optional <span class="keyword">function</span> or method call</span><br></pre></td></tr></table></figure>
-
-<h4 id="undefined-and-null-and-nullish-coalescing"><a href="#undefined-and-null-and-nullish-coalescing" class="headerlink" title="undefined and null and nullish coalescing"></a>undefined and null and nullish coalescing</h4><p>nullish coalescing 的使用比较 简单，如果值是undefined 或者null的时候取后者</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; undefined ?? <span class="string">'default value'</span></span><br><span class="line"><span class="string">'default value'</span></span><br><span class="line">&gt; null ?? <span class="string">'default value'</span></span><br><span class="line"><span class="string">'default value'</span></span><br><span class="line"></span><br><span class="line">&gt; 0 ?? <span class="string">'default value'</span></span><br><span class="line">0</span><br><span class="line">&gt; 123 ?? <span class="string">'default value'</span></span><br><span class="line">123</span><br><span class="line">&gt; <span class="string">''</span> ?? <span class="string">'default value'</span></span><br><span class="line"><span class="string">''</span></span><br><span class="line">&gt; <span class="string">'abc'</span> ?? <span class="string">'default value'</span></span><br><span class="line"><span class="string">'abc'</span></span><br></pre></td></tr></table></figure>
-
-<p>The nullish coalescing assignment operator ??= combines nullish coalescing with assignment:</p>
-<p>??=  就是把 取值和赋值合起来</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> setName(obj) &#123;</span><br><span class="line">  obj.name ??= <span class="string">'(Unnamed)'</span>;</span><br><span class="line">  <span class="built_in">return</span> obj;</span><br><span class="line">&#125;</span><br><span class="line">assert.deepEqual(</span><br><span class="line">  setName(&#123;&#125;),</span><br><span class="line">  &#123;name: <span class="string">'(Unnamed)'</span>&#125;</span><br><span class="line">);</span><br><span class="line">assert.deepEqual(</span><br><span class="line">  setName(&#123;name: undefined&#125;),</span><br><span class="line">  &#123;name: <span class="string">'(Unnamed)'</span>&#125;</span><br><span class="line">);</span><br><span class="line">assert.deepEqual(</span><br><span class="line">  setName(&#123;name: null&#125;),</span><br><span class="line">  &#123;name: <span class="string">'(Unnamed)'</span>&#125;</span><br><span class="line">);</span><br><span class="line">assert.deepEqual(</span><br><span class="line">  setName(&#123;name: <span class="string">'Jane'</span>&#125;),</span><br><span class="line">  &#123;name: <span class="string">'Jane'</span>&#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>]]></content>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>理解 flex-basis</title>
     <url>/2020/11/14/flex/</url>
     <content><![CDATA[<p>上个html代码</p>
@@ -1012,6 +807,180 @@ btn.addEventListener('click',function(){
       </tags>
   </entry>
   <entry>
+    <title>基于Hexo搭建个人博客</title>
+    <url>/2019/08/05/hexo-config/</url>
+    <content><![CDATA[<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><ol>
+<li>安装Node</li>
+<li>安装hexo-cli</li>
+<li>确保有github账号</li>
+<li>安装git</li>
+</ol>
+<a id="more"></a>
+<h2 id="构建hexo项目"><a href="#构建hexo项目" class="headerlink" title="构建hexo项目"></a>构建hexo项目</h2><h3 id="初始化hexo项目-项目名一定要用这个格式，xxx代表的是你的GitHub账号的名称"><a href="#初始化hexo项目-项目名一定要用这个格式，xxx代表的是你的GitHub账号的名称" class="headerlink" title="初始化hexo项目,项目名一定要用这个格式，xxx代表的是你的GitHub账号的名称"></a>初始化hexo项目,项目名一定要用这个格式，xxx代表的是你的GitHub账号的名称</h3><p><code>hexo init xxx.github.io</code></p>
+<h3 id="进入文件夹"><a href="#进入文件夹" class="headerlink" title="进入文件夹"></a>进入文件夹</h3><p><code>cd xxx.github.io</code></p>
+<h3 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h3><p><code>npm i</code></p>
+<h3 id="运行项目"><a href="#运行项目" class="headerlink" title="运行项目"></a>运行项目</h3><p><code>hexo server</code></p>
+<h3 id="搭建新的post-新搭建的post支持markdown语法，只要专注写文就OK"><a href="#搭建新的post-新搭建的post支持markdown语法，只要专注写文就OK" class="headerlink" title="搭建新的post,新搭建的post支持markdown语法，只要专注写文就OK"></a>搭建新的post,新搭建的post支持markdown语法，只要专注写文就OK</h3><p><code>hexo new post_name</code></p>
+<h2 id="生成静态文件并部署"><a href="#生成静态文件并部署" class="headerlink" title="生成静态文件并部署"></a>生成静态文件并部署</h2><h3 id="配置根目录下的-config-yml文件"><a href="#配置根目录下的-config-yml文件" class="headerlink" title="配置根目录下的_config.yml文件"></a>配置根目录下的_config.yml文件</h3><p>  ①url是你要部署的地址(github地址或者自己的网站地址，如果不是部署在根目录下，url填写为具体部署的文件夹路径，root为/fileName/),fileName为具体的要部署的文件夹名称<br>  ②配置deploy参数，type为git，repo为仓库地址，ssh和https均可以，branch为要部署的分支</p>
+<h3 id="安装依赖包"><a href="#安装依赖包" class="headerlink" title="安装依赖包"></a>安装依赖包</h3><p><code>npm install hexo-deployer-git --save</code></p>
+<h3 id="清除缓存文件"><a href="#清除缓存文件" class="headerlink" title="清除缓存文件"></a>清除缓存文件</h3><p><code>hexo clean</code></p>
+<h3 id="生成静态文件"><a href="#生成静态文件" class="headerlink" title="生成静态文件"></a>生成静态文件</h3><p><code>hexo generate</code><br>可以简写为</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo g</span><br></pre></td></tr></table></figure>
+
+<h3 id="部署到服务器上"><a href="#部署到服务器上" class="headerlink" title="部署到服务器上"></a>部署到服务器上</h3><p><code>hexo deploy</code><br>可以简写为</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+
+<h3 id="更换主题"><a href="#更换主题" class="headerlink" title="更换主题"></a>更换主题</h3><p>  我选择的是next，拥有丰富而简单的配置，结合第三方服务，打造属于您自己的博客,在hexo根目录运行以下命令，会在themes文件夹下生成一个next的子模块<br>  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git submodule add https://github.com/iissnan/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure></p>
+<p>  在根目录下的_config.yml配置theme：next主题就可以生效了(关于更多submodule用法自行google)</p>
+<h2 id="访问"><a href="#访问" class="headerlink" title="访问"></a>访问</h2><p> 部署完成后就可以直接访问了，在浏览器输入栏中输入xxx.github.io即可（xxx为你的GitHub账号名称）</p>
+<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><ol>
+<li>记得把你的代码push到你的remote repo上，不然只能在一台电脑做开发啦</li>
+<li>另外，由于在当前仓库下有子模块存在，因此当你在另外一台电脑clone你的项目的时候，子模块是不会自动更新的,所以请运行以下命令来更新子模块，否则项目不完整<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git submodule update --init --recursive</span><br></pre></td></tr></table></figure></li>
+</ol>
+]]></content>
+      <categories>
+        <category>tool</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+        <tag>blog</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>内网穿透</title>
+    <url>/2020/01/08/intranet-contacts/</url>
+    <content><![CDATA[<p>内网穿透就是把本地服务映射到具有公网IP地址的服务器上，通过访问在公网上的机器，就可以访问到内网</p>
+<a id="more"></a>
+<p>工具挺多的，今天刚用的ngrok，感觉不太稳定，不过能凑活用吧，内网穿透这玩意儿对移动端开发来说挺方便的，把电脑上的本地服务映射到外网端口，然后这样手机也就可以访问在电脑上的服务了，也能热更</p>
+<p>使用也挺方便的，google搜索ngrok，然后下载</p>
+<p><img src="/images/intranet-contacts/demo1.png" alt="图片"></p>
+<p>然后就是这样了</p>
+<p><img src="/images/intranet-contacts/demo2.png" alt="图片"></p>
+<p>然后你发现不管本地还是ngrok给你生成的地址，你都可以访问到本地开启的服务，但是每次开启的时候IP都不一样hhh</p>
+]]></content>
+      <tags>
+        <tag>tool</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>今日随笔(1-31)</title>
+    <url>/2021/01/31/essay-8/</url>
+    <content><![CDATA[<h3 id="null-vs-undefined"><a href="#null-vs-undefined" class="headerlink" title="null vs undefined"></a>null vs undefined</h3><p>The ECMAScript language specification describes them as follows:</p>
+<ul>
+<li>undefined 是被使用但是没有被赋值</li>
+<li>null 是对变量一个显示对声明一个值</li>
+</ul>
+<p>在JS中，每个变量能够同时被赋值引用类型和原始类型。因此，如果null意味着 不是一个对象，JS也需要一个初值意味着 既不是 引用类型 也不是 原始类型。那个值就是undefined。</p>
+<a id="more"></a>
+<p>If a variable myVar has not been initialized yet, its value is undefined:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">let</span> myVar;</span><br><span class="line">assert.equal(myVar, undefined);</span><br></pre></td></tr></table></figure>
+
+<p>If a property .unknownProp is missing, accessing the property produces the values undefined:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const obj = &#123;&#125;;</span><br><span class="line">assert.equal(obj.unknownProp, undefined);</span><br></pre></td></tr></table></figure>
+
+<p>If a function does not explicitly return anything, the function implicitly returns undefined:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">myFunc</span></span>() &#123;&#125;</span><br><span class="line">assert.equal(myFunc(), undefined);</span><br></pre></td></tr></table></figure>
+
+<p>If a function has a return statement without an argument, the function implicitly returns undefined:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">myFunc</span></span>() &#123;</span><br><span class="line">  <span class="built_in">return</span>;</span><br><span class="line">&#125;</span><br><span class="line">assert.equal(myFunc(), undefined);</span><br></pre></td></tr></table></figure>
+
+<p>If a parameter x is omitted, the language initializes that parameter with undefined:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> myFunc(x) &#123;</span><br><span class="line">  assert.equal(x, undefined);</span><br><span class="line">&#125;</span><br><span class="line">myFunc();</span><br></pre></td></tr></table></figure>
+
+<p>Optional chaining via obj?.someProp returns undefined if obj is undefined or null:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"> &gt; undefined?.someProp</span><br><span class="line">undefined</span><br><span class="line">&gt; null?.someProp</span><br><span class="line">undefined</span><br></pre></td></tr></table></figure>
+
+<p>The prototype of an object is either an object or, at the end of a chain of prototypes, null. Object.prototype does not have a prototype:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; Object.getPrototypeOf(Object.prototype)</span><br><span class="line">null</span><br></pre></td></tr></table></figure>
+
+<p>If we match a regular expression (such as /a/) against a string (such as ‘x’), we either get an object with matching data (if matching was successful) or null (if matching failed)(有结果就返回匹配对象，没结果返回null):</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; /a/.<span class="built_in">exec</span>(<span class="string">'x'</span>)</span><br><span class="line">null</span><br></pre></td></tr></table></figure>
+
+<p>The JSON data format does not support undefined, only null:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; JSON.stringify(&#123;a: undefined, b: null&#125;)</span><br><span class="line"><span class="string">'&#123;"b":null&#125;'</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Operators-that-treat-undefined-and-or-null-specially"><a href="#Operators-that-treat-undefined-and-or-null-specially" class="headerlink" title="Operators that treat undefined and/or null specially"></a>Operators that treat undefined and/or null specially</h3><h4 id="undefined-and-parameter-default-values"><a href="#undefined-and-parameter-default-values" class="headerlink" title="undefined and parameter default values"></a>undefined and parameter default values</h4><p>参数默认值的使用情况：</p>
+<ul>
+<li>参数没传</li>
+<li>参数的值是undefined</li>
+</ul>
+<p>For example</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> myFunc(arg=<span class="string">'abc'</span>) &#123;</span><br><span class="line">  <span class="built_in">return</span> arg;</span><br><span class="line">&#125;</span><br><span class="line">assert.equal(myFunc(<span class="string">'hello'</span>), <span class="string">'hello'</span>);</span><br><span class="line">assert.equal(myFunc(), <span class="string">'abc'</span>);</span><br><span class="line">assert.equal(myFunc(undefined), <span class="string">'abc'</span>);</span><br></pre></td></tr></table></figure>
+
+<h4 id="undefined-and-destructuring-default-values"><a href="#undefined-and-destructuring-default-values" class="headerlink" title="undefined and destructuring default values"></a>undefined and destructuring default values</h4><p>解构给默认值跟参数给默认值一样，匹配到undefined给默认值<br>Default values in destructuring work similarly to parameter default values – they are used if a variable either has no match in the data or if it matches undefined:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const [a=<span class="string">'a'</span>] = [];</span><br><span class="line">assert.equal(a, <span class="string">'a'</span>);</span><br><span class="line"></span><br><span class="line">const [b=<span class="string">'b'</span>] = [undefined];</span><br><span class="line">assert.equal(b, <span class="string">'b'</span>);</span><br><span class="line"></span><br><span class="line">const &#123;prop: c=<span class="string">'c'</span>&#125; = &#123;&#125;;</span><br><span class="line">assert.equal(c, <span class="string">'c'</span>);</span><br><span class="line"></span><br><span class="line">const &#123;prop: d=<span class="string">'d'</span>&#125; = &#123;prop: undefined&#125;;</span><br><span class="line">assert.equal(d, <span class="string">'d'</span>);</span><br></pre></td></tr></table></figure>
+
+<h4 id="undefined-and-null-and-optional-chaining"><a href="#undefined-and-null-and-optional-chaining" class="headerlink" title="undefined and null and optional chaining"></a>undefined and null and optional chaining</h4><p>When there is optional chaining via value?.prop:</p>
+<ul>
+<li>If value is undefined or null, return undefined. That is, this happens whenever value.prop would throw an exception.</li>
+<li>Otherwise, return value.prop.</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> getProp(value) &#123;</span><br><span class="line">  <span class="comment"># optional static property access</span></span><br><span class="line">  <span class="built_in">return</span> value?.prop;</span><br><span class="line">&#125;</span><br><span class="line">assert.equal(</span><br><span class="line">  getProp(&#123;prop: 123&#125;), 123);</span><br><span class="line">assert.equal(</span><br><span class="line">  getProp(undefined), undefined);</span><br><span class="line">assert.equal(</span><br><span class="line">  getProp(null), undefined);</span><br></pre></td></tr></table></figure>
+
+<p>The following two operations work similarly:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">obj?.[«expr»] // optional dynamic property access</span><br><span class="line">func?.(«arg0», «arg1») // optional <span class="keyword">function</span> or method call</span><br></pre></td></tr></table></figure>
+
+<h4 id="undefined-and-null-and-nullish-coalescing"><a href="#undefined-and-null-and-nullish-coalescing" class="headerlink" title="undefined and null and nullish coalescing"></a>undefined and null and nullish coalescing</h4><p>nullish coalescing 的使用比较 简单，如果值是undefined 或者null的时候取后者</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; undefined ?? <span class="string">'default value'</span></span><br><span class="line"><span class="string">'default value'</span></span><br><span class="line">&gt; null ?? <span class="string">'default value'</span></span><br><span class="line"><span class="string">'default value'</span></span><br><span class="line"></span><br><span class="line">&gt; 0 ?? <span class="string">'default value'</span></span><br><span class="line">0</span><br><span class="line">&gt; 123 ?? <span class="string">'default value'</span></span><br><span class="line">123</span><br><span class="line">&gt; <span class="string">''</span> ?? <span class="string">'default value'</span></span><br><span class="line"><span class="string">''</span></span><br><span class="line">&gt; <span class="string">'abc'</span> ?? <span class="string">'default value'</span></span><br><span class="line"><span class="string">'abc'</span></span><br></pre></td></tr></table></figure>
+
+<p>The nullish coalescing assignment operator ??= combines nullish coalescing with assignment:</p>
+<p>??=  就是把 取值和赋值合起来</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> setName(obj) &#123;</span><br><span class="line">  obj.name ??= <span class="string">'(Unnamed)'</span>;</span><br><span class="line">  <span class="built_in">return</span> obj;</span><br><span class="line">&#125;</span><br><span class="line">assert.deepEqual(</span><br><span class="line">  setName(&#123;&#125;),</span><br><span class="line">  &#123;name: <span class="string">'(Unnamed)'</span>&#125;</span><br><span class="line">);</span><br><span class="line">assert.deepEqual(</span><br><span class="line">  setName(&#123;name: undefined&#125;),</span><br><span class="line">  &#123;name: <span class="string">'(Unnamed)'</span>&#125;</span><br><span class="line">);</span><br><span class="line">assert.deepEqual(</span><br><span class="line">  setName(&#123;name: null&#125;),</span><br><span class="line">  &#123;name: <span class="string">'(Unnamed)'</span>&#125;</span><br><span class="line">);</span><br><span class="line">assert.deepEqual(</span><br><span class="line">  setName(&#123;name: <span class="string">'Jane'</span>&#125;),</span><br><span class="line">  &#123;name: <span class="string">'Jane'</span>&#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>javascript浮点数精度问题</title>
+    <url>/2019/10/10/javascript-float-num/</url>
+    <content><![CDATA[<h3 id="浮点数陷阱"><a href="#浮点数陷阱" class="headerlink" title="浮点数陷阱"></a>浮点数陷阱</h3><p>原文：<a href="https://zhuanlan.zhihu.com/ne-fe" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/ne-fe</a></p>
+<p>众所周知，JavaScript 浮点数运算时经常遇到会 0.000000001 和 0.999999999 这样奇怪的结果，如 0.1+0.2=0.30000000000000004、1-0.9=0.09999999999999998，很多人知道这是浮点数误差问题，但具体就说不清楚了。本文帮你理清这背后的原理以及解决方案，还会向你解释JS中的大数危机和四则运算中会遇到的坑。</p>
+<a id="more"></a>
+<h3 id="浮点数的储存"><a href="#浮点数的储存" class="headerlink" title="浮点数的储存"></a>浮点数的储存</h3><p>首先要搞清楚 JavaScript 如何存储小数。和其它语言如 Java 和 Python 不同，JavaScript 中所有数字包括整数和小数都只有一种类型 — Number。它的实现遵循 IEEE 754 标准，使用 64 位固定长度来表示，也就是标准的 double 双精度浮点数（相关的还有float 32位单精度）。</p>
+<p>这样的存储结构优点是可以归一化处理整数和小数，节省存储空间。</p>
+<p>64位比特又可分为三个部分：</p>
+<ul>
+<li>符号位S：第 1 位是正负数符号位（sign），0代表正数，1代表负数</li>
+<li>指数位E：中间的 11 位存储指数（exponent），用来表示次方数</li>
+<li>尾数位M：最后的 52 位是尾数（mantissa），超出的部分自动进一舍零</li>
+</ul>
+<p><img src="/images/javascript_float_num/demo1.png" alt="图片"></p>
+<p>实际数字就可以用以下公式来计算：<br><img src="/images/javascript_float_num/demo2.png" alt="图片"></p>
+<p>公式推导过程见维基百科<a href="https://zh.wikipedia.org/wiki/%E9%9B%99%E7%B2%BE%E5%BA%A6%E6%B5%AE%E9%BB%9E%E6%95%B8" target="_blank" rel="noopener">wiki</a></p>
+<h3 id="为什么0-1-0-2-0-30000000000000004"><a href="#为什么0-1-0-2-0-30000000000000004" class="headerlink" title="为什么0.1+0.2 =0.30000000000000004?"></a>为什么0.1+0.2 =0.30000000000000004?</h3><p>0.1 转成二进制表示为 0.0001100110011001100(1100循环)，1.100110011001100x2^-4，所以 E=-4+1023=1019；M 舍去首位的1，得到 100110011…。<br>转化成十进制后为 0.100000000000000005551115123126，因此就出现了浮点误差。<br>接着0.1+0.2计算步骤为</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">0.00011001100110011001100110011001100110011001100110011010 +</span><br><span class="line">0.0011001100110011001100110011001100110011001100110011010 =</span><br><span class="line">0.0100110011001100110011001100110011001100110011001100111</span><br><span class="line">// 转成十进制正好是 0.30000000000000004</span><br></pre></td></tr></table></figure>
+
+<p>因为 mantissa 固定长度是 52 位，再加上省略的一位，最多可以表示的数是 2^53=9007199254740992，对应科学计数尾数是 9.007199254740992，这也是 JS 最多能表示的精度，如果整数大于 9007199254740992 会出现什么情况呢？<br>由于 E 最大值是 1023，所以最大可以表示的整数是 2^1024 - 1，这就是能表示的最大整数。但你并不能这样计算这个数字，因为从 2^1024 开始就变成了 Infinity</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Math.pow(2, 1023)</span><br><span class="line">//8.98846567431158e+307</span><br><span class="line"></span><br><span class="line">//Math.pow(2, 1024)</span><br><span class="line">Infinity</span><br></pre></td></tr></table></figure>
+
+<p>那么对于 (2^53, 2^63) 之间的数会出现什么情况呢？</p>
+<ul>
+<li>(2^53, 2^54) 之间的数会两个选一个，只能精确表示偶数</li>
+<li>(2^54, 2^55) 之间的数会四个选一个，只能精确表示4个倍数</li>
+<li>… 依次跳过更多2的倍数<br>下面这张图能很好的表示 JavaScript 中浮点数和实数（Real Number）之间的对应关系<br><img src="/images/javascript_float_num/demo3.jfif" alt="real number"></li>
+</ul>
+<p>要想解决大数的问题你可以引用第三方库 bignumber.js，原理是把所有数字当作字符串，重新实现了计算逻辑，缺点是性能比原生的差很多</p>
+<h3 id="toPrecision-vs-toFixed"><a href="#toPrecision-vs-toFixed" class="headerlink" title="toPrecision vs toFixed"></a>toPrecision vs toFixed</h3><p>数据处理时，这两个函数很容易混淆。它们的共同点是把数字转成字符串供展示使用。注意在计算的中间过程不要使用，只用于最终结果。</p>
+<p>不同点就需要注意一下</p>
+<ul>
+<li>toPrecision 是处理精度，精度是从左至右第一个不为0的数开始数起。</li>
+<li>toFixed 是小数点后指定位数取整，从小数点开始数起。</li>
+</ul>
+<p>两者都能对多余数字做凑整处理，也有些人用 toFixed 来做四舍五入，但一定要知道它是有 Bug 的。</p>
+<p>如：1.005.toFixed(2) 返回的是 1.00 而不是 1.01。</p>
+<p>原因： 1.005 实际对应的数字是 1.00499999999999989，在四舍五入时全部被舍去！</p>
+<p>解法：使用专业的四舍五入函数 Math.round() 来处理。但 Math.round(1.005 * 100) / 100 还是不行，因为 1.005 * 100 = 100.49999999999999。还需要把乘法和除法精度误差都解决后再使用 Math.round。</p>
+<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><ul>
+<li><a href="https://github.com/dt-fe/number-precision">https://github.com/dt-fe/number-precision</a></li>
+<li>BigInt</li>
+<li>Number.EPSILON,表示 1 与Number可表示的大于 1 的最小的浮点数之间的差值。如果两个数的差值小于这个，就认为这两个数相等</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>jsonp实现</title>
     <url>/2019/11/28/jsonp/</url>
     <content><![CDATA[<p>由于浏览器的同源策略，所以当不同源发送请求时，会发生跨域，请求返回的结果被浏览器所拦截，其中一个解决办法就是用jsonp,jquery中的ajax中就支持了jsonp的数据类型</p>
@@ -1083,6 +1052,37 @@ btn.addEventListener('click',function(){
       </tags>
   </entry>
   <entry>
+    <title>今日随笔(2-10)</title>
+    <url>/2021/02/10/essay-9/</url>
+    <content><![CDATA[<h4 id="NaN-和-Number-isNaN"><a href="#NaN-和-Number-isNaN" class="headerlink" title="NaN 和 Number.isNaN"></a>NaN 和 Number.isNaN</h4><hr>
+<p>全局属性 NaN 的值表示不是一个数字（Not-A-Number）。</p>
+<p>NaN 属性的初始值就是 NaN，和 Number.NaN 的值一样。在现代浏览器中（ES5中）， NaN 属性是一个不可配置（non-configurable），不可写（non-writable）的属性。但在ES3中，这个属性的值是可以被更改的，但是也应该避免覆盖。  — mdn</p>
+<a id="more"></a>
+<p>NaN是唯一一个自身不相等的数字，判断一个值是否是NaN，主要是用两种方法来判断，一个是NaN，一个是Number.isNaN。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">NaN === NaN;        // <span class="literal">false</span></span><br><span class="line">Number.NaN === NaN; // <span class="literal">false</span></span><br><span class="line">isNaN(NaN);         // <span class="literal">true</span></span><br><span class="line">isNaN(Number.NaN);  // <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> valueIsNaN(v) &#123; <span class="built_in">return</span> v !== v; &#125;</span><br><span class="line">valueIsNaN(1);          // <span class="literal">false</span></span><br><span class="line">valueIsNaN(NaN);        // <span class="literal">true</span></span><br><span class="line">valueIsNaN(Number.NaN); // <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<p>对于两个方法还是有所不同的：如果当前值是NaN，或者将其强制转换为数字后将是NaN，则前者将返回true。而后者仅当值当前为NaN时才为true：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">isNaN(<span class="string">'hello world'</span>);        // <span class="literal">true</span> <span class="string">'hello world'</span>转数字失败变成NaN。</span><br><span class="line">Number.isNaN(<span class="string">'hello world'</span>); // <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+<p>对于NaN方法：</p>
+<ul>
+<li>Let num be ? ToNumber(number).</li>
+<li>If num is NaN, return true.</li>
+<li>Otherwise, return false.</li>
+</ul>
+<p>而对于Number.isNaN来说：</p>
+<ul>
+<li>If Type(number) is not Number, return false.</li>
+<li>If number is NaN, return true.</li>
+<li>Otherwise, return false.</li>
+</ul>
+<p>可以看到规范中定义的两个方法在第一步中对传递进来对参数的处理方式并不一样。因此这两个方法是有所区别的。</p>
+]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>leetcode第70之爬楼梯</title>
     <url>/2019/08/08/leetcode-70/</url>
     <content><![CDATA[<p>描述：假设你正在爬楼梯。需要 n 阶你才能到达楼顶。</p>
@@ -1122,6 +1122,21 @@ btn.addEventListener('click',function(){
 
 <p>题解：将0所在的行列储存起来作为标记，第二次循环的时候判断元素当前所在行或者列是否在标记的行或列即可</p>
 ]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>leetcode第289之生命游戏</title>
+    <url>/2019/08/08/leetcode_289/</url>
+    <content><![CDATA[<p>描述：根据百度百科，生命游戏，简称为生命，是英国数学家约翰·何顿·康威在1970年发明的细胞自动机。</p>
+<p>给定一个包含 m × n 个格子的面板，每一个格子都可以看成是一个细胞。每个细胞具有一个初始状态 live（1）即为活细胞， 或 dead（0）即为死细胞。每个细胞与其八个相邻位置（水平，垂直，对角线）的细胞都遵循以下四条生存定律：</p>
+<p>如果活细胞周围八个位置的活细胞数少于两个，则该位置活细胞死亡；<br>如果活细胞周围八个位置有两个或三个活细胞，则该位置活细胞仍然存活；<br>如果活细胞周围八个位置有超过三个活细胞，则该位置活细胞死亡；<br>如果死细胞周围正好有三个活细胞，则该位置死细胞复活；<br>根据当前状态，写一个函数来计算面板上细胞的下一个（一次更新后的）状态。下一个状态是通过将上述规则同时应用于当前状态下的每个细胞所形成的，其中细胞的出生和死亡是同时发生的。</p>
+<a id="more"></a>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * leetcode 生命游戏</span><br><span class="line"> * @param &#123;number[][]&#125; board</span><br><span class="line"> * @<span class="built_in">return</span> &#123;void&#125; Do not <span class="built_in">return</span> anything, modify board <span class="keyword">in</span>-place instead.</span><br><span class="line"> */</span><br><span class="line">var gameOfLife = <span class="keyword">function</span>(board) &#123;</span><br><span class="line">    //额外空间法</span><br><span class="line">  <span class="built_in">let</span> tempArr = [];</span><br><span class="line">  <span class="keyword">for</span> (<span class="built_in">let</span> i = 0; i &lt; board.length; i++) &#123;</span><br><span class="line">    <span class="built_in">let</span> [...arr] = board[i];</span><br><span class="line">    tempArr.push(arr);</span><br><span class="line">  &#125;</span><br><span class="line">  const flag = (point, data, flag) =&gt; &#123;</span><br><span class="line">    <span class="built_in">let</span> count = 0;</span><br><span class="line">    <span class="built_in">let</span> top = 0,</span><br><span class="line">      bottom = data.length - 1;</span><br><span class="line">    //上下左右四个边界</span><br><span class="line">    //八个点 循环三层</span><br><span class="line">    <span class="keyword">if</span> (top &lt; point.x) &#123;</span><br><span class="line">      //说明当前节点的上一层节点存在至少一个节点</span><br><span class="line">      <span class="keyword">for</span> (<span class="built_in">let</span> i = point.y - 1; i &lt;= point.y + 1; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (data[point.x - 1][i] == flag) &#123;</span><br><span class="line">          ++count;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">let</span> i = point.y - 1; i &lt;= point.y + 1; i++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (data[point.x][i] == flag &amp;&amp; i != point.y) &#123;</span><br><span class="line">        ++count;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (bottom &gt; point.x) &#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="built_in">let</span> i = point.y - 1; i &lt;= point.y + 1; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (data[point.x + 1][i] == flag) &#123;</span><br><span class="line">          ++count;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> count;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">for</span> (<span class="built_in">let</span> x = 0; x &lt; board.length; x++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">let</span> y = 0; y &lt; board[0].length; y++) &#123;</span><br><span class="line">      const point = &#123;</span><br><span class="line">        x,</span><br><span class="line">        y</span><br><span class="line">      &#125;;</span><br><span class="line">      const count = flag(point, board, 1);</span><br><span class="line">      <span class="keyword">if</span> (count &lt; 2 &amp;&amp; board[x][y] == 1) &#123;</span><br><span class="line">        tempArr[x][y] = 0;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> ((count == 2 || count == 3) &amp;&amp; board[x][y] == 1) &#123;</span><br><span class="line">        tempArr[x][y] = 1;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (count &gt; 3 &amp;&amp; board[x][y] == 1) &#123;</span><br><span class="line">        tempArr[x][y] = 0;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (count == 3 &amp;&amp; board[x][y] == 0) &#123;</span><br><span class="line">        tempArr[x][y] = 1;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">return</span> Object.assign(board, tempArr);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">// console.log(<span class="string">"gameOfLife([\r\n    [0,1,0],\r\n    [0,0,1],\r\n    [1,1,1],\r\n    [0,0,0]\r\n  ]):"</span>, gameOfLife([</span><br><span class="line">//     [0,1,0],</span><br><span class="line">//     [0,0,1],</span><br><span class="line">//     [1,1,1],</span><br><span class="line">//     [0,0,0]</span><br><span class="line">//   ]));</span><br><span class="line">// gameOfLife([</span><br><span class="line">//     [0,1,0],</span><br><span class="line">//     [0,0,1],</span><br><span class="line">//     [1,1,1],</span><br><span class="line">//     [0,0,0]</span><br><span class="line">//   ]);</span><br><span class="line"></span><br><span class="line">var _gameOfLife = <span class="keyword">function</span>(board) &#123;</span><br><span class="line">    //原地算法</span><br><span class="line">  const flag = (point, data, flag) =&gt; &#123;</span><br><span class="line">    <span class="built_in">let</span> count = 0;</span><br><span class="line">    <span class="built_in">let</span> top = 0,</span><br><span class="line">      bottom = data.length - 1;</span><br><span class="line">    </span><br><span class="line">    //上下左右四个边界</span><br><span class="line">    //八个点 循环三层</span><br><span class="line">    <span class="keyword">if</span> (top &lt; point.x) &#123;</span><br><span class="line">      //说明当前节点的上一层节点存在至少一个节点</span><br><span class="line">      <span class="keyword">for</span> (<span class="built_in">let</span> i = point.y - 1; i &lt;= point.y + 1; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (data[point.x - 1][i] == flag[0]||data[point.x - 1][i] == flag[1]) &#123;</span><br><span class="line">          ++count;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">let</span> i = point.y - 1; i &lt;= point.y + 1; i++) &#123;</span><br><span class="line">      <span class="keyword">if</span> ((data[point.x ][i] == flag[0]||data[point.x ][i] == flag[1]) &amp;&amp; i != point.y) &#123;</span><br><span class="line">        ++count;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (bottom &gt; point.x) &#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="built_in">let</span> i = point.y - 1; i &lt;= point.y + 1; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (data[point.x +1][i] == flag[0]||data[point.x +1][i] == flag[1]) &#123;</span><br><span class="line">          ++count;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> count;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">for</span> (<span class="built_in">let</span> x = 0; x &lt; board.length; x++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">let</span> y = 0; y &lt; board[0].length; y++) &#123;</span><br><span class="line">      const point = &#123;</span><br><span class="line">        x,</span><br><span class="line">        y</span><br><span class="line">      &#125;;</span><br><span class="line">      //alive -&gt; dead -2</span><br><span class="line">      //dead -&gt; alive 2</span><br><span class="line">      const count = flag(point, board, [1,-2]);</span><br><span class="line">      <span class="keyword">if</span> (count &lt; 2 &amp;&amp; board[x][y] == 1) &#123;</span><br><span class="line">        board[x][y] = -2;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> ((count == 2 || count == 3) &amp;&amp; board[x][y] == 1) &#123;</span><br><span class="line">        board[x][y] = 1;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (count &gt; 3 &amp;&amp; board[x][y] == 1) &#123;</span><br><span class="line">        board[x][y] = -2;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (count == 3 &amp;&amp; board[x][y] == 0) &#123;</span><br><span class="line">        board[x][y] = 2;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span> (<span class="built_in">let</span> x = 0; x &lt; board.length; x++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">let</span> y = 0; y &lt; board[0].length; y++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (board[x][y] == -2) &#123;</span><br><span class="line">        board[x][y]=0;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span>(board[x][y]==2)&#123;</span><br><span class="line">        board[x][y]=1;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">return</span> board;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">console.log(<span class="string">"\r\n_gameOfLife([\r\n    [0,1,0],\r\n    [0,0,1],\r\n    [1,1,1],\r\n    [0,0,0]\r\n  ]):"</span>, </span><br><span class="line">_gameOfLife([</span><br><span class="line">    [0,1,0],[0,0,1],[1,1,1],[0,0,0]</span><br><span class="line">  ]));</span><br><span class="line"></span><br><span class="line">_gameOfLife([</span><br><span class="line">    [0,1,0],[0,0,1],[1,1,1],[0,0,0]</span><br><span class="line">  ])</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>leetcode</category>
       </categories>
@@ -1204,21 +1219,6 @@ btn.addEventListener('click',function(){
       <tags>
         <tag>JavaScript</tag>
         <tag>listNode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>leetcode第289之生命游戏</title>
-    <url>/2019/08/08/leetcode_289/</url>
-    <content><![CDATA[<p>描述：根据百度百科，生命游戏，简称为生命，是英国数学家约翰·何顿·康威在1970年发明的细胞自动机。</p>
-<p>给定一个包含 m × n 个格子的面板，每一个格子都可以看成是一个细胞。每个细胞具有一个初始状态 live（1）即为活细胞， 或 dead（0）即为死细胞。每个细胞与其八个相邻位置（水平，垂直，对角线）的细胞都遵循以下四条生存定律：</p>
-<p>如果活细胞周围八个位置的活细胞数少于两个，则该位置活细胞死亡；<br>如果活细胞周围八个位置有两个或三个活细胞，则该位置活细胞仍然存活；<br>如果活细胞周围八个位置有超过三个活细胞，则该位置活细胞死亡；<br>如果死细胞周围正好有三个活细胞，则该位置死细胞复活；<br>根据当前状态，写一个函数来计算面板上细胞的下一个（一次更新后的）状态。下一个状态是通过将上述规则同时应用于当前状态下的每个细胞所形成的，其中细胞的出生和死亡是同时发生的。</p>
-<a id="more"></a>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * leetcode 生命游戏</span><br><span class="line"> * @param &#123;number[][]&#125; board</span><br><span class="line"> * @<span class="built_in">return</span> &#123;void&#125; Do not <span class="built_in">return</span> anything, modify board <span class="keyword">in</span>-place instead.</span><br><span class="line"> */</span><br><span class="line">var gameOfLife = <span class="keyword">function</span>(board) &#123;</span><br><span class="line">    //额外空间法</span><br><span class="line">  <span class="built_in">let</span> tempArr = [];</span><br><span class="line">  <span class="keyword">for</span> (<span class="built_in">let</span> i = 0; i &lt; board.length; i++) &#123;</span><br><span class="line">    <span class="built_in">let</span> [...arr] = board[i];</span><br><span class="line">    tempArr.push(arr);</span><br><span class="line">  &#125;</span><br><span class="line">  const flag = (point, data, flag) =&gt; &#123;</span><br><span class="line">    <span class="built_in">let</span> count = 0;</span><br><span class="line">    <span class="built_in">let</span> top = 0,</span><br><span class="line">      bottom = data.length - 1;</span><br><span class="line">    //上下左右四个边界</span><br><span class="line">    //八个点 循环三层</span><br><span class="line">    <span class="keyword">if</span> (top &lt; point.x) &#123;</span><br><span class="line">      //说明当前节点的上一层节点存在至少一个节点</span><br><span class="line">      <span class="keyword">for</span> (<span class="built_in">let</span> i = point.y - 1; i &lt;= point.y + 1; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (data[point.x - 1][i] == flag) &#123;</span><br><span class="line">          ++count;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">let</span> i = point.y - 1; i &lt;= point.y + 1; i++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (data[point.x][i] == flag &amp;&amp; i != point.y) &#123;</span><br><span class="line">        ++count;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (bottom &gt; point.x) &#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="built_in">let</span> i = point.y - 1; i &lt;= point.y + 1; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (data[point.x + 1][i] == flag) &#123;</span><br><span class="line">          ++count;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> count;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">for</span> (<span class="built_in">let</span> x = 0; x &lt; board.length; x++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">let</span> y = 0; y &lt; board[0].length; y++) &#123;</span><br><span class="line">      const point = &#123;</span><br><span class="line">        x,</span><br><span class="line">        y</span><br><span class="line">      &#125;;</span><br><span class="line">      const count = flag(point, board, 1);</span><br><span class="line">      <span class="keyword">if</span> (count &lt; 2 &amp;&amp; board[x][y] == 1) &#123;</span><br><span class="line">        tempArr[x][y] = 0;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> ((count == 2 || count == 3) &amp;&amp; board[x][y] == 1) &#123;</span><br><span class="line">        tempArr[x][y] = 1;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (count &gt; 3 &amp;&amp; board[x][y] == 1) &#123;</span><br><span class="line">        tempArr[x][y] = 0;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (count == 3 &amp;&amp; board[x][y] == 0) &#123;</span><br><span class="line">        tempArr[x][y] = 1;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">return</span> Object.assign(board, tempArr);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">// console.log(<span class="string">"gameOfLife([\r\n    [0,1,0],\r\n    [0,0,1],\r\n    [1,1,1],\r\n    [0,0,0]\r\n  ]):"</span>, gameOfLife([</span><br><span class="line">//     [0,1,0],</span><br><span class="line">//     [0,0,1],</span><br><span class="line">//     [1,1,1],</span><br><span class="line">//     [0,0,0]</span><br><span class="line">//   ]));</span><br><span class="line">// gameOfLife([</span><br><span class="line">//     [0,1,0],</span><br><span class="line">//     [0,0,1],</span><br><span class="line">//     [1,1,1],</span><br><span class="line">//     [0,0,0]</span><br><span class="line">//   ]);</span><br><span class="line"></span><br><span class="line">var _gameOfLife = <span class="keyword">function</span>(board) &#123;</span><br><span class="line">    //原地算法</span><br><span class="line">  const flag = (point, data, flag) =&gt; &#123;</span><br><span class="line">    <span class="built_in">let</span> count = 0;</span><br><span class="line">    <span class="built_in">let</span> top = 0,</span><br><span class="line">      bottom = data.length - 1;</span><br><span class="line">    </span><br><span class="line">    //上下左右四个边界</span><br><span class="line">    //八个点 循环三层</span><br><span class="line">    <span class="keyword">if</span> (top &lt; point.x) &#123;</span><br><span class="line">      //说明当前节点的上一层节点存在至少一个节点</span><br><span class="line">      <span class="keyword">for</span> (<span class="built_in">let</span> i = point.y - 1; i &lt;= point.y + 1; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (data[point.x - 1][i] == flag[0]||data[point.x - 1][i] == flag[1]) &#123;</span><br><span class="line">          ++count;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">let</span> i = point.y - 1; i &lt;= point.y + 1; i++) &#123;</span><br><span class="line">      <span class="keyword">if</span> ((data[point.x ][i] == flag[0]||data[point.x ][i] == flag[1]) &amp;&amp; i != point.y) &#123;</span><br><span class="line">        ++count;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (bottom &gt; point.x) &#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="built_in">let</span> i = point.y - 1; i &lt;= point.y + 1; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (data[point.x +1][i] == flag[0]||data[point.x +1][i] == flag[1]) &#123;</span><br><span class="line">          ++count;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> count;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">for</span> (<span class="built_in">let</span> x = 0; x &lt; board.length; x++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">let</span> y = 0; y &lt; board[0].length; y++) &#123;</span><br><span class="line">      const point = &#123;</span><br><span class="line">        x,</span><br><span class="line">        y</span><br><span class="line">      &#125;;</span><br><span class="line">      //alive -&gt; dead -2</span><br><span class="line">      //dead -&gt; alive 2</span><br><span class="line">      const count = flag(point, board, [1,-2]);</span><br><span class="line">      <span class="keyword">if</span> (count &lt; 2 &amp;&amp; board[x][y] == 1) &#123;</span><br><span class="line">        board[x][y] = -2;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> ((count == 2 || count == 3) &amp;&amp; board[x][y] == 1) &#123;</span><br><span class="line">        board[x][y] = 1;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (count &gt; 3 &amp;&amp; board[x][y] == 1) &#123;</span><br><span class="line">        board[x][y] = -2;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (count == 3 &amp;&amp; board[x][y] == 0) &#123;</span><br><span class="line">        board[x][y] = 2;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span> (<span class="built_in">let</span> x = 0; x &lt; board.length; x++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">let</span> y = 0; y &lt; board[0].length; y++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (board[x][y] == -2) &#123;</span><br><span class="line">        board[x][y]=0;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span>(board[x][y]==2)&#123;</span><br><span class="line">        board[x][y]=1;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">return</span> board;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">console.log(<span class="string">"\r\n_gameOfLife([\r\n    [0,1,0],\r\n    [0,0,1],\r\n    [1,1,1],\r\n    [0,0,0]\r\n  ]):"</span>, </span><br><span class="line">_gameOfLife([</span><br><span class="line">    [0,1,0],[0,0,1],[1,1,1],[0,0,0]</span><br><span class="line">  ]));</span><br><span class="line"></span><br><span class="line">_gameOfLife([</span><br><span class="line">    [0,1,0],[0,0,1],[1,1,1],[0,0,0]</span><br><span class="line">  ])</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>leetcode</category>
-      </categories>
-      <tags>
-        <tag>leetcode</tag>
       </tags>
   </entry>
   <entry>
@@ -1561,6 +1561,26 @@ btn.addEventListener('click',function(){
       </tags>
   </entry>
   <entry>
+    <title>npm包的发布</title>
+    <url>/2020/09/02/npm-pkg/</url>
+    <content><![CDATA[<p><strong>趁趁趁着还不太忙，补个npm包的发布</strong></p>
+<ul>
+<li>那么首先就是<code>npm init -y</code>初始化一个npm仓库</li>
+<li>然后<code>touch index.js</code>创建index文件</li>
+<li>安装<code>chalk figlet commander</code>这几个包，⚠️一定一定要装开发依赖！！</li>
+<li>然后coding</li>
+<li>要记得在package文件加上bin字段，value是对象，key是要在<code>terminal</code>运行的命令，key对应的对象是要执行的文件</li>
+<li>⚠️一定一定要记得在执行的文件的头部要加<code>#!/usr/bin/env node</code>(心塞，查了好久才找到)！！！</li>
+<li>coding结束要用<code>npm link</code>本地调试一个，记住npm的repo不要定位到淘宝的去！！</li>
+<li>没有账号的记得注册，然后用npm login 登陆一下</li>
+<li>npm publish，⚠️一定一定要记得改版本号！！如果publish的时候403了，maybe是你的包重名了，记得去npm上查一下你的包有没有跟别人的重了(踩坑踩的那叫一踩一个准hhh)<br>Done！</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>npm</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>元素定位</title>
     <url>/2020/12/31/location/</url>
     <content><![CDATA[<ol>
@@ -1583,26 +1603,6 @@ btn.addEventListener('click',function(){
 </li>
 </ol>
 ]]></content>
-  </entry>
-  <entry>
-    <title>npm包的发布</title>
-    <url>/2020/09/02/npm-pkg/</url>
-    <content><![CDATA[<p><strong>趁趁趁着还不太忙，补个npm包的发布</strong></p>
-<ul>
-<li>那么首先就是<code>npm init -y</code>初始化一个npm仓库</li>
-<li>然后<code>touch index.js</code>创建index文件</li>
-<li>安装<code>chalk figlet commander</code>这几个包，⚠️一定一定要装开发依赖！！</li>
-<li>然后coding</li>
-<li>要记得在package文件加上bin字段，value是对象，key是要在<code>terminal</code>运行的命令，key对应的对象是要执行的文件</li>
-<li>⚠️一定一定要记得在执行的文件的头部要加<code>#!/usr/bin/env node</code>(心塞，查了好久才找到)！！！</li>
-<li>coding结束要用<code>npm link</code>本地调试一个，记住npm的repo不要定位到淘宝的去！！</li>
-<li>没有账号的记得注册，然后用npm login 登陆一下</li>
-<li>npm publish，⚠️一定一定要记得改版本号！！如果publish的时候403了，maybe是你的包重名了，记得去npm上查一下你的包有没有跟别人的重了(踩坑踩的那叫一踩一个准hhh)<br>Done！</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>npm</tag>
-      </tags>
   </entry>
   <entry>
     <title>响应式模块</title>
@@ -2124,6 +2124,53 @@ createComponentInstance
       </tags>
   </entry>
   <entry>
+    <title>节流</title>
+    <url>/2021/02/19/throttle/</url>
+    <content><![CDATA[<h5 id="创建一个节流函数在给定的毫秒中最多调用一次"><a href="#创建一个节流函数在给定的毫秒中最多调用一次" class="headerlink" title="创建一个节流函数在给定的毫秒中最多调用一次"></a>创建一个节流函数在给定的毫秒中最多调用一次</h5><p>Creates a throttled function that only invokes the provided function at most once per every wait milliseconds</p>
+<hr>
+<p>使用setTimeout 和 clearTimeout 对给定对方法节流。fn使用<code>Function.prototype.apply()</code>this上下文应用到函数中并且提供必要到参数arguments。使用<code>Date.now()</code>收集上一次函数的调用时间。没有给定第二个参数 <code>wait</code>的情况，默认设置时间间隔为0</p>
+<a id="more"></a>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> throttle = <span class="function">(<span class="params">fn, wait</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> inThrottle, lastFn, lastTime;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> context = <span class="keyword">this</span>,</span><br><span class="line">      args = <span class="built_in">arguments</span>;</span><br><span class="line">    <span class="keyword">if</span> (!inThrottle) &#123;</span><br><span class="line">      fn.apply(context, args);</span><br><span class="line">      lastTime = <span class="built_in">Date</span>.now();</span><br><span class="line">      inThrottle = <span class="literal">true</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      clearTimeout(lastFn);</span><br><span class="line">      lastFn = setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">Date</span>.now() - lastTime &gt;= wait) &#123;</span><br><span class="line">          fn.apply(context, args);</span><br><span class="line">          lastTime = <span class="built_in">Date</span>.now();</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;, <span class="built_in">Math</span>.max(wait - (<span class="built_in">Date</span>.now() - lastTime), <span class="number">0</span>));</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h5 id="for-instance"><a href="#for-instance" class="headerlink" title="for instance"></a>for instance</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(</span><br><span class="line">  <span class="string">'resize'</span>,</span><br><span class="line">  throttle(<span class="function"><span class="keyword">function</span>(<span class="params">evt</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">window</span>.innerWidth);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">window</span>.innerHeight);</span><br><span class="line">  &#125;, <span class="number">250</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>在JS文件使用svg加载svg文件</title>
+    <url>/2020/10/13/svgInJS/</url>
+    <content><![CDATA[<h3 id="怎么在js文件中用引用svg文件"><a href="#怎么在js文件中用引用svg文件" class="headerlink" title="怎么在js文件中用引用svg文件"></a>怎么在js文件中用引用svg文件</h3><p>使用webpack的require.context,它接收三个参数</p>
+<ul>
+<li>要搜索的文件夹目录</li>
+<li>是否还应该搜索它的子目录，</li>
+<li>以及一个匹配文件的正则表达式。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const req = require.context(<span class="string">'./svg'</span>, <span class="literal">false</span>, /\.svg$/)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>req返回的是一个方法</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> webpackContext(req) &#123;</span><br><span class="line">	var id = webpackContextResolve(req);</span><br><span class="line">	<span class="built_in">return</span> __webpack_require__(id);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>包含三个属性</p>
+<ul>
+<li>id</li>
+<li>keys </li>
+<li>resolve<a id="more"></a>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">webpackContext.keys = <span class="keyword">function</span> <span class="function"><span class="title">webpackContextKeys</span></span>() &#123;</span><br><span class="line">	<span class="built_in">return</span> Object.keys(map);</span><br><span class="line">&#125;;</span><br><span class="line">webpackContext.resolve = webpackContextResolve;</span><br><span class="line">webpackContext.id = <span class="string">"./src/icons/svg sync \\.svg$"</span>;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>再使用<code>const requireAll = requireContext =&gt; requireContext.keys().map(requireContext)</code>之后，会得到一个Module的数组,数组的每一项就是执行import后的Module<br><img src="/images/svg-in-js/map.png" alt="dom"><br><img src="/images/svg-in-js/image.png" alt="image"><br>Module数组<br><img src="/images/svg-in-js/module.png" alt="module"><br><strong>webpack_require</strong>方法</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> __webpack_require__(moduleId) &#123;</span><br><span class="line">/******/</span><br><span class="line">/******/ 		// Check <span class="keyword">if</span> module is <span class="keyword">in</span> cache</span><br><span class="line">/******/ 		<span class="keyword">if</span>(installedModules[moduleId]) &#123;</span><br><span class="line">/******/ 			<span class="built_in">return</span> installedModules[moduleId].exports;</span><br><span class="line">/******/ 		&#125;</span><br><span class="line">/******/ 		// Create a new module (and put it into the cache)</span><br><span class="line">/******/ 		var module = installedModules[moduleId] = &#123;</span><br><span class="line">/******/ 			i: moduleId,</span><br><span class="line">/******/ 			l: <span class="literal">false</span>,</span><br><span class="line">/******/ 			exports: &#123;&#125;,</span><br><span class="line">/******/ 			hot: hotCreateModule(moduleId),</span><br><span class="line">/******/ 			parents: (hotCurrentParentsTemp = hotCurrentParents, hotCurrentParents = [], hotCurrentParentsTemp),</span><br><span class="line">/******/ 			children: []</span><br><span class="line">/******/ 		&#125;;</span><br><span class="line">/******/</span><br><span class="line">/******/ 		// Execute the module <span class="keyword">function</span></span><br><span class="line">/******/ 		modules[moduleId].call(module.exports, module, module.exports, hotCreateRequire(moduleId));</span><br><span class="line">/******/</span><br><span class="line">/******/ 		// Flag the module as loaded</span><br><span class="line">/******/ 		module.l = <span class="literal">true</span>;</span><br><span class="line">/******/</span><br><span class="line">/******/ 		// Return the exports of the module</span><br><span class="line">/******/ 		<span class="built_in">return</span> module.exports;</span><br><span class="line">/******/ 	&#125;</span><br></pre></td></tr></table></figure>
+
+<p>svg example</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/***/ <span class="string">"./src/icons/svg/bug.svg"</span>:</span><br><span class="line">/*!*******************************!*\</span><br><span class="line">  !*** ./src/icons/svg/bug.svg ***!</span><br><span class="line">  \*******************************/</span><br><span class="line">/*! exports provided: default */</span><br><span class="line">/***/ (<span class="keyword">function</span>(module, __webpack_exports__, __webpack_require__) &#123;</span><br><span class="line"></span><br><span class="line"><span class="string">"use strict"</span>;</span><br><span class="line"><span class="built_in">eval</span>(<span class="string">"__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! svg-baker-runtime/browser-symbol */ \"./node_modules/svg-baker-runtime/browser-symbol.js\");\n/* harmony import */ var svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! svg-sprite-loader/runtime/browser-sprite.build */ \"./node_modules/svg-sprite-loader/runtime/browser-sprite.build.js\");\n/* harmony import */ var svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1__);\n\n\nvar symbol = new svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0___default.a(&#123;\n  \"id\": \"icon-bug\",\n  \"use\": \"icon-bug-usage\",\n  \"viewBox\": \"0 0 128 128\",\n  \"content\": \"&lt;symbol xmlns=\\\"http://www.w3.org/2000/svg\\\" viewBox=\\\"0 0 128 128\\\" id=\\\"icon-bug\\\"&gt;&lt;path d=\\\"M127.88 73.143c0 1.412-.506 2.635-1.518 3.669-1.011 1.033-2.209 1.55-3.592 1.55h-17.887c0 9.296-1.783 17.178-5.35 23.645l16.609 17.044c1.011 1.034 1.517 2.257 1.517 3.67 0 1.412-.506 2.635-1.517 3.668-.958 1.033-2.155 1.55-3.593 1.55-1.438 0-2.635-.517-3.593-1.55l-15.811-16.063a15.49 15.49 0 0 1-1.196 1.06c-.532.434-1.65 1.208-3.353 2.322a50.104 50.104 0 0 1-5.192 2.974c-1.758.87-3.94 1.658-6.546 2.364-2.607.706-5.189 1.06-7.748 1.06V47.044H58.89v73.062c-2.716 0-5.417-.367-8.106-1.102-2.688-.734-5.003-1.631-6.945-2.692a66.769 66.769 0 0 1-5.268-3.179c-1.571-1.057-2.73-1.94-3.476-2.65L33.9 109.34l-14.611 16.877c-1.066 1.14-2.344 1.711-3.833 1.711-1.277 0-2.422-.434-3.434-1.304-1.012-.978-1.557-2.187-1.635-3.627-.079-1.44.333-2.705 1.236-3.794l16.129-18.51c-3.087-6.197-4.63-13.644-4.63-22.342H5.235c-1.383 0-2.58-.517-3.592-1.55S.125 74.545.125 73.132c0-1.412.506-2.635 1.518-3.668 1.012-1.034 2.21-1.55 3.592-1.55h17.887V43.939L9.308 29.833c-1.012-1.033-1.517-2.256-1.517-3.669 0-1.412.505-2.635 1.517-3.668 1.012-1.034 2.21-1.55 3.593-1.55s2.58.516 3.593 1.55l13.813 14.106h67.396l13.814-14.106c1.012-1.034 2.21-1.55 3.592-1.55 1.384 0 2.581.516 3.593 1.55 1.012 1.033 1.518 2.256 1.518 3.668 0 1.413-.506 2.636-1.518 3.67l-13.814 14.105v23.975h17.887c1.383 0 2.58.516 3.593 1.55 1.011 1.033 1.517 2.256 1.517 3.668l-.005.01zM89.552 26.175H38.448c0-7.23 2.489-13.386 7.466-18.469C50.892 2.623 56.92.082 64 .082c7.08 0 13.108 2.541 18.086 7.624 4.977 5.083 7.466 11.24 7.466 18.469z\\\" /&gt;&lt;/symbol&gt;\"\n&#125;);\nvar result = svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1___default.a.add(symbol);\n/* harmony default export */ __webpack_exports__[\"default\"] = (symbol);//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9zcmMvaWNvbnMvc3ZnL2J1Zy5zdmcuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvaWNvbnMvc3ZnL2J1Zy5zdmc/MjI4NiJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgU3ByaXRlU3ltYm9sIGZyb20gXCJzdmctYmFrZXItcnVudGltZS9icm93c2VyLXN5bWJvbFwiO1xuaW1wb3J0IHNwcml0ZSBmcm9tIFwic3ZnLXNwcml0ZS1sb2FkZXIvcnVudGltZS9icm93c2VyLXNwcml0ZS5idWlsZFwiO1xudmFyIHN5bWJvbCA9IG5ldyBTcHJpdGVTeW1ib2woe1xuICBcImlkXCI6IFwiaWNvbi1idWdcIixcbiAgXCJ1c2VcIjogXCJpY29uLWJ1Zy11c2FnZVwiLFxuICBcInZpZXdCb3hcIjogXCIwIDAgMTI4IDEyOFwiLFxuICBcImNvbnRlbnRcIjogXCI8c3ltYm9sIHhtbG5zPVxcXCJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Z1xcXCIgdmlld0JveD1cXFwiMCAwIDEyOCAxMjhcXFwiIGlkPVxcXCJpY29uLWJ1Z1xcXCI+PHBhdGggZD1cXFwiTTEyNy44OCA3My4xNDNjMCAxLjQxMi0uNTA2IDIuNjM1LTEuNTE4IDMuNjY5LTEuMDExIDEuMDMzLTIuMjA5IDEuNTUtMy41OTIgMS41NWgtMTcuODg3YzAgOS4yOTYtMS43ODMgMTcuMTc4LTUuMzUgMjMuNjQ1bDE2LjYwOSAxNy4wNDRjMS4wMTEgMS4wMzQgMS41MTcgMi4yNTcgMS41MTcgMy42NyAwIDEuNDEyLS41MDYgMi42MzUtMS41MTcgMy42NjgtLjk1OCAxLjAzMy0yLjE1NSAxLjU1LTMuNTkzIDEuNTUtMS40MzggMC0yLjYzNS0uNTE3LTMuNTkzLTEuNTVsLTE1LjgxMS0xNi4wNjNhMTUuNDkgMTUuNDkgMCAwIDEtMS4xOTYgMS4wNmMtLjUzMi40MzQtMS42NSAxLjIwOC0zLjM1MyAyLjMyMmE1MC4xMDQgNTAuMTA0IDAgMCAxLTUuMTkyIDIuOTc0Yy0xLjc1OC44Ny0zLjk0IDEuNjU4LTYuNTQ2IDIuMzY0LTIuNjA3LjcwNi01LjE4OSAxLjA2LTcuNzQ4IDEuMDZWNDcuMDQ0SDU4Ljg5djczLjA2MmMtMi43MTYgMC01LjQxNy0uMzY3LTguMTA2LTEuMTAyLTIuNjg4LS43MzQtNS4wMDMtMS42MzEtNi45NDUtMi42OTJhNjYuNzY5IDY2Ljc2OSAwIDAgMS01LjI2OC0zLjE3OWMtMS41NzEtMS4wNTctMi43My0xLjk0LTMuNDc2LTIuNjVMMzMuOSAxMDkuMzRsLTE0LjYxMSAxNi44NzdjLTEuMDY2IDEuMTQtMi4zNDQgMS43MTEtMy44MzMgMS43MTEtMS4yNzcgMC0yLjQyMi0uNDM0LTMuNDM0LTEuMzA0LTEuMDEyLS45NzgtMS41NTctMi4xODctMS42MzUtMy42MjctLjA3OS0xLjQ0LjMzMy0yLjcwNSAxLjIzNi0zLjc5NGwxNi4xMjktMTguNTFjLTMuMDg3LTYuMTk3LTQuNjMtMTMuNjQ0LTQuNjMtMjIuMzQySDUuMjM1Yy0xLjM4MyAwLTIuNTgtLjUxNy0zLjU5Mi0xLjU1Uy4xMjUgNzQuNTQ1LjEyNSA3My4xMzJjMC0xLjQxMi41MDYtMi42MzUgMS41MTgtMy42NjggMS4wMTItMS4wMzQgMi4yMS0xLjU1IDMuNTkyLTEuNTVoMTcuODg3VjQzLjkzOUw5LjMwOCAyOS44MzNjLTEuMDEyLTEuMDMzLTEuNTE3LTIuMjU2LTEuNTE3LTMuNjY5IDAtMS40MTIuNTA1LTIuNjM1IDEuNTE3LTMuNjY4IDEuMDEyLTEuMDM0IDIuMjEtMS41NSAzLjU5My0xLjU1czIuNTguNTE2IDMuNTkzIDEuNTVsMTMuODEzIDE0LjEwNmg2Ny4zOTZsMTMuODE0LTE0LjEwNmMxLjAxMi0xLjAzNCAyLjIxLTEuNTUgMy41OTItMS41NSAxLjM4NCAwIDIuNTgxLjUxNiAzLjU5MyAxLjU1IDEuMDEyIDEuMDMzIDEuNTE4IDIuMjU2IDEuNTE4IDMuNjY4IDAgMS40MTMtLjUwNiAyLjYzNi0xLjUxOCAzLjY3bC0xMy44MTQgMTQuMTA1djIzLjk3NWgxNy44ODdjMS4zODMgMCAyLjU4LjUxNiAzLjU5MyAxLjU1IDEuMDExIDEuMDMzIDEuNTE3IDIuMjU2IDEuNTE3IDMuNjY4bC0uMDA1LjAxek04OS41NTIgMjYuMTc1SDM4LjQ0OGMwLTcuMjMgMi40ODktMTMuMzg2IDcuNDY2LTE4LjQ2OUM1MC44OTIgMi42MjMgNTYuOTIuMDgyIDY0IC4wODJjNy4wOCAwIDEzLjEwOCAyLjU0MSAxOC4wODYgNy42MjQgNC45NzcgNS4wODMgNy40NjYgMTEuMjQgNy40NjYgMTguNDY5elxcXCIgLz48L3N5bWJvbD5cIlxufSk7XG52YXIgcmVzdWx0ID0gc3ByaXRlLmFkZChzeW1ib2wpO1xuZXhwb3J0IGRlZmF1bHQgc3ltYm9sIl0sIm1hcHBpbmdzIjoiQUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0EiLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./src/icons/svg/bug.svg\n"</span>);</span><br><span class="line"></span><br><span class="line">/***/ &#125;)</span><br></pre></td></tr></table></figure>
+
+<p>所以在JS中使用svg标签来加载对应的svg文件的时候只需要在svg标签加入use 然后给id属性赋值为对应symbol的id，比如<code>id=&quot;#icon-404&quot;</code></p>
+]]></content>
+  </entry>
+  <entry>
     <title>优雅的书写方式</title>
     <url>/2019/10/27/usage-for-better/</url>
     <content><![CDATA[<h3 id="变量声明"><a href="#变量声明" class="headerlink" title="变量声明"></a>变量声明</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//变量声明用let or const</span><br><span class="line">let a = 1;</span><br><span class="line">const b = 2;</span><br></pre></td></tr></table></figure>
@@ -2167,6 +2214,19 @@ createComponentInstance
       <tags>
         <tag>JavaScript</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>今日随笔</title>
+    <url>/2020/08/15/vue-react-new-release/</url>
+    <content><![CDATA[<p>react 更新了<br><img src="/images/update-of-frame/react.png" alt="react"></p>
+<p>vue脚手架更新</p>
+<p><img src="/images/update-of-frame/vue.jpeg" alt="vue"></p>
+<p>来玩~</p>
+]]></content>
+      <categories>
+        <category>vue</category>
+        <category>react</category>
+      </categories>
   </entry>
   <entry>
     <title>工具函数</title>
@@ -2288,19 +2348,6 @@ createComponentInstance
       </tags>
   </entry>
   <entry>
-    <title>今日随笔</title>
-    <url>/2020/08/15/vue-react-new-release/</url>
-    <content><![CDATA[<p>react 更新了<br><img src="/images/update-of-frame/react.png" alt="react"></p>
-<p>vue脚手架更新</p>
-<p><img src="/images/update-of-frame/vue.jpeg" alt="vue"></p>
-<p>来玩~</p>
-]]></content>
-      <categories>
-        <category>vue</category>
-        <category>react</category>
-      </categories>
-  </entry>
-  <entry>
     <title>vuex</title>
     <url>/2020/04/28/vuex/</url>
     <content><![CDATA[<h2 id="vuex-简述"><a href="#vuex-简述" class="headerlink" title="vuex 简述"></a>vuex 简述</h2><p>vuex 本质上就是 vue 中的 mixin，store 在每个 vue 组建实例创建的时候通过 mixin 的方式注入的，mixin 就类似这样的格式</p>
@@ -2381,51 +2428,5 @@ createComponentInstance
       <tags>
         <tag>Vue</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>节流</title>
-    <url>/2021/02/19/throttle/</url>
-    <content><![CDATA[<h5 id="创建一个节流函数在给定的毫秒中最多调用一次"><a href="#创建一个节流函数在给定的毫秒中最多调用一次" class="headerlink" title="创建一个节流函数在给定的毫秒中最多调用一次"></a>创建一个节流函数在给定的毫秒中最多调用一次</h5><p>Creates a throttled function that only invokes the provided function at most once per every wait milliseconds</p>
-<hr>
-<p>使用setTimeout 和 clearTimeout 对给定对方法节流。fn使用<code>Function.prototype.apply()</code>this上下文应用到函数中并且提供必要到参数arguments。使用<code>Date.now()</code>收集上一次函数的调用时间。没有给定第二个参数 <code>wait</code>的情况，默认设置时间间隔为0</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const throttle = (fn, <span class="built_in">wait</span>) =&gt; &#123;</span><br><span class="line">  <span class="built_in">let</span> inThrottle, lastFn, lastTime;</span><br><span class="line">  <span class="built_in">return</span> <span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">    const context = this,</span><br><span class="line">      args = arguments;</span><br><span class="line">    <span class="keyword">if</span> (!inThrottle) &#123;</span><br><span class="line">      fn.apply(context, args);</span><br><span class="line">      lastTime = Date.now();</span><br><span class="line">      inThrottle = <span class="literal">true</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      clearTimeout(lastFn);</span><br><span class="line">      lastFn = setTimeout(<span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">        <span class="keyword">if</span> (Date.now() - lastTime &gt;= <span class="built_in">wait</span>) &#123;</span><br><span class="line">          fn.apply(context, args);</span><br><span class="line">          lastTime = Date.now();</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;, Math.max(<span class="built_in">wait</span> - (Date.now() - lastTime), 0));</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h5 id="for-instance"><a href="#for-instance" class="headerlink" title="for instance"></a>for instance</h5><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">window.addEventListener(</span><br><span class="line">  <span class="string">'resize'</span>,</span><br><span class="line">  throttle(<span class="keyword">function</span>(evt) &#123;</span><br><span class="line">    console.log(window.innerWidth);</span><br><span class="line">    console.log(window.innerHeight);</span><br><span class="line">  &#125;, 250)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>]]></content>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>在JS文件使用svg加载svg文件</title>
-    <url>/2020/10/13/svgInJS/</url>
-    <content><![CDATA[<h3 id="怎么在js文件中用引用svg文件"><a href="#怎么在js文件中用引用svg文件" class="headerlink" title="怎么在js文件中用引用svg文件"></a>怎么在js文件中用引用svg文件</h3><p>使用webpack的require.context,它接收三个参数</p>
-<ul>
-<li>要搜索的文件夹目录</li>
-<li>是否还应该搜索它的子目录，</li>
-<li>以及一个匹配文件的正则表达式。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const req = require.context(<span class="string">'./svg'</span>, <span class="literal">false</span>, /\.svg$/)</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<p>req返回的是一个方法</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> webpackContext(req) &#123;</span><br><span class="line">	var id = webpackContextResolve(req);</span><br><span class="line">	<span class="built_in">return</span> __webpack_require__(id);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>包含三个属性</p>
-<ul>
-<li>id</li>
-<li>keys </li>
-<li>resolve<a id="more"></a>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">webpackContext.keys = <span class="keyword">function</span> <span class="function"><span class="title">webpackContextKeys</span></span>() &#123;</span><br><span class="line">	<span class="built_in">return</span> Object.keys(map);</span><br><span class="line">&#125;;</span><br><span class="line">webpackContext.resolve = webpackContextResolve;</span><br><span class="line">webpackContext.id = <span class="string">"./src/icons/svg sync \\.svg$"</span>;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<p>再使用<code>const requireAll = requireContext =&gt; requireContext.keys().map(requireContext)</code>之后，会得到一个Module的数组,数组的每一项就是执行import后的Module<br><img src="/images/svg-in-js/map.png" alt="dom"><br><img src="/images/svg-in-js/image.png" alt="image"><br>Module数组<br><img src="/images/svg-in-js/module.png" alt="module"><br><strong>webpack_require</strong>方法</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> __webpack_require__(moduleId) &#123;</span><br><span class="line">/******/</span><br><span class="line">/******/ 		// Check <span class="keyword">if</span> module is <span class="keyword">in</span> cache</span><br><span class="line">/******/ 		<span class="keyword">if</span>(installedModules[moduleId]) &#123;</span><br><span class="line">/******/ 			<span class="built_in">return</span> installedModules[moduleId].exports;</span><br><span class="line">/******/ 		&#125;</span><br><span class="line">/******/ 		// Create a new module (and put it into the cache)</span><br><span class="line">/******/ 		var module = installedModules[moduleId] = &#123;</span><br><span class="line">/******/ 			i: moduleId,</span><br><span class="line">/******/ 			l: <span class="literal">false</span>,</span><br><span class="line">/******/ 			exports: &#123;&#125;,</span><br><span class="line">/******/ 			hot: hotCreateModule(moduleId),</span><br><span class="line">/******/ 			parents: (hotCurrentParentsTemp = hotCurrentParents, hotCurrentParents = [], hotCurrentParentsTemp),</span><br><span class="line">/******/ 			children: []</span><br><span class="line">/******/ 		&#125;;</span><br><span class="line">/******/</span><br><span class="line">/******/ 		// Execute the module <span class="keyword">function</span></span><br><span class="line">/******/ 		modules[moduleId].call(module.exports, module, module.exports, hotCreateRequire(moduleId));</span><br><span class="line">/******/</span><br><span class="line">/******/ 		// Flag the module as loaded</span><br><span class="line">/******/ 		module.l = <span class="literal">true</span>;</span><br><span class="line">/******/</span><br><span class="line">/******/ 		// Return the exports of the module</span><br><span class="line">/******/ 		<span class="built_in">return</span> module.exports;</span><br><span class="line">/******/ 	&#125;</span><br></pre></td></tr></table></figure>
-
-<p>svg example</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/***/ <span class="string">"./src/icons/svg/bug.svg"</span>:</span><br><span class="line">/*!*******************************!*\</span><br><span class="line">  !*** ./src/icons/svg/bug.svg ***!</span><br><span class="line">  \*******************************/</span><br><span class="line">/*! exports provided: default */</span><br><span class="line">/***/ (<span class="keyword">function</span>(module, __webpack_exports__, __webpack_require__) &#123;</span><br><span class="line"></span><br><span class="line"><span class="string">"use strict"</span>;</span><br><span class="line"><span class="built_in">eval</span>(<span class="string">"__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! svg-baker-runtime/browser-symbol */ \"./node_modules/svg-baker-runtime/browser-symbol.js\");\n/* harmony import */ var svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! svg-sprite-loader/runtime/browser-sprite.build */ \"./node_modules/svg-sprite-loader/runtime/browser-sprite.build.js\");\n/* harmony import */ var svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1__);\n\n\nvar symbol = new svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0___default.a(&#123;\n  \"id\": \"icon-bug\",\n  \"use\": \"icon-bug-usage\",\n  \"viewBox\": \"0 0 128 128\",\n  \"content\": \"&lt;symbol xmlns=\\\"http://www.w3.org/2000/svg\\\" viewBox=\\\"0 0 128 128\\\" id=\\\"icon-bug\\\"&gt;&lt;path d=\\\"M127.88 73.143c0 1.412-.506 2.635-1.518 3.669-1.011 1.033-2.209 1.55-3.592 1.55h-17.887c0 9.296-1.783 17.178-5.35 23.645l16.609 17.044c1.011 1.034 1.517 2.257 1.517 3.67 0 1.412-.506 2.635-1.517 3.668-.958 1.033-2.155 1.55-3.593 1.55-1.438 0-2.635-.517-3.593-1.55l-15.811-16.063a15.49 15.49 0 0 1-1.196 1.06c-.532.434-1.65 1.208-3.353 2.322a50.104 50.104 0 0 1-5.192 2.974c-1.758.87-3.94 1.658-6.546 2.364-2.607.706-5.189 1.06-7.748 1.06V47.044H58.89v73.062c-2.716 0-5.417-.367-8.106-1.102-2.688-.734-5.003-1.631-6.945-2.692a66.769 66.769 0 0 1-5.268-3.179c-1.571-1.057-2.73-1.94-3.476-2.65L33.9 109.34l-14.611 16.877c-1.066 1.14-2.344 1.711-3.833 1.711-1.277 0-2.422-.434-3.434-1.304-1.012-.978-1.557-2.187-1.635-3.627-.079-1.44.333-2.705 1.236-3.794l16.129-18.51c-3.087-6.197-4.63-13.644-4.63-22.342H5.235c-1.383 0-2.58-.517-3.592-1.55S.125 74.545.125 73.132c0-1.412.506-2.635 1.518-3.668 1.012-1.034 2.21-1.55 3.592-1.55h17.887V43.939L9.308 29.833c-1.012-1.033-1.517-2.256-1.517-3.669 0-1.412.505-2.635 1.517-3.668 1.012-1.034 2.21-1.55 3.593-1.55s2.58.516 3.593 1.55l13.813 14.106h67.396l13.814-14.106c1.012-1.034 2.21-1.55 3.592-1.55 1.384 0 2.581.516 3.593 1.55 1.012 1.033 1.518 2.256 1.518 3.668 0 1.413-.506 2.636-1.518 3.67l-13.814 14.105v23.975h17.887c1.383 0 2.58.516 3.593 1.55 1.011 1.033 1.517 2.256 1.517 3.668l-.005.01zM89.552 26.175H38.448c0-7.23 2.489-13.386 7.466-18.469C50.892 2.623 56.92.082 64 .082c7.08 0 13.108 2.541 18.086 7.624 4.977 5.083 7.466 11.24 7.466 18.469z\\\" /&gt;&lt;/symbol&gt;\"\n&#125;);\nvar result = svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1___default.a.add(symbol);\n/* harmony default export */ __webpack_exports__[\"default\"] = (symbol);//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9zcmMvaWNvbnMvc3ZnL2J1Zy5zdmcuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvaWNvbnMvc3ZnL2J1Zy5zdmc/MjI4NiJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgU3ByaXRlU3ltYm9sIGZyb20gXCJzdmctYmFrZXItcnVudGltZS9icm93c2VyLXN5bWJvbFwiO1xuaW1wb3J0IHNwcml0ZSBmcm9tIFwic3ZnLXNwcml0ZS1sb2FkZXIvcnVudGltZS9icm93c2VyLXNwcml0ZS5idWlsZFwiO1xudmFyIHN5bWJvbCA9IG5ldyBTcHJpdGVTeW1ib2woe1xuICBcImlkXCI6IFwiaWNvbi1idWdcIixcbiAgXCJ1c2VcIjogXCJpY29uLWJ1Zy11c2FnZVwiLFxuICBcInZpZXdCb3hcIjogXCIwIDAgMTI4IDEyOFwiLFxuICBcImNvbnRlbnRcIjogXCI8c3ltYm9sIHhtbG5zPVxcXCJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Z1xcXCIgdmlld0JveD1cXFwiMCAwIDEyOCAxMjhcXFwiIGlkPVxcXCJpY29uLWJ1Z1xcXCI+PHBhdGggZD1cXFwiTTEyNy44OCA3My4xNDNjMCAxLjQxMi0uNTA2IDIuNjM1LTEuNTE4IDMuNjY5LTEuMDExIDEuMDMzLTIuMjA5IDEuNTUtMy41OTIgMS41NWgtMTcuODg3YzAgOS4yOTYtMS43ODMgMTcuMTc4LTUuMzUgMjMuNjQ1bDE2LjYwOSAxNy4wNDRjMS4wMTEgMS4wMzQgMS41MTcgMi4yNTcgMS41MTcgMy42NyAwIDEuNDEyLS41MDYgMi42MzUtMS41MTcgMy42NjgtLjk1OCAxLjAzMy0yLjE1NSAxLjU1LTMuNTkzIDEuNTUtMS40MzggMC0yLjYzNS0uNTE3LTMuNTkzLTEuNTVsLTE1LjgxMS0xNi4wNjNhMTUuNDkgMTUuNDkgMCAwIDEtMS4xOTYgMS4wNmMtLjUzMi40MzQtMS42NSAxLjIwOC0zLjM1MyAyLjMyMmE1MC4xMDQgNTAuMTA0IDAgMCAxLTUuMTkyIDIuOTc0Yy0xLjc1OC44Ny0zLjk0IDEuNjU4LTYuNTQ2IDIuMzY0LTIuNjA3LjcwNi01LjE4OSAxLjA2LTcuNzQ4IDEuMDZWNDcuMDQ0SDU4Ljg5djczLjA2MmMtMi43MTYgMC01LjQxNy0uMzY3LTguMTA2LTEuMTAyLTIuNjg4LS43MzQtNS4wMDMtMS42MzEtNi45NDUtMi42OTJhNjYuNzY5IDY2Ljc2OSAwIDAgMS01LjI2OC0zLjE3OWMtMS41NzEtMS4wNTctMi43My0xLjk0LTMuNDc2LTIuNjVMMzMuOSAxMDkuMzRsLTE0LjYxMSAxNi44NzdjLTEuMDY2IDEuMTQtMi4zNDQgMS43MTEtMy44MzMgMS43MTEtMS4yNzcgMC0yLjQyMi0uNDM0LTMuNDM0LTEuMzA0LTEuMDEyLS45NzgtMS41NTctMi4xODctMS42MzUtMy42MjctLjA3OS0xLjQ0LjMzMy0yLjcwNSAxLjIzNi0zLjc5NGwxNi4xMjktMTguNTFjLTMuMDg3LTYuMTk3LTQuNjMtMTMuNjQ0LTQuNjMtMjIuMzQySDUuMjM1Yy0xLjM4MyAwLTIuNTgtLjUxNy0zLjU5Mi0xLjU1Uy4xMjUgNzQuNTQ1LjEyNSA3My4xMzJjMC0xLjQxMi41MDYtMi42MzUgMS41MTgtMy42NjggMS4wMTItMS4wMzQgMi4yMS0xLjU1IDMuNTkyLTEuNTVoMTcuODg3VjQzLjkzOUw5LjMwOCAyOS44MzNjLTEuMDEyLTEuMDMzLTEuNTE3LTIuMjU2LTEuNTE3LTMuNjY5IDAtMS40MTIuNTA1LTIuNjM1IDEuNTE3LTMuNjY4IDEuMDEyLTEuMDM0IDIuMjEtMS41NSAzLjU5My0xLjU1czIuNTguNTE2IDMuNTkzIDEuNTVsMTMuODEzIDE0LjEwNmg2Ny4zOTZsMTMuODE0LTE0LjEwNmMxLjAxMi0xLjAzNCAyLjIxLTEuNTUgMy41OTItMS41NSAxLjM4NCAwIDIuNTgxLjUxNiAzLjU5MyAxLjU1IDEuMDEyIDEuMDMzIDEuNTE4IDIuMjU2IDEuNTE4IDMuNjY4IDAgMS40MTMtLjUwNiAyLjYzNi0xLjUxOCAzLjY3bC0xMy44MTQgMTQuMTA1djIzLjk3NWgxNy44ODdjMS4zODMgMCAyLjU4LjUxNiAzLjU5MyAxLjU1IDEuMDExIDEuMDMzIDEuNTE3IDIuMjU2IDEuNTE3IDMuNjY4bC0uMDA1LjAxek04OS41NTIgMjYuMTc1SDM4LjQ0OGMwLTcuMjMgMi40ODktMTMuMzg2IDcuNDY2LTE4LjQ2OUM1MC44OTIgMi42MjMgNTYuOTIuMDgyIDY0IC4wODJjNy4wOCAwIDEzLjEwOCAyLjU0MSAxOC4wODYgNy42MjQgNC45NzcgNS4wODMgNy40NjYgMTEuMjQgNy40NjYgMTguNDY5elxcXCIgLz48L3N5bWJvbD5cIlxufSk7XG52YXIgcmVzdWx0ID0gc3ByaXRlLmFkZChzeW1ib2wpO1xuZXhwb3J0IGRlZmF1bHQgc3ltYm9sIl0sIm1hcHBpbmdzIjoiQUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0EiLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./src/icons/svg/bug.svg\n"</span>);</span><br><span class="line"></span><br><span class="line">/***/ &#125;)</span><br></pre></td></tr></table></figure>
-
-<p>所以在JS中使用svg标签来加载对应的svg文件的时候只需要在svg标签加入use 然后给id属性赋值为对应symbol的id，比如<code>id=&quot;#icon-404&quot;</code></p>
-]]></content>
   </entry>
 </search>
