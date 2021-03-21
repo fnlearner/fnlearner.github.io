@@ -1,32 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Javscript复杂判断</title>
-    <url>/2019/08/07/Javscript_complex_judge/</url>
-    <content><![CDATA[<p>在公司维护前人代码的时候，经常会遇见一堆的if-else语句</p>
-<h3 id="if-else"><a href="#if-else" class="headerlink" title="if-else"></a>if-else</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const flag = (status)=&gt;&#123;</span><br><span class="line">    if(status ==0)&#123;</span><br><span class="line">        //do somethind</span><br><span class="line">    &#125;else if(status==1)&#123;</span><br><span class="line">        //do somethind</span><br><span class="line">    &#125;else if(status ==2)&#123;</span><br><span class="line">        //do something</span><br><span class="line">    &#125;else if(status ==3)&#123;</span><br><span class="line">        //do something</span><br><span class="line">    &#125;</span><br><span class="line">    //...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<a id="more"></a>
-<p>或许还可以用switch-case的写法</p>
-<h3 id="switch-case"><a href="#switch-case" class="headerlink" title="switch-case"></a>switch-case</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const flag = (status)=&gt;&#123;</span><br><span class="line">    swtich(status)&#123;</span><br><span class="line">        case 0:</span><br><span class="line">            //do something</span><br><span class="line">            break;</span><br><span class="line">        case 1:</span><br><span class="line">        case 2:</span><br><span class="line">            //do something</span><br><span class="line">            break;</span><br><span class="line">        case 3:</span><br><span class="line">            //do something</span><br><span class="line">            break;</span><br><span class="line">        default:</span><br><span class="line">            return ;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>假如case 1和 case 2的处理情况都一样，可以像上面的写法.</p>
-<p>然鹅如果需要判断的条件多的时候，如果继续用if-else的写法，那么工作量会翻倍</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const flag = (status,type)=&gt;&#123;</span><br><span class="line">    if(type==0)&#123;</span><br><span class="line">        if(status ==0)&#123;</span><br><span class="line">            //do somethind</span><br><span class="line">        &#125;else if(status==1)&#123;</span><br><span class="line">            //do somethind</span><br><span class="line">        &#125;else if(status ==2)&#123;</span><br><span class="line">            //do something</span><br><span class="line">        &#125;else if(status ==3)&#123;</span><br><span class="line">            //do something</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;else if(type==1)&#123;</span><br><span class="line">         if(status ==0)&#123;</span><br><span class="line">            //do somethind</span><br><span class="line">        &#125;else if(status==1)&#123;</span><br><span class="line">            //do somethind</span><br><span class="line">        &#125;else if(status ==2)&#123;</span><br><span class="line">            //do something</span><br><span class="line">        &#125;else if(status ==3)&#123;</span><br><span class="line">            //do something</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这种写法太麻瓜了吧，简直反人类</p>
-<h3 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const actions = ()=&gt;&#123;</span><br><span class="line">    function A()&#123;</span><br><span class="line">        return &apos;A&apos;</span><br><span class="line">    &#125;</span><br><span class="line">    function B()&#123;</span><br><span class="line">        return &apos;B&apos;</span><br><span class="line">    &#125;</span><br><span class="line">    return new Map([</span><br><span class="line">        [&apos;0_0&apos;,A],</span><br><span class="line">        [&apos;0_1&apos;,A],</span><br><span class="line">        [&apos;0_2&apos;,B]</span><br><span class="line">    ])</span><br><span class="line">&#125;</span><br><span class="line">const flag =(status ,type)=&gt;&#123;</span><br><span class="line">    const action = actions().get(`$&#123;type&#125;_$&#123;status&#125;`);</span><br><span class="line">    console.log(action());</span><br><span class="line">&#125;</span><br><span class="line">flag(0,0);//A</span><br></pre></td></tr></table></figure>
-
-<p>直接将逻辑封装起来，然后在另一个函数调用，看起来就干净很多！！！</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const actions = ()=&gt;&#123;</span><br><span class="line">    function A()&#123;</span><br><span class="line">        return &apos;A&apos;</span><br><span class="line">    &#125;</span><br><span class="line">    function B()&#123;</span><br><span class="line">        return &apos;B&apos;</span><br><span class="line">    &#125;</span><br><span class="line">    return new Map([</span><br><span class="line">        [/^0_[0-3]/,A],</span><br><span class="line">        [/1_[0-2]/,A],</span><br><span class="line">        [/1_1/,B]</span><br><span class="line">    ])</span><br><span class="line">&#125;</span><br><span class="line">const flag =(status ,type)=&gt;&#123;</span><br><span class="line">     const action = [...actions()].filter(([key,value])=&gt;&#123;</span><br><span class="line">        return key.test(`$&#123;type&#125;_$&#123;status&#125;`)</span><br><span class="line">    &#125;)</span><br><span class="line">    action.forEach(([_,value])=&gt;&#123;</span><br><span class="line">        console.log(&quot;value.apply(this):&quot;, value.apply(this));//A</span><br><span class="line">        value.call(this);</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line">flag(1,1);</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>JavaScript</category>
-      </categories>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>自适应布局</title>
     <url>/2019/08/07/Adaptive/</url>
     <content><![CDATA[<h2 id="grid"><a href="#grid" class="headerlink" title="grid"></a>grid</h2><p>css</p>
@@ -150,8 +124,34 @@
         <category>JavaScript</category>
       </categories>
       <tags>
-        <tag>JavaScript</tag>
         <tag>css</tag>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Javscript复杂判断</title>
+    <url>/2019/08/07/Javscript_complex_judge/</url>
+    <content><![CDATA[<p>在公司维护前人代码的时候，经常会遇见一堆的if-else语句</p>
+<h3 id="if-else"><a href="#if-else" class="headerlink" title="if-else"></a>if-else</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const flag = (status)=&gt;&#123;</span><br><span class="line">    if(status ==0)&#123;</span><br><span class="line">        //do somethind</span><br><span class="line">    &#125;else if(status==1)&#123;</span><br><span class="line">        //do somethind</span><br><span class="line">    &#125;else if(status ==2)&#123;</span><br><span class="line">        //do something</span><br><span class="line">    &#125;else if(status ==3)&#123;</span><br><span class="line">        //do something</span><br><span class="line">    &#125;</span><br><span class="line">    //...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+<p>或许还可以用switch-case的写法</p>
+<h3 id="switch-case"><a href="#switch-case" class="headerlink" title="switch-case"></a>switch-case</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const flag = (status)=&gt;&#123;</span><br><span class="line">    swtich(status)&#123;</span><br><span class="line">        case 0:</span><br><span class="line">            //do something</span><br><span class="line">            break;</span><br><span class="line">        case 1:</span><br><span class="line">        case 2:</span><br><span class="line">            //do something</span><br><span class="line">            break;</span><br><span class="line">        case 3:</span><br><span class="line">            //do something</span><br><span class="line">            break;</span><br><span class="line">        default:</span><br><span class="line">            return ;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>假如case 1和 case 2的处理情况都一样，可以像上面的写法.</p>
+<p>然鹅如果需要判断的条件多的时候，如果继续用if-else的写法，那么工作量会翻倍</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const flag = (status,type)=&gt;&#123;</span><br><span class="line">    if(type==0)&#123;</span><br><span class="line">        if(status ==0)&#123;</span><br><span class="line">            //do somethind</span><br><span class="line">        &#125;else if(status==1)&#123;</span><br><span class="line">            //do somethind</span><br><span class="line">        &#125;else if(status ==2)&#123;</span><br><span class="line">            //do something</span><br><span class="line">        &#125;else if(status ==3)&#123;</span><br><span class="line">            //do something</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;else if(type==1)&#123;</span><br><span class="line">         if(status ==0)&#123;</span><br><span class="line">            //do somethind</span><br><span class="line">        &#125;else if(status==1)&#123;</span><br><span class="line">            //do somethind</span><br><span class="line">        &#125;else if(status ==2)&#123;</span><br><span class="line">            //do something</span><br><span class="line">        &#125;else if(status ==3)&#123;</span><br><span class="line">            //do something</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这种写法太麻瓜了吧，简直反人类</p>
+<h3 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const actions = ()=&gt;&#123;</span><br><span class="line">    function A()&#123;</span><br><span class="line">        return &apos;A&apos;</span><br><span class="line">    &#125;</span><br><span class="line">    function B()&#123;</span><br><span class="line">        return &apos;B&apos;</span><br><span class="line">    &#125;</span><br><span class="line">    return new Map([</span><br><span class="line">        [&apos;0_0&apos;,A],</span><br><span class="line">        [&apos;0_1&apos;,A],</span><br><span class="line">        [&apos;0_2&apos;,B]</span><br><span class="line">    ])</span><br><span class="line">&#125;</span><br><span class="line">const flag =(status ,type)=&gt;&#123;</span><br><span class="line">    const action = actions().get(`$&#123;type&#125;_$&#123;status&#125;`);</span><br><span class="line">    console.log(action());</span><br><span class="line">&#125;</span><br><span class="line">flag(0,0);//A</span><br></pre></td></tr></table></figure>
+
+<p>直接将逻辑封装起来，然后在另一个函数调用，看起来就干净很多！！！</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const actions = ()=&gt;&#123;</span><br><span class="line">    function A()&#123;</span><br><span class="line">        return &apos;A&apos;</span><br><span class="line">    &#125;</span><br><span class="line">    function B()&#123;</span><br><span class="line">        return &apos;B&apos;</span><br><span class="line">    &#125;</span><br><span class="line">    return new Map([</span><br><span class="line">        [/^0_[0-3]/,A],</span><br><span class="line">        [/1_[0-2]/,A],</span><br><span class="line">        [/1_1/,B]</span><br><span class="line">    ])</span><br><span class="line">&#125;</span><br><span class="line">const flag =(status ,type)=&gt;&#123;</span><br><span class="line">     const action = [...actions()].filter(([key,value])=&gt;&#123;</span><br><span class="line">        return key.test(`$&#123;type&#125;_$&#123;status&#125;`)</span><br><span class="line">    &#125;)</span><br><span class="line">    action.forEach(([_,value])=&gt;&#123;</span><br><span class="line">        console.log(&quot;value.apply(this):&quot;, value.apply(this));//A</span><br><span class="line">        value.call(this);</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line">flag(1,1);</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>JavaScript</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
       </tags>
   </entry>
   <entry>
@@ -273,6 +273,22 @@
 ]]></content>
   </entry>
   <entry>
+    <title>思考如何使a==1&amp;&amp;a==2&amp;&amp;a==3为true</title>
+    <url>/2019/11/01/closure/</url>
+    <content><![CDATA[<p>涉及运算符比较过程，运算符在比较两个值是否相等的时候做了什么,第二个涉及闭包JS比较两个数值是否相等可以用== 和=== ，<a id="more"></a>其中 == 会有隐式类型转换的操作，===则不会,在两个数比较时，先调用valueOf,如果返回的不是原始类型，继续调用toString,如果不是原始类型，抛出异常</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const b = &#123;</span><br><span class="line">  value :1,</span><br><span class="line">  toString()&#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      name:1</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  valueOf()&#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      name:1</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">console.log(`toString : $&#123;b==3&#125;`)</span><br><span class="line">console.log(`valueOf : $&#123;b==4&#125;`)</span><br><span class="line">//抛出异常TypeError: Cannot convert object to primitive value</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const b = &#123;</span><br><span class="line">  value :1,</span><br><span class="line">  toString()&#123;</span><br><span class="line">    return 3</span><br><span class="line">  &#125;,</span><br><span class="line">  valueOf()&#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      name:1</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">console.log(`toString : $&#123;b==3&#125;`)</span><br><span class="line">console.log(`valueOf : $&#123;b==4&#125;`)</span><br><span class="line">//toString:true,valueOf:false</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const b = &#123;</span><br><span class="line">  value :1,</span><br><span class="line">  toString()&#123;</span><br><span class="line">    return 3</span><br><span class="line">  &#125;,</span><br><span class="line">  valueOf()&#123;</span><br><span class="line">    return 4</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(`toString : $&#123;b==3&#125;`)//false</span><br><span class="line">console.log(`valueOf : $&#123;b==4&#125;`)//true</span><br></pre></td></tr></table></figure>
+
+<p>OK,接下来说正题， a==1的时候先调用了a.valueOf(),然后根据valueOf的返回值与1进行比较,但是在a==1为真的情况下如何确保a==2以及a==3也同时成立呢？还记得里两个数比较时做的操作吗？先调用valueOf,然后是toString,所以只要覆写其中一个方法</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const a =&#123;</span><br><span class="line">  value:1,</span><br><span class="line">  toString()&#123;</span><br><span class="line">    return this.value++;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">//由于这时的a是一个Object,所以调用valueOf的时候返回的并不是原始类型，因此我们覆写toString方法即可</span><br><span class="line">console.log(a==1&amp;&amp;a==2&amp;&amp;a==3)//true</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Chrome调试工具的那点事</title>
     <url>/2019/09/27/chorme-panel/</url>
     <content><![CDATA[<h3 id><a href="#" class="headerlink" title="$_"></a>$_</h3><p>调试的过程中，你经常会通过打印查看一些变量的值，但如果你想看一下上次执行的结果呢？再输一遍表达式吗</p>
@@ -288,22 +304,6 @@
 ]]></content>
       <tags>
         <tag>Chrome</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>思考如何使a==1&amp;&amp;a==2&amp;&amp;a==3为true</title>
-    <url>/2019/11/01/closure/</url>
-    <content><![CDATA[<p>涉及运算符比较过程，运算符在比较两个值是否相等的时候做了什么,第二个涉及闭包JS比较两个数值是否相等可以用== 和=== ，<a id="more"></a>其中 == 会有隐式类型转换的操作，===则不会,在两个数比较时，先调用valueOf,如果返回的不是原始类型，继续调用toString,如果不是原始类型，抛出异常</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const b = &#123;</span><br><span class="line">  value :1,</span><br><span class="line">  toString()&#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      name:1</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  valueOf()&#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      name:1</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">console.log(`toString : $&#123;b==3&#125;`)</span><br><span class="line">console.log(`valueOf : $&#123;b==4&#125;`)</span><br><span class="line">//抛出异常TypeError: Cannot convert object to primitive value</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const b = &#123;</span><br><span class="line">  value :1,</span><br><span class="line">  toString()&#123;</span><br><span class="line">    return 3</span><br><span class="line">  &#125;,</span><br><span class="line">  valueOf()&#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      name:1</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">console.log(`toString : $&#123;b==3&#125;`)</span><br><span class="line">console.log(`valueOf : $&#123;b==4&#125;`)</span><br><span class="line">//toString:true,valueOf:false</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const b = &#123;</span><br><span class="line">  value :1,</span><br><span class="line">  toString()&#123;</span><br><span class="line">    return 3</span><br><span class="line">  &#125;,</span><br><span class="line">  valueOf()&#123;</span><br><span class="line">    return 4</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(`toString : $&#123;b==3&#125;`)//false</span><br><span class="line">console.log(`valueOf : $&#123;b==4&#125;`)//true</span><br></pre></td></tr></table></figure>
-
-<p>OK,接下来说正题， a==1的时候先调用了a.valueOf(),然后根据valueOf的返回值与1进行比较,但是在a==1为真的情况下如何确保a==2以及a==3也同时成立呢？还记得里两个数比较时做的操作吗？先调用valueOf,然后是toString,所以只要覆写其中一个方法</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const a =&#123;</span><br><span class="line">  value:1,</span><br><span class="line">  toString()&#123;</span><br><span class="line">    return this.value++;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">//由于这时的a是一个Object,所以调用valueOf的时候返回的并不是原始类型，因此我们覆写toString方法即可</span><br><span class="line">console.log(a==1&amp;&amp;a==2&amp;&amp;a==3)//true</span><br></pre></td></tr></table></figure>]]></content>
-      <tags>
-        <tag>JavaScript</tag>
       </tags>
   </entry>
   <entry>
@@ -389,16 +389,30 @@
       </tags>
   </entry>
   <entry>
-    <title>部署hexo踩坑记录</title>
-    <url>/2020/11/14/bugsForNode/</url>
-    <content><![CDATA[<p>在执行下面这句代码的时候</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g -d</span><br></pre></td></tr></table></figure>
+    <title>今日随笔</title>
+    <url>/2021/03/14/essay-10/</url>
+    <content><![CDATA[<h3 id="removeNonASCII"><a href="#removeNonASCII" class="headerlink" title="removeNonASCII"></a>removeNonASCII</h3><p>Removes non-printable ASCII characters.</p>
+<p>Use a regular expression to remove non-printable ASCII characters.</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> removeNonASCII = <span class="function"><span class="params">str</span> =&gt;</span> str.replace(<span class="regexp">/[^\x20-\x7E]/g</span>, <span class="string">''</span>)</span><br></pre></td></tr></table></figure>
 
-<p>报错信息</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Something<span class="string">'s wrong. Maybe you can find the solution here: https://hexo.io/docs/troubleshooting.html</span></span><br><span class="line"><span class="string">TypeError [ERR_INVALID_ARG_TYPE]: The "mode" argument must be integer. Received an instance of Object</span></span><br><span class="line"><span class="string">    at copyFile (fs.js:1924:10)</span></span><br><span class="line"><span class="string">    at tryCatcher (/Users/zjs/Desktop/blog/node_modules/bluebird/js/release/util.js:16:23)</span></span><br><span class="line"><span class="string">    at ret (eval at makeNodePromisifiedEval (/Users/zjs/.nvm/versions/node/v14.10.0/lib/node_modules/hexo-cli/node_modules/bluebird/js/release/promisify.js:184:12), &lt;anonymous&gt;:13:39)</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">removeNonASCII(<span class="string">'äÄçÇéÉêlorem-ipsumöÖÐþúÚ'</span>); <span class="comment">// 'lorem-ipsum'</span></span><br></pre></td></tr></table></figure>
 
-<p>解决方案<br> NodeJs 版本从 14 回到 12 就🉑️！</p>
+<a id="more"></a>
+<h3 id="Constant-width-to-height-ratio"><a href="#Constant-width-to-height-ratio" class="headerlink" title="Constant width to height ratio"></a>Constant width to height ratio</h3><p>iven an element of variable width, it will ensure its height remains proportionate in a responsive fashion (i.e., its width to height ratio remains constant).</p>
+<p><code>html</code></p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"constant-width-to-height-ratio"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>css</code></p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.constant-width-to-height-ratio</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#333</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">50%</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.constant-width-to-height-ratio</span><span class="selector-pseudo">::before</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">''</span>;</span><br><span class="line">  <span class="attribute">padding-top</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">float</span>: left;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.constant-width-to-height-ratio</span><span class="selector-pseudo">::after</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">''</span>;</span><br><span class="line">  <span class="attribute">display</span>: block;</span><br><span class="line">  <span class="attribute">clear</span>: both;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>description</code><br>padding-top on the ::before pseudo-element causes the height of the element to equal a percentage of its width. 100% therefore means the element’s height will always be 100% of the width, creating a responsive square.</p>
+<p>This method also allows content to be placed inside the element normally.</p>
+<p><code>browser support</code></p>
+<p>✅ No caveats.</p>
 ]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
   </entry>
   <entry>
     <title>今日随笔(7-30)</title>
@@ -453,60 +467,15 @@
       </tags>
   </entry>
   <entry>
-    <title>随笔</title>
-    <url>/2020/10/21/conclusion/</url>
-    <content><![CDATA[<h3 id="笔记一"><a href="#笔记一" class="headerlink" title="笔记一"></a>笔记一</h3><p>在vue项目中使用ts-class的形式来编写组件的时候，要记得在export上面➕<code>@Component</code>装饰器，不然组件不能正常注册</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">import &#123;</span><br><span class="line">    Component,</span><br><span class="line">    Vue,</span><br><span class="line">    InjectReactive</span><br><span class="line">&#125; from <span class="string">'vue-property-decorator'</span>;</span><br><span class="line"></span><br><span class="line">@Component</span><br><span class="line">class Child extends Vue &#123;</span><br><span class="line">    @InjectReactive() node: number;</span><br><span class="line">    <span class="function"><span class="title">mounted</span></span>() &#123;</span><br><span class="line">        console.log(this.node)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    <title>部署hexo踩坑记录</title>
+    <url>/2020/11/14/bugsForNode/</url>
+    <content><![CDATA[<p>在执行下面这句代码的时候</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g -d</span><br></pre></td></tr></table></figure>
 
-<p>如果在页面中需要用到子组件的情况，需要像这样注册,并且<code>@Component</code>装饰器只需要写一次</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">import &#123;</span><br><span class="line">    Vue,</span><br><span class="line">    Component,</span><br><span class="line">    ProvideReactive</span><br><span class="line">&#125; from <span class="string">'vue-property-decorator'</span>;</span><br><span class="line">import Child from <span class="string">'./child.vue'</span></span><br><span class="line">@Component(&#123;</span><br><span class="line">    components: &#123;</span><br><span class="line">        Child</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line">class Parent extends Vue &#123;</span><br><span class="line">    @ProvideReactive() node = &#123;&#125;</span><br><span class="line">    <span class="function"><span class="title">mounted</span></span>() &#123;</span><br><span class="line">        this.node = 1</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>报错信息</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Something<span class="string">'s wrong. Maybe you can find the solution here: https://hexo.io/docs/troubleshooting.html</span></span><br><span class="line"><span class="string">TypeError [ERR_INVALID_ARG_TYPE]: The "mode" argument must be integer. Received an instance of Object</span></span><br><span class="line"><span class="string">    at copyFile (fs.js:1924:10)</span></span><br><span class="line"><span class="string">    at tryCatcher (/Users/zjs/Desktop/blog/node_modules/bluebird/js/release/util.js:16:23)</span></span><br><span class="line"><span class="string">    at ret (eval at makeNodePromisifiedEval (/Users/zjs/.nvm/versions/node/v14.10.0/lib/node_modules/hexo-cli/node_modules/bluebird/js/release/promisify.js:184:12), &lt;anonymous&gt;:13:39)</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="笔记二-—-ProvideReactive来做数据透传的注意点"><a href="#笔记二-—-ProvideReactive来做数据透传的注意点" class="headerlink" title="笔记二 — ProvideReactive来做数据透传的注意点"></a>笔记二 — ProvideReactive来做数据透传的注意点</h3><p>如果在组件中使用Provide来进行数据透传的话，数据是不带响应式的。如果需要数据具有响应式，那么需要用ProvideReactive来做属性的透传，代码例子可以看上一个代码，另外由于在路由跳转的时候，有时候会有Provide的值重新定义的问题，这时候控制台会抛出异常，具体可以看这个<br><a href="https://github.com/kaorun343/vue-property-decorator/issues/277">issue</a>,有临时的解决方案</p>
-<h3 id="笔记三-—-在弹窗中保证数据的实时性"><a href="#笔记三-—-在弹窗中保证数据的实时性" class="headerlink" title="笔记三 — 在弹窗中保证数据的实时性"></a>笔记三 — 在弹窗中保证数据的实时性</h3><p>需要把数据以Provide的形式传递给弹窗，但是数据仅仅只在第一次显示的时候是正常的数据，在关闭弹窗后再一次开启弹窗，显示的数据是上一次的数据。原因暂时不知道。所以我在关闭弹窗的时候同时用v-if来销毁元素，这样每次打开的元素都是一个最新的元素，同时这个时候获取到的数据也是最新的数据。</p>
-<h3 id="笔记四-—-数据获取完后保证子组件获取最新的数据"><a href="#笔记四-—-数据获取完后保证子组件获取最新的数据" class="headerlink" title="笔记四 — 数据获取完后保证子组件获取最新的数据"></a>笔记四 — 数据获取完后保证子组件获取最新的数据</h3><p>在父组件用axios获取数据的时候，然后传递给子组件，但是子组件渲染的时候是定义时就给的默认值。<br>原因：父组件在请求数据的时候，子组件的生命周期已经走完并且已经渲染完成，所以这时候是拿不到请求后返回的真实数据<br>方案：我这里用v-if来判断获取的数据的长度是否为空来判断是否要渲染子组件，缺点：数据量很大的时候会有很长时间的空白。</p>
-<h3 id="笔记五-—-自定义组件绑定v-models"><a href="#笔记五-—-自定义组件绑定v-models" class="headerlink" title="笔记五 — 自定义组件绑定v-models"></a>笔记五 — 自定义组件绑定v-models</h3><p>想让自定义组件能够使用v-model语法糖，这样子组件的数据就可以实时的反馈到父组件中去</p>
-<p>在vue中，对input来说，v-model是value和input事件的语法糖，对于checkbox来说，监听的事件是change，给对应的元素添加对应的事件，然后在自组件emit出去，把相应的value值绑定到对应的dom元素中去。</p>
-]]></content>
-  </entry>
-  <entry>
-    <title>今日随笔</title>
-    <url>/2021/03/14/essay-10/</url>
-    <content><![CDATA[<h3 id="removeNonASCII"><a href="#removeNonASCII" class="headerlink" title="removeNonASCII"></a>removeNonASCII</h3><p>Removes non-printable ASCII characters.</p>
-<p>Use a regular expression to remove non-printable ASCII characters.</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> removeNonASCII = <span class="function"><span class="params">str</span> =&gt;</span> str.replace(<span class="regexp">/[^\x20-\x7E]/g</span>, <span class="string">''</span>)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">removeNonASCII(<span class="string">'äÄçÇéÉêlorem-ipsumöÖÐþúÚ'</span>); <span class="comment">// 'lorem-ipsum'</span></span><br></pre></td></tr></table></figure>
-
-<a id="more"></a>
-<h3 id="Constant-width-to-height-ratio"><a href="#Constant-width-to-height-ratio" class="headerlink" title="Constant width to height ratio"></a>Constant width to height ratio</h3><p>iven an element of variable width, it will ensure its height remains proportionate in a responsive fashion (i.e., its width to height ratio remains constant).</p>
-<p><code>html</code></p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"constant-width-to-height-ratio"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p><code>css</code></p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.constant-width-to-height-ratio</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#333</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">50%</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.constant-width-to-height-ratio</span><span class="selector-pseudo">::before</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">''</span>;</span><br><span class="line">  <span class="attribute">padding-top</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">float</span>: left;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.constant-width-to-height-ratio</span><span class="selector-pseudo">::after</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">''</span>;</span><br><span class="line">  <span class="attribute">display</span>: block;</span><br><span class="line">  <span class="attribute">clear</span>: both;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><code>description</code><br>padding-top on the ::before pseudo-element causes the height of the element to equal a percentage of its width. 100% therefore means the element’s height will always be 100% of the width, creating a responsive square.</p>
-<p>This method also allows content to be placed inside the element normally.</p>
-<p><code>browser support</code></p>
-<p>✅ No caveats.</p>
-]]></content>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>今日随笔(8-6)</title>
-    <url>/2020/08/06/essay-4/</url>
-    <content><![CDATA[<p>先看代码</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const a = 1</span><br><span class="line">[...[1,2,3]].forEach(item=&gt;console.log(item))</span><br></pre></td></tr></table></figure>
-
-<p>乍一看，是不是感觉挺正常的，在浏览器的log窗口应该能输出1，2，3，才对<br>然后在浏览器跑一下，发现</p>
-<p><img src="/images/essay-4/unexpected_error.png.png" alt="error"></p>
-<p>然后emm排查了一下，语法是没问题的，浏览器版本是最新的开发版本，es6的语法肯定是支持的，那问题其实就是a=1 后面漏了分号，所以代码就成了这样</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const a = 1[...[1,2,3]].forEach(item=&gt;console.log(item))</span><br></pre></td></tr></table></figure>
-
-<p>那代码成了这样那肯定不能正确解析了～</p>
-<p>果然，漏写分号不是好习惯～</p>
+<p>解决方案<br> NodeJs 版本从 14 回到 12 就🉑️！</p>
 ]]></content>
   </entry>
   <entry>
@@ -568,6 +537,68 @@
       </tags>
   </entry>
   <entry>
+    <title>今日随笔(8-6)</title>
+    <url>/2020/08/06/essay-4/</url>
+    <content><![CDATA[<p>先看代码</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const a = 1</span><br><span class="line">[...[1,2,3]].forEach(item=&gt;console.log(item))</span><br></pre></td></tr></table></figure>
+
+<p>乍一看，是不是感觉挺正常的，在浏览器的log窗口应该能输出1，2，3，才对<br>然后在浏览器跑一下，发现</p>
+<p><img src="/images/essay-4/unexpected_error.png.png" alt="error"></p>
+<p>然后emm排查了一下，语法是没问题的，浏览器版本是最新的开发版本，es6的语法肯定是支持的，那问题其实就是a=1 后面漏了分号，所以代码就成了这样</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const a = 1[...[1,2,3]].forEach(item=&gt;console.log(item))</span><br></pre></td></tr></table></figure>
+
+<p>那代码成了这样那肯定不能正确解析了～</p>
+<p>果然，漏写分号不是好习惯～</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>今日随笔（3.21)）</title>
+    <url>/2021/03/21/essay-11/</url>
+    <content><![CDATA[<h4 id="How-to-Make-Badass-Shadows"><a href="#How-to-Make-Badass-Shadows" class="headerlink" title="How to Make Badass Shadows"></a>How to Make Badass Shadows</h4><p><a href="https://blog.prototypr.io/how-to-make-badass-shadows-564b3a30aba4" target="_blank" rel="noopener">Tips to help create better UI shadows.</a>  </p>
+<h4 id="Jest"><a href="#Jest" class="headerlink" title="Jest"></a>Jest</h4><p><a href="https://pragmaticpineapple.com/7-ways-to-debug-jest-tests-in-terminal/" target="_blank" rel="noopener">7 Ways to Debug Jest Tests in Terminal</a></p>
+]]></content>
+      <tags>
+        <tag>css</tag>
+        <tag>JavaScript</tag>
+        <tag>Jest</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>随笔</title>
+    <url>/2020/10/21/conclusion/</url>
+    <content><![CDATA[<h3 id="笔记一"><a href="#笔记一" class="headerlink" title="笔记一"></a>笔记一</h3><p>在vue项目中使用ts-class的形式来编写组件的时候，要记得在export上面➕<code>@Component</code>装饰器，不然组件不能正常注册</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">import &#123;</span><br><span class="line">    Component,</span><br><span class="line">    Vue,</span><br><span class="line">    InjectReactive</span><br><span class="line">&#125; from <span class="string">'vue-property-decorator'</span>;</span><br><span class="line"></span><br><span class="line">@Component</span><br><span class="line">class Child extends Vue &#123;</span><br><span class="line">    @InjectReactive() node: number;</span><br><span class="line">    <span class="function"><span class="title">mounted</span></span>() &#123;</span><br><span class="line">        console.log(this.node)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果在页面中需要用到子组件的情况，需要像这样注册,并且<code>@Component</code>装饰器只需要写一次</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">import &#123;</span><br><span class="line">    Vue,</span><br><span class="line">    Component,</span><br><span class="line">    ProvideReactive</span><br><span class="line">&#125; from <span class="string">'vue-property-decorator'</span>;</span><br><span class="line">import Child from <span class="string">'./child.vue'</span></span><br><span class="line">@Component(&#123;</span><br><span class="line">    components: &#123;</span><br><span class="line">        Child</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line">class Parent extends Vue &#123;</span><br><span class="line">    @ProvideReactive() node = &#123;&#125;</span><br><span class="line">    <span class="function"><span class="title">mounted</span></span>() &#123;</span><br><span class="line">        this.node = 1</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="笔记二-—-ProvideReactive来做数据透传的注意点"><a href="#笔记二-—-ProvideReactive来做数据透传的注意点" class="headerlink" title="笔记二 — ProvideReactive来做数据透传的注意点"></a>笔记二 — ProvideReactive来做数据透传的注意点</h3><p>如果在组件中使用Provide来进行数据透传的话，数据是不带响应式的。如果需要数据具有响应式，那么需要用ProvideReactive来做属性的透传，代码例子可以看上一个代码，另外由于在路由跳转的时候，有时候会有Provide的值重新定义的问题，这时候控制台会抛出异常，具体可以看这个<br><a href="https://github.com/kaorun343/vue-property-decorator/issues/277">issue</a>,有临时的解决方案</p>
+<h3 id="笔记三-—-在弹窗中保证数据的实时性"><a href="#笔记三-—-在弹窗中保证数据的实时性" class="headerlink" title="笔记三 — 在弹窗中保证数据的实时性"></a>笔记三 — 在弹窗中保证数据的实时性</h3><p>需要把数据以Provide的形式传递给弹窗，但是数据仅仅只在第一次显示的时候是正常的数据，在关闭弹窗后再一次开启弹窗，显示的数据是上一次的数据。原因暂时不知道。所以我在关闭弹窗的时候同时用v-if来销毁元素，这样每次打开的元素都是一个最新的元素，同时这个时候获取到的数据也是最新的数据。</p>
+<h3 id="笔记四-—-数据获取完后保证子组件获取最新的数据"><a href="#笔记四-—-数据获取完后保证子组件获取最新的数据" class="headerlink" title="笔记四 — 数据获取完后保证子组件获取最新的数据"></a>笔记四 — 数据获取完后保证子组件获取最新的数据</h3><p>在父组件用axios获取数据的时候，然后传递给子组件，但是子组件渲染的时候是定义时就给的默认值。<br>原因：父组件在请求数据的时候，子组件的生命周期已经走完并且已经渲染完成，所以这时候是拿不到请求后返回的真实数据<br>方案：我这里用v-if来判断获取的数据的长度是否为空来判断是否要渲染子组件，缺点：数据量很大的时候会有很长时间的空白。</p>
+<h3 id="笔记五-—-自定义组件绑定v-models"><a href="#笔记五-—-自定义组件绑定v-models" class="headerlink" title="笔记五 — 自定义组件绑定v-models"></a>笔记五 — 自定义组件绑定v-models</h3><p>想让自定义组件能够使用v-model语法糖，这样子组件的数据就可以实时的反馈到父组件中去</p>
+<p>在vue中，对input来说，v-model是value和input事件的语法糖，对于checkbox来说，监听的事件是change，给对应的元素添加对应的事件，然后在自组件emit出去，把相应的value值绑定到对应的dom元素中去。</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>今日随笔(2020-12-27)</title>
+    <url>/2020/12/27/essay-6/</url>
+    <content><![CDATA[<ol>
+<li>在vue ts class给数组添加值时报错<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> default class App&#123;</span><br><span class="line">    list =[]</span><br><span class="line">    <span class="function"><span class="title">_push</span></span>()&#123;</span><br><span class="line">        this.list.push(1)</span><br><span class="line">        <span class="comment"># error </span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>由于定义的list是never类型的数组，所以不能够直接添加元素，所以在定义数组的时候需要显示定义类型</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">list = [] as number[]</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>line-height 属性同样会影响伪元素的高度</li>
+<li>ts class 自定义vue双向绑定<br>v-model默认监听input事件，如果是checkbox或者radio<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">@Modle(<span class="string">'change'</span>) value:any</span><br><span class="line"><span class="comment"># 这样vue会监听change，$emit('change')改变外部绑定的值</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+]]></content>
+  </entry>
+  <entry>
     <title>今日随笔(2020-10-11)</title>
     <url>/2020/10/11/essay-5/</url>
     <content><![CDATA[<h3 id="命令行文件的上传与下载"><a href="#命令行文件的上传与下载" class="headerlink" title="命令行文件的上传与下载"></a>命令行文件的上传与下载</h3><p>文件的上传和下载命令都是scp</p>
@@ -588,25 +619,6 @@
     <title>今日随笔</title>
     <url>/2021/01/10/essay-7/</url>
     <content><![CDATA[<p><img src="/images/essay-7/essay.png" alt="essay"></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>今日随笔(2020-12-27)</title>
-    <url>/2020/12/27/essay-6/</url>
-    <content><![CDATA[<ol>
-<li>在vue ts class给数组添加值时报错<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> default class App&#123;</span><br><span class="line">    list =[]</span><br><span class="line">    <span class="function"><span class="title">_push</span></span>()&#123;</span><br><span class="line">        this.list.push(1)</span><br><span class="line">        <span class="comment"># error </span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
-<p>由于定义的list是never类型的数组，所以不能够直接添加元素，所以在定义数组的时候需要显示定义类型</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">list = [] as number[]</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>line-height 属性同样会影响伪元素的高度</li>
-<li>ts class 自定义vue双向绑定<br>v-model默认监听input事件，如果是checkbox或者radio<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">@Modle(<span class="string">'change'</span>) value:any</span><br><span class="line"><span class="comment"># 这样vue会监听change，$emit('change')改变外部绑定的值</span></span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
 ]]></content>
   </entry>
   <entry>
@@ -637,75 +649,98 @@
 <p>可以看到规范中定义的两个方法在第一步中对传递进来对参数的处理方式并不一样。因此这两个方法是有所区别的。</p>
 ]]></content>
       <tags>
-        <tag>JavsScript</tag>
+        <tag>JavaScript</tag>
       </tags>
   </entry>
   <entry>
-    <title>今日随笔(1-31)</title>
-    <url>/2021/01/31/essay-8/</url>
-    <content><![CDATA[<h3 id="null-vs-undefined"><a href="#null-vs-undefined" class="headerlink" title="null vs undefined"></a>null vs undefined</h3><p>The ECMAScript language specification describes them as follows:</p>
-<ul>
-<li>undefined 是被使用但是没有被赋值</li>
-<li>null 是对变量一个显示对声明一个值</li>
-</ul>
-<p>在JS中，每个变量能够同时被赋值引用类型和原始类型。因此，如果null意味着 不是一个对象，JS也需要一个初值意味着 既不是 引用类型 也不是 原始类型。那个值就是undefined。</p>
+    <title>理解 flex-basis</title>
+    <url>/2020/11/14/flex/</url>
+    <content><![CDATA[<p>上个html代码</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&lt;div class=<span class="string">"parent"</span>&gt;</span><br><span class="line">  &lt;div class=<span class="string">"child"</span>&gt;Child&lt;/div&gt;</span><br><span class="line">  &lt;div class=<span class="string">"child"</span>&gt;Child&lt;/div&gt;</span><br><span class="line">  &lt;div class=<span class="string">"child"</span>&gt;Child&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<p>css≠</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">.parent &#123;</span><br><span class="line">  display: flex;</span><br><span class="line">&#125;</span><br><span class="line">.child &#123;</span><br><span class="line">  flex: 0 1 auto; /* Default flex value */</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<html>
+<style>
+body{
+    body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+}
+.parent {
+  display: flex;
+}
+.child {
+  flex: 0 1 auto; /* Default flex value */
+  /* 上面的代码相当于是
+  *flex-grow:0; flex-shrink:1;flex-basis:auto;s
+  *
+  */
+}
+.child-grow{
+    flex:1 0 auto;
+}
+.child-flex{
+    flex:1 1 auto
+}
+</style>
+<div class="parent">
+  <div class="child">Child</div>
+  <div class="child">Child</div>
+  <div class="child">Child</div>
+</div>
+</html>
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">.child &#123;</span><br><span class="line">  flex: [flex-grow] [flex-shrink] [flex-basis];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><span id="showCssText"><span></span></span></p>
+<p><button id="toggle">toggle</button></p>
+<script>
+const btn = document.getElementById("toggle");
+btn.addEventListener('click',function(){
+        const span = document.getElementById('showCssText');
+        [...document.getElementsByClassName('child')].forEach(item=>{
+            const classList = item.classList;
+            // console.log(classList)
+            if(classList.length === 1 ){
+                classList.add('child-grow')
+                span.innerText = 'flex:1 0 auto;'
+            }else if(classList.length === 2){
+                classList.add('child-flex')
+                span.innerText = 'flex:1 1 auto'
+            }else{
+                classList.remove('child-flex')
+                classList.remove('child-grow')
+                span.innerText = 'flex: 0 1 auto; '
+            }
+        })
+})
+</script>
+
+
+<p>flex-basic 默认是auto，告诉元素保持一个理想的尺寸；但是默认情况下的元素宽度是多少？auto告诉元素它的宽度由它的内容决定。为了让子元素占据父元素的所有空间，可以给子元素的宽度设置为<code>width:100%</code>,或者<code>flex-basis:100%</code>,或者<code>flex-grow:1</code>。</p>
+<p>当给flex 的第三值 ，也就是 flex-basis 设置成1000px时，它会试着占据1000px的空间，如果不行，它会等比例占据其他元素的空间，但是其他元素内的文本长度同样会影响这个元素的位置分配；但是在更小的屏幕上可能会发现实际宽度并没有1000px，这是因为给了shrink，这个值告诉元素需要它等值缩小</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">.child-three &#123;</span><br><span class="line">  flex: 0 1 1000px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果grow 和 shrink都是0，那么元素不会等比例压缩，basis如果超出父元素宽度，那直接超出</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">.child-three &#123;</span><br><span class="line">  flex: 0 0 1000px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+  </entry>
+  <entry>
+    <title>内网穿透</title>
+    <url>/2020/01/08/intranet-contacts/</url>
+    <content><![CDATA[<p>内网穿透就是把本地服务映射到具有公网IP地址的服务器上，通过访问在公网上的机器，就可以访问到内网</p>
 <a id="more"></a>
-<p>If a variable myVar has not been initialized yet, its value is undefined:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">let</span> myVar;</span><br><span class="line">assert.equal(myVar, undefined);</span><br></pre></td></tr></table></figure>
-
-<p>If a property .unknownProp is missing, accessing the property produces the values undefined:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const obj = &#123;&#125;;</span><br><span class="line">assert.equal(obj.unknownProp, undefined);</span><br></pre></td></tr></table></figure>
-
-<p>If a function does not explicitly return anything, the function implicitly returns undefined:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">myFunc</span></span>() &#123;&#125;</span><br><span class="line">assert.equal(myFunc(), undefined);</span><br></pre></td></tr></table></figure>
-
-<p>If a function has a return statement without an argument, the function implicitly returns undefined:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">myFunc</span></span>() &#123;</span><br><span class="line">  <span class="built_in">return</span>;</span><br><span class="line">&#125;</span><br><span class="line">assert.equal(myFunc(), undefined);</span><br></pre></td></tr></table></figure>
-
-<p>If a parameter x is omitted, the language initializes that parameter with undefined:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> myFunc(x) &#123;</span><br><span class="line">  assert.equal(x, undefined);</span><br><span class="line">&#125;</span><br><span class="line">myFunc();</span><br></pre></td></tr></table></figure>
-
-<p>Optional chaining via obj?.someProp returns undefined if obj is undefined or null:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"> &gt; undefined?.someProp</span><br><span class="line">undefined</span><br><span class="line">&gt; null?.someProp</span><br><span class="line">undefined</span><br></pre></td></tr></table></figure>
-
-<p>The prototype of an object is either an object or, at the end of a chain of prototypes, null. Object.prototype does not have a prototype:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; Object.getPrototypeOf(Object.prototype)</span><br><span class="line">null</span><br></pre></td></tr></table></figure>
-
-<p>If we match a regular expression (such as /a/) against a string (such as ‘x’), we either get an object with matching data (if matching was successful) or null (if matching failed)(有结果就返回匹配对象，没结果返回null):</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; /a/.<span class="built_in">exec</span>(<span class="string">'x'</span>)</span><br><span class="line">null</span><br></pre></td></tr></table></figure>
-
-<p>The JSON data format does not support undefined, only null:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; JSON.stringify(&#123;a: undefined, b: null&#125;)</span><br><span class="line"><span class="string">'&#123;"b":null&#125;'</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="Operators-that-treat-undefined-and-or-null-specially"><a href="#Operators-that-treat-undefined-and-or-null-specially" class="headerlink" title="Operators that treat undefined and/or null specially"></a>Operators that treat undefined and/or null specially</h3><h4 id="undefined-and-parameter-default-values"><a href="#undefined-and-parameter-default-values" class="headerlink" title="undefined and parameter default values"></a>undefined and parameter default values</h4><p>参数默认值的使用情况：</p>
-<ul>
-<li>参数没传</li>
-<li>参数的值是undefined</li>
-</ul>
-<p>For example</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> myFunc(arg=<span class="string">'abc'</span>) &#123;</span><br><span class="line">  <span class="built_in">return</span> arg;</span><br><span class="line">&#125;</span><br><span class="line">assert.equal(myFunc(<span class="string">'hello'</span>), <span class="string">'hello'</span>);</span><br><span class="line">assert.equal(myFunc(), <span class="string">'abc'</span>);</span><br><span class="line">assert.equal(myFunc(undefined), <span class="string">'abc'</span>);</span><br></pre></td></tr></table></figure>
-
-<h4 id="undefined-and-destructuring-default-values"><a href="#undefined-and-destructuring-default-values" class="headerlink" title="undefined and destructuring default values"></a>undefined and destructuring default values</h4><p>解构给默认值跟参数给默认值一样，匹配到undefined给默认值<br>Default values in destructuring work similarly to parameter default values – they are used if a variable either has no match in the data or if it matches undefined:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const [a=<span class="string">'a'</span>] = [];</span><br><span class="line">assert.equal(a, <span class="string">'a'</span>);</span><br><span class="line"></span><br><span class="line">const [b=<span class="string">'b'</span>] = [undefined];</span><br><span class="line">assert.equal(b, <span class="string">'b'</span>);</span><br><span class="line"></span><br><span class="line">const &#123;prop: c=<span class="string">'c'</span>&#125; = &#123;&#125;;</span><br><span class="line">assert.equal(c, <span class="string">'c'</span>);</span><br><span class="line"></span><br><span class="line">const &#123;prop: d=<span class="string">'d'</span>&#125; = &#123;prop: undefined&#125;;</span><br><span class="line">assert.equal(d, <span class="string">'d'</span>);</span><br></pre></td></tr></table></figure>
-
-<h4 id="undefined-and-null-and-optional-chaining"><a href="#undefined-and-null-and-optional-chaining" class="headerlink" title="undefined and null and optional chaining"></a>undefined and null and optional chaining</h4><p>When there is optional chaining via value?.prop:</p>
-<ul>
-<li>If value is undefined or null, return undefined. That is, this happens whenever value.prop would throw an exception.</li>
-<li>Otherwise, return value.prop.</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> getProp(value) &#123;</span><br><span class="line">  <span class="comment"># optional static property access</span></span><br><span class="line">  <span class="built_in">return</span> value?.prop;</span><br><span class="line">&#125;</span><br><span class="line">assert.equal(</span><br><span class="line">  getProp(&#123;prop: 123&#125;), 123);</span><br><span class="line">assert.equal(</span><br><span class="line">  getProp(undefined), undefined);</span><br><span class="line">assert.equal(</span><br><span class="line">  getProp(null), undefined);</span><br></pre></td></tr></table></figure>
-
-<p>The following two operations work similarly:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">obj?.[«expr»] // optional dynamic property access</span><br><span class="line">func?.(«arg0», «arg1») // optional <span class="keyword">function</span> or method call</span><br></pre></td></tr></table></figure>
-
-<h4 id="undefined-and-null-and-nullish-coalescing"><a href="#undefined-and-null-and-nullish-coalescing" class="headerlink" title="undefined and null and nullish coalescing"></a>undefined and null and nullish coalescing</h4><p>nullish coalescing 的使用比较 简单，如果值是undefined 或者null的时候取后者</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; undefined ?? <span class="string">'default value'</span></span><br><span class="line"><span class="string">'default value'</span></span><br><span class="line">&gt; null ?? <span class="string">'default value'</span></span><br><span class="line"><span class="string">'default value'</span></span><br><span class="line"></span><br><span class="line">&gt; 0 ?? <span class="string">'default value'</span></span><br><span class="line">0</span><br><span class="line">&gt; 123 ?? <span class="string">'default value'</span></span><br><span class="line">123</span><br><span class="line">&gt; <span class="string">''</span> ?? <span class="string">'default value'</span></span><br><span class="line"><span class="string">''</span></span><br><span class="line">&gt; <span class="string">'abc'</span> ?? <span class="string">'default value'</span></span><br><span class="line"><span class="string">'abc'</span></span><br></pre></td></tr></table></figure>
-
-<p>The nullish coalescing assignment operator ??= combines nullish coalescing with assignment:</p>
-<p>??=  就是把 取值和赋值合起来</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> setName(obj) &#123;</span><br><span class="line">  obj.name ??= <span class="string">'(Unnamed)'</span>;</span><br><span class="line">  <span class="built_in">return</span> obj;</span><br><span class="line">&#125;</span><br><span class="line">assert.deepEqual(</span><br><span class="line">  setName(&#123;&#125;),</span><br><span class="line">  &#123;name: <span class="string">'(Unnamed)'</span>&#125;</span><br><span class="line">);</span><br><span class="line">assert.deepEqual(</span><br><span class="line">  setName(&#123;name: undefined&#125;),</span><br><span class="line">  &#123;name: <span class="string">'(Unnamed)'</span>&#125;</span><br><span class="line">);</span><br><span class="line">assert.deepEqual(</span><br><span class="line">  setName(&#123;name: null&#125;),</span><br><span class="line">  &#123;name: <span class="string">'(Unnamed)'</span>&#125;</span><br><span class="line">);</span><br><span class="line">assert.deepEqual(</span><br><span class="line">  setName(&#123;name: <span class="string">'Jane'</span>&#125;),</span><br><span class="line">  &#123;name: <span class="string">'Jane'</span>&#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>]]></content>
+<p>工具挺多的，今天刚用的ngrok，感觉不太稳定，不过能凑活用吧，内网穿透这玩意儿对移动端开发来说挺方便的，把电脑上的本地服务映射到外网端口，然后这样手机也就可以访问在电脑上的服务了，也能热更</p>
+<p>使用也挺方便的，google搜索ngrok，然后下载</p>
+<p><img src="/images/intranet-contacts/demo1.png" alt="图片"></p>
+<p>然后就是这样了</p>
+<p><img src="/images/intranet-contacts/demo2.png" alt="图片"></p>
+<p>然后你发现不管本地还是ngrok给你生成的地址，你都可以访问到本地开启的服务，但是每次开启的时候IP都不一样hhh</p>
+]]></content>
       <tags>
-        <tag>JavaScript</tag>
+        <tag>tool</tag>
       </tags>
   </entry>
   <entry>
@@ -811,99 +846,8 @@
         <category>git</category>
       </categories>
       <tags>
+        <tag>tool</tag>
         <tag>git</tag>
-        <tag>tool</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>理解 flex-basis</title>
-    <url>/2020/11/14/flex/</url>
-    <content><![CDATA[<p>上个html代码</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&lt;div class=<span class="string">"parent"</span>&gt;</span><br><span class="line">  &lt;div class=<span class="string">"child"</span>&gt;Child&lt;/div&gt;</span><br><span class="line">  &lt;div class=<span class="string">"child"</span>&gt;Child&lt;/div&gt;</span><br><span class="line">  &lt;div class=<span class="string">"child"</span>&gt;Child&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
-
-<p>css≠</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">.parent &#123;</span><br><span class="line">  display: flex;</span><br><span class="line">&#125;</span><br><span class="line">.child &#123;</span><br><span class="line">  flex: 0 1 auto; /* Default flex value */</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<html>
-<style>
-body{
-    body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
-    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-}
-}
-.parent {
-  display: flex;
-}
-.child {
-  flex: 0 1 auto; /* Default flex value */
-  /* 上面的代码相当于是
-  *flex-grow:0; flex-shrink:1;flex-basis:auto;s
-  *
-  */
-}
-.child-grow{
-    flex:1 0 auto;
-}
-.child-flex{
-    flex:1 1 auto
-}
-</style>
-<div class="parent">
-  <div class="child">Child</div>
-  <div class="child">Child</div>
-  <div class="child">Child</div>
-</div>
-</html>
-
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">.child &#123;</span><br><span class="line">  flex: [flex-grow] [flex-shrink] [flex-basis];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><span id="showCssText"><span></span></span></p>
-<p><button id="toggle">toggle</button></p>
-<script>
-const btn = document.getElementById("toggle");
-btn.addEventListener('click',function(){
-        const span = document.getElementById('showCssText');
-        [...document.getElementsByClassName('child')].forEach(item=>{
-            const classList = item.classList;
-            // console.log(classList)
-            if(classList.length === 1 ){
-                classList.add('child-grow')
-                span.innerText = 'flex:1 0 auto;'
-            }else if(classList.length === 2){
-                classList.add('child-flex')
-                span.innerText = 'flex:1 1 auto'
-            }else{
-                classList.remove('child-flex')
-                classList.remove('child-grow')
-                span.innerText = 'flex: 0 1 auto; '
-            }
-        })
-})
-</script>
-
-
-<p>flex-basic 默认是auto，告诉元素保持一个理想的尺寸；但是默认情况下的元素宽度是多少？auto告诉元素它的宽度由它的内容决定。为了让子元素占据父元素的所有空间，可以给子元素的宽度设置为<code>width:100%</code>,或者<code>flex-basis:100%</code>,或者<code>flex-grow:1</code>。</p>
-<p>当给flex 的第三值 ，也就是 flex-basis 设置成1000px时，它会试着占据1000px的空间，如果不行，它会等比例占据其他元素的空间，但是其他元素内的文本长度同样会影响这个元素的位置分配；但是在更小的屏幕上可能会发现实际宽度并没有1000px，这是因为给了shrink，这个值告诉元素需要它等值缩小</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">.child-three &#123;</span><br><span class="line">  flex: 0 1 1000px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>如果grow 和 shrink都是0，那么元素不会等比例压缩，basis如果超出父元素宽度，那直接超出</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">.child-three &#123;</span><br><span class="line">  flex: 0 0 1000px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-  </entry>
-  <entry>
-    <title>内网穿透</title>
-    <url>/2020/01/08/intranet-contacts/</url>
-    <content><![CDATA[<p>内网穿透就是把本地服务映射到具有公网IP地址的服务器上，通过访问在公网上的机器，就可以访问到内网</p>
-<a id="more"></a>
-<p>工具挺多的，今天刚用的ngrok，感觉不太稳定，不过能凑活用吧，内网穿透这玩意儿对移动端开发来说挺方便的，把电脑上的本地服务映射到外网端口，然后这样手机也就可以访问在电脑上的服务了，也能热更</p>
-<p>使用也挺方便的，google搜索ngrok，然后下载</p>
-<p><img src="/images/intranet-contacts/demo1.png" alt="图片"></p>
-<p>然后就是这样了</p>
-<p><img src="/images/intranet-contacts/demo2.png" alt="图片"></p>
-<p>然后你发现不管本地还是ngrok给你生成的地址，你都可以访问到本地开启的服务，但是每次开启的时候IP都不一样hhh</p>
-]]></content>
-      <tags>
-        <tag>tool</tag>
       </tags>
   </entry>
   <entry>
@@ -944,6 +888,90 @@ btn.addEventListener('click',function(){
       <tags>
         <tag>hexo</tag>
         <tag>blog</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>item</title>
+    <url>/2020/10/07/item/</url>
+    <content><![CDATA[<h3 id="Proposal-for-a-item-method-on-all-the-built-in-indexables"><a href="#Proposal-for-a-item-method-on-all-the-built-in-indexables" class="headerlink" title="Proposal for a .item() method on all the built-in indexables"></a>Proposal for a .item() method on all the built-in indexables</h3><p>这个方法是给有索引对象内置的一个方法，那么这个方法接收一个 number 类型的 index，对象能够根据 index 来确定值。那其实看到这会有个问题，具备索引的对象自己就能根据索引来确定值了，那么这个方法出现的意义是为什么？它其实是用负值的 index 来获取值，比如</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const arr =[1,2,3]</span><br><span class="line">arr.item(-1) // 3</span><br></pre></td></tr></table></figure>
+
+<p>是这样的用法。<br>那么这个方法是挂载在 String，Array，TypeArray 这三个数据结构的原型链上。<br>然后对于 dom 结构中类型 document.getElementById()这样的返回 NodeList 结构在经过 Array.from 转化之后同样会挂载 item 方法</p>
+<p>但是这个方法目前还处于 stage3 阶段，因此是不能直接使用的 hhhh。但是官方给出了 polyfill</p>
+<p>Like this:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> item(n) &#123;</span><br><span class="line">	<span class="comment"># ToInteger() abstract op</span></span><br><span class="line">	n = Math.trunc(n) || 0;</span><br><span class="line">	<span class="comment"># Allow negative indexing from the end</span></span><br><span class="line">	<span class="keyword">if</span>(n &lt; 0) n += this.length;</span><br><span class="line">	<span class="comment"># OOB access is guaranteed to return undefined</span></span><br><span class="line">	<span class="keyword">if</span>(n &lt; 0 || n &gt;= this.length) <span class="built_in">return</span> undefined;</span><br><span class="line">	<span class="comment"># Otherwise, this is just normal property access</span></span><br><span class="line">	<span class="built_in">return</span> this[n];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Other TypedArray constructors omitted for brevity.</span></span><br><span class="line"><span class="keyword">for</span> (<span class="built_in">let</span> C of [Array, String, Uint8Array]) &#123;</span><br><span class="line">    Object.defineProperty(C.prototype, <span class="string">"item"</span>,</span><br><span class="line">                          &#123; value: item,</span><br><span class="line">                            writable: <span class="literal">true</span>,</span><br><span class="line">                            enumerable: <span class="literal">false</span>,</span><br><span class="line">                            configurable: <span class="literal">true</span> &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>今日随笔(1-31)</title>
+    <url>/2021/01/31/essay-8/</url>
+    <content><![CDATA[<h3 id="null-vs-undefined"><a href="#null-vs-undefined" class="headerlink" title="null vs undefined"></a>null vs undefined</h3><p>The ECMAScript language specification describes them as follows:</p>
+<ul>
+<li>undefined 是被使用但是没有被赋值</li>
+<li>null 是对变量一个显示对声明一个值</li>
+</ul>
+<p>在JS中，每个变量能够同时被赋值引用类型和原始类型。因此，如果null意味着 不是一个对象，JS也需要一个初值意味着 既不是 引用类型 也不是 原始类型。那个值就是undefined。</p>
+<a id="more"></a>
+<p>If a variable myVar has not been initialized yet, its value is undefined:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">let</span> myVar;</span><br><span class="line">assert.equal(myVar, undefined);</span><br></pre></td></tr></table></figure>
+
+<p>If a property .unknownProp is missing, accessing the property produces the values undefined:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const obj = &#123;&#125;;</span><br><span class="line">assert.equal(obj.unknownProp, undefined);</span><br></pre></td></tr></table></figure>
+
+<p>If a function does not explicitly return anything, the function implicitly returns undefined:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">myFunc</span></span>() &#123;&#125;</span><br><span class="line">assert.equal(myFunc(), undefined);</span><br></pre></td></tr></table></figure>
+
+<p>If a function has a return statement without an argument, the function implicitly returns undefined:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">myFunc</span></span>() &#123;</span><br><span class="line">  <span class="built_in">return</span>;</span><br><span class="line">&#125;</span><br><span class="line">assert.equal(myFunc(), undefined);</span><br></pre></td></tr></table></figure>
+
+<p>If a parameter x is omitted, the language initializes that parameter with undefined:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> myFunc(x) &#123;</span><br><span class="line">  assert.equal(x, undefined);</span><br><span class="line">&#125;</span><br><span class="line">myFunc();</span><br></pre></td></tr></table></figure>
+
+<p>Optional chaining via obj?.someProp returns undefined if obj is undefined or null:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"> &gt; undefined?.someProp</span><br><span class="line">undefined</span><br><span class="line">&gt; null?.someProp</span><br><span class="line">undefined</span><br></pre></td></tr></table></figure>
+
+<p>The prototype of an object is either an object or, at the end of a chain of prototypes, null. Object.prototype does not have a prototype:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; Object.getPrototypeOf(Object.prototype)</span><br><span class="line">null</span><br></pre></td></tr></table></figure>
+
+<p>If we match a regular expression (such as /a/) against a string (such as ‘x’), we either get an object with matching data (if matching was successful) or null (if matching failed)(有结果就返回匹配对象，没结果返回null):</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; /a/.<span class="built_in">exec</span>(<span class="string">'x'</span>)</span><br><span class="line">null</span><br></pre></td></tr></table></figure>
+
+<p>The JSON data format does not support undefined, only null:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; JSON.stringify(&#123;a: undefined, b: null&#125;)</span><br><span class="line"><span class="string">'&#123;"b":null&#125;'</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Operators-that-treat-undefined-and-or-null-specially"><a href="#Operators-that-treat-undefined-and-or-null-specially" class="headerlink" title="Operators that treat undefined and/or null specially"></a>Operators that treat undefined and/or null specially</h3><h4 id="undefined-and-parameter-default-values"><a href="#undefined-and-parameter-default-values" class="headerlink" title="undefined and parameter default values"></a>undefined and parameter default values</h4><p>参数默认值的使用情况：</p>
+<ul>
+<li>参数没传</li>
+<li>参数的值是undefined</li>
+</ul>
+<p>For example</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> myFunc(arg=<span class="string">'abc'</span>) &#123;</span><br><span class="line">  <span class="built_in">return</span> arg;</span><br><span class="line">&#125;</span><br><span class="line">assert.equal(myFunc(<span class="string">'hello'</span>), <span class="string">'hello'</span>);</span><br><span class="line">assert.equal(myFunc(), <span class="string">'abc'</span>);</span><br><span class="line">assert.equal(myFunc(undefined), <span class="string">'abc'</span>);</span><br></pre></td></tr></table></figure>
+
+<h4 id="undefined-and-destructuring-default-values"><a href="#undefined-and-destructuring-default-values" class="headerlink" title="undefined and destructuring default values"></a>undefined and destructuring default values</h4><p>解构给默认值跟参数给默认值一样，匹配到undefined给默认值<br>Default values in destructuring work similarly to parameter default values – they are used if a variable either has no match in the data or if it matches undefined:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const [a=<span class="string">'a'</span>] = [];</span><br><span class="line">assert.equal(a, <span class="string">'a'</span>);</span><br><span class="line"></span><br><span class="line">const [b=<span class="string">'b'</span>] = [undefined];</span><br><span class="line">assert.equal(b, <span class="string">'b'</span>);</span><br><span class="line"></span><br><span class="line">const &#123;prop: c=<span class="string">'c'</span>&#125; = &#123;&#125;;</span><br><span class="line">assert.equal(c, <span class="string">'c'</span>);</span><br><span class="line"></span><br><span class="line">const &#123;prop: d=<span class="string">'d'</span>&#125; = &#123;prop: undefined&#125;;</span><br><span class="line">assert.equal(d, <span class="string">'d'</span>);</span><br></pre></td></tr></table></figure>
+
+<h4 id="undefined-and-null-and-optional-chaining"><a href="#undefined-and-null-and-optional-chaining" class="headerlink" title="undefined and null and optional chaining"></a>undefined and null and optional chaining</h4><p>When there is optional chaining via value?.prop:</p>
+<ul>
+<li>If value is undefined or null, return undefined. That is, this happens whenever value.prop would throw an exception.</li>
+<li>Otherwise, return value.prop.</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> getProp(value) &#123;</span><br><span class="line">  <span class="comment"># optional static property access</span></span><br><span class="line">  <span class="built_in">return</span> value?.prop;</span><br><span class="line">&#125;</span><br><span class="line">assert.equal(</span><br><span class="line">  getProp(&#123;prop: 123&#125;), 123);</span><br><span class="line">assert.equal(</span><br><span class="line">  getProp(undefined), undefined);</span><br><span class="line">assert.equal(</span><br><span class="line">  getProp(null), undefined);</span><br></pre></td></tr></table></figure>
+
+<p>The following two operations work similarly:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">obj?.[«expr»] // optional dynamic property access</span><br><span class="line">func?.(«arg0», «arg1») // optional <span class="keyword">function</span> or method call</span><br></pre></td></tr></table></figure>
+
+<h4 id="undefined-and-null-and-nullish-coalescing"><a href="#undefined-and-null-and-nullish-coalescing" class="headerlink" title="undefined and null and nullish coalescing"></a>undefined and null and nullish coalescing</h4><p>nullish coalescing 的使用比较 简单，如果值是undefined 或者null的时候取后者</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; undefined ?? <span class="string">'default value'</span></span><br><span class="line"><span class="string">'default value'</span></span><br><span class="line">&gt; null ?? <span class="string">'default value'</span></span><br><span class="line"><span class="string">'default value'</span></span><br><span class="line"></span><br><span class="line">&gt; 0 ?? <span class="string">'default value'</span></span><br><span class="line">0</span><br><span class="line">&gt; 123 ?? <span class="string">'default value'</span></span><br><span class="line">123</span><br><span class="line">&gt; <span class="string">''</span> ?? <span class="string">'default value'</span></span><br><span class="line"><span class="string">''</span></span><br><span class="line">&gt; <span class="string">'abc'</span> ?? <span class="string">'default value'</span></span><br><span class="line"><span class="string">'abc'</span></span><br></pre></td></tr></table></figure>
+
+<p>The nullish coalescing assignment operator ??= combines nullish coalescing with assignment:</p>
+<p>??=  就是把 取值和赋值合起来</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> setName(obj) &#123;</span><br><span class="line">  obj.name ??= <span class="string">'(Unnamed)'</span>;</span><br><span class="line">  <span class="built_in">return</span> obj;</span><br><span class="line">&#125;</span><br><span class="line">assert.deepEqual(</span><br><span class="line">  setName(&#123;&#125;),</span><br><span class="line">  &#123;name: <span class="string">'(Unnamed)'</span>&#125;</span><br><span class="line">);</span><br><span class="line">assert.deepEqual(</span><br><span class="line">  setName(&#123;name: undefined&#125;),</span><br><span class="line">  &#123;name: <span class="string">'(Unnamed)'</span>&#125;</span><br><span class="line">);</span><br><span class="line">assert.deepEqual(</span><br><span class="line">  setName(&#123;name: null&#125;),</span><br><span class="line">  &#123;name: <span class="string">'(Unnamed)'</span>&#125;</span><br><span class="line">);</span><br><span class="line">assert.deepEqual(</span><br><span class="line">  setName(&#123;name: <span class="string">'Jane'</span>&#125;),</span><br><span class="line">  &#123;name: <span class="string">'Jane'</span>&#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>JavaScript</tag>
       </tags>
   </entry>
   <entry>
@@ -994,20 +1022,6 @@ btn.addEventListener('click',function(){
 ]]></content>
       <tags>
         <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>leetcode第1003之检查替换后的词是否有效</title>
-    <url>/2019/08/08/leetcode-1003/</url>
-    <content><![CDATA[<p>描述：: 给定有效字符串 “abc”。<br>对于任何有效的字符串 V，我们可以将 V 分成两个部分 X 和 Y，使得 X + Y（X 与 Y 连接）等于 V。（X 或 Y 可以为空。）那么，X + “abc” + Y 也同样是有效的。<br>例如，如果 S = “abc”，则有效字符串的示例是：”abc”，”aabcbc”，”abcabc”，”abcabcababcc”。无效字符串的示例是：”abccba”，”ab”，”cababc”，”bac”。<br>如果给定字符串 S 有效，则返回 true；否则，返回 false</p>
-<a id="more"></a>
-
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * @param &#123;string&#125; S</span><br><span class="line"> * @<span class="built_in">return</span> &#123;boolean&#125;</span><br><span class="line"> */</span><br><span class="line">var isValid = <span class="keyword">function</span>(S) &#123;</span><br><span class="line">    <span class="built_in">let</span> temp= <span class="string">''</span>;</span><br><span class="line">    <span class="keyword">while</span>(S.indexOf(<span class="string">'abc'</span>)!=-1)&#123;</span><br><span class="line">        temp= S.split(<span class="string">'abc'</span>).filter(item=&gt;item).join(<span class="string">""</span>);</span><br><span class="line">        S = temp;</span><br><span class="line">    &#125;</span><br><span class="line">    const isFlag=(str)=&gt;&#123;</span><br><span class="line">         <span class="built_in">return</span> str ==<span class="string">''</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> isFlag(S);</span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>leetcode</category>
-      </categories>
-      <tags>
-        <tag>leetcode</tag>
       </tags>
   </entry>
   <entry>
@@ -1068,36 +1082,6 @@ btn.addEventListener('click',function(){
       </tags>
   </entry>
   <entry>
-    <title>leetcode第70之爬楼梯</title>
-    <url>/2019/08/08/leetcode-70/</url>
-    <content><![CDATA[<p>描述：假设你正在爬楼梯。需要 n 阶你才能到达楼顶。</p>
-<p>每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？</p>
-<p>注意：给定 n 是一个正整数。<br>两种写法，一种递归，一种开循环。<br>写递归有一个问题，当数据量庞大的时候，递归会爆栈，开循环就不存在爆栈的问题，因为循环只是在一个调用栈执行的，并且不会像递归一样重复计算值。</p>
-<a id="more"></a>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 爬楼梯</span><br><span class="line"> * @param &#123;number&#125; n</span><br><span class="line"> * @<span class="built_in">return</span> &#123;number&#125;</span><br><span class="line"> */</span><br><span class="line">var climbStairs = <span class="keyword">function</span>(n) &#123;</span><br><span class="line">    <span class="built_in">let</span> ans =[1,2];</span><br><span class="line">    <span class="keyword">if</span>(n==1||n==2)&#123;</span><br><span class="line">        <span class="built_in">return</span> ans[n-1];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">let</span> i = 2;i&lt;n;i++)&#123;</span><br><span class="line">        ans[i]=ans[i-1]+ans[i-2];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> ans[n-1]</span><br><span class="line"></span><br><span class="line">    // <span class="keyword">else</span> &#123;</span><br><span class="line">    //     <span class="built_in">return</span> climbStairs(n-1)+climbStairs(n-2);</span><br><span class="line">    // &#125;</span><br><span class="line">&#125;;</span><br><span class="line">console.log(<span class="string">"climbStairs(44):"</span>, climbStairs(44));</span><br><span class="line">// climbStairs(3)</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <tags>
-        <tag>leetcode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>item</title>
-    <url>/2020/10/07/item/</url>
-    <content><![CDATA[<h3 id="Proposal-for-a-item-method-on-all-the-built-in-indexables"><a href="#Proposal-for-a-item-method-on-all-the-built-in-indexables" class="headerlink" title="Proposal for a .item() method on all the built-in indexables"></a>Proposal for a .item() method on all the built-in indexables</h3><p>这个方法是给有索引对象内置的一个方法，那么这个方法接收一个 number 类型的 index，对象能够根据 index 来确定值。那其实看到这会有个问题，具备索引的对象自己就能根据索引来确定值了，那么这个方法出现的意义是为什么？它其实是用负值的 index 来获取值，比如</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const arr =[1,2,3]</span><br><span class="line">arr.item(-1) // 3</span><br></pre></td></tr></table></figure>
-
-<p>是这样的用法。<br>那么这个方法是挂载在 String，Array，TypeArray 这三个数据结构的原型链上。<br>然后对于 dom 结构中类型 document.getElementById()这样的返回 NodeList 结构在经过 Array.from 转化之后同样会挂载 item 方法</p>
-<p>但是这个方法目前还处于 stage3 阶段，因此是不能直接使用的 hhhh。但是官方给出了 polyfill</p>
-<p>Like this:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> item(n) &#123;</span><br><span class="line">	<span class="comment"># ToInteger() abstract op</span></span><br><span class="line">	n = Math.trunc(n) || 0;</span><br><span class="line">	<span class="comment"># Allow negative indexing from the end</span></span><br><span class="line">	<span class="keyword">if</span>(n &lt; 0) n += this.length;</span><br><span class="line">	<span class="comment"># OOB access is guaranteed to return undefined</span></span><br><span class="line">	<span class="keyword">if</span>(n &lt; 0 || n &gt;= this.length) <span class="built_in">return</span> undefined;</span><br><span class="line">	<span class="comment"># Otherwise, this is just normal property access</span></span><br><span class="line">	<span class="built_in">return</span> this[n];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Other TypedArray constructors omitted for brevity.</span></span><br><span class="line"><span class="keyword">for</span> (<span class="built_in">let</span> C of [Array, String, Uint8Array]) &#123;</span><br><span class="line">    Object.defineProperty(C.prototype, <span class="string">"item"</span>,</span><br><span class="line">                          &#123; value: item,</span><br><span class="line">                            writable: <span class="literal">true</span>,</span><br><span class="line">                            enumerable: <span class="literal">false</span>,</span><br><span class="line">                            configurable: <span class="literal">true</span> &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>leetcode第73之矩阵置0</title>
     <url>/2019/08/08/leetcode-73/</url>
     <content><![CDATA[<p>描述：: 给定一个 m x n 的矩阵，如果一个元素为 0，则将其所在行和列的所有元素都设为 0。请使用原地算法。</p>
@@ -1115,16 +1099,29 @@ btn.addEventListener('click',function(){
       </tags>
   </entry>
   <entry>
-    <title>leetcode第289之生命游戏</title>
-    <url>/2019/08/08/leetcode_289/</url>
-    <content><![CDATA[<p>描述：根据百度百科，生命游戏，简称为生命，是英国数学家约翰·何顿·康威在1970年发明的细胞自动机。</p>
-<p>给定一个包含 m × n 个格子的面板，每一个格子都可以看成是一个细胞。每个细胞具有一个初始状态 live（1）即为活细胞， 或 dead（0）即为死细胞。每个细胞与其八个相邻位置（水平，垂直，对角线）的细胞都遵循以下四条生存定律：</p>
-<p>如果活细胞周围八个位置的活细胞数少于两个，则该位置活细胞死亡；<br>如果活细胞周围八个位置有两个或三个活细胞，则该位置活细胞仍然存活；<br>如果活细胞周围八个位置有超过三个活细胞，则该位置活细胞死亡；<br>如果死细胞周围正好有三个活细胞，则该位置死细胞复活；<br>根据当前状态，写一个函数来计算面板上细胞的下一个（一次更新后的）状态。下一个状态是通过将上述规则同时应用于当前状态下的每个细胞所形成的，其中细胞的出生和死亡是同时发生的。</p>
+    <title>leetcode第1003之检查替换后的词是否有效</title>
+    <url>/2019/08/08/leetcode-1003/</url>
+    <content><![CDATA[<p>描述：: 给定有效字符串 “abc”。<br>对于任何有效的字符串 V，我们可以将 V 分成两个部分 X 和 Y，使得 X + Y（X 与 Y 连接）等于 V。（X 或 Y 可以为空。）那么，X + “abc” + Y 也同样是有效的。<br>例如，如果 S = “abc”，则有效字符串的示例是：”abc”，”aabcbc”，”abcabc”，”abcabcababcc”。无效字符串的示例是：”abccba”，”ab”，”cababc”，”bac”。<br>如果给定字符串 S 有效，则返回 true；否则，返回 false</p>
 <a id="more"></a>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * leetcode 生命游戏</span><br><span class="line"> * @param &#123;number[][]&#125; board</span><br><span class="line"> * @<span class="built_in">return</span> &#123;void&#125; Do not <span class="built_in">return</span> anything, modify board <span class="keyword">in</span>-place instead.</span><br><span class="line"> */</span><br><span class="line">var gameOfLife = <span class="keyword">function</span>(board) &#123;</span><br><span class="line">    //额外空间法</span><br><span class="line">  <span class="built_in">let</span> tempArr = [];</span><br><span class="line">  <span class="keyword">for</span> (<span class="built_in">let</span> i = 0; i &lt; board.length; i++) &#123;</span><br><span class="line">    <span class="built_in">let</span> [...arr] = board[i];</span><br><span class="line">    tempArr.push(arr);</span><br><span class="line">  &#125;</span><br><span class="line">  const flag = (point, data, flag) =&gt; &#123;</span><br><span class="line">    <span class="built_in">let</span> count = 0;</span><br><span class="line">    <span class="built_in">let</span> top = 0,</span><br><span class="line">      bottom = data.length - 1;</span><br><span class="line">    //上下左右四个边界</span><br><span class="line">    //八个点 循环三层</span><br><span class="line">    <span class="keyword">if</span> (top &lt; point.x) &#123;</span><br><span class="line">      //说明当前节点的上一层节点存在至少一个节点</span><br><span class="line">      <span class="keyword">for</span> (<span class="built_in">let</span> i = point.y - 1; i &lt;= point.y + 1; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (data[point.x - 1][i] == flag) &#123;</span><br><span class="line">          ++count;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">let</span> i = point.y - 1; i &lt;= point.y + 1; i++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (data[point.x][i] == flag &amp;&amp; i != point.y) &#123;</span><br><span class="line">        ++count;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (bottom &gt; point.x) &#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="built_in">let</span> i = point.y - 1; i &lt;= point.y + 1; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (data[point.x + 1][i] == flag) &#123;</span><br><span class="line">          ++count;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> count;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">for</span> (<span class="built_in">let</span> x = 0; x &lt; board.length; x++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">let</span> y = 0; y &lt; board[0].length; y++) &#123;</span><br><span class="line">      const point = &#123;</span><br><span class="line">        x,</span><br><span class="line">        y</span><br><span class="line">      &#125;;</span><br><span class="line">      const count = flag(point, board, 1);</span><br><span class="line">      <span class="keyword">if</span> (count &lt; 2 &amp;&amp; board[x][y] == 1) &#123;</span><br><span class="line">        tempArr[x][y] = 0;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> ((count == 2 || count == 3) &amp;&amp; board[x][y] == 1) &#123;</span><br><span class="line">        tempArr[x][y] = 1;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (count &gt; 3 &amp;&amp; board[x][y] == 1) &#123;</span><br><span class="line">        tempArr[x][y] = 0;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (count == 3 &amp;&amp; board[x][y] == 0) &#123;</span><br><span class="line">        tempArr[x][y] = 1;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">return</span> Object.assign(board, tempArr);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">// console.log(<span class="string">"gameOfLife([\r\n    [0,1,0],\r\n    [0,0,1],\r\n    [1,1,1],\r\n    [0,0,0]\r\n  ]):"</span>, gameOfLife([</span><br><span class="line">//     [0,1,0],</span><br><span class="line">//     [0,0,1],</span><br><span class="line">//     [1,1,1],</span><br><span class="line">//     [0,0,0]</span><br><span class="line">//   ]));</span><br><span class="line">// gameOfLife([</span><br><span class="line">//     [0,1,0],</span><br><span class="line">//     [0,0,1],</span><br><span class="line">//     [1,1,1],</span><br><span class="line">//     [0,0,0]</span><br><span class="line">//   ]);</span><br><span class="line"></span><br><span class="line">var _gameOfLife = <span class="keyword">function</span>(board) &#123;</span><br><span class="line">    //原地算法</span><br><span class="line">  const flag = (point, data, flag) =&gt; &#123;</span><br><span class="line">    <span class="built_in">let</span> count = 0;</span><br><span class="line">    <span class="built_in">let</span> top = 0,</span><br><span class="line">      bottom = data.length - 1;</span><br><span class="line">    </span><br><span class="line">    //上下左右四个边界</span><br><span class="line">    //八个点 循环三层</span><br><span class="line">    <span class="keyword">if</span> (top &lt; point.x) &#123;</span><br><span class="line">      //说明当前节点的上一层节点存在至少一个节点</span><br><span class="line">      <span class="keyword">for</span> (<span class="built_in">let</span> i = point.y - 1; i &lt;= point.y + 1; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (data[point.x - 1][i] == flag[0]||data[point.x - 1][i] == flag[1]) &#123;</span><br><span class="line">          ++count;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">let</span> i = point.y - 1; i &lt;= point.y + 1; i++) &#123;</span><br><span class="line">      <span class="keyword">if</span> ((data[point.x ][i] == flag[0]||data[point.x ][i] == flag[1]) &amp;&amp; i != point.y) &#123;</span><br><span class="line">        ++count;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (bottom &gt; point.x) &#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="built_in">let</span> i = point.y - 1; i &lt;= point.y + 1; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (data[point.x +1][i] == flag[0]||data[point.x +1][i] == flag[1]) &#123;</span><br><span class="line">          ++count;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> count;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">for</span> (<span class="built_in">let</span> x = 0; x &lt; board.length; x++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">let</span> y = 0; y &lt; board[0].length; y++) &#123;</span><br><span class="line">      const point = &#123;</span><br><span class="line">        x,</span><br><span class="line">        y</span><br><span class="line">      &#125;;</span><br><span class="line">      //alive -&gt; dead -2</span><br><span class="line">      //dead -&gt; alive 2</span><br><span class="line">      const count = flag(point, board, [1,-2]);</span><br><span class="line">      <span class="keyword">if</span> (count &lt; 2 &amp;&amp; board[x][y] == 1) &#123;</span><br><span class="line">        board[x][y] = -2;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> ((count == 2 || count == 3) &amp;&amp; board[x][y] == 1) &#123;</span><br><span class="line">        board[x][y] = 1;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (count &gt; 3 &amp;&amp; board[x][y] == 1) &#123;</span><br><span class="line">        board[x][y] = -2;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (count == 3 &amp;&amp; board[x][y] == 0) &#123;</span><br><span class="line">        board[x][y] = 2;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span> (<span class="built_in">let</span> x = 0; x &lt; board.length; x++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">let</span> y = 0; y &lt; board[0].length; y++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (board[x][y] == -2) &#123;</span><br><span class="line">        board[x][y]=0;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span>(board[x][y]==2)&#123;</span><br><span class="line">        board[x][y]=1;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">return</span> board;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">console.log(<span class="string">"\r\n_gameOfLife([\r\n    [0,1,0],\r\n    [0,0,1],\r\n    [1,1,1],\r\n    [0,0,0]\r\n  ]):"</span>, </span><br><span class="line">_gameOfLife([</span><br><span class="line">    [0,1,0],[0,0,1],[1,1,1],[0,0,0]</span><br><span class="line">  ]));</span><br><span class="line"></span><br><span class="line">_gameOfLife([</span><br><span class="line">    [0,1,0],[0,0,1],[1,1,1],[0,0,0]</span><br><span class="line">  ])</span><br></pre></td></tr></table></figure>]]></content>
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * @param &#123;string&#125; S</span><br><span class="line"> * @<span class="built_in">return</span> &#123;boolean&#125;</span><br><span class="line"> */</span><br><span class="line">var isValid = <span class="keyword">function</span>(S) &#123;</span><br><span class="line">    <span class="built_in">let</span> temp= <span class="string">''</span>;</span><br><span class="line">    <span class="keyword">while</span>(S.indexOf(<span class="string">'abc'</span>)!=-1)&#123;</span><br><span class="line">        temp= S.split(<span class="string">'abc'</span>).filter(item=&gt;item).join(<span class="string">""</span>);</span><br><span class="line">        S = temp;</span><br><span class="line">    &#125;</span><br><span class="line">    const isFlag=(str)=&gt;&#123;</span><br><span class="line">         <span class="built_in">return</span> str ==<span class="string">''</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> isFlag(S);</span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>leetcode</category>
       </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>leetcode第70之爬楼梯</title>
+    <url>/2019/08/08/leetcode-70/</url>
+    <content><![CDATA[<p>描述：假设你正在爬楼梯。需要 n 阶你才能到达楼顶。</p>
+<p>每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？</p>
+<p>注意：给定 n 是一个正整数。<br>两种写法，一种递归，一种开循环。<br>写递归有一个问题，当数据量庞大的时候，递归会爆栈，开循环就不存在爆栈的问题，因为循环只是在一个调用栈执行的，并且不会像递归一样重复计算值。</p>
+<a id="more"></a>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 爬楼梯</span><br><span class="line"> * @param &#123;number&#125; n</span><br><span class="line"> * @<span class="built_in">return</span> &#123;number&#125;</span><br><span class="line"> */</span><br><span class="line">var climbStairs = <span class="keyword">function</span>(n) &#123;</span><br><span class="line">    <span class="built_in">let</span> ans =[1,2];</span><br><span class="line">    <span class="keyword">if</span>(n==1||n==2)&#123;</span><br><span class="line">        <span class="built_in">return</span> ans[n-1];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">let</span> i = 2;i&lt;n;i++)&#123;</span><br><span class="line">        ans[i]=ans[i-1]+ans[i-2];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> ans[n-1]</span><br><span class="line"></span><br><span class="line">    // <span class="keyword">else</span> &#123;</span><br><span class="line">    //     <span class="built_in">return</span> climbStairs(n-1)+climbStairs(n-2);</span><br><span class="line">    // &#125;</span><br><span class="line">&#125;;</span><br><span class="line">console.log(<span class="string">"climbStairs(44):"</span>, climbStairs(44));</span><br><span class="line">// climbStairs(3)</span><br></pre></td></tr></table></figure>
+
+]]></content>
       <tags>
         <tag>leetcode</tag>
       </tags>
@@ -1204,6 +1201,139 @@ btn.addEventListener('click',function(){
       <tags>
         <tag>JavaScript</tag>
         <tag>listNode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>面试总结(2)</title>
+    <url>/2020/08/30/mianshi2/</url>
+    <content><![CDATA[<h2 id="https握手过程"><a href="#https握手过程" class="headerlink" title="https握手过程"></a>https握手过程</h2><ol>
+<li>服务端生成公私钥</li>
+<li>服务端把公钥，加密的hash算法以及个人信息发送给CA</li>
+<li>CA把服务端发送来的明文信息用服务端发来的hash算法加密生成密文，然后用CA的私钥对密文进行加密生成签名</li>
+<li>CA把证书发还给服务端，证书内容包括签名，以及证书的颁发对象以及 颁发者等信息。</li>
+<li>服务端把证书和明文信息一起发送给客户端</li>
+<li>客户端接收服务端发送的证书，用内置在操作系统的公钥对签名进行解密，然后用服务端发来对hash算法对明文进行加密，如果两次生成的字符串相等，那么数据是可信的</li>
+<li>客户端在本地随机生成random1，发送给服务端</li>
+<li>服务端在本地随机生成random2，发送给客户端</li>
+<li>客户端在本地随机生成random3，然后用服务端发来的公钥对random3加密发送给服务端</li>
+<li>客户端服务端根据三个随机random各自生成对称密钥</li>
+<li>用生成的对称密钥加密一段握手信息，发送给服务端。双端验证。</li>
+<li>后续加密用生成的对称密钥加密<a id="more"></a>
+<h2 id="输入URL到页面渲染过程"><a href="#输入URL到页面渲染过程" class="headerlink" title="输入URL到页面渲染过程"></a>输入URL到页面渲染过程</h2></li>
+<li>浏览器进程拼接URL，加协议</li>
+<li>网络进程根据URl做DNS解析</li>
+<li>请求的资源返回给渲染进程</li>
+<li>渲染进程根据返回的状态码以及content-type来进行后续的流程</li>
+<li>是html类型则进行渲染流程</li>
+<li>生成CSSOM以及DOM</li>
+<li>生成Render树。</li>
+<li>根据render树生成图层树</li>
+<li>渲染进程对图层进行绘制，把图层绘制拆分成一个个的绘制指令，绘制指令组成绘制列表</li>
+<li>渲染进程的合成线程来进行实际的绘制操作</li>
+<li>合成线程在光栅化线程中执行光栅化（把图层转化成位图）</li>
+<li>光栅化采用GPU加速，因此实际绘制过程在GPU进程</li>
+<li>光栅化结束渲染进程通知浏览器进程</li>
+<li>浏览器进程接收drawquard命令，将其页面内容绘制到内存中，最后再将内存显示在屏幕上。</li>
+<li>done！</li>
+</ol>
+<h2 id="字符串翻转"><a href="#字符串翻转" class="headerlink" title="字符串翻转"></a>字符串翻转</h2><p>略</p>
+<h2 id="字符串转数组"><a href="#字符串转数组" class="headerlink" title="字符串转数组"></a>字符串转数组</h2><p>parseInt Number 两者区别<br>略</p>
+<h2 id="DNS解析过程"><a href="#DNS解析过程" class="headerlink" title="DNS解析过程"></a>DNS解析过程</h2><p>找本地缓存，没找到请求域名服务器</p>
+<h2 id="DNS劫持"><a href="#DNS劫持" class="headerlink" title="DNS劫持"></a>DNS劫持</h2><p>略</p>
+<h2 id="强缓存-协商缓存"><a href="#强缓存-协商缓存" class="headerlink" title="强缓存 协商缓存"></a>强缓存 协商缓存</h2><ul>
+<li><p>强缓存：</p>
+<ul>
+<li>Cache-Control</li>
+<li>Expire</li>
+</ul>
+</li>
+<li><p>协商缓存：</p>
+<ul>
+<li>If-Modified-Since</li>
+<li>Etag<br>其他略</li>
+</ul>
+</li>
+</ul>
+<h2 id="vue双向绑定原理"><a href="#vue双向绑定原理" class="headerlink" title="vue双向绑定原理"></a>vue双向绑定原理</h2><p>数据劫持 ➕ 发布订阅</p>
+<h2 id="vue响应式原理"><a href="#vue响应式原理" class="headerlink" title="vue响应式原理"></a>vue响应式原理</h2><p>依赖收集 + 依赖更细</p>
+<h2 id="react-fiber"><a href="#react-fiber" class="headerlink" title="react fiber"></a>react fiber</h2><ol>
+<li>根据component生成fiber树</li>
+<li>每个节点都对应一个fiber节点</li>
+<li>当前渲染在屏幕上的是current树</li>
+<li>current树有一个是alternate的指针指向wip树</li>
+<li>wip也有相同的指针指向current树</li>
+<li>wip树是fork了一份current树，这个叫做double buffering</li>
+<li>有两个阶段，一个是render，一个是commit</li>
+<li>render阶段可以被打断，commit阶段不可以被打断</li>
+<li>render阶段的任务主要根据插入的顺序来执行，通过使用requestIdlecallback这个api来实现任务的调度</li>
+<li>高优先级的任务可以打断低优先级的任务执行，比如用户输入等需要及时反馈的任务属于高优先级，而对于数据获取这类的任务属于低优先级</li>
+<li>react内部通过使用messageChannel来实现reqeustIdleCallback的polyfill</li>
+</ol>
+<h2 id="xss防御"><a href="#xss防御" class="headerlink" title="xss防御"></a>xss防御</h2><ol>
+<li>转码</li>
+<li>白名单</li>
+<li>过滤</li>
+</ol>
+<h2 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h2><ol>
+<li>SameSite<ul>
+<li>Lax</li>
+<li>Strict</li>
+<li>None</li>
+</ul>
+</li>
+<li>x-frame-option</li>
+<li>csp<ul>
+<li>default-src</li>
+<li>image-src</li>
+<li>media-src</li>
+<li>script-src</li>
+</ul>
+</li>
+<li>token</li>
+<li>refer/origin</li>
+</ol>
+<h2 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h2><ol>
+<li><p>webpack</p>
+<ul>
+<li>缩小构建体积（分包，tree-shaking，剔除第三方库不需要的模块）</li>
+<li>缓存（cache-loader，hard-source-webpack-plugin，dll）</li>
+<li>预加载（preload）</li>
+<li>减少请求资源数（mini-css-extract-plugin，html-webpack-plugin）</li>
+</ul>
+</li>
+<li><p>差异化服务</p>
+</li>
+<li><p>图片懒加载（非可视区域图片用placeholder替代或者低质量图片）</p>
+</li>
+<li><p>减少时间复杂度</p>
+</li>
+<li><p>非必要文件异步加载或动态加载模块</p>
+</li>
+<li><p>对核心内容启用SSR</p>
+</li>
+</ol>
+<h2 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h2><p>CORS</p>
+<p>img</p>
+<p>script</p>
+]]></content>
+      <tags>
+        <tag>article</tag>
+        <tag>conclusion</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>leetcode第289之生命游戏</title>
+    <url>/2019/08/08/leetcode_289/</url>
+    <content><![CDATA[<p>描述：根据百度百科，生命游戏，简称为生命，是英国数学家约翰·何顿·康威在1970年发明的细胞自动机。</p>
+<p>给定一个包含 m × n 个格子的面板，每一个格子都可以看成是一个细胞。每个细胞具有一个初始状态 live（1）即为活细胞， 或 dead（0）即为死细胞。每个细胞与其八个相邻位置（水平，垂直，对角线）的细胞都遵循以下四条生存定律：</p>
+<p>如果活细胞周围八个位置的活细胞数少于两个，则该位置活细胞死亡；<br>如果活细胞周围八个位置有两个或三个活细胞，则该位置活细胞仍然存活；<br>如果活细胞周围八个位置有超过三个活细胞，则该位置活细胞死亡；<br>如果死细胞周围正好有三个活细胞，则该位置死细胞复活；<br>根据当前状态，写一个函数来计算面板上细胞的下一个（一次更新后的）状态。下一个状态是通过将上述规则同时应用于当前状态下的每个细胞所形成的，其中细胞的出生和死亡是同时发生的。</p>
+<a id="more"></a>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * leetcode 生命游戏</span><br><span class="line"> * @param &#123;number[][]&#125; board</span><br><span class="line"> * @<span class="built_in">return</span> &#123;void&#125; Do not <span class="built_in">return</span> anything, modify board <span class="keyword">in</span>-place instead.</span><br><span class="line"> */</span><br><span class="line">var gameOfLife = <span class="keyword">function</span>(board) &#123;</span><br><span class="line">    //额外空间法</span><br><span class="line">  <span class="built_in">let</span> tempArr = [];</span><br><span class="line">  <span class="keyword">for</span> (<span class="built_in">let</span> i = 0; i &lt; board.length; i++) &#123;</span><br><span class="line">    <span class="built_in">let</span> [...arr] = board[i];</span><br><span class="line">    tempArr.push(arr);</span><br><span class="line">  &#125;</span><br><span class="line">  const flag = (point, data, flag) =&gt; &#123;</span><br><span class="line">    <span class="built_in">let</span> count = 0;</span><br><span class="line">    <span class="built_in">let</span> top = 0,</span><br><span class="line">      bottom = data.length - 1;</span><br><span class="line">    //上下左右四个边界</span><br><span class="line">    //八个点 循环三层</span><br><span class="line">    <span class="keyword">if</span> (top &lt; point.x) &#123;</span><br><span class="line">      //说明当前节点的上一层节点存在至少一个节点</span><br><span class="line">      <span class="keyword">for</span> (<span class="built_in">let</span> i = point.y - 1; i &lt;= point.y + 1; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (data[point.x - 1][i] == flag) &#123;</span><br><span class="line">          ++count;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">let</span> i = point.y - 1; i &lt;= point.y + 1; i++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (data[point.x][i] == flag &amp;&amp; i != point.y) &#123;</span><br><span class="line">        ++count;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (bottom &gt; point.x) &#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="built_in">let</span> i = point.y - 1; i &lt;= point.y + 1; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (data[point.x + 1][i] == flag) &#123;</span><br><span class="line">          ++count;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> count;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">for</span> (<span class="built_in">let</span> x = 0; x &lt; board.length; x++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">let</span> y = 0; y &lt; board[0].length; y++) &#123;</span><br><span class="line">      const point = &#123;</span><br><span class="line">        x,</span><br><span class="line">        y</span><br><span class="line">      &#125;;</span><br><span class="line">      const count = flag(point, board, 1);</span><br><span class="line">      <span class="keyword">if</span> (count &lt; 2 &amp;&amp; board[x][y] == 1) &#123;</span><br><span class="line">        tempArr[x][y] = 0;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> ((count == 2 || count == 3) &amp;&amp; board[x][y] == 1) &#123;</span><br><span class="line">        tempArr[x][y] = 1;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (count &gt; 3 &amp;&amp; board[x][y] == 1) &#123;</span><br><span class="line">        tempArr[x][y] = 0;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (count == 3 &amp;&amp; board[x][y] == 0) &#123;</span><br><span class="line">        tempArr[x][y] = 1;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">return</span> Object.assign(board, tempArr);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">// console.log(<span class="string">"gameOfLife([\r\n    [0,1,0],\r\n    [0,0,1],\r\n    [1,1,1],\r\n    [0,0,0]\r\n  ]):"</span>, gameOfLife([</span><br><span class="line">//     [0,1,0],</span><br><span class="line">//     [0,0,1],</span><br><span class="line">//     [1,1,1],</span><br><span class="line">//     [0,0,0]</span><br><span class="line">//   ]));</span><br><span class="line">// gameOfLife([</span><br><span class="line">//     [0,1,0],</span><br><span class="line">//     [0,0,1],</span><br><span class="line">//     [1,1,1],</span><br><span class="line">//     [0,0,0]</span><br><span class="line">//   ]);</span><br><span class="line"></span><br><span class="line">var _gameOfLife = <span class="keyword">function</span>(board) &#123;</span><br><span class="line">    //原地算法</span><br><span class="line">  const flag = (point, data, flag) =&gt; &#123;</span><br><span class="line">    <span class="built_in">let</span> count = 0;</span><br><span class="line">    <span class="built_in">let</span> top = 0,</span><br><span class="line">      bottom = data.length - 1;</span><br><span class="line">    </span><br><span class="line">    //上下左右四个边界</span><br><span class="line">    //八个点 循环三层</span><br><span class="line">    <span class="keyword">if</span> (top &lt; point.x) &#123;</span><br><span class="line">      //说明当前节点的上一层节点存在至少一个节点</span><br><span class="line">      <span class="keyword">for</span> (<span class="built_in">let</span> i = point.y - 1; i &lt;= point.y + 1; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (data[point.x - 1][i] == flag[0]||data[point.x - 1][i] == flag[1]) &#123;</span><br><span class="line">          ++count;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">let</span> i = point.y - 1; i &lt;= point.y + 1; i++) &#123;</span><br><span class="line">      <span class="keyword">if</span> ((data[point.x ][i] == flag[0]||data[point.x ][i] == flag[1]) &amp;&amp; i != point.y) &#123;</span><br><span class="line">        ++count;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (bottom &gt; point.x) &#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="built_in">let</span> i = point.y - 1; i &lt;= point.y + 1; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (data[point.x +1][i] == flag[0]||data[point.x +1][i] == flag[1]) &#123;</span><br><span class="line">          ++count;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> count;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">for</span> (<span class="built_in">let</span> x = 0; x &lt; board.length; x++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">let</span> y = 0; y &lt; board[0].length; y++) &#123;</span><br><span class="line">      const point = &#123;</span><br><span class="line">        x,</span><br><span class="line">        y</span><br><span class="line">      &#125;;</span><br><span class="line">      //alive -&gt; dead -2</span><br><span class="line">      //dead -&gt; alive 2</span><br><span class="line">      const count = flag(point, board, [1,-2]);</span><br><span class="line">      <span class="keyword">if</span> (count &lt; 2 &amp;&amp; board[x][y] == 1) &#123;</span><br><span class="line">        board[x][y] = -2;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> ((count == 2 || count == 3) &amp;&amp; board[x][y] == 1) &#123;</span><br><span class="line">        board[x][y] = 1;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (count &gt; 3 &amp;&amp; board[x][y] == 1) &#123;</span><br><span class="line">        board[x][y] = -2;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (count == 3 &amp;&amp; board[x][y] == 0) &#123;</span><br><span class="line">        board[x][y] = 2;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span> (<span class="built_in">let</span> x = 0; x &lt; board.length; x++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">let</span> y = 0; y &lt; board[0].length; y++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (board[x][y] == -2) &#123;</span><br><span class="line">        board[x][y]=0;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span>(board[x][y]==2)&#123;</span><br><span class="line">        board[x][y]=1;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">return</span> board;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">console.log(<span class="string">"\r\n_gameOfLife([\r\n    [0,1,0],\r\n    [0,0,1],\r\n    [1,1,1],\r\n    [0,0,0]\r\n  ]):"</span>, </span><br><span class="line">_gameOfLife([</span><br><span class="line">    [0,1,0],[0,0,1],[1,1,1],[0,0,0]</span><br><span class="line">  ]));</span><br><span class="line"></span><br><span class="line">_gameOfLife([</span><br><span class="line">    [0,1,0],[0,0,1],[1,1,1],[0,0,0]</span><br><span class="line">  ])</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
       </tags>
   </entry>
   <entry>
@@ -1407,124 +1537,6 @@ btn.addEventListener('click',function(){
 ]]></content>
   </entry>
   <entry>
-    <title>面试总结(2)</title>
-    <url>/2020/08/30/mianshi2/</url>
-    <content><![CDATA[<h2 id="https握手过程"><a href="#https握手过程" class="headerlink" title="https握手过程"></a>https握手过程</h2><ol>
-<li>服务端生成公私钥</li>
-<li>服务端把公钥，加密的hash算法以及个人信息发送给CA</li>
-<li>CA把服务端发送来的明文信息用服务端发来的hash算法加密生成密文，然后用CA的私钥对密文进行加密生成签名</li>
-<li>CA把证书发还给服务端，证书内容包括签名，以及证书的颁发对象以及 颁发者等信息。</li>
-<li>服务端把证书和明文信息一起发送给客户端</li>
-<li>客户端接收服务端发送的证书，用内置在操作系统的公钥对签名进行解密，然后用服务端发来对hash算法对明文进行加密，如果两次生成的字符串相等，那么数据是可信的</li>
-<li>客户端在本地随机生成random1，发送给服务端</li>
-<li>服务端在本地随机生成random2，发送给客户端</li>
-<li>客户端在本地随机生成random3，然后用服务端发来的公钥对random3加密发送给服务端</li>
-<li>客户端服务端根据三个随机random各自生成对称密钥</li>
-<li>用生成的对称密钥加密一段握手信息，发送给服务端。双端验证。</li>
-<li>后续加密用生成的对称密钥加密<a id="more"></a>
-<h2 id="输入URL到页面渲染过程"><a href="#输入URL到页面渲染过程" class="headerlink" title="输入URL到页面渲染过程"></a>输入URL到页面渲染过程</h2></li>
-<li>浏览器进程拼接URL，加协议</li>
-<li>网络进程根据URl做DNS解析</li>
-<li>请求的资源返回给渲染进程</li>
-<li>渲染进程根据返回的状态码以及content-type来进行后续的流程</li>
-<li>是html类型则进行渲染流程</li>
-<li>生成CSSOM以及DOM</li>
-<li>生成Render树。</li>
-<li>根据render树生成图层树</li>
-<li>渲染进程对图层进行绘制，把图层绘制拆分成一个个的绘制指令，绘制指令组成绘制列表</li>
-<li>渲染进程的合成线程来进行实际的绘制操作</li>
-<li>合成线程在光栅化线程中执行光栅化（把图层转化成位图）</li>
-<li>光栅化采用GPU加速，因此实际绘制过程在GPU进程</li>
-<li>光栅化结束渲染进程通知浏览器进程</li>
-<li>浏览器进程接收drawquard命令，将其页面内容绘制到内存中，最后再将内存显示在屏幕上。</li>
-<li>done！</li>
-</ol>
-<h2 id="字符串翻转"><a href="#字符串翻转" class="headerlink" title="字符串翻转"></a>字符串翻转</h2><p>略</p>
-<h2 id="字符串转数组"><a href="#字符串转数组" class="headerlink" title="字符串转数组"></a>字符串转数组</h2><p>parseInt Number 两者区别<br>略</p>
-<h2 id="DNS解析过程"><a href="#DNS解析过程" class="headerlink" title="DNS解析过程"></a>DNS解析过程</h2><p>找本地缓存，没找到请求域名服务器</p>
-<h2 id="DNS劫持"><a href="#DNS劫持" class="headerlink" title="DNS劫持"></a>DNS劫持</h2><p>略</p>
-<h2 id="强缓存-协商缓存"><a href="#强缓存-协商缓存" class="headerlink" title="强缓存 协商缓存"></a>强缓存 协商缓存</h2><ul>
-<li><p>强缓存：</p>
-<ul>
-<li>Cache-Control</li>
-<li>Expire</li>
-</ul>
-</li>
-<li><p>协商缓存：</p>
-<ul>
-<li>If-Modified-Since</li>
-<li>Etag<br>其他略</li>
-</ul>
-</li>
-</ul>
-<h2 id="vue双向绑定原理"><a href="#vue双向绑定原理" class="headerlink" title="vue双向绑定原理"></a>vue双向绑定原理</h2><p>数据劫持 ➕ 发布订阅</p>
-<h2 id="vue响应式原理"><a href="#vue响应式原理" class="headerlink" title="vue响应式原理"></a>vue响应式原理</h2><p>依赖收集 + 依赖更细</p>
-<h2 id="react-fiber"><a href="#react-fiber" class="headerlink" title="react fiber"></a>react fiber</h2><ol>
-<li>根据component生成fiber树</li>
-<li>每个节点都对应一个fiber节点</li>
-<li>当前渲染在屏幕上的是current树</li>
-<li>current树有一个是alternate的指针指向wip树</li>
-<li>wip也有相同的指针指向current树</li>
-<li>wip树是fork了一份current树，这个叫做double buffering</li>
-<li>有两个阶段，一个是render，一个是commit</li>
-<li>render阶段可以被打断，commit阶段不可以被打断</li>
-<li>render阶段的任务主要根据插入的顺序来执行，通过使用requestIdlecallback这个api来实现任务的调度</li>
-<li>高优先级的任务可以打断低优先级的任务执行，比如用户输入等需要及时反馈的任务属于高优先级，而对于数据获取这类的任务属于低优先级</li>
-<li>react内部通过使用messageChannel来实现reqeustIdleCallback的polyfill</li>
-</ol>
-<h2 id="xss防御"><a href="#xss防御" class="headerlink" title="xss防御"></a>xss防御</h2><ol>
-<li>转码</li>
-<li>白名单</li>
-<li>过滤</li>
-</ol>
-<h2 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h2><ol>
-<li>SameSite<ul>
-<li>Lax</li>
-<li>Strict</li>
-<li>None</li>
-</ul>
-</li>
-<li>x-frame-option</li>
-<li>csp<ul>
-<li>default-src</li>
-<li>image-src</li>
-<li>media-src</li>
-<li>script-src</li>
-</ul>
-</li>
-<li>token</li>
-<li>refer/origin</li>
-</ol>
-<h2 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h2><ol>
-<li><p>webpack</p>
-<ul>
-<li>缩小构建体积（分包，tree-shaking，剔除第三方库不需要的模块）</li>
-<li>缓存（cache-loader，hard-source-webpack-plugin，dll）</li>
-<li>预加载（preload）</li>
-<li>减少请求资源数（mini-css-extract-plugin，html-webpack-plugin）</li>
-</ul>
-</li>
-<li><p>差异化服务</p>
-</li>
-<li><p>图片懒加载（非可视区域图片用placeholder替代或者低质量图片）</p>
-</li>
-<li><p>减少时间复杂度</p>
-</li>
-<li><p>非必要文件异步加载或动态加载模块</p>
-</li>
-<li><p>对核心内容启用SSR</p>
-</li>
-</ol>
-<h2 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h2><p>CORS</p>
-<p>img</p>
-<p>script</p>
-]]></content>
-      <tags>
-        <tag>article</tag>
-        <tag>conclusion</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>mutationObserver</title>
     <url>/2019/12/18/mutationObserver/</url>
     <content><![CDATA[<h3 id="MutationObserver-一个监听dom元素变化的接口"><a href="#MutationObserver-一个监听dom元素变化的接口" class="headerlink" title="MutationObserver,一个监听dom元素变化的接口"></a>MutationObserver,一个监听dom元素变化的接口</h3><p>dom元素观察者，监视 DOM 变动的接口，但是事件是异步的，需要等所有dom元素渲染完之后才执行<br>实例化一个observer对象,回调函数接收两个参数，一个是改变的属性所组成的一个对象数组，一个是实例本身</p>
@@ -1580,85 +1592,6 @@ btn.addEventListener('click',function(){
       <tags>
         <tag>gis openlayers ol6</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>npm包的发布</title>
-    <url>/2020/09/02/npm-pkg/</url>
-    <content><![CDATA[<p><strong>趁趁趁着还不太忙，补个npm包的发布</strong></p>
-<ul>
-<li>那么首先就是<code>npm init -y</code>初始化一个npm仓库</li>
-<li>然后<code>touch index.js</code>创建index文件</li>
-<li>安装<code>chalk figlet commander</code>这几个包，⚠️一定一定要装开发依赖！！</li>
-<li>然后coding</li>
-<li>要记得在package文件加上bin字段，value是对象，key是要在<code>terminal</code>运行的命令，key对应的对象是要执行的文件</li>
-<li>⚠️一定一定要记得在执行的文件的头部要加<code>#!/usr/bin/env node</code>(心塞，查了好久才找到)！！！</li>
-<li>coding结束要用<code>npm link</code>本地调试一个，记住npm的repo不要定位到淘宝的去！！</li>
-<li>没有账号的记得注册，然后用npm login 登陆一下</li>
-<li>npm publish，⚠️一定一定要记得改版本号！！如果publish的时候403了，maybe是你的包重名了，记得去npm上查一下你的包有没有跟别人的重了(踩坑踩的那叫一踩一个准hhh)<br>Done！</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>npm</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>provide of vue3</title>
-    <url>/2020/06/28/provide/</url>
-    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>好奇provide怎么实现的，然后呢就去扒了下源码hhh，看了下provide的function，有点懵,provide的代码在runtime-core/src/apiInject.ts里面</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> interface InjectionKey&lt;T&gt; extends Symbol &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> <span class="keyword">function</span> provide&lt;T&gt;(key: InjectionKey&lt;T&gt; | string, value: T) &#123;</span><br><span class="line">  <span class="keyword">if</span> (!currentInstance) &#123;</span><br><span class="line">    <span class="keyword">if</span> (__DEV__) &#123;</span><br><span class="line">      warn(`provide() can only be used inside setup().`)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">let</span> provides = currentInstance.provides</span><br><span class="line">    <span class="comment"># by default an instance inherits its parent's provides object</span></span><br><span class="line">    <span class="comment"># but when it needs to provide values of its own, it creates its</span></span><br><span class="line">    <span class="comment"># own provides object using parent provides object as prototype.</span></span><br><span class="line">    <span class="comment"># this way in `inject` we can simply look up injections from direct</span></span><br><span class="line">    <span class="comment"># parent and let the prototype chain do the work.</span></span><br><span class="line">    const parentProvides =</span><br><span class="line">      currentInstance.parent &amp;&amp; currentInstance.parent.provides</span><br><span class="line">    <span class="keyword">if</span> (parentProvides === provides) &#123;</span><br><span class="line">      provides = currentInstance.provides = Object.create(parentProvides)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment"># TS doesn't allow symbol as index type</span></span><br><span class="line">    provides[key as string] = value</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<a id="more"></a>
-<p>有点纳闷为啥parentProvides === provides 的时候就可以判断当前的实例调用了provide，然后我用尤大的那个vite写了个demo，父元素调用provide，子元素也调用provide<br><br>App.vue</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;img alt=<span class="string">"Vue logo"</span> src=<span class="string">"./assets/logo.png"</span> /&gt;</span><br><span class="line">  &lt;HelloWorld msg=<span class="string">"Hello Vue 3.0 + Vite"</span> /&gt;</span><br><span class="line">  &#123;&#123;foo&#125;&#125;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import HelloWorld from <span class="string">'./components/HelloWorld.vue'</span></span><br><span class="line">import &#123;provide,inject&#125; from <span class="string">'vue'</span></span><br><span class="line"><span class="built_in">export</span> default &#123;</span><br><span class="line">  name: <span class="string">'App'</span>,</span><br><span class="line">  components: &#123;</span><br><span class="line">    HelloWorld</span><br><span class="line">  &#125;,</span><br><span class="line">  setup(props,ctx)&#123;</span><br><span class="line">	  provide(<span class="string">'foo'</span>,1)</span><br><span class="line">	  // console.log(ctx,props)</span><br><span class="line">	  <span class="built_in">return</span> &#123;</span><br><span class="line">		  foo:inject(<span class="string">'foo'</span>)</span><br><span class="line">	  &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;br&gt;</span><br></pre></td></tr></table></figure>
-
-<p>HelloWorld.vue</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">	&lt;h1&gt;&#123;&#123; msg &#125;&#125;&lt;/h1&gt;</span><br><span class="line">	&lt;button @click=<span class="string">"count++"</span>&gt;count is: &#123;&#123; count &#125;&#125;&lt;/button&gt;</span><br><span class="line">	&lt;p&gt;</span><br><span class="line">		Edit</span><br><span class="line">		&lt;code&gt;components/HelloWorld.vue&lt;/code&gt;</span><br><span class="line">		to <span class="built_in">test</span> hot module replacement.</span><br><span class="line">	&lt;/p&gt;</span><br><span class="line">	&#123;&#123;foo&#125;&#125;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import &#123; ref ,provide,inject,defineComponent&#125; from <span class="string">'vue'</span>;</span><br><span class="line"><span class="built_in">export</span> default defineComponent(&#123;</span><br><span class="line">	name: <span class="string">'HelloWorld'</span>,</span><br><span class="line">	props: &#123;</span><br><span class="line">		msg: String</span><br><span class="line">	&#125;,</span><br><span class="line">	setup(props,ctx ) &#123;</span><br><span class="line">		// debugger</span><br><span class="line">		const count = ref(0);</span><br><span class="line">		provide(<span class="string">'bar'</span>,2)</span><br><span class="line">		// debugger</span><br><span class="line">		// console.log(ctx.provide)</span><br><span class="line">		const foo = inject(<span class="string">'foo'</span>)</span><br><span class="line">		<span class="built_in">return</span> &#123;</span><br><span class="line">			count,</span><br><span class="line">			foo</span><br><span class="line">		&#125;;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;br&gt;</span><br></pre></td></tr></table></figure>
-
-<p>在debug的时候在调用栈里面发现在调用mount的时候以此调用了render,patch,processComponent,mountComponent..这些方法，render和patch应该是和dom相关，然后看processComponent</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const processComponent = (n1, n2, container, anchor, parentComponent, parentSuspense, isSVG, optimized) =&gt; &#123;</span><br><span class="line">      <span class="keyword">if</span> (n1 == null) &#123;</span><br><span class="line">          <span class="keyword">if</span> (n2.shapeFlag &amp; 512 /* COMPONENT_KEPT_ALIVE */) &#123;</span><br><span class="line">              parentComponent.ctx.activate(n2, container, anchor, isSVG, optimized);</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="keyword">else</span> &#123;</span><br><span class="line">              mountComponent(n2, container, anchor, parentComponent, parentSuspense, isSVG, optimized);</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">else</span> &#123;</span><br><span class="line">          updateComponent(n1, n2, optimized);</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;;</span><br></pre></td></tr></table></figure>
-
-<p>emmm看起来还是跟dom相关,直接看渲染组件的时候干了啥吧。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const mountComponent = (initialVNode, container, anchor, parentComponent, parentSuspense, isSVG, optimized) =&gt; &#123;</span><br><span class="line">       const instance = (initialVNode.component = createComponentInstance(initialVNode, parentComponent, parentSuspense)); //看这个实例</span><br><span class="line">       //省略代码</span><br><span class="line">       // setup() is async. This component relies on async logic to be resolved</span><br><span class="line">       // before proceeding</span><br><span class="line">       //省略代码</span><br><span class="line">   &#125;;</span><br></pre></td></tr></table></figure>
-
-<br>
-createComponentInstance
-
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> createComponentInstance(vnode, parent, suspense) &#123;</span><br><span class="line">    // inherit parent app context - or - <span class="keyword">if</span> root, adopt from root vnode</span><br><span class="line">    // 继承父级app上下文，如果是root，调整为根节点</span><br><span class="line">    const appContext = (parent ? parent.appContext : vnode.appContext) || emptyAppContext;</span><br><span class="line">    const instance = &#123;</span><br><span class="line">        //省略</span><br><span class="line">        provides: parent ? parent.provides : Object.create(appContext.provides),</span><br><span class="line">        //省略</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> ((process.env.NODE_ENV !== <span class="string">'production'</span>)) &#123;</span><br><span class="line">        instance.ctx = createRenderContext(instance);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        instance.ctx = &#123; _: instance &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    instance.root = parent ? parent.root : instance;</span><br><span class="line">    instance.emit = emit.bind(null, instance);</span><br><span class="line">    <span class="built_in">return</span> instance;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>可以看到如果instance如果有父元素的话，instance里面的provides是会继承父节点中的provides<br>所以这就是为啥provide方法中判断当前的provide和父元素的是否相等，因为如果当前节点调用provide方法的话，那么当前元素的provide一定是和父元素的provide的引用地址相同的，所以当前的provide就可以把父元素的provide当做原型链来生成一个新的object<br><br><br>然后我回头看了下provide方法的注解，默认情况下实例是继承父元素的provides的，操啊，我花这么多时间是干啥啊！</p>
-]]></content>
-      <categories>
-        <category>Vue</category>
-        <category>JavaScript</category>
-      </categories>
-      <tags>
-        <tag>JavaScript</tag>
-        <tag>Vue</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>元素定位</title>
-    <url>/2020/12/31/location/</url>
-    <content><![CDATA[<ol>
-<li><p>focus</p>
-<ul>
-<li><p>Options</p>
-<p>An optional object providing options to control aspects of the focusing process. This object may contain the following property:</p>
-<ul>
-<li><p>preventScroll Optional</p>
-<p> A Boolean value indicating whether or not the browser should scroll the document to bring the newly-focused element into view. A value of false for preventScroll (the default) means that the browser will scroll the element into view after focusing it. If preventScroll is set to true, no scrolling will occur.</p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>计算元素的scrollTop，让滚动列表的scrollTop的值等于元素的scrollTop</p>
-</li>
-<li><p>scrollIntoView</p>
-<p> <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView" target="_blank" rel="noopener">文档</a></p>
-</li>
-</ol>
-]]></content>
   </entry>
   <entry>
     <title>响应式模块</title>
@@ -1871,6 +1804,61 @@ createComponentInstance
       </tags>
   </entry>
   <entry>
+    <title>provide of vue3</title>
+    <url>/2020/06/28/provide/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>好奇provide怎么实现的，然后呢就去扒了下源码hhh，看了下provide的function，有点懵,provide的代码在runtime-core/src/apiInject.ts里面</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> interface InjectionKey&lt;T&gt; extends <span class="built_in">Symbol</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">provide</span>&lt;<span class="title">T</span>&gt;(<span class="params">key: InjectionKey&lt;T&gt; | string, value: T</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!currentInstance) &#123;</span><br><span class="line">    <span class="keyword">if</span> (__DEV__) &#123;</span><br><span class="line">      warn(<span class="string">`provide() can only be used inside setup().`</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> provides = currentInstance.provides</span><br><span class="line">    # by default an instance inherits its parent's provides object</span><br><span class="line">    # but when it needs to provide values of its own, it creates its</span><br><span class="line">    # own provides object using parent provides object as prototype.</span><br><span class="line">    # this way in `inject` we can simply look up injections from direct</span><br><span class="line">    # parent and let the prototype chain do the work.</span><br><span class="line">    <span class="keyword">const</span> parentProvides =</span><br><span class="line">      currentInstance.parent &amp;&amp; currentInstance.parent.provides</span><br><span class="line">    <span class="keyword">if</span> (parentProvides === provides) &#123;</span><br><span class="line">      provides = currentInstance.provides = <span class="built_in">Object</span>.create(parentProvides)</span><br><span class="line">    &#125;</span><br><span class="line">    # TS doesn't allow symbol as index type</span><br><span class="line">    provides[key <span class="keyword">as</span> string] = value</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+<p>有点纳闷为啥parentProvides === provides 的时候就可以判断当前的实例调用了provide，然后我用尤大的那个vite写了个demo，父元素调用provide，子元素也调用provide<br><br>App.vue</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;img alt=<span class="string">"Vue logo"</span> src=<span class="string">"./assets/logo.png"</span> /&gt;</span><br><span class="line">  &lt;HelloWorld msg=<span class="string">"Hello Vue 3.0 + Vite"</span> /&gt;</span><br><span class="line">  &#123;&#123;foo&#125;&#125;</span><br><span class="line">&lt;<span class="regexp">/template&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp">import HelloWorld from './</span>components/HelloWorld.vue<span class="string">'</span></span><br><span class="line"><span class="string">import &#123;provide,inject&#125; from '</span>vue<span class="string">'</span></span><br><span class="line"><span class="string">export default &#123;</span></span><br><span class="line"><span class="string">  name: '</span>App<span class="string">',</span></span><br><span class="line"><span class="string">  components: &#123;</span></span><br><span class="line"><span class="string">    HelloWorld</span></span><br><span class="line"><span class="string">  &#125;,</span></span><br><span class="line"><span class="string">  setup(props,ctx)&#123;</span></span><br><span class="line"><span class="string">	  provide('</span>foo<span class="string">',1)</span></span><br><span class="line"><span class="string">	  // console.log(ctx,props)</span></span><br><span class="line"><span class="string">	  return &#123;</span></span><br><span class="line"><span class="string">		  foo:inject('</span>foo<span class="string">')</span></span><br><span class="line"><span class="string">	  &#125;</span></span><br><span class="line"><span class="string">  &#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">&lt;/script&gt;</span></span><br><span class="line"><span class="string">&lt;br&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>HelloWorld.vue</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;&#123; msg &#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">"count++"</span>&gt;</span>count is: &#123;&#123; count &#125;&#125;<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">		Edit</span><br><span class="line">		<span class="tag">&lt;<span class="name">code</span>&gt;</span>components/HelloWorld.vue<span class="tag">&lt;/<span class="name">code</span>&gt;</span></span><br><span class="line">		to test hot module replacement.</span><br><span class="line">	<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">	&#123;&#123;foo&#125;&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="keyword">import</span> &#123; ref ,provide,inject,defineComponent&#125; <span class="keyword">from</span> <span class="string">'vue'</span>;</span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> defineComponent(&#123;</span></span><br><span class="line"><span class="javascript">	name: <span class="string">'HelloWorld'</span>,</span></span><br><span class="line">	props: &#123;</span><br><span class="line"><span class="javascript">		msg: <span class="built_in">String</span></span></span><br><span class="line">	&#125;,</span><br><span class="line">	setup(props,ctx ) &#123;</span><br><span class="line"><span class="javascript">		<span class="comment">// debugger</span></span></span><br><span class="line"><span class="javascript">		<span class="keyword">const</span> count = ref(<span class="number">0</span>);</span></span><br><span class="line"><span class="javascript">		provide(<span class="string">'bar'</span>,<span class="number">2</span>)</span></span><br><span class="line"><span class="javascript">		<span class="comment">// debugger</span></span></span><br><span class="line"><span class="javascript">		<span class="comment">// console.log(ctx.provide)</span></span></span><br><span class="line"><span class="javascript">		<span class="keyword">const</span> foo = inject(<span class="string">'foo'</span>)</span></span><br><span class="line"><span class="javascript">		<span class="keyword">return</span> &#123;</span></span><br><span class="line">			count,</span><br><span class="line">			foo</span><br><span class="line">		&#125;;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在debug的时候在调用栈里面发现在调用mount的时候以此调用了render,patch,processComponent,mountComponent..这些方法，render和patch应该是和dom相关，然后看processComponent</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> processComponent = <span class="function">(<span class="params">n1, n2, container, anchor, parentComponent, parentSuspense, isSVG, optimized</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (n1 == <span class="literal">null</span>) &#123;</span><br><span class="line">          <span class="keyword">if</span> (n2.shapeFlag &amp; <span class="number">512</span> <span class="comment">/* COMPONENT_KEPT_ALIVE */</span>) &#123;</span><br><span class="line">              parentComponent.ctx.activate(n2, container, anchor, isSVG, optimized);</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="keyword">else</span> &#123;</span><br><span class="line">              mountComponent(n2, container, anchor, parentComponent, parentSuspense, isSVG, optimized);</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">else</span> &#123;</span><br><span class="line">          updateComponent(n1, n2, optimized);</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;;</span><br></pre></td></tr></table></figure>
+
+<p>emmm看起来还是跟dom相关,直接看渲染组件的时候干了啥吧。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> mountComponent = <span class="function">(<span class="params">initialVNode, container, anchor, parentComponent, parentSuspense, isSVG, optimized</span>) =&gt;</span> &#123;</span><br><span class="line">       <span class="keyword">const</span> instance = (initialVNode.component = createComponentInstance(initialVNode, parentComponent, parentSuspense)); <span class="comment">//看这个实例</span></span><br><span class="line">       <span class="comment">//省略代码</span></span><br><span class="line">       <span class="comment">// setup() is async. This component relies on async logic to be resolved</span></span><br><span class="line">       <span class="comment">// before proceeding</span></span><br><span class="line">       <span class="comment">//省略代码</span></span><br><span class="line">   &#125;;</span><br></pre></td></tr></table></figure>
+
+<br>
+createComponentInstance
+
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createComponentInstance</span>(<span class="params">vnode, parent, suspense</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// inherit parent app context - or - if root, adopt from root vnode</span></span><br><span class="line">    <span class="comment">// 继承父级app上下文，如果是root，调整为根节点</span></span><br><span class="line">    <span class="keyword">const</span> appContext = (parent ? parent.appContext : vnode.appContext) || emptyAppContext;</span><br><span class="line">    <span class="keyword">const</span> instance = &#123;</span><br><span class="line">        <span class="comment">//省略</span></span><br><span class="line">        provides: parent ? parent.provides : <span class="built_in">Object</span>.create(appContext.provides),</span><br><span class="line">        <span class="comment">//省略</span></span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> ((process.env.NODE_ENV !== <span class="string">'production'</span>)) &#123;</span><br><span class="line">        instance.ctx = createRenderContext(instance);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        instance.ctx = &#123; <span class="attr">_</span>: instance &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    instance.root = parent ? parent.root : instance;</span><br><span class="line">    instance.emit = emit.bind(<span class="literal">null</span>, instance);</span><br><span class="line">    <span class="keyword">return</span> instance;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到如果instance如果有父元素的话，instance里面的provides是会继承父节点中的provides<br>所以这就是为啥provide方法中判断当前的provide和父元素的是否相等，因为如果当前节点调用provide方法的话，那么当前元素的provide一定是和父元素的provide的引用地址相同的，所以当前的provide就可以把父元素的provide当做原型链来生成一个新的object<br><br><br>然后我回头看了下provide方法的注解，默认情况下实例是继承父元素的provides的，操啊，我花这么多时间是干啥啊！</p>
+]]></content>
+      <categories>
+        <category>Vue</category>
+        <category>JavaScript</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+        <tag>Vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>npm包的发布</title>
+    <url>/2020/09/02/npm-pkg/</url>
+    <content><![CDATA[<p><strong>趁趁趁着还不太忙，补个npm包的发布</strong></p>
+<ul>
+<li>那么首先就是<code>npm init -y</code>初始化一个npm仓库</li>
+<li>然后<code>touch index.js</code>创建index文件</li>
+<li>安装<code>chalk figlet commander</code>这几个包，⚠️一定一定要装开发依赖！！</li>
+<li>然后coding</li>
+<li>要记得在package文件加上bin字段，value是对象，key是要在<code>terminal</code>运行的命令，key对应的对象是要执行的文件</li>
+<li>⚠️一定一定要记得在执行的文件的头部要加<code>#!/usr/bin/env node</code>(心塞，查了好久才找到)！！！</li>
+<li>coding结束要用<code>npm link</code>本地调试一个，记住npm的repo不要定位到淘宝的去！！</li>
+<li>没有账号的记得注册，然后用npm login 登陆一下</li>
+<li>npm publish，⚠️一定一定要记得改版本号！！如果publish的时候403了，maybe是你的包重名了，记得去npm上查一下你的包有没有跟别人的重了(踩坑踩的那叫一踩一个准hhh)<br>Done！</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>npm</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>JavaScript读书笔记</title>
     <url>/2019/08/05/readingNote-JS/</url>
     <content><![CDATA[<h2 id="new运算符的实现"><a href="#new运算符的实现" class="headerlink" title="new运算符的实现"></a>new运算符的实现</h2><h3 id="定义一个函数，以及原型链的方法"><a href="#定义一个函数，以及原型链的方法" class="headerlink" title="定义一个函数，以及原型链的方法"></a>定义一个函数，以及原型链的方法</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> Testfoo(name) &#123;</span><br><span class="line">    console.log(this[name]) </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Testfoo.prototype.sayHello= <span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">    console.log(<span class="string">'hello'</span>);</span><br><span class="line">    <span class="built_in">return</span> 1;</span><br><span class="line">&#125;</span><br><span class="line">//使用new运算符</span><br><span class="line"><span class="built_in">let</span> aaa = new Testfoo();</span><br><span class="line">aaa.sayHello();//输出hello</span><br><span class="line">//不使用new运算符</span><br><span class="line"><span class="built_in">let</span> testObj  = &#123;&#125;;//创建空对象</span><br><span class="line">testObj=Object.create(Testfoo.prototype);//创建一个具有Testfoo的原型链的空方法</span><br><span class="line">Testfoo.call(testObj);//指定this</span><br><span class="line">console.log(<span class="string">'testObj'</span>,testObj.sayHello());//输出hello</span><br></pre></td></tr></table></figure>
@@ -2077,6 +2065,30 @@ createComponentInstance
       </tags>
   </entry>
   <entry>
+    <title>元素定位</title>
+    <url>/2020/12/31/location/</url>
+    <content><![CDATA[<ol>
+<li><p>focus</p>
+<ul>
+<li><p>Options</p>
+<p>An optional object providing options to control aspects of the focusing process. This object may contain the following property:</p>
+<ul>
+<li><p>preventScroll Optional</p>
+<p> A Boolean value indicating whether or not the browser should scroll the document to bring the newly-focused element into view. A value of false for preventScroll (the default) means that the browser will scroll the element into view after focusing it. If preventScroll is set to true, no scrolling will occur.</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>计算元素的scrollTop，让滚动列表的scrollTop的值等于元素的scrollTop</p>
+</li>
+<li><p>scrollIntoView</p>
+<p> <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView" target="_blank" rel="noopener">文档</a></p>
+</li>
+</ol>
+]]></content>
+  </entry>
+  <entry>
     <title>简单请求和复杂请求</title>
     <url>/2020/09/16/request-of-complex-simply/</url>
     <content><![CDATA[<h3 id="简单请求"><a href="#简单请求" class="headerlink" title="简单请求"></a>简单请求</h3><p>请求方法只能是以下三种：</p>
@@ -2153,6 +2165,51 @@ createComponentInstance
 
 <p>所以在JS中使用svg标签来加载对应的svg文件的时候只需要在svg标签加入use 然后给id属性赋值为对应symbol的id，比如<code>id=&quot;#icon-404&quot;</code></p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>优雅的书写方式</title>
+    <url>/2019/10/27/usage-for-better/</url>
+    <content><![CDATA[<h3 id="变量声明"><a href="#变量声明" class="headerlink" title="变量声明"></a>变量声明</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//变量声明用let or const</span><br><span class="line">let a = 1;</span><br><span class="line">const b = 2;</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+<h3 id="对象属性赋值"><a href="#对象属性赋值" class="headerlink" title="对象属性赋值"></a>对象属性赋值</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const getKey(key)&#123;</span><br><span class="line">  return `a key named $&#123;key&#125;`</span><br><span class="line">&#125;</span><br><span class="line">//使用动态属性作为键名，用计算后的属性</span><br><span class="line">const obj=&#123;</span><br><span class="line">  id:1,</span><br><span class="line">  name:&apos;John&apos;,</span><br><span class="line">  [getKey(&apos;enable&apos;)]:&apos;Tom&apos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="键名与键值的变量名相同，不需要写两遍"><a href="#键名与键值的变量名相同，不需要写两遍" class="headerlink" title="键名与键值的变量名相同，不需要写两遍"></a>键名与键值的变量名相同，不需要写两遍</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const name = &apos;John&apos;;</span><br><span class="line">const obj = &#123;</span><br><span class="line">  name</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="对象数据分组排序"><a href="#对象数据分组排序" class="headerlink" title="对象数据分组排序"></a>对象数据分组排序</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//解构赋值的排前面</span><br><span class="line">const name = &apos;John&apos;,age=2, grade = 80;</span><br><span class="line">const obj = &#123;</span><br><span class="line">  name,</span><br><span class="line">  age,</span><br><span class="line">  level:grade</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="属性声明"><a href="#属性声明" class="headerlink" title="属性声明"></a>属性声明</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//键名声明不需要写引号,仅有无效标识符需要加引号</span><br><span class="line">const obj = &#123;</span><br><span class="line">  a:1,</span><br><span class="line">  &apos;data-self:true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="不要直接调用Object-prototype的方法，比如hasOwnProperty"><a href="#不要直接调用Object-prototype的方法，比如hasOwnProperty" class="headerlink" title="不要直接调用Object.prototype的方法，比如hasOwnProperty"></a>不要直接调用Object.prototype的方法，比如hasOwnProperty</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const obj = &#123;</span><br><span class="line">  a:1</span><br><span class="line">&#125;</span><br><span class="line">//不要直接用ojb.hasOwnProperty(Do not use obj.hasOwnProperty directly)</span><br><span class="line"></span><br><span class="line">Object.prototype.hasOwnProperty.call(obj,key)//use Object.prototype.call instead</span><br><span class="line">//or</span><br><span class="line">const has = Object.prototype.hasOwnProperty;</span><br><span class="line">has.call(obj,key)//</span><br></pre></td></tr></table></figure>
+
+<h3 id="use-the-object-spread-operator-instead-of-Object-assign-to-shallow-copy-objects"><a href="#use-the-object-spread-operator-instead-of-Object-assign-to-shallow-copy-objects" class="headerlink" title="use the object spread operator instead of Object.assign to shallow-copy objects"></a>use the object spread operator instead of Object.assign to shallow-copy objects</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const obj = &#123;</span><br><span class="line">  name:&apos;Tom&apos;</span><br><span class="line">&#125;</span><br><span class="line">const cloneObj =&#123;...obj,age:1&#125;//cloneObj -&gt; &#123;name:&apos;Tom&apos;,age:1&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="use-spread-operator-to-copy-Array"><a href="#use-spread-operator-to-copy-Array" class="headerlink" title="use spread operator to copy Array"></a>use spread operator to copy Array</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const arr = [1,2,3,4];</span><br><span class="line">const cloneArr = [...arr];//cloneArr - .[1,2,3,4]</span><br></pre></td></tr></table></figure>
+
+<h3 id="use-Array-from-or-spread-operator-to-convert-an-iterable-Object"><a href="#use-Array-from-or-spread-operator-to-convert-an-iterable-Object" class="headerlink" title="use Array.from() or spread operator to convert an iterable Object"></a>use Array.from() or spread operator to convert an iterable Object</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const foo = document.querySelectorAll(&apos;.foo&apos;);//it is a nodelist</span><br><span class="line"></span><br><span class="line">const arrNode = Array.from(foo);</span><br><span class="line"></span><br><span class="line">//or</span><br><span class="line"></span><br><span class="line">const arrNode1 = [...foo];</span><br></pre></td></tr></table></figure>
+
+<h3 id="use-Array-from-instead-of-spread-operator-for-mapping-over-iterables-because-it-won’t-creat-an-intermediate-array"><a href="#use-Array-from-instead-of-spread-operator-for-mapping-over-iterables-because-it-won’t-creat-an-intermediate-array" class="headerlink" title="use Array.from() instead of spread operator  for mapping over iterables ,because it won’t creat an intermediate array"></a>use Array.from() instead of spread operator  for mapping over iterables ,because it won’t creat an intermediate array</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const foo =[1,2,3];</span><br><span class="line">const bar = Array.from(foo,function(item)&#123;</span><br><span class="line">  return Math.pow(item,2)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="use-object-destructuring-when-accessing-and-using-multiple-properties-of-an-object"><a href="#use-object-destructuring-when-accessing-and-using-multiple-properties-of-an-object" class="headerlink" title="use object destructuring when accessing and using multiple properties of an object."></a>use object destructuring when accessing and using multiple properties of an object.</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//No</span><br><span class="line">const render = param =&gt; &#123;</span><br><span class="line">  const firstName = param.firstName;</span><br><span class="line">  const secondName = param.secondName;</span><br><span class="line">&#125;</span><br><span class="line">//Yes,and maybe we should give them default value,or if firstName or secondName dont exist in param , they will be undefined</span><br><span class="line">const render = param =&gt;&#123;</span><br><span class="line">  const &#123;</span><br><span class="line">    firstName=&apos;&apos; ,secondName=&apos;&apos;</span><br><span class="line">  &#125; = param;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="use-array-destructuring-instead-of-arr-0"><a href="#use-array-destructuring-instead-of-arr-0" class="headerlink" title="use array destructuring instead of arr[0]."></a>use array destructuring instead of arr[0].</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const render = param =&gt;&#123;</span><br><span class="line">  const [firstName,secondName] = param;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="use-object-destructuring-if-u-dont-need-certaine-property"><a href="#use-object-destructuring-if-u-dont-need-certaine-property" class="headerlink" title="use object destructuring if u dont need certaine property"></a>use object destructuring if u dont need certaine property</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// if u dont need secondName,u can use object destructuring,and what u need exists in rest</span><br><span class="line">const render = param =&gt;&#123;</span><br><span class="line">  const &#123;</span><br><span class="line">    secondName,...rest</span><br><span class="line">  &#125; =param//rest-&gt; &#123;firstName,age&#125;</span><br><span class="line">&#125;</span><br><span class="line">render(&#123;</span><br><span class="line">  firstName,</span><br><span class="line">  secondName,</span><br><span class="line">  age</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="use-instead-of-‘’-or-“”"><a href="#use-instead-of-‘’-or-“”" class="headerlink" title="use `` instead of ‘’ or “”"></a>use `` instead of ‘’ or “”</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const name = &apos;John&apos;;</span><br><span class="line">//No</span><br><span class="line">const wholeName = &apos;My name is&apos;+ name;</span><br><span class="line">//Yes</span><br><span class="line">const wholeName = `my name is $&#123;name&#125;`</span><br></pre></td></tr></table></figure>
+
+<h3 id="dont-declare-function-in-a-block-like-if-while-etc"><a href="#dont-declare-function-in-a-block-like-if-while-etc" class="headerlink" title="dont declare function in a block like if,while ,etc"></a>dont declare function in a block like if,while ,etc</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//No</span><br><span class="line">if(true)&#123;</span><br><span class="line">  function test()&#123;</span><br><span class="line">    console.log(&apos;bad&apos;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">//Yes</span><br><span class="line">let test ;</span><br><span class="line">if(true)&#123;</span><br><span class="line">  test = () =&gt;&#123;</span><br><span class="line">    console.log(&apos;good&apos;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="use-spread-operator-…-instead-of-arguments-because-arguments-is-a-Array-like-Array-and-not-a-real-Array"><a href="#use-spread-operator-…-instead-of-arguments-because-arguments-is-a-Array-like-Array-and-not-a-real-Array" class="headerlink" title="use spread operator(…) instead of arguments,because arguments is a Array-like Array and not a real Array"></a>use spread operator(…) instead of arguments,because arguments is a Array-like Array and not a real Array</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//No</span><br><span class="line">const render = arguments =&gt; &#123;</span><br><span class="line">  const arr = Array.prototype.slice.call(arguments);</span><br><span class="line">&#125;</span><br><span class="line">//Yes</span><br><span class="line">const render =(...args) =&gt; &#123;</span><br><span class="line">  const arr = args;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="use-void-0-instead-of-undefined"><a href="#use-void-0-instead-of-undefined" class="headerlink" title="use void 0 instead of undefined"></a>use void 0 instead of undefined</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let undefined = 1;</span><br><span class="line">var a;</span><br><span class="line">console.log(a === undefined)// false</span><br><span class="line">console.log(a === void 0)//false</span><br></pre></td></tr></table></figure>
+
+<h3 id="in-a-module-with-single-export-use-default-export-instead-of-name-export"><a href="#in-a-module-with-single-export-use-default-export-instead-of-name-export" class="headerlink" title="in a module with single export use default export instead of name export"></a>in a module with single export use default export instead of name export</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export default function es6()&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
   </entry>
   <entry>
     <title>工具函数</title>
@@ -2269,51 +2326,6 @@ createComponentInstance
       <categories>
         <category>tool</category>
       </categories>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>优雅的书写方式</title>
-    <url>/2019/10/27/usage-for-better/</url>
-    <content><![CDATA[<h3 id="变量声明"><a href="#变量声明" class="headerlink" title="变量声明"></a>变量声明</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//变量声明用let or const</span><br><span class="line">let a = 1;</span><br><span class="line">const b = 2;</span><br></pre></td></tr></table></figure>
-
-<a id="more"></a>
-<h3 id="对象属性赋值"><a href="#对象属性赋值" class="headerlink" title="对象属性赋值"></a>对象属性赋值</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const getKey(key)&#123;</span><br><span class="line">  return `a key named $&#123;key&#125;`</span><br><span class="line">&#125;</span><br><span class="line">//使用动态属性作为键名，用计算后的属性</span><br><span class="line">const obj=&#123;</span><br><span class="line">  id:1,</span><br><span class="line">  name:&apos;John&apos;,</span><br><span class="line">  [getKey(&apos;enable&apos;)]:&apos;Tom&apos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="键名与键值的变量名相同，不需要写两遍"><a href="#键名与键值的变量名相同，不需要写两遍" class="headerlink" title="键名与键值的变量名相同，不需要写两遍"></a>键名与键值的变量名相同，不需要写两遍</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const name = &apos;John&apos;;</span><br><span class="line">const obj = &#123;</span><br><span class="line">  name</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="对象数据分组排序"><a href="#对象数据分组排序" class="headerlink" title="对象数据分组排序"></a>对象数据分组排序</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//解构赋值的排前面</span><br><span class="line">const name = &apos;John&apos;,age=2, grade = 80;</span><br><span class="line">const obj = &#123;</span><br><span class="line">  name,</span><br><span class="line">  age,</span><br><span class="line">  level:grade</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="属性声明"><a href="#属性声明" class="headerlink" title="属性声明"></a>属性声明</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//键名声明不需要写引号,仅有无效标识符需要加引号</span><br><span class="line">const obj = &#123;</span><br><span class="line">  a:1,</span><br><span class="line">  &apos;data-self:true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="不要直接调用Object-prototype的方法，比如hasOwnProperty"><a href="#不要直接调用Object-prototype的方法，比如hasOwnProperty" class="headerlink" title="不要直接调用Object.prototype的方法，比如hasOwnProperty"></a>不要直接调用Object.prototype的方法，比如hasOwnProperty</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const obj = &#123;</span><br><span class="line">  a:1</span><br><span class="line">&#125;</span><br><span class="line">//不要直接用ojb.hasOwnProperty(Do not use obj.hasOwnProperty directly)</span><br><span class="line"></span><br><span class="line">Object.prototype.hasOwnProperty.call(obj,key)//use Object.prototype.call instead</span><br><span class="line">//or</span><br><span class="line">const has = Object.prototype.hasOwnProperty;</span><br><span class="line">has.call(obj,key)//</span><br></pre></td></tr></table></figure>
-
-<h3 id="use-the-object-spread-operator-instead-of-Object-assign-to-shallow-copy-objects"><a href="#use-the-object-spread-operator-instead-of-Object-assign-to-shallow-copy-objects" class="headerlink" title="use the object spread operator instead of Object.assign to shallow-copy objects"></a>use the object spread operator instead of Object.assign to shallow-copy objects</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const obj = &#123;</span><br><span class="line">  name:&apos;Tom&apos;</span><br><span class="line">&#125;</span><br><span class="line">const cloneObj =&#123;...obj,age:1&#125;//cloneObj -&gt; &#123;name:&apos;Tom&apos;,age:1&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="use-spread-operator-to-copy-Array"><a href="#use-spread-operator-to-copy-Array" class="headerlink" title="use spread operator to copy Array"></a>use spread operator to copy Array</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const arr = [1,2,3,4];</span><br><span class="line">const cloneArr = [...arr];//cloneArr - .[1,2,3,4]</span><br></pre></td></tr></table></figure>
-
-<h3 id="use-Array-from-or-spread-operator-to-convert-an-iterable-Object"><a href="#use-Array-from-or-spread-operator-to-convert-an-iterable-Object" class="headerlink" title="use Array.from() or spread operator to convert an iterable Object"></a>use Array.from() or spread operator to convert an iterable Object</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const foo = document.querySelectorAll(&apos;.foo&apos;);//it is a nodelist</span><br><span class="line"></span><br><span class="line">const arrNode = Array.from(foo);</span><br><span class="line"></span><br><span class="line">//or</span><br><span class="line"></span><br><span class="line">const arrNode1 = [...foo];</span><br></pre></td></tr></table></figure>
-
-<h3 id="use-Array-from-instead-of-spread-operator-for-mapping-over-iterables-because-it-won’t-creat-an-intermediate-array"><a href="#use-Array-from-instead-of-spread-operator-for-mapping-over-iterables-because-it-won’t-creat-an-intermediate-array" class="headerlink" title="use Array.from() instead of spread operator  for mapping over iterables ,because it won’t creat an intermediate array"></a>use Array.from() instead of spread operator  for mapping over iterables ,because it won’t creat an intermediate array</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const foo =[1,2,3];</span><br><span class="line">const bar = Array.from(foo,function(item)&#123;</span><br><span class="line">  return Math.pow(item,2)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<h3 id="use-object-destructuring-when-accessing-and-using-multiple-properties-of-an-object"><a href="#use-object-destructuring-when-accessing-and-using-multiple-properties-of-an-object" class="headerlink" title="use object destructuring when accessing and using multiple properties of an object."></a>use object destructuring when accessing and using multiple properties of an object.</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//No</span><br><span class="line">const render = param =&gt; &#123;</span><br><span class="line">  const firstName = param.firstName;</span><br><span class="line">  const secondName = param.secondName;</span><br><span class="line">&#125;</span><br><span class="line">//Yes,and maybe we should give them default value,or if firstName or secondName dont exist in param , they will be undefined</span><br><span class="line">const render = param =&gt;&#123;</span><br><span class="line">  const &#123;</span><br><span class="line">    firstName=&apos;&apos; ,secondName=&apos;&apos;</span><br><span class="line">  &#125; = param;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="use-array-destructuring-instead-of-arr-0"><a href="#use-array-destructuring-instead-of-arr-0" class="headerlink" title="use array destructuring instead of arr[0]."></a>use array destructuring instead of arr[0].</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const render = param =&gt;&#123;</span><br><span class="line">  const [firstName,secondName] = param;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="use-object-destructuring-if-u-dont-need-certaine-property"><a href="#use-object-destructuring-if-u-dont-need-certaine-property" class="headerlink" title="use object destructuring if u dont need certaine property"></a>use object destructuring if u dont need certaine property</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// if u dont need secondName,u can use object destructuring,and what u need exists in rest</span><br><span class="line">const render = param =&gt;&#123;</span><br><span class="line">  const &#123;</span><br><span class="line">    secondName,...rest</span><br><span class="line">  &#125; =param//rest-&gt; &#123;firstName,age&#125;</span><br><span class="line">&#125;</span><br><span class="line">render(&#123;</span><br><span class="line">  firstName,</span><br><span class="line">  secondName,</span><br><span class="line">  age</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<h3 id="use-instead-of-‘’-or-“”"><a href="#use-instead-of-‘’-or-“”" class="headerlink" title="use `` instead of ‘’ or “”"></a>use `` instead of ‘’ or “”</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const name = &apos;John&apos;;</span><br><span class="line">//No</span><br><span class="line">const wholeName = &apos;My name is&apos;+ name;</span><br><span class="line">//Yes</span><br><span class="line">const wholeName = `my name is $&#123;name&#125;`</span><br></pre></td></tr></table></figure>
-
-<h3 id="dont-declare-function-in-a-block-like-if-while-etc"><a href="#dont-declare-function-in-a-block-like-if-while-etc" class="headerlink" title="dont declare function in a block like if,while ,etc"></a>dont declare function in a block like if,while ,etc</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//No</span><br><span class="line">if(true)&#123;</span><br><span class="line">  function test()&#123;</span><br><span class="line">    console.log(&apos;bad&apos;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">//Yes</span><br><span class="line">let test ;</span><br><span class="line">if(true)&#123;</span><br><span class="line">  test = () =&gt;&#123;</span><br><span class="line">    console.log(&apos;good&apos;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="use-spread-operator-…-instead-of-arguments-because-arguments-is-a-Array-like-Array-and-not-a-real-Array"><a href="#use-spread-operator-…-instead-of-arguments-because-arguments-is-a-Array-like-Array-and-not-a-real-Array" class="headerlink" title="use spread operator(…) instead of arguments,because arguments is a Array-like Array and not a real Array"></a>use spread operator(…) instead of arguments,because arguments is a Array-like Array and not a real Array</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//No</span><br><span class="line">const render = arguments =&gt; &#123;</span><br><span class="line">  const arr = Array.prototype.slice.call(arguments);</span><br><span class="line">&#125;</span><br><span class="line">//Yes</span><br><span class="line">const render =(...args) =&gt; &#123;</span><br><span class="line">  const arr = args;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="use-void-0-instead-of-undefined"><a href="#use-void-0-instead-of-undefined" class="headerlink" title="use void 0 instead of undefined"></a>use void 0 instead of undefined</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let undefined = 1;</span><br><span class="line">var a;</span><br><span class="line">console.log(a === undefined)// false</span><br><span class="line">console.log(a === void 0)//false</span><br></pre></td></tr></table></figure>
-
-<h3 id="in-a-module-with-single-export-use-default-export-instead-of-name-export"><a href="#in-a-module-with-single-export-use-default-export-instead-of-name-export" class="headerlink" title="in a module with single export use default export instead of name export"></a>in a module with single export use default export instead of name export</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export default function es6()&#123;&#125;</span><br></pre></td></tr></table></figure>
-
-]]></content>
       <tags>
         <tag>JavaScript</tag>
       </tags>

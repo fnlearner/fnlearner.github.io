@@ -188,6 +188,140 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/fnlearner/2020/11/14/flex/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="ZJS">
+      <meta itemprop="description" content="你找到我了呀！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Personal Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/14/flex/" class="post-title-link" itemprop="url">理解 flex-basis</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-14 21:52:55" itemprop="dateCreated datePublished" datetime="2020-11-14T21:52:55+08:00">2020-11-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-03 11:58:31" itemprop="dateModified" datetime="2020-12-03T11:58:31+08:00">2020-12-03</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>上个html代码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=<span class="string">"parent"</span>&gt;</span><br><span class="line">  &lt;div class=<span class="string">"child"</span>&gt;Child&lt;/div&gt;</span><br><span class="line">  &lt;div class=<span class="string">"child"</span>&gt;Child&lt;/div&gt;</span><br><span class="line">  &lt;div class=<span class="string">"child"</span>&gt;Child&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<p>css≠</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.parent &#123;</span><br><span class="line">  display: flex;</span><br><span class="line">&#125;</span><br><span class="line">.child &#123;</span><br><span class="line">  flex: 0 1 auto; /* Default flex value */</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<html>
+<style>
+body{
+    body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+}
+.parent {
+  display: flex;
+}
+.child {
+  flex: 0 1 auto; /* Default flex value */
+  /* 上面的代码相当于是
+  *flex-grow:0; flex-shrink:1;flex-basis:auto;s
+  *
+  */
+}
+.child-grow{
+    flex:1 0 auto;
+}
+.child-flex{
+    flex:1 1 auto
+}
+</style>
+<div class="parent">
+  <div class="child">Child</div>
+  <div class="child">Child</div>
+  <div class="child">Child</div>
+</div>
+</html>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.child &#123;</span><br><span class="line">  flex: [flex-grow] [flex-shrink] [flex-basis];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><span id="showCssText"><span></span></span></p>
+<p><button id="toggle">toggle</button></p>
+<script>
+const btn = document.getElementById("toggle");
+btn.addEventListener('click',function(){
+        const span = document.getElementById('showCssText');
+        [...document.getElementsByClassName('child')].forEach(item=>{
+            const classList = item.classList;
+            // console.log(classList)
+            if(classList.length === 1 ){
+                classList.add('child-grow')
+                span.innerText = 'flex:1 0 auto;'
+            }else if(classList.length === 2){
+                classList.add('child-flex')
+                span.innerText = 'flex:1 1 auto'
+            }else{
+                classList.remove('child-flex')
+                classList.remove('child-grow')
+                span.innerText = 'flex: 0 1 auto; '
+            }
+        })
+})
+</script>
+
+
+<p>flex-basic 默认是auto，告诉元素保持一个理想的尺寸；但是默认情况下的元素宽度是多少？auto告诉元素它的宽度由它的内容决定。为了让子元素占据父元素的所有空间，可以给子元素的宽度设置为<code>width:100%</code>,或者<code>flex-basis:100%</code>,或者<code>flex-grow:1</code>。</p>
+<p>当给flex 的第三值 ，也就是 flex-basis 设置成1000px时，它会试着占据1000px的空间，如果不行，它会等比例占据其他元素的空间，但是其他元素内的文本长度同样会影响这个元素的位置分配；但是在更小的屏幕上可能会发现实际宽度并没有1000px，这是因为给了shrink，这个值告诉元素需要它等值缩小</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.child-three &#123;</span><br><span class="line">  flex: 0 1 1000px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果grow 和 shrink都是0，那么元素不会等比例压缩，basis如果超出父元素宽度，那直接超出</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.child-three &#123;</span><br><span class="line">  flex: 0 0 1000px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://github.com/fnlearner/2020/10/21/conclusion/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -901,87 +1035,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://github.com/fnlearner/2020/08/15/vue-react-new-release/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="ZJS">
-      <meta itemprop="description" content="你找到我了呀！">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Personal Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/15/vue-react-new-release/" class="post-title-link" itemprop="url">今日随笔</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-15 21:12:07" itemprop="dateCreated datePublished" datetime="2020-08-15T21:12:07+08:00">2020-08-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-07 17:41:15" itemprop="dateModified" datetime="2020-10-07T17:41:15+08:00">2020-10-07</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/vue/" itemprop="url" rel="index"><span itemprop="name">vue</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/vue/react/" itemprop="url" rel="index"><span itemprop="name">react</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>react 更新了<br><img src="/images/update-of-frame/react.png" alt="react"></p>
-<p>vue脚手架更新</p>
-<p><img src="/images/update-of-frame/vue.jpeg" alt="vue"></p>
-<p>来玩~</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1053,7 +1106,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">49</span>
+          <span class="site-state-item-count">50</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
