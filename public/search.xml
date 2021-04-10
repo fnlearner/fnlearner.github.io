@@ -179,100 +179,6 @@
       </tags>
   </entry>
   <entry>
-    <title>部署hexo踩坑记录</title>
-    <url>/2020/11/14/bugsForNode/</url>
-    <content><![CDATA[<p>在执行下面这句代码的时候</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g -d</span><br></pre></td></tr></table></figure>
-
-<p>报错信息</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Something<span class="string">'s wrong. Maybe you can find the solution here: https://hexo.io/docs/troubleshooting.html</span></span><br><span class="line"><span class="string">TypeError [ERR_INVALID_ARG_TYPE]: The "mode" argument must be integer. Received an instance of Object</span></span><br><span class="line"><span class="string">    at copyFile (fs.js:1924:10)</span></span><br><span class="line"><span class="string">    at tryCatcher (/Users/zjs/Desktop/blog/node_modules/bluebird/js/release/util.js:16:23)</span></span><br><span class="line"><span class="string">    at ret (eval at makeNodePromisifiedEval (/Users/zjs/.nvm/versions/node/v14.10.0/lib/node_modules/hexo-cli/node_modules/bluebird/js/release/promisify.js:184:12), &lt;anonymous&gt;:13:39)</span></span><br></pre></td></tr></table></figure>
-
-<p>解决方案<br> NodeJs 版本从 14 回到 12 就🉑️！</p>
-]]></content>
-  </entry>
-  <entry>
-    <title>GET 和 POST 的区别</title>
-    <url>/2020/09/12/diff-between-get-post/</url>
-    <content><![CDATA[<h2 id="GET请求"><a href="#GET请求" class="headerlink" title="GET请求"></a>GET请求</h2><ol>
-<li>GET请求返回的资源会被浏览器缓存</li>
-<li>GET请求会保存在浏览器的历史记录中</li>
-<li>GET请求能当书签</li>
-<li>GET不能用来处理敏感数据</li>
-<li>有长度限制（具体长度参见各个浏览器规范）</li>
-<li>仅仅用来获取数据，不能修改</li>
-<li>参数的数据类型，只接收ascll编码</li>
-<li>仅支持url编码</li>
-<li>产生一个数据包</li>
-<li>页面重载或者回退没有影响</li>
-</ol>
-<h2 id="POST请求"><a href="#POST请求" class="headerlink" title="POST请求"></a>POST请求</h2><ol>
-<li>请求不会被缓存</li>
-<li>不会保存在历史记录中</li>
-<li>不能作为书签</li>
-<li>数据长度没有限制</li>
-<li>参数的数据类型没有限制</li>
-<li>支持多种编码</li>
-<li>两个数据包，需要服务器响应100后继续发出请求之后服务器（可能）响应200</li>
-<li>刷新或者回退 数据会重新提交</li>
-</ol>
-<h2 id="其他http方法"><a href="#其他http方法" class="headerlink" title="其他http方法"></a>其他http方法</h2><h3 id="put"><a href="#put" class="headerlink" title="put"></a>put</h3><p>put方法跟post一样，也是用来创建或者更新资源的，但是跟post不一样的地方在于put请求是幂等的，也就是说put请求发起多次所产生的结果是跟第一个一样的；那么对于post请求，重复请求就会产生多次创建相同资源的副作用</p>
-<h3 id="head"><a href="#head" class="headerlink" title="head"></a>head</h3><p>head请求跟get请求是差不多相同的，不同的地方在于head请求没有返回体<br>那么head 请求通常是在发起get请求之前检查get请求返回的是什么，比如在下载文件的时候或者下载请求体的时候</p>
-<h3 id="delete"><a href="#delete" class="headerlink" title="delete"></a>delete</h3><p>删除方法用来删除资源</p>
-<h3 id="options"><a href="#options" class="headerlink" title="options"></a>options</h3><p>是复杂请求的预检请求</p>
-]]></content>
-  </entry>
-  <entry>
-    <title>今日随笔(7-29)</title>
-    <url>/2020/07/29/essay-1/</url>
-    <content><![CDATA[<h2 id="runAsync"><a href="#runAsync" class="headerlink" title="runAsync"></a>runAsync</h2><p>使用 web worker 在一个单独的线程中执行函数，能够允许执行不阻塞 UI 渲染的耗时函数</p>
-<ol>
-<li><p>使用 blob 形式的 url 来创建<code>worker</code>,<code>worker</code>的内容应该是函数的系列化版本，然后立即返回函数的返回值</p>
-</li>
-<li><p>返回值是一个<code>promise</code>，它监听了<code>worker</code>的<code>onmessage</code> and <code>onerror</code>两个事件，返回从主线程发送过来的数据或者是抛出一个错误</p>
-<a id="more"></a>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const runAsync = fn =&gt; &#123;</span><br><span class="line">  const worker = new Worker(</span><br><span class="line">    URL.createObjectURL(new Blob([`postMessage((<span class="variable">$&#123;fn&#125;</span>)());`]), &#123;</span><br><span class="line">      <span class="built_in">type</span>: <span class="string">'application/javascript; charset=utf-8'</span></span><br><span class="line">    &#125;)</span><br><span class="line">  );</span><br><span class="line">  <span class="built_in">return</span> new Promise((res, rej) =&gt; &#123;</span><br><span class="line">    worker.onmessage = (&#123; data &#125;) =&gt; &#123;</span><br><span class="line">      res(data), worker.terminate();</span><br><span class="line">    &#125;;</span><br><span class="line">    worker.onerror = err =&gt; &#123;</span><br><span class="line">      rej(err), worker.terminate();</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
-<p>example</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"> const longRunningFunction = () =&gt; &#123;</span><br><span class="line">      <span class="built_in">let</span> result = 0;</span><br><span class="line">      <span class="keyword">for</span> (<span class="built_in">let</span> i = 0; i &lt; 1000; i++)</span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">let</span> j = 0; j &lt; 700; j++)</span><br><span class="line">          <span class="keyword">for</span> (<span class="built_in">let</span> k = 0; k &lt; 300; k++) result = result + i + j + k;</span><br><span class="line"></span><br><span class="line">      <span class="built_in">return</span> result;</span><br><span class="line">&#125;;</span><br><span class="line">runAsync(longRunningFunction).<span class="keyword">then</span>(console.log); // 209685000000</span><br></pre></td></tr></table></figure>
-
-<p>然后由于代码是在不同的上下文执行的，因此所有的变量以及函数声明都要在内部定义,<br>比如下面这个是不行滴。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">let</span> outsideVariable = 50;</span><br><span class="line">runAsync(() =&gt; typeof outsideVariable).<span class="keyword">then</span>(console.log); // <span class="string">'undefined'</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="Copy-to-Clipboard"><a href="#Copy-to-Clipboard" class="headerlink" title="Copy to Clipboard"></a>Copy to Clipboard</h2><ol>
-<li>创建一个<code>textarea</code>或者<code>input</code>元素添加到<code>document</code>中，让它的值等于要我们想要复制到粘贴板上的值</li>
-<li>使用<code>HTMLInputElement.select()</code> 选择 刚刚创建的元素的内容</li>
-<li>调用<code>Document.execCommand(&#39;copy&#39;)</code>复制刚刚选中的内容</li>
-<li>将刚刚创建的元素移除</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const copy = val=&gt;&#123;</span><br><span class="line">    const el = document.createElement(<span class="string">'input'</span>)</span><br><span class="line">    input.value = val</span><br><span class="line">    document.body.appendChild(el)</span><br><span class="line">    el.select()</span><br><span class="line">    document.execCommand(<span class="string">'copy'</span>)</span><br><span class="line">    documnet.body.removeChild(el)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>但是在执行这个方法的时候，在插入以及移除元素的时候可能会发生闪烁，一个常见的解决方案就是把创建的这个元素放置在不可见区域，看一下改造后的方法</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const copyToClipboard = str =&gt; &#123;</span><br><span class="line">  const el = document.createElement(<span class="string">'textarea'</span>);</span><br><span class="line">  el.value = str;</span><br><span class="line">  el.setAttribute(<span class="string">'readonly'</span>, <span class="string">''</span>);</span><br><span class="line">  el.style.position = <span class="string">'absolute'</span>;</span><br><span class="line">  el.style.left = <span class="string">'-9999px'</span>;</span><br><span class="line">  document.body.appendChild(el);</span><br><span class="line">  el.select();</span><br><span class="line">  document.execCommand(<span class="string">'copy'</span>);</span><br><span class="line">  document.body.removeChild(el);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="修改-url-来重载页面"><a href="#修改-url-来重载页面" class="headerlink" title="修改 url 来重载页面"></a>修改 url 来重载页面</h2><br>
-
-<p><strong>使用 h5 的 history</strong></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const nextURL = <span class="string">'https://my-website.com/page_b'</span>;</span><br><span class="line">const nextTitle = <span class="string">'My new page title'</span>;</span><br><span class="line">const nextState = &#123; additionalInformation: <span class="string">'Updated the URL with JS'</span> &#125;;</span><br><span class="line"><span class="comment"># 在浏览器历史新建一个入口并且无需重新加载</span></span><br><span class="line">window.history.pushState(nextState, nextTitle, nextURL);</span><br><span class="line"><span class="comment"># 取代当前入口</span></span><br><span class="line">window.history.replaceState(nextState, nextTitle, nextURL);</span><br></pre></td></tr></table></figure>
-
-<p>history api 只允许访问同源网站，所以你不能导航到域名完全不一样的网站</p>
-<p><strong>location</strong></p>
-<p>location api 是比较旧的东西了，它需要重载页面才可以改变浏览器记录</p>
-<h2 id="获取当前-url"><a href="#获取当前-url" class="headerlink" title="获取当前 url"></a>获取当前 url</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const getBaseUrl = url =&gt;&#123;</span><br><span class="line">    <span class="built_in">return</span> url.indexOf(<span class="string">'?'</span>) &gt;0 ?url.slice(0,url.indexOf(<span class="string">'?'</span>)):url</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>EXAMPLES</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">getBaseURL(<span class="string">'http://url.com/page?name=Adam&amp;surname=Smith'</span>);</span><br><span class="line"><span class="comment"># 'http://url.com/page'</span></span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>essay</category>
-      </categories>
-      <tags>
-        <tag>essay</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>自适应布局</title>
     <url>/2019/08/07/adaptive/</url>
     <content><![CDATA[<h2 id="grid"><a href="#grid" class="headerlink" title="grid"></a>grid</h2><p>css</p>
@@ -401,6 +307,100 @@
       </tags>
   </entry>
   <entry>
+    <title>GET 和 POST 的区别</title>
+    <url>/2020/09/12/diff-between-get-post/</url>
+    <content><![CDATA[<h2 id="GET请求"><a href="#GET请求" class="headerlink" title="GET请求"></a>GET请求</h2><ol>
+<li>GET请求返回的资源会被浏览器缓存</li>
+<li>GET请求会保存在浏览器的历史记录中</li>
+<li>GET请求能当书签</li>
+<li>GET不能用来处理敏感数据</li>
+<li>有长度限制（具体长度参见各个浏览器规范）</li>
+<li>仅仅用来获取数据，不能修改</li>
+<li>参数的数据类型，只接收ascll编码</li>
+<li>仅支持url编码</li>
+<li>产生一个数据包</li>
+<li>页面重载或者回退没有影响</li>
+</ol>
+<h2 id="POST请求"><a href="#POST请求" class="headerlink" title="POST请求"></a>POST请求</h2><ol>
+<li>请求不会被缓存</li>
+<li>不会保存在历史记录中</li>
+<li>不能作为书签</li>
+<li>数据长度没有限制</li>
+<li>参数的数据类型没有限制</li>
+<li>支持多种编码</li>
+<li>两个数据包，需要服务器响应100后继续发出请求之后服务器（可能）响应200</li>
+<li>刷新或者回退 数据会重新提交</li>
+</ol>
+<h2 id="其他http方法"><a href="#其他http方法" class="headerlink" title="其他http方法"></a>其他http方法</h2><h3 id="put"><a href="#put" class="headerlink" title="put"></a>put</h3><p>put方法跟post一样，也是用来创建或者更新资源的，但是跟post不一样的地方在于put请求是幂等的，也就是说put请求发起多次所产生的结果是跟第一个一样的；那么对于post请求，重复请求就会产生多次创建相同资源的副作用</p>
+<h3 id="head"><a href="#head" class="headerlink" title="head"></a>head</h3><p>head请求跟get请求是差不多相同的，不同的地方在于head请求没有返回体<br>那么head 请求通常是在发起get请求之前检查get请求返回的是什么，比如在下载文件的时候或者下载请求体的时候</p>
+<h3 id="delete"><a href="#delete" class="headerlink" title="delete"></a>delete</h3><p>删除方法用来删除资源</p>
+<h3 id="options"><a href="#options" class="headerlink" title="options"></a>options</h3><p>是复杂请求的预检请求</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>今日随笔(7-29)</title>
+    <url>/2020/07/29/essay-1/</url>
+    <content><![CDATA[<h2 id="runAsync"><a href="#runAsync" class="headerlink" title="runAsync"></a>runAsync</h2><p>使用 web worker 在一个单独的线程中执行函数，能够允许执行不阻塞 UI 渲染的耗时函数</p>
+<ol>
+<li><p>使用 blob 形式的 url 来创建<code>worker</code>,<code>worker</code>的内容应该是函数的系列化版本，然后立即返回函数的返回值</p>
+</li>
+<li><p>返回值是一个<code>promise</code>，它监听了<code>worker</code>的<code>onmessage</code> and <code>onerror</code>两个事件，返回从主线程发送过来的数据或者是抛出一个错误</p>
+<a id="more"></a>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const runAsync = fn =&gt; &#123;</span><br><span class="line">  const worker = new Worker(</span><br><span class="line">    URL.createObjectURL(new Blob([`postMessage((<span class="variable">$&#123;fn&#125;</span>)());`]), &#123;</span><br><span class="line">      <span class="built_in">type</span>: <span class="string">'application/javascript; charset=utf-8'</span></span><br><span class="line">    &#125;)</span><br><span class="line">  );</span><br><span class="line">  <span class="built_in">return</span> new Promise((res, rej) =&gt; &#123;</span><br><span class="line">    worker.onmessage = (&#123; data &#125;) =&gt; &#123;</span><br><span class="line">      res(data), worker.terminate();</span><br><span class="line">    &#125;;</span><br><span class="line">    worker.onerror = err =&gt; &#123;</span><br><span class="line">      rej(err), worker.terminate();</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>example</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"> const longRunningFunction = () =&gt; &#123;</span><br><span class="line">      <span class="built_in">let</span> result = 0;</span><br><span class="line">      <span class="keyword">for</span> (<span class="built_in">let</span> i = 0; i &lt; 1000; i++)</span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">let</span> j = 0; j &lt; 700; j++)</span><br><span class="line">          <span class="keyword">for</span> (<span class="built_in">let</span> k = 0; k &lt; 300; k++) result = result + i + j + k;</span><br><span class="line"></span><br><span class="line">      <span class="built_in">return</span> result;</span><br><span class="line">&#125;;</span><br><span class="line">runAsync(longRunningFunction).<span class="keyword">then</span>(console.log); // 209685000000</span><br></pre></td></tr></table></figure>
+
+<p>然后由于代码是在不同的上下文执行的，因此所有的变量以及函数声明都要在内部定义,<br>比如下面这个是不行滴。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">let</span> outsideVariable = 50;</span><br><span class="line">runAsync(() =&gt; typeof outsideVariable).<span class="keyword">then</span>(console.log); // <span class="string">'undefined'</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Copy-to-Clipboard"><a href="#Copy-to-Clipboard" class="headerlink" title="Copy to Clipboard"></a>Copy to Clipboard</h2><ol>
+<li>创建一个<code>textarea</code>或者<code>input</code>元素添加到<code>document</code>中，让它的值等于要我们想要复制到粘贴板上的值</li>
+<li>使用<code>HTMLInputElement.select()</code> 选择 刚刚创建的元素的内容</li>
+<li>调用<code>Document.execCommand(&#39;copy&#39;)</code>复制刚刚选中的内容</li>
+<li>将刚刚创建的元素移除</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const copy = val=&gt;&#123;</span><br><span class="line">    const el = document.createElement(<span class="string">'input'</span>)</span><br><span class="line">    input.value = val</span><br><span class="line">    document.body.appendChild(el)</span><br><span class="line">    el.select()</span><br><span class="line">    document.execCommand(<span class="string">'copy'</span>)</span><br><span class="line">    documnet.body.removeChild(el)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>但是在执行这个方法的时候，在插入以及移除元素的时候可能会发生闪烁，一个常见的解决方案就是把创建的这个元素放置在不可见区域，看一下改造后的方法</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const copyToClipboard = str =&gt; &#123;</span><br><span class="line">  const el = document.createElement(<span class="string">'textarea'</span>);</span><br><span class="line">  el.value = str;</span><br><span class="line">  el.setAttribute(<span class="string">'readonly'</span>, <span class="string">''</span>);</span><br><span class="line">  el.style.position = <span class="string">'absolute'</span>;</span><br><span class="line">  el.style.left = <span class="string">'-9999px'</span>;</span><br><span class="line">  document.body.appendChild(el);</span><br><span class="line">  el.select();</span><br><span class="line">  document.execCommand(<span class="string">'copy'</span>);</span><br><span class="line">  document.body.removeChild(el);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="修改-url-来重载页面"><a href="#修改-url-来重载页面" class="headerlink" title="修改 url 来重载页面"></a>修改 url 来重载页面</h2><br>
+
+<p><strong>使用 h5 的 history</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const nextURL = <span class="string">'https://my-website.com/page_b'</span>;</span><br><span class="line">const nextTitle = <span class="string">'My new page title'</span>;</span><br><span class="line">const nextState = &#123; additionalInformation: <span class="string">'Updated the URL with JS'</span> &#125;;</span><br><span class="line"><span class="comment"># 在浏览器历史新建一个入口并且无需重新加载</span></span><br><span class="line">window.history.pushState(nextState, nextTitle, nextURL);</span><br><span class="line"><span class="comment"># 取代当前入口</span></span><br><span class="line">window.history.replaceState(nextState, nextTitle, nextURL);</span><br></pre></td></tr></table></figure>
+
+<p>history api 只允许访问同源网站，所以你不能导航到域名完全不一样的网站</p>
+<p><strong>location</strong></p>
+<p>location api 是比较旧的东西了，它需要重载页面才可以改变浏览器记录</p>
+<h2 id="获取当前-url"><a href="#获取当前-url" class="headerlink" title="获取当前 url"></a>获取当前 url</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const getBaseUrl = url =&gt;&#123;</span><br><span class="line">    <span class="built_in">return</span> url.indexOf(<span class="string">'?'</span>) &gt;0 ?url.slice(0,url.indexOf(<span class="string">'?'</span>)):url</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>EXAMPLES</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">getBaseURL(<span class="string">'http://url.com/page?name=Adam&amp;surname=Smith'</span>);</span><br><span class="line"><span class="comment"># 'http://url.com/page'</span></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>essay</category>
+      </categories>
+      <tags>
+        <tag>essay</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>部署hexo踩坑记录</title>
+    <url>/2020/11/14/bugsForNode/</url>
+    <content><![CDATA[<p>在执行下面这句代码的时候</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g -d</span><br></pre></td></tr></table></figure>
+
+<p>报错信息</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Something<span class="string">'s wrong. Maybe you can find the solution here: https://hexo.io/docs/troubleshooting.html</span></span><br><span class="line"><span class="string">TypeError [ERR_INVALID_ARG_TYPE]: The "mode" argument must be integer. Received an instance of Object</span></span><br><span class="line"><span class="string">    at copyFile (fs.js:1924:10)</span></span><br><span class="line"><span class="string">    at tryCatcher (/Users/zjs/Desktop/blog/node_modules/bluebird/js/release/util.js:16:23)</span></span><br><span class="line"><span class="string">    at ret (eval at makeNodePromisifiedEval (/Users/zjs/.nvm/versions/node/v14.10.0/lib/node_modules/hexo-cli/node_modules/bluebird/js/release/promisify.js:184:12), &lt;anonymous&gt;:13:39)</span></span><br></pre></td></tr></table></figure>
+
+<p>解决方案<br> NodeJs 版本从 14 回到 12 就🉑️！</p>
+]]></content>
+  </entry>
+  <entry>
     <title>今日随笔(7-30)</title>
     <url>/2020/07/30/essay-2/</url>
     <content><![CDATA[<h2 id="用-ts-开发-react-组件"><a href="#用-ts-开发-react-组件" class="headerlink" title="用 ts 开发 react 组件"></a>用 ts 开发 react 组件</h2><br>
@@ -507,21 +507,6 @@
       </tags>
   </entry>
   <entry>
-    <title>今日随笔(8-6)</title>
-    <url>/2020/08/06/essay-4/</url>
-    <content><![CDATA[<p>先看代码</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const a = 1</span><br><span class="line">[...[1,2,3]].forEach(item=&gt;console.log(item))</span><br></pre></td></tr></table></figure>
-
-<p>乍一看，是不是感觉挺正常的，在浏览器的log窗口应该能输出1，2，3，才对<br>然后在浏览器跑一下，发现</p>
-<p><img src="/images/essay-4/unexpected_error.png.png" alt="error"></p>
-<p>然后emm排查了一下，语法是没问题的，浏览器版本是最新的开发版本，es6的语法肯定是支持的，那问题其实就是a=1 后面漏了分号，所以代码就成了这样</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const a = 1[...[1,2,3]].forEach(item=&gt;console.log(item))</span><br></pre></td></tr></table></figure>
-
-<p>那代码成了这样那肯定不能正确解析了～</p>
-<p>果然，漏写分号不是好习惯～</p>
-]]></content>
-  </entry>
-  <entry>
     <title>docker</title>
     <url>/2020/07/31/essay-3/</url>
     <content><![CDATA[<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>Docker 是由开发人员和系统管理员 构建 、运行和容器共享的应用程序的一个平台。使用容器部署应用程序称之为集装箱化。</p>
@@ -580,21 +565,25 @@
       </tags>
   </entry>
   <entry>
-    <title>今日随笔(2020-10-11)</title>
-    <url>/2020/10/11/essay-5/</url>
-    <content><![CDATA[<h3 id="命令行文件的上传与下载"><a href="#命令行文件的上传与下载" class="headerlink" title="命令行文件的上传与下载"></a>命令行文件的上传与下载</h3><p>文件的上传和下载命令都是scp</p>
-<p><strong>上传</strong><br>从服务器上下载文件 scp username@servername:/path/filename /Users/mac/Desktop（本地目录，例如：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">scp root@47.98.37.170:/root/test.txt /Users/mac/Desktop就是将服务器上的/root/test.txt下载到本地的/Users/mac/Desktop目录下。注意两个地址之间有空格！</span><br></pre></td></tr></table></figure>
+    <title>今日随笔(8-6)</title>
+    <url>/2020/08/06/essay-4/</url>
+    <content><![CDATA[<p>先看代码</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const a = 1</span><br><span class="line">[...[1,2,3]].forEach(item=&gt;console.log(item))</span><br></pre></td></tr></table></figure>
 
-<p><strong>下载</strong><br>上传本地文件到服务器 scp /path/filename username@servername:/path ;</p>
-<p>note： 下载命令就是将两个路径换一个位置就行了。</p>
-<h3 id="TS-4-0的一些更新"><a href="#TS-4-0的一些更新" class="headerlink" title="TS 4.0的一些更新"></a>TS 4.0的一些更新</h3><h4 id="类型解构"><a href="#类型解构" class="headerlink" title="类型解构"></a>类型解构</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> Strings = [string, string];</span><br><span class="line"><span class="built_in">type</span> Numbers = number[]</span><br><span class="line"></span><br><span class="line"><span class="built_in">type</span> Unbounded = [...Strings, ...Numbers, boolean];</span><br><span class="line"><span class="comment"># // [string, string, ...Array&lt;number | boolean&gt;]</span></span><br><span class="line"><span class="comment"># 按照官方的解释就是解构一个已知长度的类型的时候，那么最后的结果类型也是没有任何限制的，在解构类型之后添加的类型声明都要添加到被解构类型的类型中去</span></span><br></pre></td></tr></table></figure>
+<p>乍一看，是不是感觉挺正常的，在浏览器的log窗口应该能输出1，2，3，才对<br>然后在浏览器跑一下，发现</p>
+<p><img src="/images/essay-4/unexpected_error.png.png" alt="error"></p>
+<p>然后emm排查了一下，语法是没问题的，浏览器版本是最新的开发版本，es6的语法肯定是支持的，那问题其实就是a=1 后面漏了分号，所以代码就成了这样</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const a = 1[...[1,2,3]].forEach(item=&gt;console.log(item))</span><br></pre></td></tr></table></figure>
 
-<p>—待续哈，明天更新</p>
+<p>那代码成了这样那肯定不能正确解析了～</p>
+<p>果然，漏写分号不是好习惯～</p>
 ]]></content>
-      <tags>
-        <tag>TypeScript Upload</tag>
-      </tags>
+  </entry>
+  <entry>
+    <title>今日随笔</title>
+    <url>/2021/01/10/essay-7/</url>
+    <content><![CDATA[<p><img src="/images/essay-7/essay.png" alt="essay"></p>
+]]></content>
   </entry>
   <entry>
     <title>今日随笔(2020-12-27)</title>
@@ -614,6 +603,23 @@
 </li>
 </ol>
 ]]></content>
+  </entry>
+  <entry>
+    <title>今日随笔(2020-10-11)</title>
+    <url>/2020/10/11/essay-5/</url>
+    <content><![CDATA[<h3 id="命令行文件的上传与下载"><a href="#命令行文件的上传与下载" class="headerlink" title="命令行文件的上传与下载"></a>命令行文件的上传与下载</h3><p>文件的上传和下载命令都是scp</p>
+<p><strong>上传</strong><br>从服务器上下载文件 scp username@servername:/path/filename /Users/mac/Desktop（本地目录，例如：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">scp root@47.98.37.170:/root/test.txt /Users/mac/Desktop就是将服务器上的/root/test.txt下载到本地的/Users/mac/Desktop目录下。注意两个地址之间有空格！</span><br></pre></td></tr></table></figure>
+
+<p><strong>下载</strong><br>上传本地文件到服务器 scp /path/filename username@servername:/path ;</p>
+<p>note： 下载命令就是将两个路径换一个位置就行了。</p>
+<h3 id="TS-4-0的一些更新"><a href="#TS-4-0的一些更新" class="headerlink" title="TS 4.0的一些更新"></a>TS 4.0的一些更新</h3><h4 id="类型解构"><a href="#类型解构" class="headerlink" title="类型解构"></a>类型解构</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> Strings = [string, string];</span><br><span class="line"><span class="built_in">type</span> Numbers = number[]</span><br><span class="line"></span><br><span class="line"><span class="built_in">type</span> Unbounded = [...Strings, ...Numbers, boolean];</span><br><span class="line"><span class="comment"># // [string, string, ...Array&lt;number | boolean&gt;]</span></span><br><span class="line"><span class="comment"># 按照官方的解释就是解构一个已知长度的类型的时候，那么最后的结果类型也是没有任何限制的，在解构类型之后添加的类型声明都要添加到被解构类型的类型中去</span></span><br></pre></td></tr></table></figure>
+
+<p>—待续哈，明天更新</p>
+]]></content>
+      <tags>
+        <tag>TypeScript Upload</tag>
+      </tags>
   </entry>
   <entry>
     <title>今日随笔(1-31)</title>
@@ -681,121 +687,6 @@
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> setName(obj) &#123;</span><br><span class="line">  obj.name ??= <span class="string">'(Unnamed)'</span>;</span><br><span class="line">  <span class="built_in">return</span> obj;</span><br><span class="line">&#125;</span><br><span class="line">assert.deepEqual(</span><br><span class="line">  setName(&#123;&#125;),</span><br><span class="line">  &#123;name: <span class="string">'(Unnamed)'</span>&#125;</span><br><span class="line">);</span><br><span class="line">assert.deepEqual(</span><br><span class="line">  setName(&#123;name: undefined&#125;),</span><br><span class="line">  &#123;name: <span class="string">'(Unnamed)'</span>&#125;</span><br><span class="line">);</span><br><span class="line">assert.deepEqual(</span><br><span class="line">  setName(&#123;name: null&#125;),</span><br><span class="line">  &#123;name: <span class="string">'(Unnamed)'</span>&#125;</span><br><span class="line">);</span><br><span class="line">assert.deepEqual(</span><br><span class="line">  setName(&#123;name: <span class="string">'Jane'</span>&#125;),</span><br><span class="line">  &#123;name: <span class="string">'Jane'</span>&#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>]]></content>
       <tags>
         <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>今日随笔(2-10)</title>
-    <url>/2021/02/10/essay-9/</url>
-    <content><![CDATA[<h4 id="NaN-和-Number-isNaN"><a href="#NaN-和-Number-isNaN" class="headerlink" title="NaN 和 Number.isNaN"></a>NaN 和 Number.isNaN</h4><hr>
-<p>全局属性 NaN 的值表示不是一个数字（Not-A-Number）。</p>
-<p>NaN 属性的初始值就是 NaN，和 Number.NaN 的值一样。在现代浏览器中（ES5中）， NaN 属性是一个不可配置（non-configurable），不可写（non-writable）的属性。但在ES3中，这个属性的值是可以被更改的，但是也应该避免覆盖。  — mdn</p>
-<a id="more"></a>
-<p>NaN是唯一一个自身不相等的数字，判断一个值是否是NaN，主要是用两种方法来判断，一个是NaN，一个是Number.isNaN。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">NaN === NaN;        // <span class="literal">false</span></span><br><span class="line">Number.NaN === NaN; // <span class="literal">false</span></span><br><span class="line">isNaN(NaN);         // <span class="literal">true</span></span><br><span class="line">isNaN(Number.NaN);  // <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> valueIsNaN(v) &#123; <span class="built_in">return</span> v !== v; &#125;</span><br><span class="line">valueIsNaN(1);          // <span class="literal">false</span></span><br><span class="line">valueIsNaN(NaN);        // <span class="literal">true</span></span><br><span class="line">valueIsNaN(Number.NaN); // <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-
-<p>对于两个方法还是有所不同的：如果当前值是NaN，或者将其强制转换为数字后将是NaN，则前者将返回true。而后者仅当值当前为NaN时才为true：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">isNaN(<span class="string">'hello world'</span>);        // <span class="literal">true</span> <span class="string">'hello world'</span>转数字失败变成NaN。</span><br><span class="line">Number.isNaN(<span class="string">'hello world'</span>); // <span class="literal">false</span></span><br></pre></td></tr></table></figure>
-
-<p>对于NaN方法：</p>
-<ul>
-<li>Let num be ? ToNumber(number).</li>
-<li>If num is NaN, return true.</li>
-<li>Otherwise, return false.</li>
-</ul>
-<p>而对于Number.isNaN来说：</p>
-<ul>
-<li>If Type(number) is not Number, return false.</li>
-<li>If number is NaN, return true.</li>
-<li>Otherwise, return false.</li>
-</ul>
-<p>可以看到规范中定义的两个方法在第一步中对传递进来对参数的处理方式并不一样。因此这两个方法是有所区别的。</p>
-]]></content>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>今日随笔</title>
-    <url>/2021/01/10/essay-7/</url>
-    <content><![CDATA[<p><img src="/images/essay-7/essay.png" alt="essay"></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>理解 flex-basis</title>
-    <url>/2020/11/14/flex/</url>
-    <content><![CDATA[<p>上个html代码</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"parent"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"child"</span>&gt;</span>Child<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"child"</span>&gt;</span>Child<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"child"</span>&gt;</span>Child<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>css≠</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.parent</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.child</span> &#123;</span><br><span class="line">  <span class="attribute">flex</span>: <span class="number">0</span> <span class="number">1</span> auto; <span class="comment">/* Default flex value */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<html>
-<style>
-body{
-    body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
-    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-}
-}
-.parent {
-  display: flex;
-}
-.child {
-  flex: 0 1 auto; /* Default flex value */
-  /* 上面的代码相当于是
-  *flex-grow:0; flex-shrink:1;flex-basis:auto;s
-  *
-  */
-}
-.child-grow{
-    flex:1 0 auto;
-}
-.child-flex{
-    flex:1 1 auto
-}
-</style>
-<div class="parent">
-  <div class="child">Child</div>
-  <div class="child">Child</div>
-  <div class="child">Child</div>
-</div>
-</html>
-
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.child</span> &#123;</span><br><span class="line">  <span class="attribute">flex</span>: [flex-grow] [flex-shrink] [flex-basis];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><span id="showCssText"><span></span></span></p>
-<p><button id="toggle">toggle</button></p>
-<script>
-const btn = document.getElementById("toggle");
-btn.addEventListener('click',function(){
-        const span = document.getElementById('showCssText');
-        [...document.getElementsByClassName('child')].forEach(item=>{
-            const classList = item.classList;
-            // console.log(classList)
-            if(classList.length === 1 ){
-                classList.add('child-grow')
-                span.innerText = 'flex:1 0 auto;'
-            }else if(classList.length === 2){
-                classList.add('child-flex')
-                span.innerText = 'flex:1 1 auto'
-            }else{
-                classList.remove('child-flex')
-                classList.remove('child-grow')
-                span.innerText = 'flex: 0 1 auto; '
-            }
-        })
-})
-</script>
-
-
-<p>flex-basic 默认是auto，告诉元素保持一个理想的尺寸；但是默认情况下的元素宽度是多少？auto告诉元素它的宽度由它的内容决定。为了让子元素占据父元素的所有空间，可以给子元素的宽度设置为<code>width:100%</code>,或者<code>flex-basis:100%</code>,或者<code>flex-grow:1</code>。</p>
-<p>当给flex 的第三值 ，也就是 flex-basis 设置成1000px时，它会试着占据1000px的空间，如果不行，它会等比例占据其他元素的空间，但是其他元素内的文本长度同样会影响这个元素的位置分配；但是在更小的屏幕上可能会发现实际宽度并没有1000px，这是因为给了shrink，这个值告诉元素需要它等值缩小</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">.child-three &#123;</span><br><span class="line">  flex: 0 1 1000px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>如果grow 和 shrink都是0，那么元素不会等比例压缩，basis如果超出父元素宽度，那直接超出</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">.child-three &#123;</span><br><span class="line">  flex: 0 0 1000px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <tags>
-        <tag>css</tag>
       </tags>
   </entry>
   <entry>
@@ -946,27 +837,6 @@ btn.addEventListener('click',function(){
       </tags>
   </entry>
   <entry>
-    <title>item</title>
-    <url>/2020/10/07/item/</url>
-    <content><![CDATA[<h3 id="Proposal-for-a-item-method-on-all-the-built-in-indexables"><a href="#Proposal-for-a-item-method-on-all-the-built-in-indexables" class="headerlink" title="Proposal for a .item() method on all the built-in indexables"></a>Proposal for a .item() method on all the built-in indexables</h3><p>这个方法是给有索引对象内置的一个方法，那么这个方法接收一个 number 类型的 index，对象能够根据 index 来确定值。那其实看到这会有个问题，具备索引的对象自己就能根据索引来确定值了，那么这个方法出现的意义是为什么？它其实是用负值的 index 来获取值，比如</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const arr =[1,2,3]</span><br><span class="line">arr.item(-1) // 3</span><br></pre></td></tr></table></figure>
-
-<p>是这样的用法。<br>那么这个方法是挂载在 String，Array，TypeArray 这三个数据结构的原型链上。<br>然后对于 dom 结构中类型 document.getElementById()这样的返回 NodeList 结构在经过 Array.from 转化之后同样会挂载 item 方法</p>
-<p>但是这个方法目前还处于 stage3 阶段，因此是不能直接使用的 hhhh。但是官方给出了 polyfill</p>
-<p>Like this:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> item(n) &#123;</span><br><span class="line">	<span class="comment"># ToInteger() abstract op</span></span><br><span class="line">	n = Math.trunc(n) || 0;</span><br><span class="line">	<span class="comment"># Allow negative indexing from the end</span></span><br><span class="line">	<span class="keyword">if</span>(n &lt; 0) n += this.length;</span><br><span class="line">	<span class="comment"># OOB access is guaranteed to return undefined</span></span><br><span class="line">	<span class="keyword">if</span>(n &lt; 0 || n &gt;= this.length) <span class="built_in">return</span> undefined;</span><br><span class="line">	<span class="comment"># Otherwise, this is just normal property access</span></span><br><span class="line">	<span class="built_in">return</span> this[n];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Other TypedArray constructors omitted for brevity.</span></span><br><span class="line"><span class="keyword">for</span> (<span class="built_in">let</span> C of [Array, String, Uint8Array]) &#123;</span><br><span class="line">    Object.defineProperty(C.prototype, <span class="string">"item"</span>,</span><br><span class="line">                          &#123; value: item,</span><br><span class="line">                            writable: <span class="literal">true</span>,</span><br><span class="line">                            enumerable: <span class="literal">false</span>,</span><br><span class="line">                            configurable: <span class="literal">true</span> &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="2021-3-21-更新"><a href="#2021-3-21-更新" class="headerlink" title="2021-3-21 更新"></a>2021-3-21 更新</h4><p><img src="/images/item/proposal.png" alt="proposal"></p>
-<p>item方法更名为at方法</p>
-<p><code>Spec-compliant polyfills using the old name of .item(): Array.prototype.item, String.prototype.item</code></p>
-<p>The original iteration of this proposal proposed the name of the method to be .item(). Unfortunately, this was found out to be not web compatible. Libraries, notably YUI2 and YUI3, were duck-typing objects to be DOM collections based on the presence of a .item property. Please see <a href="https://github.com/tc39/proposal-relative-indexing-method/issues/28">#28</a>, <a href="https://github.com/tc39/proposal-relative-indexing-method/issues/31">#31</a>, and <a href="https://github.com/tc39/proposal-relative-indexing-method/issues/32">#32</a> for more details.</p>
-<p>Captured below is the original motivation for choosing the .item() name and the original concerns.</p>
-]]></content>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>内网穿透</title>
     <url>/2020/01/08/intranet-contacts/</url>
     <content><![CDATA[<p>内网穿透就是把本地服务映射到具有公网IP地址的服务器上，通过访问在公网上的机器，就可以访问到内网</p>
@@ -980,6 +850,37 @@ btn.addEventListener('click',function(){
 ]]></content>
       <tags>
         <tag>tool</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>今日随笔(2-10)</title>
+    <url>/2021/02/10/essay-9/</url>
+    <content><![CDATA[<h4 id="NaN-和-Number-isNaN"><a href="#NaN-和-Number-isNaN" class="headerlink" title="NaN 和 Number.isNaN"></a>NaN 和 Number.isNaN</h4><hr>
+<p>全局属性 NaN 的值表示不是一个数字（Not-A-Number）。</p>
+<p>NaN 属性的初始值就是 NaN，和 Number.NaN 的值一样。在现代浏览器中（ES5中）， NaN 属性是一个不可配置（non-configurable），不可写（non-writable）的属性。但在ES3中，这个属性的值是可以被更改的，但是也应该避免覆盖。  — mdn</p>
+<a id="more"></a>
+<p>NaN是唯一一个自身不相等的数字，判断一个值是否是NaN，主要是用两种方法来判断，一个是NaN，一个是Number.isNaN。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">NaN === NaN;        // <span class="literal">false</span></span><br><span class="line">Number.NaN === NaN; // <span class="literal">false</span></span><br><span class="line">isNaN(NaN);         // <span class="literal">true</span></span><br><span class="line">isNaN(Number.NaN);  // <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> valueIsNaN(v) &#123; <span class="built_in">return</span> v !== v; &#125;</span><br><span class="line">valueIsNaN(1);          // <span class="literal">false</span></span><br><span class="line">valueIsNaN(NaN);        // <span class="literal">true</span></span><br><span class="line">valueIsNaN(Number.NaN); // <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<p>对于两个方法还是有所不同的：如果当前值是NaN，或者将其强制转换为数字后将是NaN，则前者将返回true。而后者仅当值当前为NaN时才为true：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">isNaN(<span class="string">'hello world'</span>);        // <span class="literal">true</span> <span class="string">'hello world'</span>转数字失败变成NaN。</span><br><span class="line">Number.isNaN(<span class="string">'hello world'</span>); // <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+<p>对于NaN方法：</p>
+<ul>
+<li>Let num be ? ToNumber(number).</li>
+<li>If num is NaN, return true.</li>
+<li>Otherwise, return false.</li>
+</ul>
+<p>而对于Number.isNaN来说：</p>
+<ul>
+<li>If Type(number) is not Number, return false.</li>
+<li>If number is NaN, return true.</li>
+<li>Otherwise, return false.</li>
+</ul>
+<p>可以看到规范中定义的两个方法在第一步中对传递进来对参数的处理方式并不一样。因此这两个方法是有所区别的。</p>
+]]></content>
+      <tags>
+        <tag>JavaScript</tag>
       </tags>
   </entry>
   <entry>
@@ -1030,20 +931,6 @@ btn.addEventListener('click',function(){
 ]]></content>
       <tags>
         <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>leetcode第1003之检查替换后的词是否有效</title>
-    <url>/2019/08/08/leetcode-1003/</url>
-    <content><![CDATA[<p>描述：: 给定有效字符串 “abc”。<br>对于任何有效的字符串 V，我们可以将 V 分成两个部分 X 和 Y，使得 X + Y（X 与 Y 连接）等于 V。（X 或 Y 可以为空。）那么，X + “abc” + Y 也同样是有效的。<br>例如，如果 S = “abc”，则有效字符串的示例是：”abc”，”aabcbc”，”abcabc”，”abcabcababcc”。无效字符串的示例是：”abccba”，”ab”，”cababc”，”bac”。<br>如果给定字符串 S 有效，则返回 true；否则，返回 false</p>
-<a id="more"></a>
-
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * @param &#123;string&#125; S</span><br><span class="line"> * @<span class="built_in">return</span> &#123;boolean&#125;</span><br><span class="line"> */</span><br><span class="line">var isValid = <span class="keyword">function</span>(S) &#123;</span><br><span class="line">    <span class="built_in">let</span> temp= <span class="string">''</span>;</span><br><span class="line">    <span class="keyword">while</span>(S.indexOf(<span class="string">'abc'</span>)!=-1)&#123;</span><br><span class="line">        temp= S.split(<span class="string">'abc'</span>).filter(item=&gt;item).join(<span class="string">""</span>);</span><br><span class="line">        S = temp;</span><br><span class="line">    &#125;</span><br><span class="line">    const isFlag=(str)=&gt;&#123;</span><br><span class="line">         <span class="built_in">return</span> str ==<span class="string">''</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> isFlag(S);</span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>leetcode</category>
-      </categories>
-      <tags>
-        <tag>leetcode</tag>
       </tags>
   </entry>
   <entry>
@@ -1104,6 +991,20 @@ btn.addEventListener('click',function(){
       </tags>
   </entry>
   <entry>
+    <title>leetcode第1003之检查替换后的词是否有效</title>
+    <url>/2019/08/08/leetcode-1003/</url>
+    <content><![CDATA[<p>描述：: 给定有效字符串 “abc”。<br>对于任何有效的字符串 V，我们可以将 V 分成两个部分 X 和 Y，使得 X + Y（X 与 Y 连接）等于 V。（X 或 Y 可以为空。）那么，X + “abc” + Y 也同样是有效的。<br>例如，如果 S = “abc”，则有效字符串的示例是：”abc”，”aabcbc”，”abcabc”，”abcabcababcc”。无效字符串的示例是：”abccba”，”ab”，”cababc”，”bac”。<br>如果给定字符串 S 有效，则返回 true；否则，返回 false</p>
+<a id="more"></a>
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * @param &#123;string&#125; S</span><br><span class="line"> * @<span class="built_in">return</span> &#123;boolean&#125;</span><br><span class="line"> */</span><br><span class="line">var isValid = <span class="keyword">function</span>(S) &#123;</span><br><span class="line">    <span class="built_in">let</span> temp= <span class="string">''</span>;</span><br><span class="line">    <span class="keyword">while</span>(S.indexOf(<span class="string">'abc'</span>)!=-1)&#123;</span><br><span class="line">        temp= S.split(<span class="string">'abc'</span>).filter(item=&gt;item).join(<span class="string">""</span>);</span><br><span class="line">        S = temp;</span><br><span class="line">    &#125;</span><br><span class="line">    const isFlag=(str)=&gt;&#123;</span><br><span class="line">         <span class="built_in">return</span> str ==<span class="string">''</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> isFlag(S);</span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>leetcode第70之爬楼梯</title>
     <url>/2019/08/08/leetcode-70/</url>
     <content><![CDATA[<p>描述：假设你正在爬楼梯。需要 n 阶你才能到达楼顶。</p>
@@ -1115,6 +1016,84 @@ btn.addEventListener('click',function(){
 ]]></content>
       <tags>
         <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>理解 flex-basis</title>
+    <url>/2020/11/14/flex/</url>
+    <content><![CDATA[<p>上个html代码</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"parent"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"child"</span>&gt;</span>Child<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"child"</span>&gt;</span>Child<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"child"</span>&gt;</span>Child<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>css≠</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.parent</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.child</span> &#123;</span><br><span class="line">  <span class="attribute">flex</span>: <span class="number">0</span> <span class="number">1</span> auto; <span class="comment">/* Default flex value */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<html>
+<style>
+body{
+    body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+}
+.parent {
+  display: flex;
+}
+.child {
+  flex: 0 1 auto; /* Default flex value */
+  /* 上面的代码相当于是
+  *flex-grow:0; flex-shrink:1;flex-basis:auto;s
+  *
+  */
+}
+.child-grow{
+    flex:1 0 auto;
+}
+.child-flex{
+    flex:1 1 auto
+}
+</style>
+<div class="parent">
+  <div class="child">Child</div>
+  <div class="child">Child</div>
+  <div class="child">Child</div>
+</div>
+</html>
+
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.child</span> &#123;</span><br><span class="line">  <span class="attribute">flex</span>: [flex-grow] [flex-shrink] [flex-basis];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><span id="showCssText"><span></span></span></p>
+<p><button id="toggle">toggle</button></p>
+<script>
+const btn = document.getElementById("toggle");
+btn.addEventListener('click',function(){
+        const span = document.getElementById('showCssText');
+        [...document.getElementsByClassName('child')].forEach(item=>{
+            const classList = item.classList;
+            // console.log(classList)
+            if(classList.length === 1 ){
+                classList.add('child-grow')
+                span.innerText = 'flex:1 0 auto;'
+            }else if(classList.length === 2){
+                classList.add('child-flex')
+                span.innerText = 'flex:1 1 auto'
+            }else{
+                classList.remove('child-flex')
+                classList.remove('child-grow')
+                span.innerText = 'flex: 0 1 auto; '
+            }
+        })
+})
+</script>
+
+
+<p>flex-basic 默认是auto，告诉元素保持一个理想的尺寸；但是默认情况下的元素宽度是多少？auto告诉元素它的宽度由它的内容决定。为了让子元素占据父元素的所有空间，可以给子元素的宽度设置为<code>width:100%</code>,或者<code>flex-basis:100%</code>,或者<code>flex-grow:1</code>。</p>
+<p>当给flex 的第三值 ，也就是 flex-basis 设置成1000px时，它会试着占据1000px的空间，如果不行，它会等比例占据其他元素的空间，但是其他元素内的文本长度同样会影响这个元素的位置分配；但是在更小的屏幕上可能会发现实际宽度并没有1000px，这是因为给了shrink，这个值告诉元素需要它等值缩小</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">.child-three &#123;</span><br><span class="line">  flex: 0 1 1000px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果grow 和 shrink都是0，那么元素不会等比例压缩，basis如果超出父元素宽度，那直接超出</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">.child-three &#123;</span><br><span class="line">  flex: 0 0 1000px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>css</tag>
       </tags>
   </entry>
   <entry>
@@ -1147,6 +1126,27 @@ btn.addEventListener('click',function(){
       </categories>
       <tags>
         <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>item</title>
+    <url>/2020/10/07/item/</url>
+    <content><![CDATA[<h3 id="Proposal-for-a-item-method-on-all-the-built-in-indexables"><a href="#Proposal-for-a-item-method-on-all-the-built-in-indexables" class="headerlink" title="Proposal for a .item() method on all the built-in indexables"></a>Proposal for a .item() method on all the built-in indexables</h3><p>这个方法是给有索引对象内置的一个方法，那么这个方法接收一个 number 类型的 index，对象能够根据 index 来确定值。那其实看到这会有个问题，具备索引的对象自己就能根据索引来确定值了，那么这个方法出现的意义是为什么？它其实是用负值的 index 来获取值，比如</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const arr =[1,2,3]</span><br><span class="line">arr.item(-1) // 3</span><br></pre></td></tr></table></figure>
+
+<p>是这样的用法。<br>那么这个方法是挂载在 String，Array，TypeArray 这三个数据结构的原型链上。<br>然后对于 dom 结构中类型 document.getElementById()这样的返回 NodeList 结构在经过 Array.from 转化之后同样会挂载 item 方法</p>
+<p>但是这个方法目前还处于 stage3 阶段，因此是不能直接使用的 hhhh。但是官方给出了 polyfill</p>
+<p>Like this:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> item(n) &#123;</span><br><span class="line">	<span class="comment"># ToInteger() abstract op</span></span><br><span class="line">	n = Math.trunc(n) || 0;</span><br><span class="line">	<span class="comment"># Allow negative indexing from the end</span></span><br><span class="line">	<span class="keyword">if</span>(n &lt; 0) n += this.length;</span><br><span class="line">	<span class="comment"># OOB access is guaranteed to return undefined</span></span><br><span class="line">	<span class="keyword">if</span>(n &lt; 0 || n &gt;= this.length) <span class="built_in">return</span> undefined;</span><br><span class="line">	<span class="comment"># Otherwise, this is just normal property access</span></span><br><span class="line">	<span class="built_in">return</span> this[n];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Other TypedArray constructors omitted for brevity.</span></span><br><span class="line"><span class="keyword">for</span> (<span class="built_in">let</span> C of [Array, String, Uint8Array]) &#123;</span><br><span class="line">    Object.defineProperty(C.prototype, <span class="string">"item"</span>,</span><br><span class="line">                          &#123; value: item,</span><br><span class="line">                            writable: <span class="literal">true</span>,</span><br><span class="line">                            enumerable: <span class="literal">false</span>,</span><br><span class="line">                            configurable: <span class="literal">true</span> &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2021-3-21-更新"><a href="#2021-3-21-更新" class="headerlink" title="2021-3-21 更新"></a>2021-3-21 更新</h4><p><img src="/images/item/proposal.png" alt="proposal"></p>
+<p>item方法更名为at方法</p>
+<p><code>Spec-compliant polyfills using the old name of .item(): Array.prototype.item, String.prototype.item</code></p>
+<p>The original iteration of this proposal proposed the name of the method to be .item(). Unfortunately, this was found out to be not web compatible. Libraries, notably YUI2 and YUI3, were duck-typing objects to be DOM collections based on the presence of a .item property. Please see <a href="https://github.com/tc39/proposal-relative-indexing-method/issues/28">#28</a>, <a href="https://github.com/tc39/proposal-relative-indexing-method/issues/31">#31</a>, and <a href="https://github.com/tc39/proposal-relative-indexing-method/issues/32">#32</a> for more details.</p>
+<p>Captured below is the original motivation for choosing the .item() name and the original concerns.</p>
+]]></content>
+      <tags>
+        <tag>JavaScript</tag>
       </tags>
   </entry>
   <entry>
@@ -1224,6 +1224,145 @@ btn.addEventListener('click',function(){
       <tags>
         <tag>JavaScript</tag>
         <tag>listNode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>面试总结(2)</title>
+    <url>/2020/08/30/mianshi2/</url>
+    <content><![CDATA[<h2 id="https握手过程"><a href="#https握手过程" class="headerlink" title="https握手过程"></a>https握手过程</h2><ol>
+<li>服务端生成公私钥</li>
+<li>服务端把公钥，加密的hash算法以及个人信息发送给CA</li>
+<li>CA把服务端发送来的明文信息用服务端发来的hash算法加密生成密文，然后用CA的私钥对密文进行加密生成签名</li>
+<li>CA把证书发还给服务端，证书内容包括签名，以及证书的颁发对象以及 颁发者等信息。</li>
+<li>服务端把证书和明文信息一起发送给客户端</li>
+<li>客户端接收服务端发送的证书，用内置在操作系统的公钥对签名进行解密，然后用服务端发来对hash算法对明文进行加密，如果两次生成的字符串相等，那么数据是可信的</li>
+<li>客户端在本地随机生成random1，发送给服务端</li>
+<li>服务端在本地随机生成random2，发送给客户端</li>
+<li>客户端在本地随机生成random3，然后用服务端发来的公钥对random3加密发送给服务端</li>
+<li>客户端服务端根据三个随机random各自生成对称密钥</li>
+<li>用生成的对称密钥加密一段握手信息，发送给服务端。双端验证。</li>
+<li>后续加密用生成的对称密钥加密<a id="more"></a>
+<h2 id="输入URL到页面渲染过程"><a href="#输入URL到页面渲染过程" class="headerlink" title="输入URL到页面渲染过程"></a>输入URL到页面渲染过程</h2></li>
+<li>浏览器进程拼接URL，加协议</li>
+<li>网络进程根据URl做DNS解析</li>
+<li>请求的资源返回给渲染进程</li>
+<li>渲染进程根据返回的状态码以及content-type来进行后续的流程</li>
+<li>是html类型则进行渲染流程</li>
+<li>生成CSSOM以及DOM</li>
+<li>生成Render树。</li>
+<li>根据render树生成图层树</li>
+<li>渲染进程对图层进行绘制，把图层绘制拆分成一个个的绘制指令，绘制指令组成绘制列表</li>
+<li>渲染进程的合成线程来进行实际的绘制操作</li>
+<li>合成线程在光栅化线程中执行光栅化（把图层转化成位图）</li>
+<li>光栅化采用GPU加速，因此实际绘制过程在GPU进程</li>
+<li>光栅化结束渲染进程通知浏览器进程</li>
+<li>浏览器进程接收drawquard命令，将其页面内容绘制到内存中，最后再将内存显示在屏幕上。</li>
+<li>done！</li>
+</ol>
+<h2 id="字符串翻转"><a href="#字符串翻转" class="headerlink" title="字符串翻转"></a>字符串翻转</h2><p>略</p>
+<h2 id="字符串转数组"><a href="#字符串转数组" class="headerlink" title="字符串转数组"></a>字符串转数组</h2><p>parseInt Number 两者区别<br>略</p>
+<h2 id="DNS解析过程"><a href="#DNS解析过程" class="headerlink" title="DNS解析过程"></a>DNS解析过程</h2><p>找本地缓存，没找到请求域名服务器</p>
+<h2 id="DNS劫持"><a href="#DNS劫持" class="headerlink" title="DNS劫持"></a>DNS劫持</h2><p>略</p>
+<h2 id="强缓存-协商缓存"><a href="#强缓存-协商缓存" class="headerlink" title="强缓存 协商缓存"></a>强缓存 协商缓存</h2><ul>
+<li><p>强缓存：</p>
+<ul>
+<li>Cache-Control</li>
+<li>Expire</li>
+</ul>
+</li>
+<li><p>协商缓存：</p>
+<ul>
+<li>If-Modified-Since</li>
+<li>Etag<br>其他略</li>
+</ul>
+</li>
+</ul>
+<h2 id="vue双向绑定原理"><a href="#vue双向绑定原理" class="headerlink" title="vue双向绑定原理"></a>vue双向绑定原理</h2><p>数据劫持 ➕ 发布订阅</p>
+<h2 id="vue响应式原理"><a href="#vue响应式原理" class="headerlink" title="vue响应式原理"></a>vue响应式原理</h2><p>依赖收集 + 依赖更细</p>
+<h2 id="react-fiber"><a href="#react-fiber" class="headerlink" title="react fiber"></a>react fiber</h2><ol>
+<li>根据component生成fiber树</li>
+<li>每个节点都对应一个fiber节点</li>
+<li>当前渲染在屏幕上的是current树</li>
+<li>current树有一个是alternate的指针指向wip树</li>
+<li>wip也有相同的指针指向current树</li>
+<li>wip树是fork了一份current树，这个叫做double buffering</li>
+<li>有两个阶段，一个是render，一个是commit</li>
+<li>render阶段可以被打断，commit阶段不可以被打断</li>
+<li>render阶段的任务主要根据插入的顺序来执行，通过使用requestIdlecallback这个api来实现任务的调度</li>
+<li>高优先级的任务可以打断低优先级的任务执行，比如用户输入等需要及时反馈的任务属于高优先级，而对于数据获取这类的任务属于低优先级</li>
+<li>react内部通过使用messageChannel来实现reqeustIdleCallback的polyfill</li>
+</ol>
+<h2 id="xss防御"><a href="#xss防御" class="headerlink" title="xss防御"></a>xss防御</h2><ol>
+<li>转码</li>
+<li>白名单</li>
+<li>过滤</li>
+</ol>
+<h2 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h2><ol>
+<li>SameSite<ul>
+<li>Lax</li>
+<li>Strict</li>
+<li>None</li>
+</ul>
+</li>
+<li>x-frame-option</li>
+<li>csp<ul>
+<li>default-src</li>
+<li>image-src</li>
+<li>media-src</li>
+<li>script-src</li>
+</ul>
+</li>
+<li>token</li>
+<li>refer/origin</li>
+</ol>
+<h2 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h2><ol>
+<li><p>webpack</p>
+<ul>
+<li>缩小构建体积（分包，tree-shaking，剔除第三方库不需要的模块）</li>
+<li>缓存（cache-loader，hard-source-webpack-plugin，dll）</li>
+<li>预加载（preload）</li>
+<li>减少请求资源数（mini-css-extract-plugin，html-webpack-plugin）</li>
+</ul>
+</li>
+<li><p>差异化服务</p>
+</li>
+<li><p>图片懒加载（非可视区域图片用placeholder替代或者低质量图片）</p>
+</li>
+<li><p>减少时间复杂度</p>
+</li>
+<li><p>非必要文件异步加载或动态加载模块</p>
+</li>
+<li><p>对核心内容启用SSR</p>
+</li>
+</ol>
+<h2 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h2><p>CORS</p>
+<p>img</p>
+<p>script</p>
+]]></content>
+      <tags>
+        <tag>article</tag>
+        <tag>conclusion</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>mutationObserver</title>
+    <url>/2019/12/18/mutationObserver/</url>
+    <content><![CDATA[<h3 id="MutationObserver-一个监听dom元素变化的接口"><a href="#MutationObserver-一个监听dom元素变化的接口" class="headerlink" title="MutationObserver,一个监听dom元素变化的接口"></a>MutationObserver,一个监听dom元素变化的接口</h3><p>dom元素观察者，监视 DOM 变动的接口，但是事件是异步的，需要等所有dom元素渲染完之后才执行<br>实例化一个observer对象,回调函数接收两个参数，一个是改变的属性所组成的一个对象数组，一个是实例本身</p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const observer = new MutationObserver(mutationCallback);</span><br></pre></td></tr></table></figure>
+
+<p>以下是它的属性介绍<br>|  属性   | 类型  | 描述  |<br>|  —-  | —-  | —- |<br>| childList  | Boolean |是否观察子节点的变动<br>| attributes  | Boolean |是否观察属性的变动<br>| characterData  | Boolean |是否节点内容或节点文本的变动<br>| subtree  | Boolean |是否观察所有后代节点的变动<br>| attributeOldValue  | Boolean |观察 attributes 变动时，是否记录变动前的属性值<br>| characterDataOldValue  | Boolean |观察 characterData 变动时，是否记录变动前的属性值<br>| attributeFilter  | Boolean |表示需要观察的特定属性（比如[‘class’,’src’]），不在此数组中的属性变化时将被忽略</p>
+<p>实例初始化后,实例调用observe来监听targetNode属性的变化，需要监听的属性放在config中</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const config = &#123;</span><br><span class="line">    attributes:true,</span><br><span class="line">    childList:true,</span><br><span class="line">    subtree:true</span><br><span class="line">&#125;</span><br><span class="line">const targetNode = document.getElementById(&apos;test&apos;);</span><br><span class="line">observer.observe(targetNode,config)</span><br></pre></td></tr></table></figure>
+
+<p>回调函数中可以这样写</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const mutationCallback = (mutationList)=&gt;&#123;</span><br><span class="line">  for(let mutation of mutationList)&#123;</span><br><span class="line">    const type = mutation.type;</span><br><span class="line">    switch(type)&#123;</span><br><span class="line">      case &apos;childList&apos;:</span><br><span class="line">        console.log(&apos;A child node has added or removed&apos;);</span><br><span class="line">        break;</span><br><span class="line">      case &apos;attributes&apos;:</span><br><span class="line">        console.log(`the $&#123;mutation.attributaName&#125; attribute was modified`);</span><br><span class="line">        break;</span><br><span class="line">      case &apos;subtree&apos;:</span><br><span class="line">        console.log(&apos;the subtree was modified&apos;;)</span><br><span class="line">        break</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>基本这样就可以完成了一个对dom元素的监听了</p>
+<p>当不想监听dom元素变化的时候,可以用disconnect来取消监听</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">observer.disconnnet()</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>mutation</tag>
       </tags>
   </entry>
   <entry>
@@ -1425,145 +1564,6 @@ btn.addEventListener('click',function(){
 <li>图片格式尽量采用webp或者avif</li>
 </ul>
 ]]></content>
-  </entry>
-  <entry>
-    <title>面试总结(2)</title>
-    <url>/2020/08/30/mianshi2/</url>
-    <content><![CDATA[<h2 id="https握手过程"><a href="#https握手过程" class="headerlink" title="https握手过程"></a>https握手过程</h2><ol>
-<li>服务端生成公私钥</li>
-<li>服务端把公钥，加密的hash算法以及个人信息发送给CA</li>
-<li>CA把服务端发送来的明文信息用服务端发来的hash算法加密生成密文，然后用CA的私钥对密文进行加密生成签名</li>
-<li>CA把证书发还给服务端，证书内容包括签名，以及证书的颁发对象以及 颁发者等信息。</li>
-<li>服务端把证书和明文信息一起发送给客户端</li>
-<li>客户端接收服务端发送的证书，用内置在操作系统的公钥对签名进行解密，然后用服务端发来对hash算法对明文进行加密，如果两次生成的字符串相等，那么数据是可信的</li>
-<li>客户端在本地随机生成random1，发送给服务端</li>
-<li>服务端在本地随机生成random2，发送给客户端</li>
-<li>客户端在本地随机生成random3，然后用服务端发来的公钥对random3加密发送给服务端</li>
-<li>客户端服务端根据三个随机random各自生成对称密钥</li>
-<li>用生成的对称密钥加密一段握手信息，发送给服务端。双端验证。</li>
-<li>后续加密用生成的对称密钥加密<a id="more"></a>
-<h2 id="输入URL到页面渲染过程"><a href="#输入URL到页面渲染过程" class="headerlink" title="输入URL到页面渲染过程"></a>输入URL到页面渲染过程</h2></li>
-<li>浏览器进程拼接URL，加协议</li>
-<li>网络进程根据URl做DNS解析</li>
-<li>请求的资源返回给渲染进程</li>
-<li>渲染进程根据返回的状态码以及content-type来进行后续的流程</li>
-<li>是html类型则进行渲染流程</li>
-<li>生成CSSOM以及DOM</li>
-<li>生成Render树。</li>
-<li>根据render树生成图层树</li>
-<li>渲染进程对图层进行绘制，把图层绘制拆分成一个个的绘制指令，绘制指令组成绘制列表</li>
-<li>渲染进程的合成线程来进行实际的绘制操作</li>
-<li>合成线程在光栅化线程中执行光栅化（把图层转化成位图）</li>
-<li>光栅化采用GPU加速，因此实际绘制过程在GPU进程</li>
-<li>光栅化结束渲染进程通知浏览器进程</li>
-<li>浏览器进程接收drawquard命令，将其页面内容绘制到内存中，最后再将内存显示在屏幕上。</li>
-<li>done！</li>
-</ol>
-<h2 id="字符串翻转"><a href="#字符串翻转" class="headerlink" title="字符串翻转"></a>字符串翻转</h2><p>略</p>
-<h2 id="字符串转数组"><a href="#字符串转数组" class="headerlink" title="字符串转数组"></a>字符串转数组</h2><p>parseInt Number 两者区别<br>略</p>
-<h2 id="DNS解析过程"><a href="#DNS解析过程" class="headerlink" title="DNS解析过程"></a>DNS解析过程</h2><p>找本地缓存，没找到请求域名服务器</p>
-<h2 id="DNS劫持"><a href="#DNS劫持" class="headerlink" title="DNS劫持"></a>DNS劫持</h2><p>略</p>
-<h2 id="强缓存-协商缓存"><a href="#强缓存-协商缓存" class="headerlink" title="强缓存 协商缓存"></a>强缓存 协商缓存</h2><ul>
-<li><p>强缓存：</p>
-<ul>
-<li>Cache-Control</li>
-<li>Expire</li>
-</ul>
-</li>
-<li><p>协商缓存：</p>
-<ul>
-<li>If-Modified-Since</li>
-<li>Etag<br>其他略</li>
-</ul>
-</li>
-</ul>
-<h2 id="vue双向绑定原理"><a href="#vue双向绑定原理" class="headerlink" title="vue双向绑定原理"></a>vue双向绑定原理</h2><p>数据劫持 ➕ 发布订阅</p>
-<h2 id="vue响应式原理"><a href="#vue响应式原理" class="headerlink" title="vue响应式原理"></a>vue响应式原理</h2><p>依赖收集 + 依赖更细</p>
-<h2 id="react-fiber"><a href="#react-fiber" class="headerlink" title="react fiber"></a>react fiber</h2><ol>
-<li>根据component生成fiber树</li>
-<li>每个节点都对应一个fiber节点</li>
-<li>当前渲染在屏幕上的是current树</li>
-<li>current树有一个是alternate的指针指向wip树</li>
-<li>wip也有相同的指针指向current树</li>
-<li>wip树是fork了一份current树，这个叫做double buffering</li>
-<li>有两个阶段，一个是render，一个是commit</li>
-<li>render阶段可以被打断，commit阶段不可以被打断</li>
-<li>render阶段的任务主要根据插入的顺序来执行，通过使用requestIdlecallback这个api来实现任务的调度</li>
-<li>高优先级的任务可以打断低优先级的任务执行，比如用户输入等需要及时反馈的任务属于高优先级，而对于数据获取这类的任务属于低优先级</li>
-<li>react内部通过使用messageChannel来实现reqeustIdleCallback的polyfill</li>
-</ol>
-<h2 id="xss防御"><a href="#xss防御" class="headerlink" title="xss防御"></a>xss防御</h2><ol>
-<li>转码</li>
-<li>白名单</li>
-<li>过滤</li>
-</ol>
-<h2 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h2><ol>
-<li>SameSite<ul>
-<li>Lax</li>
-<li>Strict</li>
-<li>None</li>
-</ul>
-</li>
-<li>x-frame-option</li>
-<li>csp<ul>
-<li>default-src</li>
-<li>image-src</li>
-<li>media-src</li>
-<li>script-src</li>
-</ul>
-</li>
-<li>token</li>
-<li>refer/origin</li>
-</ol>
-<h2 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h2><ol>
-<li><p>webpack</p>
-<ul>
-<li>缩小构建体积（分包，tree-shaking，剔除第三方库不需要的模块）</li>
-<li>缓存（cache-loader，hard-source-webpack-plugin，dll）</li>
-<li>预加载（preload）</li>
-<li>减少请求资源数（mini-css-extract-plugin，html-webpack-plugin）</li>
-</ul>
-</li>
-<li><p>差异化服务</p>
-</li>
-<li><p>图片懒加载（非可视区域图片用placeholder替代或者低质量图片）</p>
-</li>
-<li><p>减少时间复杂度</p>
-</li>
-<li><p>非必要文件异步加载或动态加载模块</p>
-</li>
-<li><p>对核心内容启用SSR</p>
-</li>
-</ol>
-<h2 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h2><p>CORS</p>
-<p>img</p>
-<p>script</p>
-]]></content>
-      <tags>
-        <tag>article</tag>
-        <tag>conclusion</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>mutationObserver</title>
-    <url>/2019/12/18/mutationObserver/</url>
-    <content><![CDATA[<h3 id="MutationObserver-一个监听dom元素变化的接口"><a href="#MutationObserver-一个监听dom元素变化的接口" class="headerlink" title="MutationObserver,一个监听dom元素变化的接口"></a>MutationObserver,一个监听dom元素变化的接口</h3><p>dom元素观察者，监视 DOM 变动的接口，但是事件是异步的，需要等所有dom元素渲染完之后才执行<br>实例化一个observer对象,回调函数接收两个参数，一个是改变的属性所组成的一个对象数组，一个是实例本身</p>
-<a id="more"></a>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const observer = new MutationObserver(mutationCallback);</span><br></pre></td></tr></table></figure>
-
-<p>以下是它的属性介绍<br>|  属性   | 类型  | 描述  |<br>|  —-  | —-  | —- |<br>| childList  | Boolean |是否观察子节点的变动<br>| attributes  | Boolean |是否观察属性的变动<br>| characterData  | Boolean |是否节点内容或节点文本的变动<br>| subtree  | Boolean |是否观察所有后代节点的变动<br>| attributeOldValue  | Boolean |观察 attributes 变动时，是否记录变动前的属性值<br>| characterDataOldValue  | Boolean |观察 characterData 变动时，是否记录变动前的属性值<br>| attributeFilter  | Boolean |表示需要观察的特定属性（比如[‘class’,’src’]），不在此数组中的属性变化时将被忽略</p>
-<p>实例初始化后,实例调用observe来监听targetNode属性的变化，需要监听的属性放在config中</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const config = &#123;</span><br><span class="line">    attributes:true,</span><br><span class="line">    childList:true,</span><br><span class="line">    subtree:true</span><br><span class="line">&#125;</span><br><span class="line">const targetNode = document.getElementById(&apos;test&apos;);</span><br><span class="line">observer.observe(targetNode,config)</span><br></pre></td></tr></table></figure>
-
-<p>回调函数中可以这样写</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const mutationCallback = (mutationList)=&gt;&#123;</span><br><span class="line">  for(let mutation of mutationList)&#123;</span><br><span class="line">    const type = mutation.type;</span><br><span class="line">    switch(type)&#123;</span><br><span class="line">      case &apos;childList&apos;:</span><br><span class="line">        console.log(&apos;A child node has added or removed&apos;);</span><br><span class="line">        break;</span><br><span class="line">      case &apos;attributes&apos;:</span><br><span class="line">        console.log(`the $&#123;mutation.attributaName&#125; attribute was modified`);</span><br><span class="line">        break;</span><br><span class="line">      case &apos;subtree&apos;:</span><br><span class="line">        console.log(&apos;the subtree was modified&apos;;)</span><br><span class="line">        break</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>基本这样就可以完成了一个对dom元素的监听了</p>
-<p>当不想监听dom元素变化的时候,可以用disconnect来取消监听</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">observer.disconnnet()</span><br></pre></td></tr></table></figure>]]></content>
-      <tags>
-        <tag>mutation</tag>
-      </tags>
   </entry>
   <entry>
     <title>npm包的发布</title>
@@ -1817,42 +1817,6 @@ btn.addEventListener('click',function(){
       <tags>
         <tag>TypeScript</tag>
         <tag>Vue3</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>openlayers</title>
-    <url>/2021/03/14/openlayers/</url>
-    <content><![CDATA[<h3 id="Introduce"><a href="#Introduce" class="headerlink" title="Introduce"></a>Introduce</h3><p>近期项目接触到gis到东西，我选择了openlayers6这个开源库来做项目开发，踩来几个坑，记录一下。</p>
-<h3 id="加载自定义图片作为底图"><a href="#加载自定义图片作为底图" class="headerlink" title="加载自定义图片作为底图"></a>加载自定义图片作为底图</h3><p>在加载自定义图片作为底图时，我把url给image对象</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> img = <span class="keyword">new</span> Image()</span><br><span class="line"><span class="keyword">const</span> url = <span class="string">'/static/img.ppng'</span></span><br><span class="line">img.url = url</span><br></pre></td></tr></table></figure>
-
-<a id="more"></a>
-<p>在渲染map对象时，我用到是layer下的image，在给定的source这个属性值，我用ImageCanvas来渲染自定义的图层。这是一开始写的代码,但是在这段代码中，会有两个问题：</p>
-<ul>
-<li>第一个问题是在画布初始渲染的时候会渲染不出来的，必须在缩放层级之后画布才能正常显示；</li>
-<li>第二个问题就是不管怎么滚动或者平移，画布总会自动聚焦到中心。</li>
-</ul>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">return</span> <span class="keyword">new</span> ImageCanvas(&#123;</span><br><span class="line">     canvasFunction: (</span><br><span class="line">       extent,</span><br><span class="line">       resolution,</span><br><span class="line">       pixelRatio,</span><br><span class="line">       size </span><br><span class="line">     ) =&gt; &#123;</span><br><span class="line">       <span class="keyword">const</span> canvas = <span class="built_in">document</span>.createElement(<span class="string">'canvas'</span>);</span><br><span class="line">       canvas.width = size[<span class="number">0</span>];</span><br><span class="line">       canvas.height = size[<span class="number">1</span>];</span><br><span class="line">       <span class="keyword">const</span> img = <span class="keyword">new</span> Image()</span><br><span class="line">       <span class="keyword">const</span> url = <span class="string">'/static/img.ppng'</span></span><br><span class="line">       img.url = url</span><br><span class="line">       img.onolad = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">           ctx.drawImage(img, <span class="number">0</span>, <span class="number">0</span>, size[<span class="number">0</span>], size[<span class="number">1</span>]);</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> canvas;</span><br><span class="line">     &#125;,</span><br><span class="line">     projection: <span class="string">'EPSG:3857'</span></span><br><span class="line">   &#125;);</span><br></pre></td></tr></table></figure>
-
-<p>首先第一个问题解决方案，那就是在img到onload里面来进行一个底图渲染的工作。<br>第二个问题的原因是因为openlayers 中不管对地图平移还是缩放，都会进行重绘的操作，所以解决方案就是设置一个临时变量来判断是否是第一次绘制。</p>
-<p>like this </p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">return</span> <span class="keyword">new</span> ImageCanvas(&#123;</span><br><span class="line">      canvasFunction: (</span><br><span class="line">        extent,</span><br><span class="line">        resolution,</span><br><span class="line">        pixelRatio,</span><br><span class="line">        size <span class="comment">/*, projection*/</span></span><br><span class="line">      ) =&gt; &#123;</span><br><span class="line">        <span class="keyword">const</span> canvas = <span class="built_in">document</span>.createElement(<span class="string">'canvas'</span>);</span><br><span class="line">        canvas.width = size[<span class="number">0</span>];</span><br><span class="line">        canvas.height = size[<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">        <span class="comment">// eslint-disable-next-line @typescript-eslint/no-non-null-assertion</span></span><br><span class="line">        <span class="keyword">const</span> ctx = canvas.getContext(<span class="string">'2d'</span>)!;</span><br><span class="line">        <span class="comment">// 这里必须要做一个判断，每次的范围变动都会引起重绘，从而触发该回调函数</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.isFirst) &#123;</span><br><span class="line">          <span class="keyword">this</span>.isFirst = <span class="literal">false</span>;</span><br><span class="line">          ctx.beginPath();</span><br><span class="line">          ctx.drawImage(img, <span class="number">0</span>, <span class="number">0</span>, size[<span class="number">0</span>], size[<span class="number">1</span>]);</span><br><span class="line">          ctx.closePath();</span><br><span class="line"></span><br><span class="line">          <span class="keyword">return</span> canvas;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      projection: <span class="string">'EPSG:3857'</span></span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
-
-<h3 id="底图限制拖动范围"><a href="#底图限制拖动范围" class="headerlink" title="底图限制拖动范围"></a>底图限制拖动范围</h3><p>在view中定义extent即可</p>
-<h3 id="在移动feature时限制在容器之内"><a href="#在移动feature时限制在容器之内" class="headerlink" title="在移动feature时限制在容器之内"></a>在移动feature时限制在容器之内</h3><ul>
-<li>首先要限制范围，首选需要获取到容器到边界。获取view的extent即可</li>
-<li>其次需要在移动过程中获取多边形的边界。调用getExtent即可</li>
-<li>然后需要做临界值判断，根据boolean值来判断是否允许移动，容器边界跟feature边界比较即可。</li>
-<li>最后怎么来移动，参考库中自带的Translate可以发现，是获取到feature到geometry到translate方法来移动，当判断临界值时，移动的距离设置为0即可。</li>
-</ul>
-<p>为了应对不同分辨率或者容器大小下的限制范围 — 由于extent不会自动针对分辨率或者容器大小来计算，所以需要使用calculateExtent来根据容器大小获取最新的extent</p>
-<p>以上 需要重写部分Translate的实现</p>
-<h3 id="在编辑feature时同样需要限制范围。"><a href="#在编辑feature时同样需要限制范围。" class="headerlink" title="在编辑feature时同样需要限制范围。"></a>在编辑feature时同样需要限制范围。</h3><p>原理同移动feature，但是略复杂</p>
-<h3 id="undo-redo的实现"><a href="#undo-redo的实现" class="headerlink" title="undo redo的实现"></a>undo redo的实现</h3><p>因为需求中仅要记录移动feature和编辑feature，因此在undo redo的时候就是在addFeature和removeFeature中来回切换，只要记录当前操作的undo操作和redo操作即 — 在项目中undo 和redo的过程其实就是清除绘画和重新绘画的过程，我大概试了上百次，performance表现良好，一片绿色，但是记得在新增新的modify或者translate的时候要把上次的清除，不然有性能问题，非常卡。</p>
-<h3 id="点击feature实行交互，点击空白取消交互，点击其他feature，当前交互，上次取消交互。"><a href="#点击feature实行交互，点击空白取消交互，点击其他feature，当前交互，上次取消交互。" class="headerlink" title="点击feature实行交互，点击空白取消交互，点击其他feature，当前交互，上次取消交互。"></a>点击feature实行交互，点击空白取消交互，点击其他feature，当前交互，上次取消交互。</h3><p>之前是自己直接用click事件来做处理，后来发现selet这个可以帮我处理点击和取消点击的样式问题，但是仍然需要我自己处理交互问题，每次点击feature的时候其实就是把上次的modify和translate删除，然后重新添加一份当前点击feature的modify和translate，</p>
-]]></content>
-      <tags>
-        <tag>gis openlayers ol6</tag>
       </tags>
   </entry>
   <entry>
@@ -2129,117 +2093,48 @@ createComponentInstance
       </tags>
   </entry>
   <entry>
-    <title>节流</title>
-    <url>/2021/02/19/throttle/</url>
-    <content><![CDATA[<h5 id="创建一个节流函数在给定的毫秒中最多调用一次"><a href="#创建一个节流函数在给定的毫秒中最多调用一次" class="headerlink" title="创建一个节流函数在给定的毫秒中最多调用一次"></a>创建一个节流函数在给定的毫秒中最多调用一次</h5><p>Creates a throttled function that only invokes the provided function at most once per every wait milliseconds</p>
-<hr>
-<p>使用setTimeout 和 clearTimeout 对给定对方法节流。fn使用<code>Function.prototype.apply()</code>this上下文应用到函数中并且提供必要到参数arguments。使用<code>Date.now()</code>收集上一次函数的调用时间。没有给定第二个参数 <code>wait</code>的情况，默认设置时间间隔为0</p>
-<a id="more"></a>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> throttle = <span class="function">(<span class="params">fn, wait</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> inThrottle, lastFn, lastTime;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> context = <span class="keyword">this</span>,</span><br><span class="line">      args = <span class="built_in">arguments</span>;</span><br><span class="line">    <span class="keyword">if</span> (!inThrottle) &#123;</span><br><span class="line">      fn.apply(context, args);</span><br><span class="line">      lastTime = <span class="built_in">Date</span>.now();</span><br><span class="line">      inThrottle = <span class="literal">true</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      clearTimeout(lastFn);</span><br><span class="line">      lastFn = setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">Date</span>.now() - lastTime &gt;= wait) &#123;</span><br><span class="line">          fn.apply(context, args);</span><br><span class="line">          lastTime = <span class="built_in">Date</span>.now();</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;, <span class="built_in">Math</span>.max(wait - (<span class="built_in">Date</span>.now() - lastTime), <span class="number">0</span>));</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h5 id="for-instance"><a href="#for-instance" class="headerlink" title="for instance"></a>for instance</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(</span><br><span class="line">  <span class="string">'resize'</span>,</span><br><span class="line">  throttle(<span class="function"><span class="keyword">function</span>(<span class="params">evt</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">window</span>.innerWidth);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">window</span>.innerHeight);</span><br><span class="line">  &#125;, <span class="number">250</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>]]></content>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>在JS文件使用svg加载svg文件</title>
-    <url>/2020/10/13/svgInJS/</url>
-    <content><![CDATA[<h3 id="怎么在js文件中用引用svg文件"><a href="#怎么在js文件中用引用svg文件" class="headerlink" title="怎么在js文件中用引用svg文件"></a>怎么在js文件中用引用svg文件</h3><p>使用webpack的require.context,它接收三个参数</p>
-<ul>
-<li>要搜索的文件夹目录</li>
-<li>是否还应该搜索它的子目录，</li>
-<li>以及一个匹配文件的正则表达式。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const req = require.context(<span class="string">'./svg'</span>, <span class="literal">false</span>, /\.svg$/)</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<p>req返回的是一个方法</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> webpackContext(req) &#123;</span><br><span class="line">	var id = webpackContextResolve(req);</span><br><span class="line">	<span class="built_in">return</span> __webpack_require__(id);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>包含三个属性</p>
-<ul>
-<li>id</li>
-<li>keys </li>
-<li>resolve<a id="more"></a>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">webpackContext.keys = <span class="keyword">function</span> <span class="function"><span class="title">webpackContextKeys</span></span>() &#123;</span><br><span class="line">	<span class="built_in">return</span> Object.keys(map);</span><br><span class="line">&#125;;</span><br><span class="line">webpackContext.resolve = webpackContextResolve;</span><br><span class="line">webpackContext.id = <span class="string">"./src/icons/svg sync \\.svg$"</span>;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<p>再使用<code>const requireAll = requireContext =&gt; requireContext.keys().map(requireContext)</code>之后，会得到一个Module的数组,数组的每一项就是执行import后的Module<br><img src="/images/svg-in-js/map.png" alt="dom"><br><img src="/images/svg-in-js/image.png" alt="image"><br>Module数组<br><img src="/images/svg-in-js/module.png" alt="module"><br><strong>webpack_require</strong>方法</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> __webpack_require__(moduleId) &#123;</span><br><span class="line">/******/</span><br><span class="line">/******/ 		// Check <span class="keyword">if</span> module is <span class="keyword">in</span> cache</span><br><span class="line">/******/ 		<span class="keyword">if</span>(installedModules[moduleId]) &#123;</span><br><span class="line">/******/ 			<span class="built_in">return</span> installedModules[moduleId].exports;</span><br><span class="line">/******/ 		&#125;</span><br><span class="line">/******/ 		// Create a new module (and put it into the cache)</span><br><span class="line">/******/ 		var module = installedModules[moduleId] = &#123;</span><br><span class="line">/******/ 			i: moduleId,</span><br><span class="line">/******/ 			l: <span class="literal">false</span>,</span><br><span class="line">/******/ 			exports: &#123;&#125;,</span><br><span class="line">/******/ 			hot: hotCreateModule(moduleId),</span><br><span class="line">/******/ 			parents: (hotCurrentParentsTemp = hotCurrentParents, hotCurrentParents = [], hotCurrentParentsTemp),</span><br><span class="line">/******/ 			children: []</span><br><span class="line">/******/ 		&#125;;</span><br><span class="line">/******/</span><br><span class="line">/******/ 		// Execute the module <span class="keyword">function</span></span><br><span class="line">/******/ 		modules[moduleId].call(module.exports, module, module.exports, hotCreateRequire(moduleId));</span><br><span class="line">/******/</span><br><span class="line">/******/ 		// Flag the module as loaded</span><br><span class="line">/******/ 		module.l = <span class="literal">true</span>;</span><br><span class="line">/******/</span><br><span class="line">/******/ 		// Return the exports of the module</span><br><span class="line">/******/ 		<span class="built_in">return</span> module.exports;</span><br><span class="line">/******/ 	&#125;</span><br></pre></td></tr></table></figure>
-
-<p>svg example</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/***/ <span class="string">"./src/icons/svg/bug.svg"</span>:</span><br><span class="line">/*!*******************************!*\</span><br><span class="line">  !*** ./src/icons/svg/bug.svg ***!</span><br><span class="line">  \*******************************/</span><br><span class="line">/*! exports provided: default */</span><br><span class="line">/***/ (<span class="keyword">function</span>(module, __webpack_exports__, __webpack_require__) &#123;</span><br><span class="line"></span><br><span class="line"><span class="string">"use strict"</span>;</span><br><span class="line"><span class="built_in">eval</span>(<span class="string">"__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! svg-baker-runtime/browser-symbol */ \"./node_modules/svg-baker-runtime/browser-symbol.js\");\n/* harmony import */ var svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! svg-sprite-loader/runtime/browser-sprite.build */ \"./node_modules/svg-sprite-loader/runtime/browser-sprite.build.js\");\n/* harmony import */ var svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1__);\n\n\nvar symbol = new svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0___default.a(&#123;\n  \"id\": \"icon-bug\",\n  \"use\": \"icon-bug-usage\",\n  \"viewBox\": \"0 0 128 128\",\n  \"content\": \"&lt;symbol xmlns=\\\"http://www.w3.org/2000/svg\\\" viewBox=\\\"0 0 128 128\\\" id=\\\"icon-bug\\\"&gt;&lt;path d=\\\"M127.88 73.143c0 1.412-.506 2.635-1.518 3.669-1.011 1.033-2.209 1.55-3.592 1.55h-17.887c0 9.296-1.783 17.178-5.35 23.645l16.609 17.044c1.011 1.034 1.517 2.257 1.517 3.67 0 1.412-.506 2.635-1.517 3.668-.958 1.033-2.155 1.55-3.593 1.55-1.438 0-2.635-.517-3.593-1.55l-15.811-16.063a15.49 15.49 0 0 1-1.196 1.06c-.532.434-1.65 1.208-3.353 2.322a50.104 50.104 0 0 1-5.192 2.974c-1.758.87-3.94 1.658-6.546 2.364-2.607.706-5.189 1.06-7.748 1.06V47.044H58.89v73.062c-2.716 0-5.417-.367-8.106-1.102-2.688-.734-5.003-1.631-6.945-2.692a66.769 66.769 0 0 1-5.268-3.179c-1.571-1.057-2.73-1.94-3.476-2.65L33.9 109.34l-14.611 16.877c-1.066 1.14-2.344 1.711-3.833 1.711-1.277 0-2.422-.434-3.434-1.304-1.012-.978-1.557-2.187-1.635-3.627-.079-1.44.333-2.705 1.236-3.794l16.129-18.51c-3.087-6.197-4.63-13.644-4.63-22.342H5.235c-1.383 0-2.58-.517-3.592-1.55S.125 74.545.125 73.132c0-1.412.506-2.635 1.518-3.668 1.012-1.034 2.21-1.55 3.592-1.55h17.887V43.939L9.308 29.833c-1.012-1.033-1.517-2.256-1.517-3.669 0-1.412.505-2.635 1.517-3.668 1.012-1.034 2.21-1.55 3.593-1.55s2.58.516 3.593 1.55l13.813 14.106h67.396l13.814-14.106c1.012-1.034 2.21-1.55 3.592-1.55 1.384 0 2.581.516 3.593 1.55 1.012 1.033 1.518 2.256 1.518 3.668 0 1.413-.506 2.636-1.518 3.67l-13.814 14.105v23.975h17.887c1.383 0 2.58.516 3.593 1.55 1.011 1.033 1.517 2.256 1.517 3.668l-.005.01zM89.552 26.175H38.448c0-7.23 2.489-13.386 7.466-18.469C50.892 2.623 56.92.082 64 .082c7.08 0 13.108 2.541 18.086 7.624 4.977 5.083 7.466 11.24 7.466 18.469z\\\" /&gt;&lt;/symbol&gt;\"\n&#125;);\nvar result = svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1___default.a.add(symbol);\n/* harmony default export */ __webpack_exports__[\"default\"] = (symbol);//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9zcmMvaWNvbnMvc3ZnL2J1Zy5zdmcuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvaWNvbnMvc3ZnL2J1Zy5zdmc/MjI4NiJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgU3ByaXRlU3ltYm9sIGZyb20gXCJzdmctYmFrZXItcnVudGltZS9icm93c2VyLXN5bWJvbFwiO1xuaW1wb3J0IHNwcml0ZSBmcm9tIFwic3ZnLXNwcml0ZS1sb2FkZXIvcnVudGltZS9icm93c2VyLXNwcml0ZS5idWlsZFwiO1xudmFyIHN5bWJvbCA9IG5ldyBTcHJpdGVTeW1ib2woe1xuICBcImlkXCI6IFwiaWNvbi1idWdcIixcbiAgXCJ1c2VcIjogXCJpY29uLWJ1Zy11c2FnZVwiLFxuICBcInZpZXdCb3hcIjogXCIwIDAgMTI4IDEyOFwiLFxuICBcImNvbnRlbnRcIjogXCI8c3ltYm9sIHhtbG5zPVxcXCJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Z1xcXCIgdmlld0JveD1cXFwiMCAwIDEyOCAxMjhcXFwiIGlkPVxcXCJpY29uLWJ1Z1xcXCI+PHBhdGggZD1cXFwiTTEyNy44OCA3My4xNDNjMCAxLjQxMi0uNTA2IDIuNjM1LTEuNTE4IDMuNjY5LTEuMDExIDEuMDMzLTIuMjA5IDEuNTUtMy41OTIgMS41NWgtMTcuODg3YzAgOS4yOTYtMS43ODMgMTcuMTc4LTUuMzUgMjMuNjQ1bDE2LjYwOSAxNy4wNDRjMS4wMTEgMS4wMzQgMS41MTcgMi4yNTcgMS41MTcgMy42NyAwIDEuNDEyLS41MDYgMi42MzUtMS41MTcgMy42NjgtLjk1OCAxLjAzMy0yLjE1NSAxLjU1LTMuNTkzIDEuNTUtMS40MzggMC0yLjYzNS0uNTE3LTMuNTkzLTEuNTVsLTE1LjgxMS0xNi4wNjNhMTUuNDkgMTUuNDkgMCAwIDEtMS4xOTYgMS4wNmMtLjUzMi40MzQtMS42NSAxLjIwOC0zLjM1MyAyLjMyMmE1MC4xMDQgNTAuMTA0IDAgMCAxLTUuMTkyIDIuOTc0Yy0xLjc1OC44Ny0zLjk0IDEuNjU4LTYuNTQ2IDIuMzY0LTIuNjA3LjcwNi01LjE4OSAxLjA2LTcuNzQ4IDEuMDZWNDcuMDQ0SDU4Ljg5djczLjA2MmMtMi43MTYgMC01LjQxNy0uMzY3LTguMTA2LTEuMTAyLTIuNjg4LS43MzQtNS4wMDMtMS42MzEtNi45NDUtMi42OTJhNjYuNzY5IDY2Ljc2OSAwIDAgMS01LjI2OC0zLjE3OWMtMS41NzEtMS4wNTctMi43My0xLjk0LTMuNDc2LTIuNjVMMzMuOSAxMDkuMzRsLTE0LjYxMSAxNi44NzdjLTEuMDY2IDEuMTQtMi4zNDQgMS43MTEtMy44MzMgMS43MTEtMS4yNzcgMC0yLjQyMi0uNDM0LTMuNDM0LTEuMzA0LTEuMDEyLS45NzgtMS41NTctMi4xODctMS42MzUtMy42MjctLjA3OS0xLjQ0LjMzMy0yLjcwNSAxLjIzNi0zLjc5NGwxNi4xMjktMTguNTFjLTMuMDg3LTYuMTk3LTQuNjMtMTMuNjQ0LTQuNjMtMjIuMzQySDUuMjM1Yy0xLjM4MyAwLTIuNTgtLjUxNy0zLjU5Mi0xLjU1Uy4xMjUgNzQuNTQ1LjEyNSA3My4xMzJjMC0xLjQxMi41MDYtMi42MzUgMS41MTgtMy42NjggMS4wMTItMS4wMzQgMi4yMS0xLjU1IDMuNTkyLTEuNTVoMTcuODg3VjQzLjkzOUw5LjMwOCAyOS44MzNjLTEuMDEyLTEuMDMzLTEuNTE3LTIuMjU2LTEuNTE3LTMuNjY5IDAtMS40MTIuNTA1LTIuNjM1IDEuNTE3LTMuNjY4IDEuMDEyLTEuMDM0IDIuMjEtMS41NSAzLjU5My0xLjU1czIuNTguNTE2IDMuNTkzIDEuNTVsMTMuODEzIDE0LjEwNmg2Ny4zOTZsMTMuODE0LTE0LjEwNmMxLjAxMi0xLjAzNCAyLjIxLTEuNTUgMy41OTItMS41NSAxLjM4NCAwIDIuNTgxLjUxNiAzLjU5MyAxLjU1IDEuMDEyIDEuMDMzIDEuNTE4IDIuMjU2IDEuNTE4IDMuNjY4IDAgMS40MTMtLjUwNiAyLjYzNi0xLjUxOCAzLjY3bC0xMy44MTQgMTQuMTA1djIzLjk3NWgxNy44ODdjMS4zODMgMCAyLjU4LjUxNiAzLjU5MyAxLjU1IDEuMDExIDEuMDMzIDEuNTE3IDIuMjU2IDEuNTE3IDMuNjY4bC0uMDA1LjAxek04OS41NTIgMjYuMTc1SDM4LjQ0OGMwLTcuMjMgMi40ODktMTMuMzg2IDcuNDY2LTE4LjQ2OUM1MC44OTIgMi42MjMgNTYuOTIuMDgyIDY0IC4wODJjNy4wOCAwIDEzLjEwOCAyLjU0MSAxOC4wODYgNy42MjQgNC45NzcgNS4wODMgNy40NjYgMTEuMjQgNy40NjYgMTguNDY5elxcXCIgLz48L3N5bWJvbD5cIlxufSk7XG52YXIgcmVzdWx0ID0gc3ByaXRlLmFkZChzeW1ib2wpO1xuZXhwb3J0IGRlZmF1bHQgc3ltYm9sIl0sIm1hcHBpbmdzIjoiQUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0EiLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./src/icons/svg/bug.svg\n"</span>);</span><br><span class="line"></span><br><span class="line">/***/ &#125;)</span><br></pre></td></tr></table></figure>
-
-<p>所以在JS中使用svg标签来加载对应的svg文件的时候只需要在svg标签加入use 然后给id属性赋值为对应symbol的id，比如<code>id=&quot;#icon-404&quot;</code></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>优雅的书写方式</title>
-    <url>/2019/10/27/usage-for-better/</url>
-    <content><![CDATA[<h3 id="变量声明"><a href="#变量声明" class="headerlink" title="变量声明"></a>变量声明</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//变量声明用let or const</span><br><span class="line">let a = 1;</span><br><span class="line">const b = 2;</span><br></pre></td></tr></table></figure>
+    <title>openlayers</title>
+    <url>/2021/03/14/openlayers/</url>
+    <content><![CDATA[<h3 id="Introduce"><a href="#Introduce" class="headerlink" title="Introduce"></a>Introduce</h3><p>近期项目接触到gis到东西，我选择了openlayers6这个开源库来做项目开发，踩来几个坑，记录一下。</p>
+<h3 id="加载自定义图片作为底图"><a href="#加载自定义图片作为底图" class="headerlink" title="加载自定义图片作为底图"></a>加载自定义图片作为底图</h3><p>在加载自定义图片作为底图时，我把url给image对象</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> img = <span class="keyword">new</span> Image()</span><br><span class="line"><span class="keyword">const</span> url = <span class="string">'/static/img.ppng'</span></span><br><span class="line">img.url = url</span><br></pre></td></tr></table></figure>
 
 <a id="more"></a>
-<h3 id="对象属性赋值"><a href="#对象属性赋值" class="headerlink" title="对象属性赋值"></a>对象属性赋值</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const getKey(key)&#123;</span><br><span class="line">  return `a key named $&#123;key&#125;`</span><br><span class="line">&#125;</span><br><span class="line">//使用动态属性作为键名，用计算后的属性</span><br><span class="line">const obj=&#123;</span><br><span class="line">  id:1,</span><br><span class="line">  name:&apos;John&apos;,</span><br><span class="line">  [getKey(&apos;enable&apos;)]:&apos;Tom&apos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在渲染map对象时，我用到是layer下的image，在给定的source这个属性值，我用ImageCanvas来渲染自定义的图层。这是一开始写的代码,但是在这段代码中，会有两个问题：</p>
+<ul>
+<li>第一个问题是在画布初始渲染的时候会渲染不出来的，必须在缩放层级之后画布才能正常显示；</li>
+<li>第二个问题就是不管怎么滚动或者平移，画布总会自动聚焦到中心。</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">return</span> <span class="keyword">new</span> ImageCanvas(&#123;</span><br><span class="line">     canvasFunction: (</span><br><span class="line">       extent,</span><br><span class="line">       resolution,</span><br><span class="line">       pixelRatio,</span><br><span class="line">       size </span><br><span class="line">     ) =&gt; &#123;</span><br><span class="line">       <span class="keyword">const</span> canvas = <span class="built_in">document</span>.createElement(<span class="string">'canvas'</span>);</span><br><span class="line">       canvas.width = size[<span class="number">0</span>];</span><br><span class="line">       canvas.height = size[<span class="number">1</span>];</span><br><span class="line">       <span class="keyword">const</span> img = <span class="keyword">new</span> Image()</span><br><span class="line">       <span class="keyword">const</span> url = <span class="string">'/static/img.ppng'</span></span><br><span class="line">       img.url = url</span><br><span class="line">       img.onolad = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">           ctx.drawImage(img, <span class="number">0</span>, <span class="number">0</span>, size[<span class="number">0</span>], size[<span class="number">1</span>]);</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> canvas;</span><br><span class="line">     &#125;,</span><br><span class="line">     projection: <span class="string">'EPSG:3857'</span></span><br><span class="line">   &#125;);</span><br></pre></td></tr></table></figure>
 
-<h3 id="键名与键值的变量名相同，不需要写两遍"><a href="#键名与键值的变量名相同，不需要写两遍" class="headerlink" title="键名与键值的变量名相同，不需要写两遍"></a>键名与键值的变量名相同，不需要写两遍</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const name = &apos;John&apos;;</span><br><span class="line">const obj = &#123;</span><br><span class="line">  name</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>首先第一个问题解决方案，那就是在img到onload里面来进行一个底图渲染的工作。<br>第二个问题的原因是因为openlayers 中不管对地图平移还是缩放，都会进行重绘的操作，所以解决方案就是设置一个临时变量来判断是否是第一次绘制。</p>
+<p>like this </p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">return</span> <span class="keyword">new</span> ImageCanvas(&#123;</span><br><span class="line">      canvasFunction: (</span><br><span class="line">        extent,</span><br><span class="line">        resolution,</span><br><span class="line">        pixelRatio,</span><br><span class="line">        size <span class="comment">/*, projection*/</span></span><br><span class="line">      ) =&gt; &#123;</span><br><span class="line">        <span class="keyword">const</span> canvas = <span class="built_in">document</span>.createElement(<span class="string">'canvas'</span>);</span><br><span class="line">        canvas.width = size[<span class="number">0</span>];</span><br><span class="line">        canvas.height = size[<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">        <span class="comment">// eslint-disable-next-line @typescript-eslint/no-non-null-assertion</span></span><br><span class="line">        <span class="keyword">const</span> ctx = canvas.getContext(<span class="string">'2d'</span>)!;</span><br><span class="line">        <span class="comment">// 这里必须要做一个判断，每次的范围变动都会引起重绘，从而触发该回调函数</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.isFirst) &#123;</span><br><span class="line">          <span class="keyword">this</span>.isFirst = <span class="literal">false</span>;</span><br><span class="line">          ctx.beginPath();</span><br><span class="line">          ctx.drawImage(img, <span class="number">0</span>, <span class="number">0</span>, size[<span class="number">0</span>], size[<span class="number">1</span>]);</span><br><span class="line">          ctx.closePath();</span><br><span class="line"></span><br><span class="line">          <span class="keyword">return</span> canvas;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      projection: <span class="string">'EPSG:3857'</span></span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
 
-<h3 id="对象数据分组排序"><a href="#对象数据分组排序" class="headerlink" title="对象数据分组排序"></a>对象数据分组排序</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//解构赋值的排前面</span><br><span class="line">const name = &apos;John&apos;,age=2, grade = 80;</span><br><span class="line">const obj = &#123;</span><br><span class="line">  name,</span><br><span class="line">  age,</span><br><span class="line">  level:grade</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="属性声明"><a href="#属性声明" class="headerlink" title="属性声明"></a>属性声明</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//键名声明不需要写引号,仅有无效标识符需要加引号</span><br><span class="line">const obj = &#123;</span><br><span class="line">  a:1,</span><br><span class="line">  &apos;data-self:true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="不要直接调用Object-prototype的方法，比如hasOwnProperty"><a href="#不要直接调用Object-prototype的方法，比如hasOwnProperty" class="headerlink" title="不要直接调用Object.prototype的方法，比如hasOwnProperty"></a>不要直接调用Object.prototype的方法，比如hasOwnProperty</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const obj = &#123;</span><br><span class="line">  a:1</span><br><span class="line">&#125;</span><br><span class="line">//不要直接用ojb.hasOwnProperty(Do not use obj.hasOwnProperty directly)</span><br><span class="line"></span><br><span class="line">Object.prototype.hasOwnProperty.call(obj,key)//use Object.prototype.call instead</span><br><span class="line">//or</span><br><span class="line">const has = Object.prototype.hasOwnProperty;</span><br><span class="line">has.call(obj,key)//</span><br></pre></td></tr></table></figure>
-
-<h3 id="use-the-object-spread-operator-instead-of-Object-assign-to-shallow-copy-objects"><a href="#use-the-object-spread-operator-instead-of-Object-assign-to-shallow-copy-objects" class="headerlink" title="use the object spread operator instead of Object.assign to shallow-copy objects"></a>use the object spread operator instead of Object.assign to shallow-copy objects</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const obj = &#123;</span><br><span class="line">  name:&apos;Tom&apos;</span><br><span class="line">&#125;</span><br><span class="line">const cloneObj =&#123;...obj,age:1&#125;//cloneObj -&gt; &#123;name:&apos;Tom&apos;,age:1&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="use-spread-operator-to-copy-Array"><a href="#use-spread-operator-to-copy-Array" class="headerlink" title="use spread operator to copy Array"></a>use spread operator to copy Array</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const arr = [1,2,3,4];</span><br><span class="line">const cloneArr = [...arr];//cloneArr - .[1,2,3,4]</span><br></pre></td></tr></table></figure>
-
-<h3 id="use-Array-from-or-spread-operator-to-convert-an-iterable-Object"><a href="#use-Array-from-or-spread-operator-to-convert-an-iterable-Object" class="headerlink" title="use Array.from() or spread operator to convert an iterable Object"></a>use Array.from() or spread operator to convert an iterable Object</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const foo = document.querySelectorAll(&apos;.foo&apos;);//it is a nodelist</span><br><span class="line"></span><br><span class="line">const arrNode = Array.from(foo);</span><br><span class="line"></span><br><span class="line">//or</span><br><span class="line"></span><br><span class="line">const arrNode1 = [...foo];</span><br></pre></td></tr></table></figure>
-
-<h3 id="use-Array-from-instead-of-spread-operator-for-mapping-over-iterables-because-it-won’t-creat-an-intermediate-array"><a href="#use-Array-from-instead-of-spread-operator-for-mapping-over-iterables-because-it-won’t-creat-an-intermediate-array" class="headerlink" title="use Array.from() instead of spread operator  for mapping over iterables ,because it won’t creat an intermediate array"></a>use Array.from() instead of spread operator  for mapping over iterables ,because it won’t creat an intermediate array</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const foo =[1,2,3];</span><br><span class="line">const bar = Array.from(foo,function(item)&#123;</span><br><span class="line">  return Math.pow(item,2)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<h3 id="use-object-destructuring-when-accessing-and-using-multiple-properties-of-an-object"><a href="#use-object-destructuring-when-accessing-and-using-multiple-properties-of-an-object" class="headerlink" title="use object destructuring when accessing and using multiple properties of an object."></a>use object destructuring when accessing and using multiple properties of an object.</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//No</span><br><span class="line">const render = param =&gt; &#123;</span><br><span class="line">  const firstName = param.firstName;</span><br><span class="line">  const secondName = param.secondName;</span><br><span class="line">&#125;</span><br><span class="line">//Yes,and maybe we should give them default value,or if firstName or secondName dont exist in param , they will be undefined</span><br><span class="line">const render = param =&gt;&#123;</span><br><span class="line">  const &#123;</span><br><span class="line">    firstName=&apos;&apos; ,secondName=&apos;&apos;</span><br><span class="line">  &#125; = param;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="use-array-destructuring-instead-of-arr-0"><a href="#use-array-destructuring-instead-of-arr-0" class="headerlink" title="use array destructuring instead of arr[0]."></a>use array destructuring instead of arr[0].</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const render = param =&gt;&#123;</span><br><span class="line">  const [firstName,secondName] = param;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="use-object-destructuring-if-u-dont-need-certaine-property"><a href="#use-object-destructuring-if-u-dont-need-certaine-property" class="headerlink" title="use object destructuring if u dont need certaine property"></a>use object destructuring if u dont need certaine property</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// if u dont need secondName,u can use object destructuring,and what u need exists in rest</span><br><span class="line">const render = param =&gt;&#123;</span><br><span class="line">  const &#123;</span><br><span class="line">    secondName,...rest</span><br><span class="line">  &#125; =param//rest-&gt; &#123;firstName,age&#125;</span><br><span class="line">&#125;</span><br><span class="line">render(&#123;</span><br><span class="line">  firstName,</span><br><span class="line">  secondName,</span><br><span class="line">  age</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<h3 id="use-instead-of-‘’-or-“”"><a href="#use-instead-of-‘’-or-“”" class="headerlink" title="use `` instead of ‘’ or “”"></a>use `` instead of ‘’ or “”</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const name = &apos;John&apos;;</span><br><span class="line">//No</span><br><span class="line">const wholeName = &apos;My name is&apos;+ name;</span><br><span class="line">//Yes</span><br><span class="line">const wholeName = `my name is $&#123;name&#125;`</span><br></pre></td></tr></table></figure>
-
-<h3 id="dont-declare-function-in-a-block-like-if-while-etc"><a href="#dont-declare-function-in-a-block-like-if-while-etc" class="headerlink" title="dont declare function in a block like if,while ,etc"></a>dont declare function in a block like if,while ,etc</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//No</span><br><span class="line">if(true)&#123;</span><br><span class="line">  function test()&#123;</span><br><span class="line">    console.log(&apos;bad&apos;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">//Yes</span><br><span class="line">let test ;</span><br><span class="line">if(true)&#123;</span><br><span class="line">  test = () =&gt;&#123;</span><br><span class="line">    console.log(&apos;good&apos;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="use-spread-operator-…-instead-of-arguments-because-arguments-is-a-Array-like-Array-and-not-a-real-Array"><a href="#use-spread-operator-…-instead-of-arguments-because-arguments-is-a-Array-like-Array-and-not-a-real-Array" class="headerlink" title="use spread operator(…) instead of arguments,because arguments is a Array-like Array and not a real Array"></a>use spread operator(…) instead of arguments,because arguments is a Array-like Array and not a real Array</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//No</span><br><span class="line">const render = arguments =&gt; &#123;</span><br><span class="line">  const arr = Array.prototype.slice.call(arguments);</span><br><span class="line">&#125;</span><br><span class="line">//Yes</span><br><span class="line">const render =(...args) =&gt; &#123;</span><br><span class="line">  const arr = args;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="use-void-0-instead-of-undefined"><a href="#use-void-0-instead-of-undefined" class="headerlink" title="use void 0 instead of undefined"></a>use void 0 instead of undefined</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let undefined = 1;</span><br><span class="line">var a;</span><br><span class="line">console.log(a === undefined)// false</span><br><span class="line">console.log(a === void 0)//false</span><br></pre></td></tr></table></figure>
-
-<h3 id="in-a-module-with-single-export-use-default-export-instead-of-name-export"><a href="#in-a-module-with-single-export-use-default-export-instead-of-name-export" class="headerlink" title="in a module with single export use default export instead of name export"></a>in a module with single export use default export instead of name export</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export default function es6()&#123;&#125;</span><br></pre></td></tr></table></figure>
-
+<h3 id="底图限制拖动范围"><a href="#底图限制拖动范围" class="headerlink" title="底图限制拖动范围"></a>底图限制拖动范围</h3><p>在view中定义extent即可</p>
+<h3 id="在移动feature时限制在容器之内"><a href="#在移动feature时限制在容器之内" class="headerlink" title="在移动feature时限制在容器之内"></a>在移动feature时限制在容器之内</h3><ul>
+<li>首先要限制范围，首选需要获取到容器到边界。获取view的extent即可</li>
+<li>其次需要在移动过程中获取多边形的边界。调用getExtent即可</li>
+<li>然后需要做临界值判断，根据boolean值来判断是否允许移动，容器边界跟feature边界比较即可。</li>
+<li>最后怎么来移动，参考库中自带的Translate可以发现，是获取到feature到geometry到translate方法来移动，当判断临界值时，移动的距离设置为0即可。</li>
+</ul>
+<p>为了应对不同分辨率或者容器大小下的限制范围 — 由于extent不会自动针对分辨率或者容器大小来计算，所以需要使用calculateExtent来根据容器大小获取最新的extent</p>
+<p>以上 需要重写部分Translate的实现</p>
+<h3 id="在编辑feature时同样需要限制范围。"><a href="#在编辑feature时同样需要限制范围。" class="headerlink" title="在编辑feature时同样需要限制范围。"></a>在编辑feature时同样需要限制范围。</h3><p>原理同移动feature，但是略复杂</p>
+<h3 id="undo-redo的实现"><a href="#undo-redo的实现" class="headerlink" title="undo redo的实现"></a>undo redo的实现</h3><p>因为需求中仅要记录移动feature和编辑feature，因此在undo redo的时候就是在addFeature和removeFeature中来回切换，只要记录当前操作的undo操作和redo操作即 — 在项目中undo 和redo的过程其实就是清除绘画和重新绘画的过程，我大概试了上百次，performance表现良好，一片绿色，但是记得在新增新的modify或者translate的时候要把上次的清除，不然有性能问题，非常卡。</p>
+<h3 id="点击feature实行交互，点击空白取消交互，点击其他feature，当前交互，上次取消交互。"><a href="#点击feature实行交互，点击空白取消交互，点击其他feature，当前交互，上次取消交互。" class="headerlink" title="点击feature实行交互，点击空白取消交互，点击其他feature，当前交互，上次取消交互。"></a>点击feature实行交互，点击空白取消交互，点击其他feature，当前交互，上次取消交互。</h3><p>之前是自己直接用click事件来做处理，后来发现selet这个可以帮我处理点击和取消点击的样式问题，但是仍然需要我自己处理交互问题，每次点击feature的时候其实就是把上次的modify和translate删除，然后重新添加一份当前点击feature的modify和translate，</p>
 ]]></content>
       <tags>
-        <tag>JavaScript</tag>
+        <tag>gis openlayers ol6</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>今日随笔</title>
-    <url>/2020/08/15/vue-react-new-release/</url>
-    <content><![CDATA[<p>react 更新了<br><img src="/images/update-of-frame/react.png" alt="react"></p>
-<p>vue脚手架更新</p>
-<p><img src="/images/update-of-frame/vue.jpeg" alt="vue"></p>
-<p>来玩~</p>
-]]></content>
-      <categories>
-        <category>vue</category>
-        <category>react</category>
-      </categories>
   </entry>
   <entry>
     <title>工具函数</title>
     <url>/2019/09/16/toolFunc/</url>
-    <content><![CDATA[<h3 id="防抖"><a href="#防抖" class="headerlink" title="防抖"></a>防抖</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function debounce(func, wait) &#123;</span><br><span class="line">    let timeout = null;</span><br><span class="line">    return function () &#123;</span><br><span class="line">        let context = this;</span><br><span class="line">        let args = arguments;</span><br><span class="line"></span><br><span class="line">        if (timeout) &#123;</span><br><span class="line">          clearTimeout(timeout);</span><br><span class="line">          timeout = null;</span><br><span class="line">        &#125;;</span><br><span class="line">        </span><br><span class="line">        timeout = setTimeout(() =&gt; &#123;</span><br><span class="line">            func.apply(context, args);</span><br><span class="line">        &#125;, wait);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    <content><![CDATA[<h3 id="防抖"><a href="#防抖" class="headerlink" title="防抖"></a>防抖</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">debounce</span>(<span class="params">func, wait</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> timeout = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">let</span> context = <span class="keyword">this</span>;</span><br><span class="line">        <span class="keyword">let</span> args = <span class="built_in">arguments</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (timeout) &#123;</span><br><span class="line">          clearTimeout(timeout);</span><br><span class="line">          timeout = <span class="literal">null</span>;</span><br><span class="line">        &#125;;</span><br><span class="line">        </span><br><span class="line">        timeout = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">            func.apply(context, args);</span><br><span class="line">        &#125;, wait);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <a id="more"></a>
-<h3 id="节流"><a href="#节流" class="headerlink" title="节流"></a>节流</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function throttle(func, wait) &#123;</span><br><span class="line">    let previous = 0;</span><br><span class="line">    return function() &#123;</span><br><span class="line">        let now = Date.now();</span><br><span class="line">        let context = this;</span><br><span class="line">        let args = arguments;</span><br><span class="line">        if (now - previous &gt; wait) &#123;</span><br><span class="line">            func.apply(context, args);</span><br><span class="line">            previous = now;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="节流"><a href="#节流" class="headerlink" title="节流"></a>节流</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">func, wait</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> previous = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">let</span> now = <span class="built_in">Date</span>.now();</span><br><span class="line">        <span class="keyword">let</span> context = <span class="keyword">this</span>;</span><br><span class="line">        <span class="keyword">let</span> args = <span class="built_in">arguments</span>;</span><br><span class="line">        <span class="keyword">if</span> (now - previous &gt; wait) &#123;</span><br><span class="line">            func.apply(context, args);</span><br><span class="line">            previous = now;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="判断是否是数组"><a href="#判断是否是数组" class="headerlink" title="判断是否是数组"></a>判断是否是数组</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let arr=[];</span><br><span class="line">Array.isArray(arr);</span><br><span class="line">//or</span><br><span class="line">Object.prototype.toString.call(arr) === &apos;[Object Array]&apos;;</span><br></pre></td></tr></table></figure>
 
@@ -2330,24 +2225,132 @@ createComponentInstance
 <p>用法</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hashBrowser(JSON.stringify(&#123; a: &apos;a&apos;, b: [1, 2, 3, 4], foo: &#123; c: &apos;bar&apos; &#125; &#125;)).then(console.log); // &apos;04aa106279f5977f59f9067fa9712afc4aedc6f5862a8defc34552d8c7206393&apos;</span><br></pre></td></tr></table></figure>
 
-<h3 id="自定义事件"><a href="#自定义事件" class="headerlink" title="自定义事件"></a>自定义事件</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const triggerEvnet = (el,eventType,detail) =&gt; el.dispatchEvent(new CustomEvent(eventType,detail));</span><br></pre></td></tr></table></figure>
+<h3 id="自定义事件"><a href="#自定义事件" class="headerlink" title="自定义事件"></a>自定义事件</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> triggerEvnet = <span class="function">(<span class="params">el,eventType,detail</span>) =&gt;</span> el.dispatchEvent(<span class="keyword">new</span> CustomEvent(eventType,detail));</span><br></pre></td></tr></table></figure>
 
 <p>用法</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">triggerEvnet(document.getElementById(&apos;id&apos;),&apos;click&apos;);//触发前需要先注册方法，addEventListener或者attachEvent</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">triggerEvnet(<span class="built_in">document</span>.getElementById(<span class="string">'id'</span>),<span class="string">'click'</span>);<span class="comment">//触发前需要先注册方法，addEventListener或者attachEvent</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="isWritableStream"><a href="#isWritableStream" class="headerlink" title="isWritableStream"></a>isWritableStream</h3><p>检查给定参数是否是可写的流体</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const isWriteable = val =&gt; val !== null &amp;&amp;</span><br><span class="line">  typeof val === &apos;object&apos; &amp;&amp;</span><br><span class="line">  typeof val.pipe === &apos;function&apos; &amp;&amp;</span><br><span class="line">  typeof val._write === &apos;function&apos; &amp;&amp;</span><br><span class="line">  typeof val._writableState === &apos;object&apos;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> isWriteable = <span class="function"><span class="params">val</span> =&gt;</span> val !== <span class="literal">null</span> &amp;&amp;</span><br><span class="line">  <span class="keyword">typeof</span> val === <span class="string">'object'</span> &amp;&amp;</span><br><span class="line">  <span class="keyword">typeof</span> val.pipe === <span class="string">'function'</span> &amp;&amp;</span><br><span class="line">  <span class="keyword">typeof</span> val._write === <span class="string">'function'</span> &amp;&amp;</span><br><span class="line">  <span class="keyword">typeof</span> val._writableState === <span class="string">'object'</span>;</span><br></pre></td></tr></table></figure>
 
 <p>Node环境中使用</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const fs = require(&apos;fs&apos;);</span><br><span class="line">isWritableStream(fs.createWriteStream(&apos;test.txt&apos;)); // true</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line">isWritableStream(fs.createWriteStream(<span class="string">'test.txt'</span>)); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="打乱数组顺序"><a href="#打乱数组顺序" class="headerlink" title="打乱数组顺序"></a>打乱数组顺序</h3><p>洗牌算法</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const shuffle = (arr) =&gt; &#123;</span><br><span class="line">  let m = arr.length;</span><br><span class="line">  while(m)&#123;</span><br><span class="line">    const i = Math.floor(Math.random()*m--);</span><br><span class="line">    [arr[i],arr[m]] =[arr[m],arr[i]]; </span><br><span class="line">  &#125;</span><br><span class="line">  return arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> shuffle = <span class="function">(<span class="params">arr</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> m = arr.length;</span><br><span class="line">  <span class="keyword">while</span>(m)&#123;</span><br><span class="line">    <span class="keyword">const</span> i = <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random()*m--);</span><br><span class="line">    [arr[i],arr[m]] =[arr[m],arr[i]]; </span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-]]></content>
+<h3 id="反解套"><a href="#反解套" class="headerlink" title="反解套"></a>反解套</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> unflattenObject = <span class="function"><span class="params">obj</span> =&gt;</span></span><br><span class="line">  <span class="built_in">Object</span>.keys(obj).reduce(<span class="function">(<span class="params">acc, k</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (k.indexOf(<span class="string">'.'</span>) !== <span class="number">-1</span>) &#123;</span><br><span class="line">      <span class="keyword">const</span> keys = k.split(<span class="string">'.'</span>);</span><br><span class="line">      <span class="built_in">Object</span>.assign(</span><br><span class="line">        acc,</span><br><span class="line">        <span class="built_in">JSON</span>.parse(</span><br><span class="line">          <span class="string">'&#123;'</span> +</span><br><span class="line">            keys.map(<span class="function">(<span class="params">v, i</span>) =&gt;</span> (i !== keys.length - <span class="number">1</span> ? <span class="string">`"<span class="subst">$&#123;v&#125;</span>":&#123;`</span> : <span class="string">`"<span class="subst">$&#123;v&#125;</span>":`</span>)).join(<span class="string">''</span>) +</span><br><span class="line">            obj[k] +</span><br><span class="line">            <span class="string">'&#125;'</span>.repeat(keys.length)</span><br><span class="line">        )</span><br><span class="line">      );</span><br><span class="line">    &#125; <span class="keyword">else</span> acc[k] = obj[k];</span><br><span class="line">    <span class="keyword">return</span> acc;</span><br><span class="line">  &#125;, &#123;&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>example</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">unflattenObject(&#123; <span class="string">'a.b.c'</span>: <span class="number">1</span>, <span class="attr">d</span>: <span class="number">1</span> &#125;); <span class="comment">// &#123; a: &#123; b: &#123; c: 1 &#125; &#125;, d: 1 &#125;</span></span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>tool</category>
       </categories>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>优雅的书写方式</title>
+    <url>/2019/10/27/usage-for-better/</url>
+    <content><![CDATA[<h3 id="变量声明"><a href="#变量声明" class="headerlink" title="变量声明"></a>变量声明</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//变量声明用let or const</span><br><span class="line">let a = 1;</span><br><span class="line">const b = 2;</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+<h3 id="对象属性赋值"><a href="#对象属性赋值" class="headerlink" title="对象属性赋值"></a>对象属性赋值</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const getKey(key)&#123;</span><br><span class="line">  return `a key named $&#123;key&#125;`</span><br><span class="line">&#125;</span><br><span class="line">//使用动态属性作为键名，用计算后的属性</span><br><span class="line">const obj=&#123;</span><br><span class="line">  id:1,</span><br><span class="line">  name:&apos;John&apos;,</span><br><span class="line">  [getKey(&apos;enable&apos;)]:&apos;Tom&apos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="键名与键值的变量名相同，不需要写两遍"><a href="#键名与键值的变量名相同，不需要写两遍" class="headerlink" title="键名与键值的变量名相同，不需要写两遍"></a>键名与键值的变量名相同，不需要写两遍</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const name = &apos;John&apos;;</span><br><span class="line">const obj = &#123;</span><br><span class="line">  name</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="对象数据分组排序"><a href="#对象数据分组排序" class="headerlink" title="对象数据分组排序"></a>对象数据分组排序</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//解构赋值的排前面</span><br><span class="line">const name = &apos;John&apos;,age=2, grade = 80;</span><br><span class="line">const obj = &#123;</span><br><span class="line">  name,</span><br><span class="line">  age,</span><br><span class="line">  level:grade</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="属性声明"><a href="#属性声明" class="headerlink" title="属性声明"></a>属性声明</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//键名声明不需要写引号,仅有无效标识符需要加引号</span><br><span class="line">const obj = &#123;</span><br><span class="line">  a:1,</span><br><span class="line">  &apos;data-self:true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="不要直接调用Object-prototype的方法，比如hasOwnProperty"><a href="#不要直接调用Object-prototype的方法，比如hasOwnProperty" class="headerlink" title="不要直接调用Object.prototype的方法，比如hasOwnProperty"></a>不要直接调用Object.prototype的方法，比如hasOwnProperty</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const obj = &#123;</span><br><span class="line">  a:1</span><br><span class="line">&#125;</span><br><span class="line">//不要直接用ojb.hasOwnProperty(Do not use obj.hasOwnProperty directly)</span><br><span class="line"></span><br><span class="line">Object.prototype.hasOwnProperty.call(obj,key)//use Object.prototype.call instead</span><br><span class="line">//or</span><br><span class="line">const has = Object.prototype.hasOwnProperty;</span><br><span class="line">has.call(obj,key)//</span><br></pre></td></tr></table></figure>
+
+<h3 id="use-the-object-spread-operator-instead-of-Object-assign-to-shallow-copy-objects"><a href="#use-the-object-spread-operator-instead-of-Object-assign-to-shallow-copy-objects" class="headerlink" title="use the object spread operator instead of Object.assign to shallow-copy objects"></a>use the object spread operator instead of Object.assign to shallow-copy objects</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const obj = &#123;</span><br><span class="line">  name:&apos;Tom&apos;</span><br><span class="line">&#125;</span><br><span class="line">const cloneObj =&#123;...obj,age:1&#125;//cloneObj -&gt; &#123;name:&apos;Tom&apos;,age:1&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="use-spread-operator-to-copy-Array"><a href="#use-spread-operator-to-copy-Array" class="headerlink" title="use spread operator to copy Array"></a>use spread operator to copy Array</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const arr = [1,2,3,4];</span><br><span class="line">const cloneArr = [...arr];//cloneArr - .[1,2,3,4]</span><br></pre></td></tr></table></figure>
+
+<h3 id="use-Array-from-or-spread-operator-to-convert-an-iterable-Object"><a href="#use-Array-from-or-spread-operator-to-convert-an-iterable-Object" class="headerlink" title="use Array.from() or spread operator to convert an iterable Object"></a>use Array.from() or spread operator to convert an iterable Object</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const foo = document.querySelectorAll(&apos;.foo&apos;);//it is a nodelist</span><br><span class="line"></span><br><span class="line">const arrNode = Array.from(foo);</span><br><span class="line"></span><br><span class="line">//or</span><br><span class="line"></span><br><span class="line">const arrNode1 = [...foo];</span><br></pre></td></tr></table></figure>
+
+<h3 id="use-Array-from-instead-of-spread-operator-for-mapping-over-iterables-because-it-won’t-creat-an-intermediate-array"><a href="#use-Array-from-instead-of-spread-operator-for-mapping-over-iterables-because-it-won’t-creat-an-intermediate-array" class="headerlink" title="use Array.from() instead of spread operator  for mapping over iterables ,because it won’t creat an intermediate array"></a>use Array.from() instead of spread operator  for mapping over iterables ,because it won’t creat an intermediate array</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const foo =[1,2,3];</span><br><span class="line">const bar = Array.from(foo,function(item)&#123;</span><br><span class="line">  return Math.pow(item,2)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="use-object-destructuring-when-accessing-and-using-multiple-properties-of-an-object"><a href="#use-object-destructuring-when-accessing-and-using-multiple-properties-of-an-object" class="headerlink" title="use object destructuring when accessing and using multiple properties of an object."></a>use object destructuring when accessing and using multiple properties of an object.</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//No</span><br><span class="line">const render = param =&gt; &#123;</span><br><span class="line">  const firstName = param.firstName;</span><br><span class="line">  const secondName = param.secondName;</span><br><span class="line">&#125;</span><br><span class="line">//Yes,and maybe we should give them default value,or if firstName or secondName dont exist in param , they will be undefined</span><br><span class="line">const render = param =&gt;&#123;</span><br><span class="line">  const &#123;</span><br><span class="line">    firstName=&apos;&apos; ,secondName=&apos;&apos;</span><br><span class="line">  &#125; = param;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="use-array-destructuring-instead-of-arr-0"><a href="#use-array-destructuring-instead-of-arr-0" class="headerlink" title="use array destructuring instead of arr[0]."></a>use array destructuring instead of arr[0].</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const render = param =&gt;&#123;</span><br><span class="line">  const [firstName,secondName] = param;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="use-object-destructuring-if-u-dont-need-certaine-property"><a href="#use-object-destructuring-if-u-dont-need-certaine-property" class="headerlink" title="use object destructuring if u dont need certaine property"></a>use object destructuring if u dont need certaine property</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// if u dont need secondName,u can use object destructuring,and what u need exists in rest</span><br><span class="line">const render = param =&gt;&#123;</span><br><span class="line">  const &#123;</span><br><span class="line">    secondName,...rest</span><br><span class="line">  &#125; =param//rest-&gt; &#123;firstName,age&#125;</span><br><span class="line">&#125;</span><br><span class="line">render(&#123;</span><br><span class="line">  firstName,</span><br><span class="line">  secondName,</span><br><span class="line">  age</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="use-instead-of-‘’-or-“”"><a href="#use-instead-of-‘’-or-“”" class="headerlink" title="use `` instead of ‘’ or “”"></a>use `` instead of ‘’ or “”</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const name = &apos;John&apos;;</span><br><span class="line">//No</span><br><span class="line">const wholeName = &apos;My name is&apos;+ name;</span><br><span class="line">//Yes</span><br><span class="line">const wholeName = `my name is $&#123;name&#125;`</span><br></pre></td></tr></table></figure>
+
+<h3 id="dont-declare-function-in-a-block-like-if-while-etc"><a href="#dont-declare-function-in-a-block-like-if-while-etc" class="headerlink" title="dont declare function in a block like if,while ,etc"></a>dont declare function in a block like if,while ,etc</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//No</span><br><span class="line">if(true)&#123;</span><br><span class="line">  function test()&#123;</span><br><span class="line">    console.log(&apos;bad&apos;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">//Yes</span><br><span class="line">let test ;</span><br><span class="line">if(true)&#123;</span><br><span class="line">  test = () =&gt;&#123;</span><br><span class="line">    console.log(&apos;good&apos;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="use-spread-operator-…-instead-of-arguments-because-arguments-is-a-Array-like-Array-and-not-a-real-Array"><a href="#use-spread-operator-…-instead-of-arguments-because-arguments-is-a-Array-like-Array-and-not-a-real-Array" class="headerlink" title="use spread operator(…) instead of arguments,because arguments is a Array-like Array and not a real Array"></a>use spread operator(…) instead of arguments,because arguments is a Array-like Array and not a real Array</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//No</span><br><span class="line">const render = arguments =&gt; &#123;</span><br><span class="line">  const arr = Array.prototype.slice.call(arguments);</span><br><span class="line">&#125;</span><br><span class="line">//Yes</span><br><span class="line">const render =(...args) =&gt; &#123;</span><br><span class="line">  const arr = args;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="use-void-0-instead-of-undefined"><a href="#use-void-0-instead-of-undefined" class="headerlink" title="use void 0 instead of undefined"></a>use void 0 instead of undefined</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let undefined = 1;</span><br><span class="line">var a;</span><br><span class="line">console.log(a === undefined)// false</span><br><span class="line">console.log(a === void 0)//false</span><br></pre></td></tr></table></figure>
+
+<h3 id="in-a-module-with-single-export-use-default-export-instead-of-name-export"><a href="#in-a-module-with-single-export-use-default-export-instead-of-name-export" class="headerlink" title="in a module with single export use default export instead of name export"></a>in a module with single export use default export instead of name export</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export default function es6()&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>在JS文件使用svg加载svg文件</title>
+    <url>/2020/10/13/svgInJS/</url>
+    <content><![CDATA[<h3 id="怎么在js文件中用引用svg文件"><a href="#怎么在js文件中用引用svg文件" class="headerlink" title="怎么在js文件中用引用svg文件"></a>怎么在js文件中用引用svg文件</h3><p>使用webpack的require.context,它接收三个参数</p>
+<ul>
+<li>要搜索的文件夹目录</li>
+<li>是否还应该搜索它的子目录，</li>
+<li>以及一个匹配文件的正则表达式。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const req = require.context(<span class="string">'./svg'</span>, <span class="literal">false</span>, /\.svg$/)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>req返回的是一个方法</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> webpackContext(req) &#123;</span><br><span class="line">	var id = webpackContextResolve(req);</span><br><span class="line">	<span class="built_in">return</span> __webpack_require__(id);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>包含三个属性</p>
+<ul>
+<li>id</li>
+<li>keys </li>
+<li>resolve<a id="more"></a>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">webpackContext.keys = <span class="keyword">function</span> <span class="function"><span class="title">webpackContextKeys</span></span>() &#123;</span><br><span class="line">	<span class="built_in">return</span> Object.keys(map);</span><br><span class="line">&#125;;</span><br><span class="line">webpackContext.resolve = webpackContextResolve;</span><br><span class="line">webpackContext.id = <span class="string">"./src/icons/svg sync \\.svg$"</span>;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>再使用<code>const requireAll = requireContext =&gt; requireContext.keys().map(requireContext)</code>之后，会得到一个Module的数组,数组的每一项就是执行import后的Module<br><img src="/images/svg-in-js/map.png" alt="dom"><br><img src="/images/svg-in-js/image.png" alt="image"><br>Module数组<br><img src="/images/svg-in-js/module.png" alt="module"><br><strong>webpack_require</strong>方法</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> __webpack_require__(moduleId) &#123;</span><br><span class="line">/******/</span><br><span class="line">/******/ 		// Check <span class="keyword">if</span> module is <span class="keyword">in</span> cache</span><br><span class="line">/******/ 		<span class="keyword">if</span>(installedModules[moduleId]) &#123;</span><br><span class="line">/******/ 			<span class="built_in">return</span> installedModules[moduleId].exports;</span><br><span class="line">/******/ 		&#125;</span><br><span class="line">/******/ 		// Create a new module (and put it into the cache)</span><br><span class="line">/******/ 		var module = installedModules[moduleId] = &#123;</span><br><span class="line">/******/ 			i: moduleId,</span><br><span class="line">/******/ 			l: <span class="literal">false</span>,</span><br><span class="line">/******/ 			exports: &#123;&#125;,</span><br><span class="line">/******/ 			hot: hotCreateModule(moduleId),</span><br><span class="line">/******/ 			parents: (hotCurrentParentsTemp = hotCurrentParents, hotCurrentParents = [], hotCurrentParentsTemp),</span><br><span class="line">/******/ 			children: []</span><br><span class="line">/******/ 		&#125;;</span><br><span class="line">/******/</span><br><span class="line">/******/ 		// Execute the module <span class="keyword">function</span></span><br><span class="line">/******/ 		modules[moduleId].call(module.exports, module, module.exports, hotCreateRequire(moduleId));</span><br><span class="line">/******/</span><br><span class="line">/******/ 		// Flag the module as loaded</span><br><span class="line">/******/ 		module.l = <span class="literal">true</span>;</span><br><span class="line">/******/</span><br><span class="line">/******/ 		// Return the exports of the module</span><br><span class="line">/******/ 		<span class="built_in">return</span> module.exports;</span><br><span class="line">/******/ 	&#125;</span><br></pre></td></tr></table></figure>
+
+<p>svg example</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/***/ <span class="string">"./src/icons/svg/bug.svg"</span>:</span><br><span class="line">/*!*******************************!*\</span><br><span class="line">  !*** ./src/icons/svg/bug.svg ***!</span><br><span class="line">  \*******************************/</span><br><span class="line">/*! exports provided: default */</span><br><span class="line">/***/ (<span class="keyword">function</span>(module, __webpack_exports__, __webpack_require__) &#123;</span><br><span class="line"></span><br><span class="line"><span class="string">"use strict"</span>;</span><br><span class="line"><span class="built_in">eval</span>(<span class="string">"__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! svg-baker-runtime/browser-symbol */ \"./node_modules/svg-baker-runtime/browser-symbol.js\");\n/* harmony import */ var svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! svg-sprite-loader/runtime/browser-sprite.build */ \"./node_modules/svg-sprite-loader/runtime/browser-sprite.build.js\");\n/* harmony import */ var svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1__);\n\n\nvar symbol = new svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0___default.a(&#123;\n  \"id\": \"icon-bug\",\n  \"use\": \"icon-bug-usage\",\n  \"viewBox\": \"0 0 128 128\",\n  \"content\": \"&lt;symbol xmlns=\\\"http://www.w3.org/2000/svg\\\" viewBox=\\\"0 0 128 128\\\" id=\\\"icon-bug\\\"&gt;&lt;path d=\\\"M127.88 73.143c0 1.412-.506 2.635-1.518 3.669-1.011 1.033-2.209 1.55-3.592 1.55h-17.887c0 9.296-1.783 17.178-5.35 23.645l16.609 17.044c1.011 1.034 1.517 2.257 1.517 3.67 0 1.412-.506 2.635-1.517 3.668-.958 1.033-2.155 1.55-3.593 1.55-1.438 0-2.635-.517-3.593-1.55l-15.811-16.063a15.49 15.49 0 0 1-1.196 1.06c-.532.434-1.65 1.208-3.353 2.322a50.104 50.104 0 0 1-5.192 2.974c-1.758.87-3.94 1.658-6.546 2.364-2.607.706-5.189 1.06-7.748 1.06V47.044H58.89v73.062c-2.716 0-5.417-.367-8.106-1.102-2.688-.734-5.003-1.631-6.945-2.692a66.769 66.769 0 0 1-5.268-3.179c-1.571-1.057-2.73-1.94-3.476-2.65L33.9 109.34l-14.611 16.877c-1.066 1.14-2.344 1.711-3.833 1.711-1.277 0-2.422-.434-3.434-1.304-1.012-.978-1.557-2.187-1.635-3.627-.079-1.44.333-2.705 1.236-3.794l16.129-18.51c-3.087-6.197-4.63-13.644-4.63-22.342H5.235c-1.383 0-2.58-.517-3.592-1.55S.125 74.545.125 73.132c0-1.412.506-2.635 1.518-3.668 1.012-1.034 2.21-1.55 3.592-1.55h17.887V43.939L9.308 29.833c-1.012-1.033-1.517-2.256-1.517-3.669 0-1.412.505-2.635 1.517-3.668 1.012-1.034 2.21-1.55 3.593-1.55s2.58.516 3.593 1.55l13.813 14.106h67.396l13.814-14.106c1.012-1.034 2.21-1.55 3.592-1.55 1.384 0 2.581.516 3.593 1.55 1.012 1.033 1.518 2.256 1.518 3.668 0 1.413-.506 2.636-1.518 3.67l-13.814 14.105v23.975h17.887c1.383 0 2.58.516 3.593 1.55 1.011 1.033 1.517 2.256 1.517 3.668l-.005.01zM89.552 26.175H38.448c0-7.23 2.489-13.386 7.466-18.469C50.892 2.623 56.92.082 64 .082c7.08 0 13.108 2.541 18.086 7.624 4.977 5.083 7.466 11.24 7.466 18.469z\\\" /&gt;&lt;/symbol&gt;\"\n&#125;);\nvar result = svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1___default.a.add(symbol);\n/* harmony default export */ __webpack_exports__[\"default\"] = (symbol);//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9zcmMvaWNvbnMvc3ZnL2J1Zy5zdmcuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvaWNvbnMvc3ZnL2J1Zy5zdmc/MjI4NiJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgU3ByaXRlU3ltYm9sIGZyb20gXCJzdmctYmFrZXItcnVudGltZS9icm93c2VyLXN5bWJvbFwiO1xuaW1wb3J0IHNwcml0ZSBmcm9tIFwic3ZnLXNwcml0ZS1sb2FkZXIvcnVudGltZS9icm93c2VyLXNwcml0ZS5idWlsZFwiO1xudmFyIHN5bWJvbCA9IG5ldyBTcHJpdGVTeW1ib2woe1xuICBcImlkXCI6IFwiaWNvbi1idWdcIixcbiAgXCJ1c2VcIjogXCJpY29uLWJ1Zy11c2FnZVwiLFxuICBcInZpZXdCb3hcIjogXCIwIDAgMTI4IDEyOFwiLFxuICBcImNvbnRlbnRcIjogXCI8c3ltYm9sIHhtbG5zPVxcXCJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Z1xcXCIgdmlld0JveD1cXFwiMCAwIDEyOCAxMjhcXFwiIGlkPVxcXCJpY29uLWJ1Z1xcXCI+PHBhdGggZD1cXFwiTTEyNy44OCA3My4xNDNjMCAxLjQxMi0uNTA2IDIuNjM1LTEuNTE4IDMuNjY5LTEuMDExIDEuMDMzLTIuMjA5IDEuNTUtMy41OTIgMS41NWgtMTcuODg3YzAgOS4yOTYtMS43ODMgMTcuMTc4LTUuMzUgMjMuNjQ1bDE2LjYwOSAxNy4wNDRjMS4wMTEgMS4wMzQgMS41MTcgMi4yNTcgMS41MTcgMy42NyAwIDEuNDEyLS41MDYgMi42MzUtMS41MTcgMy42NjgtLjk1OCAxLjAzMy0yLjE1NSAxLjU1LTMuNTkzIDEuNTUtMS40MzggMC0yLjYzNS0uNTE3LTMuNTkzLTEuNTVsLTE1LjgxMS0xNi4wNjNhMTUuNDkgMTUuNDkgMCAwIDEtMS4xOTYgMS4wNmMtLjUzMi40MzQtMS42NSAxLjIwOC0zLjM1MyAyLjMyMmE1MC4xMDQgNTAuMTA0IDAgMCAxLTUuMTkyIDIuOTc0Yy0xLjc1OC44Ny0zLjk0IDEuNjU4LTYuNTQ2IDIuMzY0LTIuNjA3LjcwNi01LjE4OSAxLjA2LTcuNzQ4IDEuMDZWNDcuMDQ0SDU4Ljg5djczLjA2MmMtMi43MTYgMC01LjQxNy0uMzY3LTguMTA2LTEuMTAyLTIuNjg4LS43MzQtNS4wMDMtMS42MzEtNi45NDUtMi42OTJhNjYuNzY5IDY2Ljc2OSAwIDAgMS01LjI2OC0zLjE3OWMtMS41NzEtMS4wNTctMi43My0xLjk0LTMuNDc2LTIuNjVMMzMuOSAxMDkuMzRsLTE0LjYxMSAxNi44NzdjLTEuMDY2IDEuMTQtMi4zNDQgMS43MTEtMy44MzMgMS43MTEtMS4yNzcgMC0yLjQyMi0uNDM0LTMuNDM0LTEuMzA0LTEuMDEyLS45NzgtMS41NTctMi4xODctMS42MzUtMy42MjctLjA3OS0xLjQ0LjMzMy0yLjcwNSAxLjIzNi0zLjc5NGwxNi4xMjktMTguNTFjLTMuMDg3LTYuMTk3LTQuNjMtMTMuNjQ0LTQuNjMtMjIuMzQySDUuMjM1Yy0xLjM4MyAwLTIuNTgtLjUxNy0zLjU5Mi0xLjU1Uy4xMjUgNzQuNTQ1LjEyNSA3My4xMzJjMC0xLjQxMi41MDYtMi42MzUgMS41MTgtMy42NjggMS4wMTItMS4wMzQgMi4yMS0xLjU1IDMuNTkyLTEuNTVoMTcuODg3VjQzLjkzOUw5LjMwOCAyOS44MzNjLTEuMDEyLTEuMDMzLTEuNTE3LTIuMjU2LTEuNTE3LTMuNjY5IDAtMS40MTIuNTA1LTIuNjM1IDEuNTE3LTMuNjY4IDEuMDEyLTEuMDM0IDIuMjEtMS41NSAzLjU5My0xLjU1czIuNTguNTE2IDMuNTkzIDEuNTVsMTMuODEzIDE0LjEwNmg2Ny4zOTZsMTMuODE0LTE0LjEwNmMxLjAxMi0xLjAzNCAyLjIxLTEuNTUgMy41OTItMS41NSAxLjM4NCAwIDIuNTgxLjUxNiAzLjU5MyAxLjU1IDEuMDEyIDEuMDMzIDEuNTE4IDIuMjU2IDEuNTE4IDMuNjY4IDAgMS40MTMtLjUwNiAyLjYzNi0xLjUxOCAzLjY3bC0xMy44MTQgMTQuMTA1djIzLjk3NWgxNy44ODdjMS4zODMgMCAyLjU4LjUxNiAzLjU5MyAxLjU1IDEuMDExIDEuMDMzIDEuNTE3IDIuMjU2IDEuNTE3IDMuNjY4bC0uMDA1LjAxek04OS41NTIgMjYuMTc1SDM4LjQ0OGMwLTcuMjMgMi40ODktMTMuMzg2IDcuNDY2LTE4LjQ2OUM1MC44OTIgMi42MjMgNTYuOTIuMDgyIDY0IC4wODJjNy4wOCAwIDEzLjEwOCAyLjU0MSAxOC4wODYgNy42MjQgNC45NzcgNS4wODMgNy40NjYgMTEuMjQgNy40NjYgMTguNDY5elxcXCIgLz48L3N5bWJvbD5cIlxufSk7XG52YXIgcmVzdWx0ID0gc3ByaXRlLmFkZChzeW1ib2wpO1xuZXhwb3J0IGRlZmF1bHQgc3ltYm9sIl0sIm1hcHBpbmdzIjoiQUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0EiLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./src/icons/svg/bug.svg\n"</span>);</span><br><span class="line"></span><br><span class="line">/***/ &#125;)</span><br></pre></td></tr></table></figure>
+
+<p>所以在JS中使用svg标签来加载对应的svg文件的时候只需要在svg标签加入use 然后给id属性赋值为对应symbol的id，比如<code>id=&quot;#icon-404&quot;</code></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>今日随笔</title>
+    <url>/2020/08/15/vue-react-new-release/</url>
+    <content><![CDATA[<p>react 更新了<br><img src="/images/update-of-frame/react.png" alt="react"></p>
+<p>vue脚手架更新</p>
+<p><img src="/images/update-of-frame/vue.jpeg" alt="vue"></p>
+<p>来玩~</p>
+]]></content>
+      <categories>
+        <category>vue</category>
+        <category>react</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>节流</title>
+    <url>/2021/02/19/throttle/</url>
+    <content><![CDATA[<h5 id="创建一个节流函数在给定的毫秒中最多调用一次"><a href="#创建一个节流函数在给定的毫秒中最多调用一次" class="headerlink" title="创建一个节流函数在给定的毫秒中最多调用一次"></a>创建一个节流函数在给定的毫秒中最多调用一次</h5><p>Creates a throttled function that only invokes the provided function at most once per every wait milliseconds</p>
+<hr>
+<p>使用setTimeout 和 clearTimeout 对给定对方法节流。fn使用<code>Function.prototype.apply()</code>this上下文应用到函数中并且提供必要到参数arguments。使用<code>Date.now()</code>收集上一次函数的调用时间。没有给定第二个参数 <code>wait</code>的情况，默认设置时间间隔为0</p>
+<a id="more"></a>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> throttle = <span class="function">(<span class="params">fn, wait</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> inThrottle, lastFn, lastTime;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> context = <span class="keyword">this</span>,</span><br><span class="line">      args = <span class="built_in">arguments</span>;</span><br><span class="line">    <span class="keyword">if</span> (!inThrottle) &#123;</span><br><span class="line">      fn.apply(context, args);</span><br><span class="line">      lastTime = <span class="built_in">Date</span>.now();</span><br><span class="line">      inThrottle = <span class="literal">true</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      clearTimeout(lastFn);</span><br><span class="line">      lastFn = setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">Date</span>.now() - lastTime &gt;= wait) &#123;</span><br><span class="line">          fn.apply(context, args);</span><br><span class="line">          lastTime = <span class="built_in">Date</span>.now();</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;, <span class="built_in">Math</span>.max(wait - (<span class="built_in">Date</span>.now() - lastTime), <span class="number">0</span>));</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h5 id="for-instance"><a href="#for-instance" class="headerlink" title="for instance"></a>for instance</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(</span><br><span class="line">  <span class="string">'resize'</span>,</span><br><span class="line">  throttle(<span class="function"><span class="keyword">function</span>(<span class="params">evt</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">window</span>.innerWidth);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">window</span>.innerHeight);</span><br><span class="line">  &#125;, <span class="number">250</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>]]></content>
       <tags>
         <tag>JavaScript</tag>
       </tags>
