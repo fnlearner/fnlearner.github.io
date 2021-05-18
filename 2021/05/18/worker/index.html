@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://github.com/images/worker/event-loop-and-worker.png">
 <meta property="og:image" content="https://github.com/images/worker/thread.jpeg">
 <meta property="og:image" content="https://github.com/images/worker/cost.jpeg">
-<meta property="og:updated_time" content="2021-05-18T13:52:27.246Z">
+<meta property="og:updated_time" content="2021-05-18T13:59:58.738Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="worker">
 <meta name="twitter:description" content="Web Worker 文献综述 Web Worker 作为浏览器多线程技术, 在页面内容不断丰富, 功能日趋复杂的当下, 成为缓解页面卡顿, 提升应用性能的可选方案.但她的容颜, 隐藏在边缘试探的科普文章和不知深浅的兼容性背后; 对 JS 单线程面试题倒背如流的前端工程师, 对多线程开发有着天然的陌生感. 业务背景 因为我负责的组件中有个是树组件，那么对于这个树组件有个功能是叫做搜索的功能，一开始">
@@ -220,7 +220,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2021-05-18 19:14:20 / 修改时间：21:52:27" itemprop="dateCreated datePublished" datetime="2021-05-18T19:14:20+08:00">2021-05-18</time>
+              <time title="创建时间：2021-05-18 19:14:20 / 修改时间：21:59:58" itemprop="dateCreated datePublished" datetime="2021-05-18T19:14:20+08:00">2021-05-18</time>
             </span>
 
           
@@ -250,6 +250,8 @@
 
 <p><img src="/images/worker/worker-process.jpeg" alt="process"></p>
 <p>通过这个其实可以想到的是 并行可以提升执行效率，任务的拆分能减少页面的卡顿</p>
+<a id="more"></a>
+
 <h4 id="技术规范"><a href="#技术规范" class="headerlink" title="技术规范"></a>技术规范</h4><p><a href="https://www.w3.org/TR/workers/" target="_blank" rel="noopener">worker的技术规范</a>并不是近几年才开始提出的，它在09年就已经有了草案<br><img src="/images/worker/worker-draft.png" alt="worker draft"></p>
 <h4 id="Worker的分类"><a href="#Worker的分类" class="headerlink" title="Worker的分类"></a>Worker的分类</h4><p>在mdn上worker介绍了三种worker类型，分别是Dedicated workers （专用worker），Shared Worker（共享worker）以及 Service Worker。<br>Dedicated worker 只能与创建它的页面渲染进程通行，不能够进行多tab共享，这是最常见的也是用的最多的一种worker<br>而 SharedWorker 可以在多个浏览器 Tab 中访问到同一个 Worker 实例, 实现多 Tab 共享数据, 共享 webSocket 连接等. 看起来很美好, 但 safari 放弃了 SharedWorker 支持, 因为 webkit 引擎的技术原因. 如下图所示, 只在 safari 5~6 中短暂支持过.</p>
 <p><img src="/images/worker/shared-worker.jpeg" alt="shared worker"></p>

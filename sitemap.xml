@@ -156,14 +156,14 @@
   </url>
   
   <url>
-    <loc>https://github.com/fnlearner/2020/09/16/request-of-complex-simply/</loc>
+    <loc>https://github.com/fnlearner/2019/08/05/readingNote-JS/</loc>
     
     <lastmod>2020-10-07</lastmod>
     
   </url>
   
   <url>
-    <loc>https://github.com/fnlearner/2019/08/05/readingNote-JS/</loc>
+    <loc>https://github.com/fnlearner/2020/09/16/request-of-complex-simply/</loc>
     
     <lastmod>2020-10-07</lastmod>
     
@@ -268,14 +268,14 @@
   </url>
   
   <url>
-    <loc>https://github.com/fnlearner/2019/08/08/leetcode-1003/</loc>
+    <loc>https://github.com/fnlearner/2019/11/28/jsonp/</loc>
     
     <lastmod>2020-10-07</lastmod>
     
   </url>
   
   <url>
-    <loc>https://github.com/fnlearner/2019/11/28/jsonp/</loc>
+    <loc>https://github.com/fnlearner/2019/08/08/leetcode-1003/</loc>
     
     <lastmod>2020-10-07</lastmod>
     
@@ -296,6 +296,13 @@
   </url>
   
   <url>
+    <loc>https://github.com/fnlearner/2020/09/12/diff-between-get-post/</loc>
+    
+    <lastmod>2020-10-07</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://github.com/fnlearner/2019/11/01/closure/</loc>
     
     <lastmod>2020-10-07</lastmod>
@@ -303,7 +310,7 @@
   </url>
   
   <url>
-    <loc>https://github.com/fnlearner/2020/09/12/diff-between-get-post/</loc>
+    <loc>https://github.com/fnlearner/2020/07/29/essay-1/</loc>
     
     <lastmod>2020-10-07</lastmod>
     
@@ -325,13 +332,6 @@
   
   <url>
     <loc>https://github.com/fnlearner/2020/08/06/essay-4/</loc>
-    
-    <lastmod>2020-10-07</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://github.com/fnlearner/2020/07/29/essay-1/</loc>
     
     <lastmod>2020-10-07</lastmod>
     
@@ -396,13 +396,6 @@
   </url>
   
   <url>
-    <loc>https://github.com/fnlearner/tagstags/Chrome/</loc>
-    <lastmod>2021-05-18</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://github.com/fnlearner/tagstags/css/</loc>
     <lastmod>2021-05-18</lastmod>
     <changefreq>daily</changefreq>
@@ -410,7 +403,7 @@
   </url>
   
   <url>
-    <loc>https://github.com/fnlearner/tagstags/Jest/</loc>
+    <loc>https://github.com/fnlearner/tagstags/Chrome/</loc>
     <lastmod>2021-05-18</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -418,6 +411,13 @@
   
   <url>
     <loc>https://github.com/fnlearner/tagstags/essay/</loc>
+    <lastmod>2021-05-18</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://github.com/fnlearner/tagstags/Jest/</loc>
     <lastmod>2021-05-18</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -508,13 +508,6 @@
   </url>
   
   <url>
-    <loc>https://github.com/fnlearner/tagstags/Vue3/</loc>
-    <lastmod>2021-05-18</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://github.com/fnlearner/tagstags/gis-openlayers-ol6/</loc>
     <lastmod>2021-05-18</lastmod>
     <changefreq>daily</changefreq>
@@ -523,6 +516,13 @@
   
   <url>
     <loc>https://github.com/fnlearner/tagstags/Vue/</loc>
+    <lastmod>2021-05-18</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://github.com/fnlearner/tagstags/Vue3/</loc>
     <lastmod>2021-05-18</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -587,14 +587,14 @@
   </url>
   
   <url>
-    <loc>https://github.com/fnlearner/categories/TypeScript/Vue3/</loc>
+    <loc>https://github.com/fnlearner/categories/Vue/</loc>
     <lastmod>2021-05-18</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://github.com/fnlearner/categories/Vue/</loc>
+    <loc>https://github.com/fnlearner/categories/TypeScript/Vue3/</loc>
     <lastmod>2021-05-18</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
