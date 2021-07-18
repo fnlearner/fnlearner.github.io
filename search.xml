@@ -98,25 +98,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Traversing</title>
-    <url>/2019/09/06/Traversing/</url>
-    <content><![CDATA[<h3 id="深度优先遍历"><a href="#深度优先遍历" class="headerlink" title="深度优先遍历"></a>深度优先遍历</h3><p>从某个顶点v出发，首先访问该顶点然后依次从它的各个未被访问的邻接点出发深度优先搜索遍历图，直至图中所有和v有路径相通的顶点都被访问到</p>
-<a id="more"></a>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 递归</span></span><br><span class="line"><span class="built_in">let</span> deepTraversal1 = (node, nodeList = []) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (node !== null) &#123;</span><br><span class="line">    nodeList.push(node)</span><br><span class="line">    <span class="built_in">let</span> children = node.children</span><br><span class="line">    <span class="keyword">if</span>(children!==null||children.length!==0)&#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="built_in">let</span> i = 0; i &lt; children.length; i++) &#123;</span><br><span class="line">        deepTraversal1(children[i], nodeList)</span><br><span class="line">      &#125;</span><br><span class="line">     &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">return</span> nodeList</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 递归</span></span><br><span class="line"><span class="built_in">let</span> deepTraversal2= (node)=&gt;&#123;</span><br><span class="line">  <span class="built_in">let</span> nodes=[];</span><br><span class="line">  <span class="keyword">if</span>(node!== null)&#123;</span><br><span class="line">    nodes.push(node);</span><br><span class="line">    <span class="built_in">let</span> children = node.children;</span><br><span class="line">    <span class="keyword">if</span>(children!==null||children.length!==0)&#123;</span><br><span class="line">      <span class="keyword">for</span>(<span class="built_in">let</span> i=0;i&lt;children.length;i++)&#123;</span><br><span class="line">        nodes= nodes.concat(deepTraversal2(children[i]));</span><br><span class="line">      &#125;</span><br><span class="line">     &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">return</span> nodes;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 非递归</span></span><br><span class="line"><span class="built_in">let</span> deepTraversal2=(node)=&gt;&#123;</span><br><span class="line">  <span class="built_in">let</span> stack =[];</span><br><span class="line">  <span class="built_in">let</span> nodes=[];</span><br><span class="line">  <span class="keyword">if</span>(node)&#123;</span><br><span class="line">    /*如果node节点存在*/</span><br><span class="line">    stack.push(node);</span><br><span class="line">    <span class="keyword">while</span>(stack.length)&#123;</span><br><span class="line">      <span class="built_in">let</span> item= stack.pop();//取出队尾元素</span><br><span class="line">      <span class="built_in">let</span> children = item.children;//获取元素子节点</span><br><span class="line">      nodes.push(children);//推进子节点，结构与父节点一样</span><br><span class="line">      <span class="keyword">if</span>(children!==null||children.length!==0)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="built_in">let</span> i =0;i&lt;children.length;i++)&#123;</span><br><span class="line">          stack.push(children[i]);</span><br><span class="line">        &#125;</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">return</span> nodes;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="广度优先遍历"><a href="#广度优先遍历" class="headerlink" title="广度优先遍历"></a>广度优先遍历</h3><p>从某顶点v出发，在访问了v之后依次访问v的各个未曾访问过的邻接点，然后分别从这些邻接点出发依次访问它们的邻接点，并使得“先被访问的顶点的邻接点先于后被访问的顶点的邻接点被访问，直至图中所有已被访问的顶点的邻接点都被访问到</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">let</span> widthTraversal2=(node)=&gt;&#123;</span><br><span class="line">  <span class="built_in">let</span> nodes=[];</span><br><span class="line">  <span class="built_in">let</span> stack=[];</span><br><span class="line">  <span class="keyword">if</span>(node)&#123;</span><br><span class="line">    stack.push(node);</span><br><span class="line">    <span class="keyword">while</span>(stack.length)&#123;</span><br><span class="line">      <span class="built_in">let</span> item = stack.shift();</span><br><span class="line">      <span class="built_in">let</span> children = item.children;</span><br><span class="line">      nodes.push(node);</span><br><span class="line">      <span class="keyword">if</span>(children!==null||children.length!==0)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="built_in">let</span> i =0;i&lt;children.length;i++)&#123;</span><br><span class="line">          stack.push(children[i]);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">return</span> nodes;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>自适应布局</title>
     <url>/2019/08/07/adaptive/</url>
     <content><![CDATA[<h2 id="grid"><a href="#grid" class="headerlink" title="grid"></a>grid</h2><p>css</p>
@@ -245,6 +226,25 @@
       </tags>
   </entry>
   <entry>
+    <title>Traversing</title>
+    <url>/2019/09/06/Traversing/</url>
+    <content><![CDATA[<h3 id="深度优先遍历"><a href="#深度优先遍历" class="headerlink" title="深度优先遍历"></a>深度优先遍历</h3><p>从某个顶点v出发，首先访问该顶点然后依次从它的各个未被访问的邻接点出发深度优先搜索遍历图，直至图中所有和v有路径相通的顶点都被访问到</p>
+<a id="more"></a>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 递归</span></span><br><span class="line"><span class="built_in">let</span> deepTraversal1 = (node, nodeList = []) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (node !== null) &#123;</span><br><span class="line">    nodeList.push(node)</span><br><span class="line">    <span class="built_in">let</span> children = node.children</span><br><span class="line">    <span class="keyword">if</span>(children!==null||children.length!==0)&#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="built_in">let</span> i = 0; i &lt; children.length; i++) &#123;</span><br><span class="line">        deepTraversal1(children[i], nodeList)</span><br><span class="line">      &#125;</span><br><span class="line">     &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">return</span> nodeList</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 递归</span></span><br><span class="line"><span class="built_in">let</span> deepTraversal2= (node)=&gt;&#123;</span><br><span class="line">  <span class="built_in">let</span> nodes=[];</span><br><span class="line">  <span class="keyword">if</span>(node!== null)&#123;</span><br><span class="line">    nodes.push(node);</span><br><span class="line">    <span class="built_in">let</span> children = node.children;</span><br><span class="line">    <span class="keyword">if</span>(children!==null||children.length!==0)&#123;</span><br><span class="line">      <span class="keyword">for</span>(<span class="built_in">let</span> i=0;i&lt;children.length;i++)&#123;</span><br><span class="line">        nodes= nodes.concat(deepTraversal2(children[i]));</span><br><span class="line">      &#125;</span><br><span class="line">     &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">return</span> nodes;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 非递归</span></span><br><span class="line"><span class="built_in">let</span> deepTraversal2=(node)=&gt;&#123;</span><br><span class="line">  <span class="built_in">let</span> stack =[];</span><br><span class="line">  <span class="built_in">let</span> nodes=[];</span><br><span class="line">  <span class="keyword">if</span>(node)&#123;</span><br><span class="line">    /*如果node节点存在*/</span><br><span class="line">    stack.push(node);</span><br><span class="line">    <span class="keyword">while</span>(stack.length)&#123;</span><br><span class="line">      <span class="built_in">let</span> item= stack.pop();//取出队尾元素</span><br><span class="line">      <span class="built_in">let</span> children = item.children;//获取元素子节点</span><br><span class="line">      nodes.push(children);//推进子节点，结构与父节点一样</span><br><span class="line">      <span class="keyword">if</span>(children!==null||children.length!==0)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="built_in">let</span> i =0;i&lt;children.length;i++)&#123;</span><br><span class="line">          stack.push(children[i]);</span><br><span class="line">        &#125;</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">return</span> nodes;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="广度优先遍历"><a href="#广度优先遍历" class="headerlink" title="广度优先遍历"></a>广度优先遍历</h3><p>从某顶点v出发，在访问了v之后依次访问v的各个未曾访问过的邻接点，然后分别从这些邻接点出发依次访问它们的邻接点，并使得“先被访问的顶点的邻接点先于后被访问的顶点的邻接点被访问，直至图中所有已被访问的顶点的邻接点都被访问到</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">let</span> widthTraversal2=(node)=&gt;&#123;</span><br><span class="line">  <span class="built_in">let</span> nodes=[];</span><br><span class="line">  <span class="built_in">let</span> stack=[];</span><br><span class="line">  <span class="keyword">if</span>(node)&#123;</span><br><span class="line">    stack.push(node);</span><br><span class="line">    <span class="keyword">while</span>(stack.length)&#123;</span><br><span class="line">      <span class="built_in">let</span> item = stack.shift();</span><br><span class="line">      <span class="built_in">let</span> children = item.children;</span><br><span class="line">      nodes.push(node);</span><br><span class="line">      <span class="keyword">if</span>(children!==null||children.length!==0)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="built_in">let</span> i =0;i&lt;children.length;i++)&#123;</span><br><span class="line">          stack.push(children[i]);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">return</span> nodes;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>axios</title>
     <url>/2020/09/25/axios/</url>
     <content><![CDATA[<h3 id="为什么-axios-既可以用-axios-这样请求-，也可以-axios-get-这样请求？"><a href="#为什么-axios-既可以用-axios-这样请求-，也可以-axios-get-这样请求？" class="headerlink" title="为什么 axios 既可以用 axios({})这样请求 ，也可以 axios.get()这样请求？"></a>为什么 axios 既可以用 axios({})这样请求 ，也可以 axios.get()这样请求？</h3><p>在使<code>axios.create</code>的时候,调用了这个方法</p>
@@ -273,18 +273,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>部署hexo踩坑记录</title>
-    <url>/2020/11/14/bugsForNode/</url>
-    <content><![CDATA[<p>在执行下面这句代码的时候</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g -d</span><br></pre></td></tr></table></figure>
-
-<p>报错信息</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Something<span class="string">'s wrong. Maybe you can find the solution here: https://hexo.io/docs/troubleshooting.html</span></span><br><span class="line"><span class="string">TypeError [ERR_INVALID_ARG_TYPE]: The "mode" argument must be integer. Received an instance of Object</span></span><br><span class="line"><span class="string">    at copyFile (fs.js:1924:10)</span></span><br><span class="line"><span class="string">    at tryCatcher (/Users/zjs/Desktop/blog/node_modules/bluebird/js/release/util.js:16:23)</span></span><br><span class="line"><span class="string">    at ret (eval at makeNodePromisifiedEval (/Users/zjs/.nvm/versions/node/v14.10.0/lib/node_modules/hexo-cli/node_modules/bluebird/js/release/promisify.js:184:12), &lt;anonymous&gt;:13:39)</span></span><br></pre></td></tr></table></figure>
-
-<p>解决方案<br> NodeJs 版本从 14 回到 12 就🉑️！</p>
-]]></content>
-  </entry>
-  <entry>
     <title>Chrome调试工具的那点事</title>
     <url>/2019/09/27/chorme-panel/</url>
     <content><![CDATA[<h3 id><a href="#" class="headerlink" title="$_"></a>$_</h3><p>调试的过程中，你经常会通过打印查看一些变量的值，但如果你想看一下上次执行的结果呢？再输一遍表达式吗</p>
@@ -301,6 +289,18 @@
       <tags>
         <tag>Chrome</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>部署hexo踩坑记录</title>
+    <url>/2020/11/14/bugsForNode/</url>
+    <content><![CDATA[<p>在执行下面这句代码的时候</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g -d</span><br></pre></td></tr></table></figure>
+
+<p>报错信息</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Something<span class="string">'s wrong. Maybe you can find the solution here: https://hexo.io/docs/troubleshooting.html</span></span><br><span class="line"><span class="string">TypeError [ERR_INVALID_ARG_TYPE]: The "mode" argument must be integer. Received an instance of Object</span></span><br><span class="line"><span class="string">    at copyFile (fs.js:1924:10)</span></span><br><span class="line"><span class="string">    at tryCatcher (/Users/zjs/Desktop/blog/node_modules/bluebird/js/release/util.js:16:23)</span></span><br><span class="line"><span class="string">    at ret (eval at makeNodePromisifiedEval (/Users/zjs/.nvm/versions/node/v14.10.0/lib/node_modules/hexo-cli/node_modules/bluebird/js/release/promisify.js:184:12), &lt;anonymous&gt;:13:39)</span></span><br></pre></td></tr></table></figure>
+
+<p>解决方案<br> NodeJs 版本从 14 回到 12 就🉑️！</p>
+]]></content>
   </entry>
   <entry>
     <title>思考如何使a==1&amp;&amp;a==2&amp;&amp;a==3为true</title>
@@ -366,6 +366,32 @@
 ]]></content>
   </entry>
   <entry>
+    <title>今日随笔</title>
+    <url>/2021/03/14/essay-10/</url>
+    <content><![CDATA[<h3 id="removeNonASCII"><a href="#removeNonASCII" class="headerlink" title="removeNonASCII"></a>removeNonASCII</h3><p>Removes non-printable ASCII characters.</p>
+<p>Use a regular expression to remove non-printable ASCII characters.</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> removeNonASCII = <span class="function"><span class="params">str</span> =&gt;</span> str.replace(<span class="regexp">/[^\x20-\x7E]/g</span>, <span class="string">''</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">removeNonASCII(<span class="string">'äÄçÇéÉêlorem-ipsumöÖÐþúÚ'</span>); <span class="comment">// 'lorem-ipsum'</span></span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+<h3 id="Constant-width-to-height-ratio"><a href="#Constant-width-to-height-ratio" class="headerlink" title="Constant width to height ratio"></a>Constant width to height ratio</h3><p>iven an element of variable width, it will ensure its height remains proportionate in a responsive fashion (i.e., its width to height ratio remains constant).</p>
+<p><code>html</code></p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"constant-width-to-height-ratio"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>css</code></p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.constant-width-to-height-ratio</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#333</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">50%</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.constant-width-to-height-ratio</span><span class="selector-pseudo">::before</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">''</span>;</span><br><span class="line">  <span class="attribute">padding-top</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">float</span>: left;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.constant-width-to-height-ratio</span><span class="selector-pseudo">::after</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">''</span>;</span><br><span class="line">  <span class="attribute">display</span>: block;</span><br><span class="line">  <span class="attribute">clear</span>: both;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>description</code><br>padding-top on the ::before pseudo-element causes the height of the element to equal a percentage of its width. 100% therefore means the element’s height will always be 100% of the width, creating a responsive square.</p>
+<p>This method also allows content to be placed inside the element normally.</p>
+<p><code>browser support</code></p>
+<p>✅ No caveats.</p>
+]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>今日随笔(7-29)</title>
     <url>/2020/07/29/essay-1/</url>
     <content><![CDATA[<h2 id="runAsync"><a href="#runAsync" class="headerlink" title="runAsync"></a>runAsync</h2><p>使用 web worker 在一个单独的线程中执行函数，能够允许执行不阻塞 UI 渲染的耗时函数</p>
@@ -417,32 +443,6 @@
       </tags>
   </entry>
   <entry>
-    <title>今日随笔</title>
-    <url>/2021/03/14/essay-10/</url>
-    <content><![CDATA[<h3 id="removeNonASCII"><a href="#removeNonASCII" class="headerlink" title="removeNonASCII"></a>removeNonASCII</h3><p>Removes non-printable ASCII characters.</p>
-<p>Use a regular expression to remove non-printable ASCII characters.</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> removeNonASCII = <span class="function"><span class="params">str</span> =&gt;</span> str.replace(<span class="regexp">/[^\x20-\x7E]/g</span>, <span class="string">''</span>)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">removeNonASCII(<span class="string">'äÄçÇéÉêlorem-ipsumöÖÐþúÚ'</span>); <span class="comment">// 'lorem-ipsum'</span></span><br></pre></td></tr></table></figure>
-
-<a id="more"></a>
-<h3 id="Constant-width-to-height-ratio"><a href="#Constant-width-to-height-ratio" class="headerlink" title="Constant width to height ratio"></a>Constant width to height ratio</h3><p>iven an element of variable width, it will ensure its height remains proportionate in a responsive fashion (i.e., its width to height ratio remains constant).</p>
-<p><code>html</code></p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"constant-width-to-height-ratio"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p><code>css</code></p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.constant-width-to-height-ratio</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#333</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">50%</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.constant-width-to-height-ratio</span><span class="selector-pseudo">::before</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">''</span>;</span><br><span class="line">  <span class="attribute">padding-top</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">float</span>: left;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.constant-width-to-height-ratio</span><span class="selector-pseudo">::after</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">''</span>;</span><br><span class="line">  <span class="attribute">display</span>: block;</span><br><span class="line">  <span class="attribute">clear</span>: both;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><code>description</code><br>padding-top on the ::before pseudo-element causes the height of the element to equal a percentage of its width. 100% therefore means the element’s height will always be 100% of the width, creating a responsive square.</p>
-<p>This method also allows content to be placed inside the element normally.</p>
-<p><code>browser support</code></p>
-<p>✅ No caveats.</p>
-]]></content>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>今日随笔（3.21)）</title>
     <url>/2021/03/21/essay-11/</url>
     <content><![CDATA[<h4 id="How-to-Make-Badass-Shadows"><a href="#How-to-Make-Badass-Shadows" class="headerlink" title="How to Make Badass Shadows"></a>How to Make Badass Shadows</h4><p><a href="https://blog.prototypr.io/how-to-make-badass-shadows-564b3a30aba4" target="_blank" rel="noopener">Tips to help create better UI shadows.</a>  </p>
@@ -452,6 +452,58 @@
         <tag>JavaScript</tag>
         <tag>css</tag>
         <tag>Jest</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>今日随笔(7-30)</title>
+    <url>/2020/07/30/essay-2/</url>
+    <content><![CDATA[<h2 id="用-ts-开发-react-组件"><a href="#用-ts-开发-react-组件" class="headerlink" title="用 ts 开发 react 组件"></a>用 ts 开发 react 组件</h2><br>
+
+<p><strong>基础函数式组件</strong></p>
+<p>不用传递任何的 prop，直接返回一个 jsx 作为 react 组件</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">Title</span></span>() &#123;</span><br><span class="line">  <span class="built_in">return</span> &lt;h1&gt;Welcome to this application&lt;/h1&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+<p><strong>带有 prop 的函数式组件</strong></p>
+<p>声明 props 类型并将 prop 传递给 jsx</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> GreetingProps = &#123;</span><br><span class="line">  name: string;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> Greeting(props: GreetingProps) &#123;</span><br><span class="line">  <span class="built_in">return</span> &lt;p&gt;Hi &#123;props.name&#125; 👋&lt;/p&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对 prop 进行解构或许可读性更好</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> Greeting(&#123; name &#125;: GreetingProps) &#123;</span><br><span class="line">  <span class="built_in">return</span> &lt;p&gt;Hi &#123;name&#125; 👋&lt;/p&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>假如 GreetingProps 中的 name 可选，那么就要给 name 一个默认值，以防 name 会变成 undefined</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> LoginMsgProps = &#123;</span><br><span class="line">  name?: string;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> LoginMsg(&#123; name = <span class="string">"Guest"</span> &#125;: LoginMsgProps) &#123;</span><br><span class="line">  <span class="built_in">return</span> &lt;p&gt;Logged <span class="keyword">in</span> as &#123;name&#125;&lt;/p&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Children</strong></p>
+<p>对于 children，更倾向于显示定义，而对于 ReactNode 类型来说，已经能够接受大多数的东西，比如 jsx，string 字符串等等</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> CardProps = &#123;</span><br><span class="line">  title: string;</span><br><span class="line">  children: React.ReactNode;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> <span class="keyword">function</span> Card(&#123; title, children &#125;: CardProps) &#123;</span><br><span class="line">  <span class="built_in">return</span> (</span><br><span class="line">    &lt;section className=<span class="string">"cards"</span>&gt;</span><br><span class="line">      &lt;h2&gt;&#123;title&#125;&lt;/h2&gt;</span><br><span class="line">      &#123;children&#125;</span><br><span class="line">    &lt;/section&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当不需要 children 元素时，可以显示定义 children 的类型为 never</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> SaveButtonProps = &#123;</span><br><span class="line"></span><br><span class="line">  children: never</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样当传递了 children 时就会抛出错误</p>
+<p><strong>对 html 元素使用拓展符</strong></p>
+<p>拓展符对于 html 元素来说是个很好的特性，因为它能帮助你确保你把所有的 html 属性都给挪到你需要的元素上</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> ButtonProps = JSX.IntrinsicElements[<span class="string">"button"</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> Button(&#123; ...allProps &#125;: ButtonProps) &#123;</span><br><span class="line">  <span class="built_in">return</span> &lt;button &#123;...allProps&#125; /&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>属性可以自定义设计</strong></p>
+<p>当需要对 html 某些属性进行约束时，可以对它们进行自定义设定</p>
+<p>如下这个例子，对 type 进行类型约束，这样仅能被赋予<code>&quot;primary&quot; | &quot;secondary&quot;</code>这两个值了</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> StyledButton = Omit&lt;</span><br><span class="line">  JSX.IntrinsicElements[<span class="string">"button"</span>],</span><br><span class="line">  <span class="string">"type"</span> | <span class="string">"className"</span></span><br><span class="line">&gt; &amp; &#123;</span><br><span class="line">  <span class="built_in">type</span>: <span class="string">"primary"</span> | <span class="string">"secondary"</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> StyledButton(&#123; <span class="built_in">type</span>, ...allProps &#125;: StyledButton) &#123;</span><br><span class="line">  <span class="built_in">return</span> &lt;Button className=&#123;`btn-<span class="variable">$&#123;type&#125;</span>`&#125; /&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Required</strong></p>
+<p>为了防止被 omit 出来的属性会忘记进行添加，封装一个 helper 来进行约束,</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> MakeRequired&lt;T, K extends keyof T&gt; = Omit&lt;T, K&gt; &amp;</span><br><span class="line">  Required&lt;&#123; [P <span class="keyword">in</span> K]: T[P] &#125;&gt;;</span><br></pre></td></tr></table></figure>
+
+<p>这样既可以将需要约束的属性omit出来，同时还能够防止忘记添加被omit出来的属性</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> ImgProps</span><br><span class="line">  = MakeRequired&lt;</span><br><span class="line">    JSX.IntrinsicElements[<span class="string">"img"</span>],</span><br><span class="line">    <span class="string">"alt"</span> | <span class="string">"src"</span></span><br><span class="line">  &gt;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> <span class="keyword">function</span> Img(&#123; alt, ...allProps &#125;: ImgProps) &#123;</span><br><span class="line">  <span class="built_in">return</span> &lt;img alt=&#123;alt&#125; &#123;...allProps&#125; /&gt;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const zz = &lt;Img alt=<span class="string">"..."</span> src=<span class="string">"..."</span> /&gt;;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>essay</category>
+      </categories>
+      <tags>
+        <tag>essay</tag>
       </tags>
   </entry>
   <entry>
@@ -513,55 +565,20 @@
       </tags>
   </entry>
   <entry>
-    <title>今日随笔(7-30)</title>
-    <url>/2020/07/30/essay-2/</url>
-    <content><![CDATA[<h2 id="用-ts-开发-react-组件"><a href="#用-ts-开发-react-组件" class="headerlink" title="用 ts 开发 react 组件"></a>用 ts 开发 react 组件</h2><br>
+    <title>今日随笔(2020-10-11)</title>
+    <url>/2020/10/11/essay-5/</url>
+    <content><![CDATA[<h3 id="命令行文件的上传与下载"><a href="#命令行文件的上传与下载" class="headerlink" title="命令行文件的上传与下载"></a>命令行文件的上传与下载</h3><p>文件的上传和下载命令都是scp</p>
+<p><strong>上传</strong><br>从服务器上下载文件 scp username@servername:/path/filename /Users/mac/Desktop（本地目录，例如：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">scp root@47.98.37.170:/root/test.txt /Users/mac/Desktop就是将服务器上的/root/test.txt下载到本地的/Users/mac/Desktop目录下。注意两个地址之间有空格！</span><br></pre></td></tr></table></figure>
 
-<p><strong>基础函数式组件</strong></p>
-<p>不用传递任何的 prop，直接返回一个 jsx 作为 react 组件</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">Title</span></span>() &#123;</span><br><span class="line">  <span class="built_in">return</span> &lt;h1&gt;Welcome to this application&lt;/h1&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>下载</strong><br>上传本地文件到服务器 scp /path/filename username@servername:/path ;</p>
+<p>note： 下载命令就是将两个路径换一个位置就行了。</p>
+<h3 id="TS-4-0的一些更新"><a href="#TS-4-0的一些更新" class="headerlink" title="TS 4.0的一些更新"></a>TS 4.0的一些更新</h3><h4 id="类型解构"><a href="#类型解构" class="headerlink" title="类型解构"></a>类型解构</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> Strings = [string, string];</span><br><span class="line"><span class="built_in">type</span> Numbers = number[]</span><br><span class="line"></span><br><span class="line"><span class="built_in">type</span> Unbounded = [...Strings, ...Numbers, boolean];</span><br><span class="line"><span class="comment"># // [string, string, ...Array&lt;number | boolean&gt;]</span></span><br><span class="line"><span class="comment"># 按照官方的解释就是解构一个已知长度的类型的时候，那么最后的结果类型也是没有任何限制的，在解构类型之后添加的类型声明都要添加到被解构类型的类型中去</span></span><br></pre></td></tr></table></figure>
 
-<a id="more"></a>
-<p><strong>带有 prop 的函数式组件</strong></p>
-<p>声明 props 类型并将 prop 传递给 jsx</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> GreetingProps = &#123;</span><br><span class="line">  name: string;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> Greeting(props: GreetingProps) &#123;</span><br><span class="line">  <span class="built_in">return</span> &lt;p&gt;Hi &#123;props.name&#125; 👋&lt;/p&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>对 prop 进行解构或许可读性更好</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> Greeting(&#123; name &#125;: GreetingProps) &#123;</span><br><span class="line">  <span class="built_in">return</span> &lt;p&gt;Hi &#123;name&#125; 👋&lt;/p&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>假如 GreetingProps 中的 name 可选，那么就要给 name 一个默认值，以防 name 会变成 undefined</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> LoginMsgProps = &#123;</span><br><span class="line">  name?: string;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> LoginMsg(&#123; name = <span class="string">"Guest"</span> &#125;: LoginMsgProps) &#123;</span><br><span class="line">  <span class="built_in">return</span> &lt;p&gt;Logged <span class="keyword">in</span> as &#123;name&#125;&lt;/p&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>Children</strong></p>
-<p>对于 children，更倾向于显示定义，而对于 ReactNode 类型来说，已经能够接受大多数的东西，比如 jsx，string 字符串等等</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> CardProps = &#123;</span><br><span class="line">  title: string;</span><br><span class="line">  children: React.ReactNode;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> <span class="keyword">function</span> Card(&#123; title, children &#125;: CardProps) &#123;</span><br><span class="line">  <span class="built_in">return</span> (</span><br><span class="line">    &lt;section className=<span class="string">"cards"</span>&gt;</span><br><span class="line">      &lt;h2&gt;&#123;title&#125;&lt;/h2&gt;</span><br><span class="line">      &#123;children&#125;</span><br><span class="line">    &lt;/section&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>当不需要 children 元素时，可以显示定义 children 的类型为 never</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> SaveButtonProps = &#123;</span><br><span class="line"></span><br><span class="line">  children: never</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这样当传递了 children 时就会抛出错误</p>
-<p><strong>对 html 元素使用拓展符</strong></p>
-<p>拓展符对于 html 元素来说是个很好的特性，因为它能帮助你确保你把所有的 html 属性都给挪到你需要的元素上</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> ButtonProps = JSX.IntrinsicElements[<span class="string">"button"</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> Button(&#123; ...allProps &#125;: ButtonProps) &#123;</span><br><span class="line">  <span class="built_in">return</span> &lt;button &#123;...allProps&#125; /&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>属性可以自定义设计</strong></p>
-<p>当需要对 html 某些属性进行约束时，可以对它们进行自定义设定</p>
-<p>如下这个例子，对 type 进行类型约束，这样仅能被赋予<code>&quot;primary&quot; | &quot;secondary&quot;</code>这两个值了</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> StyledButton = Omit&lt;</span><br><span class="line">  JSX.IntrinsicElements[<span class="string">"button"</span>],</span><br><span class="line">  <span class="string">"type"</span> | <span class="string">"className"</span></span><br><span class="line">&gt; &amp; &#123;</span><br><span class="line">  <span class="built_in">type</span>: <span class="string">"primary"</span> | <span class="string">"secondary"</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> StyledButton(&#123; <span class="built_in">type</span>, ...allProps &#125;: StyledButton) &#123;</span><br><span class="line">  <span class="built_in">return</span> &lt;Button className=&#123;`btn-<span class="variable">$&#123;type&#125;</span>`&#125; /&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>Required</strong></p>
-<p>为了防止被 omit 出来的属性会忘记进行添加，封装一个 helper 来进行约束,</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> MakeRequired&lt;T, K extends keyof T&gt; = Omit&lt;T, K&gt; &amp;</span><br><span class="line">  Required&lt;&#123; [P <span class="keyword">in</span> K]: T[P] &#125;&gt;;</span><br></pre></td></tr></table></figure>
-
-<p>这样既可以将需要约束的属性omit出来，同时还能够防止忘记添加被omit出来的属性</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> ImgProps</span><br><span class="line">  = MakeRequired&lt;</span><br><span class="line">    JSX.IntrinsicElements[<span class="string">"img"</span>],</span><br><span class="line">    <span class="string">"alt"</span> | <span class="string">"src"</span></span><br><span class="line">  &gt;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> <span class="keyword">function</span> Img(&#123; alt, ...allProps &#125;: ImgProps) &#123;</span><br><span class="line">  <span class="built_in">return</span> &lt;img alt=&#123;alt&#125; &#123;...allProps&#125; /&gt;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const zz = &lt;Img alt=<span class="string">"..."</span> src=<span class="string">"..."</span> /&gt;;</span><br></pre></td></tr></table></figure>
-
+<p>—待续哈，明天更新</p>
 ]]></content>
-      <categories>
-        <category>essay</category>
-      </categories>
       <tags>
-        <tag>essay</tag>
+        <tag>TypeScript Upload</tag>
       </tags>
   </entry>
   <entry>
@@ -578,23 +595,6 @@
 <p>那代码成了这样那肯定不能正确解析了～</p>
 <p>果然，漏写分号不是好习惯～</p>
 ]]></content>
-  </entry>
-  <entry>
-    <title>今日随笔(2020-10-11)</title>
-    <url>/2020/10/11/essay-5/</url>
-    <content><![CDATA[<h3 id="命令行文件的上传与下载"><a href="#命令行文件的上传与下载" class="headerlink" title="命令行文件的上传与下载"></a>命令行文件的上传与下载</h3><p>文件的上传和下载命令都是scp</p>
-<p><strong>上传</strong><br>从服务器上下载文件 scp username@servername:/path/filename /Users/mac/Desktop（本地目录，例如：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">scp root@47.98.37.170:/root/test.txt /Users/mac/Desktop就是将服务器上的/root/test.txt下载到本地的/Users/mac/Desktop目录下。注意两个地址之间有空格！</span><br></pre></td></tr></table></figure>
-
-<p><strong>下载</strong><br>上传本地文件到服务器 scp /path/filename username@servername:/path ;</p>
-<p>note： 下载命令就是将两个路径换一个位置就行了。</p>
-<h3 id="TS-4-0的一些更新"><a href="#TS-4-0的一些更新" class="headerlink" title="TS 4.0的一些更新"></a>TS 4.0的一些更新</h3><h4 id="类型解构"><a href="#类型解构" class="headerlink" title="类型解构"></a>类型解构</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> Strings = [string, string];</span><br><span class="line"><span class="built_in">type</span> Numbers = number[]</span><br><span class="line"></span><br><span class="line"><span class="built_in">type</span> Unbounded = [...Strings, ...Numbers, boolean];</span><br><span class="line"><span class="comment"># // [string, string, ...Array&lt;number | boolean&gt;]</span></span><br><span class="line"><span class="comment"># 按照官方的解释就是解构一个已知长度的类型的时候，那么最后的结果类型也是没有任何限制的，在解构类型之后添加的类型声明都要添加到被解构类型的类型中去</span></span><br></pre></td></tr></table></figure>
-
-<p>—待续哈，明天更新</p>
-]]></content>
-      <tags>
-        <tag>TypeScript Upload</tag>
-      </tags>
   </entry>
   <entry>
     <title>今日随笔(2020-12-27)</title>
@@ -1646,6 +1646,18 @@ btn.addEventListener('click',function(){
       </tags>
   </entry>
   <entry>
+    <title>polyfill</title>
+    <url>/2021/07/13/polyfill/</url>
+    <content><![CDATA[<h2 id="Promise-all"><a href="#Promise-all" class="headerlink" title="Promise.all"></a>Promise.all</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Promise</span>.all = <span class="function"><span class="keyword">function</span> (<span class="params">promises</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> results = [];</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    promises.forEach(<span class="function">(<span class="params">p, index</span>) =&gt;</span> &#123;</span><br><span class="line">      p.then(<span class="function">(<span class="params">result</span>) =&gt;</span> &#123;</span><br><span class="line">        results.push(result);</span><br><span class="line">        <span class="keyword">if</span> (index === promises.length - <span class="number">1</span>) &#123;</span><br><span class="line">          resolve(results);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;).catch(<span class="function">(<span class="params">err</span>) =&gt;</span> reject(err));</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Promise-any"><a href="#Promise-any" class="headerlink" title="Promise.any"></a>Promise.any</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Promise</span>.any = <span class="function"><span class="keyword">function</span> (<span class="params">promises</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> result = [];</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    promises.forEach(<span class="function">(<span class="params">item, index</span>) =&gt;</span> &#123;</span><br><span class="line">      item</span><br><span class="line">        .then(<span class="function">(<span class="params">res</span>) =&gt;</span> resolve(res))</span><br><span class="line">        .catch(<span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">          result.push(error);</span><br><span class="line">          <span class="keyword">if</span> (index === pro mises.length - <span class="number">1</span>) &#123;</span><br><span class="line">              <span class="comment">// 如果全部都失败，返回结果合集</span></span><br><span class="line">            reject(result);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>provide of vue3</title>
     <url>/2020/06/28/provide/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>好奇provide怎么实现的，然后呢就去扒了下源码hhh，看了下provide的function，有点懵,provide的代码在runtime-core/src/apiInject.ts里面</p>
@@ -1678,18 +1690,6 @@ createComponentInstance
       <tags>
         <tag>JavaScript</tag>
         <tag>Vue</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>polyfill</title>
-    <url>/2021/07/13/polyfill/</url>
-    <content><![CDATA[<h2 id="Promise-all"><a href="#Promise-all" class="headerlink" title="Promise.all"></a>Promise.all</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Promise</span>.all = <span class="function"><span class="keyword">function</span> (<span class="params">promises</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> results = [];</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    promises.forEach(<span class="function">(<span class="params">p, index</span>) =&gt;</span> &#123;</span><br><span class="line">      p.then(<span class="function">(<span class="params">result</span>) =&gt;</span> &#123;</span><br><span class="line">        results.push(result);</span><br><span class="line">        <span class="keyword">if</span> (index === promises.length - <span class="number">1</span>) &#123;</span><br><span class="line">          resolve(results);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;).catch(<span class="function">(<span class="params">err</span>) =&gt;</span> reject(err));</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Promise-any"><a href="#Promise-any" class="headerlink" title="Promise.any"></a>Promise.any</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Promise</span>.any = <span class="function"><span class="keyword">function</span> (<span class="params">promises</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> result = [];</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    promises.forEach(<span class="function">(<span class="params">item, index</span>) =&gt;</span> &#123;</span><br><span class="line">      item</span><br><span class="line">        .then(<span class="function">(<span class="params">res</span>) =&gt;</span> resolve(res))</span><br><span class="line">        .catch(<span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">          result.push(error);</span><br><span class="line">          <span class="keyword">if</span> (index === pro mises.length - <span class="number">1</span>) &#123;</span><br><span class="line">              <span class="comment">// 如果全部都失败，返回结果合集</span></span><br><span class="line">            reject(result);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <tags>
-        <tag>JavaScript</tag>
       </tags>
   </entry>
   <entry>
@@ -2109,38 +2109,6 @@ createComponentInstance
       </tags>
   </entry>
   <entry>
-    <title>简单请求和复杂请求</title>
-    <url>/2020/09/16/request-of-complex-simply/</url>
-    <content><![CDATA[<h3 id="简单请求"><a href="#简单请求" class="headerlink" title="简单请求"></a>简单请求</h3><p>请求方法只能是以下三种：</p>
-<ol>
-<li>GET</li>
-<li>POST</li>
-<li>HEAD</li>
-</ol>
-<p>请求头只能用以下几种：</p>
-<ol>
-<li>Accept</li>
-<li>Accept-Language</li>
-<li>Content-Language</li>
-<li>Content-Type （需要注意额外的限制）</li>
-<li>DPR</li>
-<li>Downlink</li>
-<li>Save-Data</li>
-<li>Viewport-Width</li>
-<li>Width</li>
-</ol>
-<p>Content——Type只能有以下几种</p>
-<ol>
-<li>text/plain</li>
-<li>multipart/form-data</li>
-<li>application/x-www-form-urlencoded</li>
-</ol>
-<p>请求中的任意XMLHttpRequestUpload 对象均没有注册任何事件监听器；XMLHttpRequestUpload 对象可以使用 XMLHttpRequest.upload 属性访问。</p>
-<p>请求中没有使用 ReadableStream 对象。</p>
-<h3 id="复杂请求"><a href="#复杂请求" class="headerlink" title="复杂请求"></a>复杂请求</h3><p>非简单请求就是复杂亲求</p>
-]]></content>
-  </entry>
-  <entry>
     <title>在JS文件使用svg加载svg文件</title>
     <url>/2020/10/13/svgInJS/</url>
     <content><![CDATA[<h3 id="怎么在js文件中用引用svg文件"><a href="#怎么在js文件中用引用svg文件" class="headerlink" title="怎么在js文件中用引用svg文件"></a>怎么在js文件中用引用svg文件</h3><p>使用webpack的require.context,它接收三个参数</p>
@@ -2173,6 +2141,38 @@ createComponentInstance
 ]]></content>
   </entry>
   <entry>
+    <title>简单请求和复杂请求</title>
+    <url>/2020/09/16/request-of-complex-simply/</url>
+    <content><![CDATA[<h3 id="简单请求"><a href="#简单请求" class="headerlink" title="简单请求"></a>简单请求</h3><p>请求方法只能是以下三种：</p>
+<ol>
+<li>GET</li>
+<li>POST</li>
+<li>HEAD</li>
+</ol>
+<p>请求头只能用以下几种：</p>
+<ol>
+<li>Accept</li>
+<li>Accept-Language</li>
+<li>Content-Language</li>
+<li>Content-Type （需要注意额外的限制）</li>
+<li>DPR</li>
+<li>Downlink</li>
+<li>Save-Data</li>
+<li>Viewport-Width</li>
+<li>Width</li>
+</ol>
+<p>Content——Type只能有以下几种</p>
+<ol>
+<li>text/plain</li>
+<li>multipart/form-data</li>
+<li>application/x-www-form-urlencoded</li>
+</ol>
+<p>请求中的任意XMLHttpRequestUpload 对象均没有注册任何事件监听器；XMLHttpRequestUpload 对象可以使用 XMLHttpRequest.upload 属性访问。</p>
+<p>请求中没有使用 ReadableStream 对象。</p>
+<h3 id="复杂请求"><a href="#复杂请求" class="headerlink" title="复杂请求"></a>复杂请求</h3><p>非简单请求就是复杂亲求</p>
+]]></content>
+  </entry>
+  <entry>
     <title>节流</title>
     <url>/2021/02/19/throttle/</url>
     <content><![CDATA[<h5 id="创建一个节流函数在给定的毫秒中最多调用一次"><a href="#创建一个节流函数在给定的毫秒中最多调用一次" class="headerlink" title="创建一个节流函数在给定的毫秒中最多调用一次"></a>创建一个节流函数在给定的毫秒中最多调用一次</h5><p>Creates a throttled function that only invokes the provided function at most once per every wait milliseconds</p>
@@ -2190,10 +2190,15 @@ createComponentInstance
   <entry>
     <title>工具函数</title>
     <url>/2019/09/16/toolFunc/</url>
-    <content><![CDATA[<h3 id="防抖"><a href="#防抖" class="headerlink" title="防抖"></a>防抖</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">debounce</span>(<span class="params">func, wait</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> timeout = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">let</span> context = <span class="keyword">this</span>;</span><br><span class="line">        <span class="keyword">let</span> args = <span class="built_in">arguments</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (timeout) &#123;</span><br><span class="line">          clearTimeout(timeout);</span><br><span class="line">          timeout = <span class="literal">null</span>;</span><br><span class="line">        &#125;;</span><br><span class="line">        </span><br><span class="line">        timeout = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">            func.apply(context, args);</span><br><span class="line">        &#125;, wait);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    <content><![CDATA[<h3 id="instanceOf"><a href="#instanceOf" class="headerlink" title="instanceOf"></a>instanceOf</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_instanceof</span>(<span class="params">a,b</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">while</span>(a)&#123;</span><br><span class="line">      <span class="keyword">if</span>(a.__proto__ === b.prototype)&#123;</span><br><span class="line">          <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">      &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">          a = a.__proto__;</span><br><span class="line">      &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="reduce"><a href="#reduce" class="headerlink" title="reduce"></a>reduce</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Array</span>.prototype.myReduce = <span class="function"><span class="keyword">function</span> (<span class="params">fn, initialValue</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> arr = <span class="keyword">this</span>;</span><br><span class="line">  <span class="keyword">const</span> [begin] = arr;</span><br><span class="line">  <span class="keyword">let</span> pre = initialValue || begin;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> startIndex = initialValue === <span class="keyword">void</span> <span class="number">0</span> ? <span class="number">1</span> : <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = startIndex; i &lt; arr.length; i++) &#123;</span><br><span class="line">    pre = fn(pre, arr[i]);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> pre;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="防抖"><a href="#防抖" class="headerlink" title="防抖"></a>防抖</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">debounce</span>(<span class="params">func, wait</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> timeout = <span class="literal">null</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> context = <span class="keyword">this</span>;</span><br><span class="line">    <span class="keyword">let</span> args = <span class="built_in">arguments</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (timeout) &#123;</span><br><span class="line">      clearTimeout(timeout);</span><br><span class="line">      timeout = <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    timeout = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      func.apply(context, args);</span><br><span class="line">    &#125;, wait);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> debounce = <span class="function">(<span class="params">fn, delay = <span class="number">300</span></span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> timer = <span class="literal">null</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">...args</span>) </span>&#123;</span><br><span class="line">    clearTimeout(timer);</span><br><span class="line">    timer = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> fn(...args), delay);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <a id="more"></a>
-<h3 id="节流"><a href="#节流" class="headerlink" title="节流"></a>节流</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">func, wait</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> previous = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">let</span> now = <span class="built_in">Date</span>.now();</span><br><span class="line">        <span class="keyword">let</span> context = <span class="keyword">this</span>;</span><br><span class="line">        <span class="keyword">let</span> args = <span class="built_in">arguments</span>;</span><br><span class="line">        <span class="keyword">if</span> (now - previous &gt; wait) &#123;</span><br><span class="line">            func.apply(context, args);</span><br><span class="line">            previous = now;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="节流"><a href="#节流" class="headerlink" title="节流"></a>节流</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">func, wait</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> previous = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> now = <span class="built_in">Date</span>.now();</span><br><span class="line">    <span class="keyword">let</span> context = <span class="keyword">this</span>;</span><br><span class="line">    <span class="keyword">let</span> args = <span class="built_in">arguments</span>;</span><br><span class="line">    <span class="keyword">if</span> (now - previous &gt; wait) &#123;</span><br><span class="line">      func.apply(context, args);</span><br><span class="line">      previous = now;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="判断是否是数组"><a href="#判断是否是数组" class="headerlink" title="判断是否是数组"></a>判断是否是数组</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let arr=[];</span><br><span class="line">Array.isArray(arr);</span><br><span class="line">//or</span><br><span class="line">Object.prototype.toString.call(arr) === &apos;[Object Array]&apos;;</span><br></pre></td></tr></table></figure>
 
@@ -2203,37 +2208,37 @@ createComponentInstance
 
 <h3 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const matchTime = /(?&lt;=\s+\-\s+)(.)+|(.)+(?=\s+\-\s+)/g;//将xx年xx月xx日-xx年xx月xx日的时间格式切割</span><br><span class="line">const regx_positiveInt = /^[0-9]*[1-9][0-9]*$/; //正整数</span><br><span class="line">const regx_positiveAndZeroInt = /^\d+$/; //非负整数（正整数和0）</span><br><span class="line">const regx_number = /^[0-9]*$/;//数字</span><br><span class="line">const regx_ip=/^((25[0-5]|2[0-4]\d|[01]?\d\d?)\.)&#123;3&#125;(25[0-5]|2[0-4]\d|[01]?\d\d?)$/;//IP地址</span><br></pre></td></tr></table></figure>
 
-<h3 id="大数相加"><a href="#大数相加" class="headerlink" title="大数相加"></a>大数相加</h3><p>由于JavaScript中不管整数还是小数都是Number类型，它的实现是遵循 IEEE 754标准，储存方式是以双精度浮点数储存的，可以表示十进制的15或者16位有效数字，所以当进行运算的数字超过这个范围的时候，就会用有精度缺失的问题，导致计算不准确，所以在大数加减的时候需要转成字符串来做，或者es6+有个BigInt类型也支持做大数加减，或者可以选择npm上的大数加减插件，比如number-precision</p>
+<h3 id="大数相加"><a href="#大数相加" class="headerlink" title="大数相加"></a>大数相加</h3><p>由于 JavaScript 中不管整数还是小数都是 Number 类型，它的实现是遵循 IEEE 754 标准，储存方式是以双精度浮点数储存的，可以表示十进制的 15 或者 16 位有效数字，所以当进行运算的数字超过这个范围的时候，就会用有精度缺失的问题，导致计算不准确，所以在大数加减的时候需要转成字符串来做，或者 es6+有个 BigInt 类型也支持做大数加减，或者可以选择 npm 上的大数加减插件，比如 number-precision</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var addStrings = function(num1, num2) &#123;</span><br><span class="line">  const maxLen = Math.max.apply(null, [num1.length, num2.length]);</span><br><span class="line">  let result = &quot;&quot;;</span><br><span class="line">  let ans = 0;</span><br><span class="line">  if(num1.length&lt;maxLen)&#123;</span><br><span class="line">      num1 = num1.padStart(maxLen, &quot;0&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">  if(num2.length&lt;maxLen)&#123;</span><br><span class="line">      num2 = num2.padStart(maxLen, &quot;0&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">  for (let i = maxLen - 1; i &gt;= 0; --i) &#123;</span><br><span class="line">    const temp =ans+Number(num1[i]) + Number(num2[i]);</span><br><span class="line">    result=(temp % 10)+result;</span><br><span class="line">    ans = Math.floor(temp / 10);</span><br><span class="line">  &#125;</span><br><span class="line">  console.log(result);</span><br><span class="line">  return ans===1?ans+ result:result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<h3 id="深克隆"><a href="#深克隆" class="headerlink" title="深克隆"></a>深克隆</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const isObject = (item)=&gt;&#123;</span><br><span class="line">  return Object.prototype.toString.call(item) === &apos;[object Object]&apos;;</span><br><span class="line">&#125;</span><br><span class="line">const isArray = (item)=&gt;&#123;</span><br><span class="line">  return Object.prototype.toString.call(item) === &apos;[object Array]&apos;;</span><br><span class="line">&#125;</span><br><span class="line">const isDate = item =&gt;&#123;</span><br><span class="line">  return Object.prototype.toString.call(item) === &apos;[object Date]&apos;;</span><br><span class="line">&#125;</span><br><span class="line">const isFunction = item =&gt;&#123;</span><br><span class="line">  return Object.prototype.toString.call(item) === &apos;[object Function]&apos;;</span><br><span class="line">&#125;</span><br><span class="line">const deepClone=function(obj)&#123;</span><br><span class="line">    const cloneObj=isArray(obj)?[]:isObject(obj)?&#123;&#125;:&apos;&apos;;</span><br><span class="line">    for(let key in obj)&#123;</span><br><span class="line">      if(obj.hasOwnProperty(key))&#123;</span><br><span class="line">        if(isObject(obj[key])||isArray(obj[key]))&#123;</span><br><span class="line">          Object.assign(cloneObj,&#123;</span><br><span class="line">           [key]: deepClone(Reflect.get(obj,key))</span><br><span class="line">          &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">        else&#123;</span><br><span class="line">          cloneObj[key] = obj[key];</span><br><span class="line">        &#125;  </span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return cloneObj;</span><br><span class="line">&#125;</span><br><span class="line">function deepCopy(original) &#123;</span><br><span class="line">  if (Array.isArray(original)) &#123;</span><br><span class="line">    return original.map(elem =&gt; deepCopy(elem));</span><br><span class="line">  &#125; else if (typeof original === &apos;object&apos; &amp;&amp; original !== null) &#123;</span><br><span class="line">    return Object.fromEntries(</span><br><span class="line">      Object.entries(original)</span><br><span class="line">        .map(([k, v]) =&gt; [k, deepCopy(v)]));</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    // Primitive value: atomic, no need to copy</span><br><span class="line">    return original;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="深克隆"><a href="#深克隆" class="headerlink" title="深克隆"></a>深克隆</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const isObject = (item)=&gt;&#123;</span><br><span class="line">  return Object.prototype.toString.call(item) === &apos;[object Object]&apos;;</span><br><span class="line">&#125;</span><br><span class="line">const isArray = (item)=&gt;&#123;</span><br><span class="line">  return Object.prototype.toString.call(item) === &apos;[object Array]&apos;;</span><br><span class="line">&#125;</span><br><span class="line">const isDate = item =&gt;&#123;</span><br><span class="line">  return Object.prototype.toString.call(item) === &apos;[object Date]&apos;;</span><br><span class="line">&#125;</span><br><span class="line">const isFunction = item =&gt;&#123;</span><br><span class="line">  return Object.prototype.toString.call(item) === &apos;[object Function]&apos;;</span><br><span class="line">&#125;</span><br><span class="line">const deepClone=function(obj)&#123;</span><br><span class="line">    const cloneObj=isArray(obj)?[]:isObject(obj)?&#123;&#125;:&apos;&apos;;</span><br><span class="line">    for(let key in obj)&#123;</span><br><span class="line">      if(obj.hasOwnProperty(key))&#123;</span><br><span class="line">        if(isObject(obj[key])||isArray(obj[key]))&#123;</span><br><span class="line">          Object.assign(cloneObj,&#123;</span><br><span class="line">           [key]: deepClone(Reflect.get(obj,key))</span><br><span class="line">          &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">        else&#123;</span><br><span class="line">          cloneObj[key] = obj[key];</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return cloneObj;</span><br><span class="line">&#125;</span><br><span class="line">function deepCopy(original) &#123;</span><br><span class="line">  if (Array.isArray(original)) &#123;</span><br><span class="line">    return original.map(elem =&gt; deepCopy(elem));</span><br><span class="line">  &#125; else if (typeof original === &apos;object&apos; &amp;&amp; original !== null) &#123;</span><br><span class="line">    return Object.fromEntries(</span><br><span class="line">      Object.entries(original)</span><br><span class="line">        .map(([k, v]) =&gt; [k, deepCopy(v)]));</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    // Primitive value: atomic, no need to copy</span><br><span class="line">    return original;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="深层更新"><a href="#深层更新" class="headerlink" title="深层更新"></a>深层更新</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function deepUpdate(original, keys, value) &#123;</span><br><span class="line">  if (keys.length === 0) &#123;</span><br><span class="line">    return value;</span><br><span class="line">  &#125;</span><br><span class="line">  const currentKey = keys[0];</span><br><span class="line">  if (Array.isArray(original)) &#123;</span><br><span class="line">    return original.map(</span><br><span class="line">      (v, index) =&gt; index === currentKey</span><br><span class="line">        ? deepUpdate(v, keys.slice(1), value) // (A)</span><br><span class="line">        : v); // (B)</span><br><span class="line">  &#125; else if (typeof original === &apos;object&apos; &amp;&amp; original !== null) &#123;</span><br><span class="line">    return Object.fromEntries(</span><br><span class="line">      Object.entries(original).map(</span><br><span class="line">        (keyValuePair) =&gt; &#123;</span><br><span class="line">          const [k,v] = keyValuePair;</span><br><span class="line">          if (k === currentKey) &#123;</span><br><span class="line">            return [k, deepUpdate(v, keys.slice(1), value)]; // (C)</span><br><span class="line">          &#125; else &#123;</span><br><span class="line">            return keyValuePair; // (D)</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;));</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    // Primitive value</span><br><span class="line">    return original;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="深层冻结"><a href="#深层冻结" class="headerlink" title="深层冻结"></a>深层冻结</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function deepFreeze(value) &#123;</span><br><span class="line">  if (Array.isArray(value)) &#123;</span><br><span class="line">    for (const element of value) &#123;</span><br><span class="line">      deepFreeze(element);</span><br><span class="line">    &#125;</span><br><span class="line">    Object.freeze(value);</span><br><span class="line">  &#125; else if (typeof value === &apos;object&apos; &amp;&amp; value !== null) &#123;</span><br><span class="line">    for (const v of Object.values(value)) &#123;</span><br><span class="line">      deepFreeze(v);</span><br><span class="line">    &#125;</span><br><span class="line">    Object.freeze(value);</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    // Nothing to do: primitive values are already immutable</span><br><span class="line">  &#125; </span><br><span class="line">  return value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="深层冻结"><a href="#深层冻结" class="headerlink" title="深层冻结"></a>深层冻结</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function deepFreeze(value) &#123;</span><br><span class="line">  if (Array.isArray(value)) &#123;</span><br><span class="line">    for (const element of value) &#123;</span><br><span class="line">      deepFreeze(element);</span><br><span class="line">    &#125;</span><br><span class="line">    Object.freeze(value);</span><br><span class="line">  &#125; else if (typeof value === &apos;object&apos; &amp;&amp; value !== null) &#123;</span><br><span class="line">    for (const v of Object.values(value)) &#123;</span><br><span class="line">      deepFreeze(v);</span><br><span class="line">    &#125;</span><br><span class="line">    Object.freeze(value);</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    // Nothing to do: primitive values are already immutable</span><br><span class="line">  &#125;</span><br><span class="line">  return value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="基于现有对象的自定义方法"><a href="#基于现有对象的自定义方法" class="headerlink" title="基于现有对象的自定义方法"></a>基于现有对象的自定义方法</h3><p>PS:(不建议直接污染原型链，类型Date.prototype.xxx=function(){}这样的写法)</p>
-<p>个人比较喜欢寄生组合继承或者es6的calss继承，比如要写一个基于Date的format方法</p>
+<h3 id="基于现有对象的自定义方法"><a href="#基于现有对象的自定义方法" class="headerlink" title="基于现有对象的自定义方法"></a>基于现有对象的自定义方法</h3><p>PS:(不建议直接污染原型链，类型 Date.prototype.xxx=function(){}这样的写法)</p>
+<p>个人比较喜欢寄生组合继承或者 es6 的 calss 继承，比如要写一个基于 Date 的 format 方法</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class DateSelf extends Date&#123;</span><br><span class="line">  constructor()&#123;</span><br><span class="line">    super();</span><br><span class="line">  &#125;</span><br><span class="line">  getAll(begin,end)&#123;</span><br><span class="line">    let arr=[];</span><br><span class="line">    var ab = begin.split(&quot;-&quot;);</span><br><span class="line">    var ae = end.split(&quot;-&quot;);</span><br><span class="line">    var db = new Date();</span><br><span class="line">    db.setUTCFullYear(ab[0], ab[1] - 1, ab[2]);</span><br><span class="line">    var de = new Date();</span><br><span class="line">    de.setUTCFullYear(ae[0], ae[1] - 1, ae[2]);</span><br><span class="line">    var unixDb = db.getTime();</span><br><span class="line">    var unixDe = de.getTime();</span><br><span class="line">    for (var k = unixDb; k &lt;= unixDe;) &#123;</span><br><span class="line">        // arr.push((new Date(parseInt(k))).format());</span><br><span class="line">        arr.push((DateSelf.formatter(parseInt(k))))</span><br><span class="line">        k = k + 24 * 60 * 60 * 1000;</span><br><span class="line">    &#125;</span><br><span class="line">    return arr;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">DateSelf.formatter=function(time)&#123;</span><br><span class="line">  var s = &apos;&apos;;</span><br><span class="line">  const k =  new Date(time)</span><br><span class="line">  var mouth = (k.getMonth() + 1)&gt;=10?(k.getMonth() + 1):(&apos;0&apos;+(k.getMonth() + 1));</span><br><span class="line">  var day = k.getDate()&gt;=10?k.getDate():(&apos;0&apos;+k.getDate());</span><br><span class="line">  s += k.getFullYear() + &apos;-&apos;; // 获取年份。</span><br><span class="line">  s += mouth + &quot;-&quot;; // 获取月份。</span><br><span class="line">  s += day; // 获取日。</span><br><span class="line">  return (s); // 返回日期。</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="判断对象类型"><a href="#判断对象类型" class="headerlink" title="判断对象类型"></a>判断对象类型</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Object.toType = (function toType(global) &#123;</span><br><span class="line">  return function(obj) &#123;</span><br><span class="line">    if (obj === global) &#123;</span><br><span class="line">      return &quot;global&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    return (&#123;&#125;).toString.call(obj).match(/\s([a-z|A-Z]+)/)[1].toLowerCase();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)(this)</span><br></pre></td></tr></table></figure>
 
-<h3 id="用promsie异步加载图像"><a href="#用promsie异步加载图像" class="headerlink" title="用promsie异步加载图像"></a>用promsie异步加载图像</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">functin load(image,attributes)&#123;</span><br><span class="line">  	if (!image) &#123;</span><br><span class="line">		return Promise.reject();</span><br><span class="line">	&#125; else if (typeof image === &apos;string&apos;) &#123;</span><br><span class="line">		/* Create a &lt;img&gt; from a string */</span><br><span class="line">		const src = image;</span><br><span class="line">		image = new Image();</span><br><span class="line">		Object.keys(attributes || &#123;&#125;).forEach(</span><br><span class="line">			name =&gt; image.setAttribute(name, attributes[name])</span><br><span class="line">		);</span><br><span class="line">		image.src = src;</span><br><span class="line">	&#125; else if (image.length !== undefined) &#123;</span><br><span class="line">		/* Treat as multiple images */</span><br><span class="line"></span><br><span class="line">		// Momentarily ignore errors</span><br><span class="line">		const reflected = [].map.call(image, img =&gt; load(img, attributes).catch(err =&gt; err));</span><br><span class="line"></span><br><span class="line">		return Promise.all(reflected).then(results =&gt; &#123;</span><br><span class="line">			const loaded = results.filter(x =&gt; x.naturalWidth);</span><br><span class="line">			if (loaded.length === results.length) &#123;</span><br><span class="line">				return loaded;</span><br><span class="line">			&#125;</span><br><span class="line">			return Promise.reject(&#123;</span><br><span class="line">				loaded,</span><br><span class="line">				errored: results.filter(x =&gt; !x.naturalWidth)</span><br><span class="line">			&#125;);</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125; else if (image.tagName.toUpperCase() !== &apos;IMG&apos;) &#123;</span><br><span class="line">		return Promise.reject();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	const promise = new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">		if (image.naturalWidth) &#123;</span><br><span class="line">			// If the browser can determine the naturalWidth the</span><br><span class="line">			// image is already loaded successfully</span><br><span class="line">			resolve(image);</span><br><span class="line">		&#125; else if (image.complete) &#123;</span><br><span class="line">			// If the image is complete but the naturalWidth is 0px</span><br><span class="line">			// it is probably broken</span><br><span class="line">			reject(image);</span><br><span class="line">		&#125; else &#123;</span><br><span class="line">			image.addEventListener(&apos;load&apos;, fulfill);</span><br><span class="line">			image.addEventListener(&apos;error&apos;, fulfill);</span><br><span class="line">		&#125;</span><br><span class="line">		function fulfill() &#123;</span><br><span class="line">			if (image.naturalWidth) &#123;</span><br><span class="line">				resolve(image);</span><br><span class="line">			&#125; else &#123;</span><br><span class="line">				reject(image);</span><br><span class="line">			&#125;</span><br><span class="line">			image.removeEventListener(&apos;load&apos;, fulfill);</span><br><span class="line">			image.removeEventListener(&apos;error&apos;, fulfill);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;);</span><br><span class="line">	promise.image = image;</span><br><span class="line">	return promise;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="用-promsie-异步加载图像"><a href="#用-promsie-异步加载图像" class="headerlink" title="用 promsie 异步加载图像"></a>用 promsie 异步加载图像</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">functin load(image,attributes)&#123;</span><br><span class="line">  	if (!image) &#123;</span><br><span class="line">		return Promise.reject();</span><br><span class="line">	&#125; else if (typeof image === &apos;string&apos;) &#123;</span><br><span class="line">		/* Create a &lt;img&gt; from a string */</span><br><span class="line">		const src = image;</span><br><span class="line">		image = new Image();</span><br><span class="line">		Object.keys(attributes || &#123;&#125;).forEach(</span><br><span class="line">			name =&gt; image.setAttribute(name, attributes[name])</span><br><span class="line">		);</span><br><span class="line">		image.src = src;</span><br><span class="line">	&#125; else if (image.length !== undefined) &#123;</span><br><span class="line">		/* Treat as multiple images */</span><br><span class="line"></span><br><span class="line">		// Momentarily ignore errors</span><br><span class="line">		const reflected = [].map.call(image, img =&gt; load(img, attributes).catch(err =&gt; err));</span><br><span class="line"></span><br><span class="line">		return Promise.all(reflected).then(results =&gt; &#123;</span><br><span class="line">			const loaded = results.filter(x =&gt; x.naturalWidth);</span><br><span class="line">			if (loaded.length === results.length) &#123;</span><br><span class="line">				return loaded;</span><br><span class="line">			&#125;</span><br><span class="line">			return Promise.reject(&#123;</span><br><span class="line">				loaded,</span><br><span class="line">				errored: results.filter(x =&gt; !x.naturalWidth)</span><br><span class="line">			&#125;);</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125; else if (image.tagName.toUpperCase() !== &apos;IMG&apos;) &#123;</span><br><span class="line">		return Promise.reject();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	const promise = new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">		if (image.naturalWidth) &#123;</span><br><span class="line">			// If the browser can determine the naturalWidth the</span><br><span class="line">			// image is already loaded successfully</span><br><span class="line">			resolve(image);</span><br><span class="line">		&#125; else if (image.complete) &#123;</span><br><span class="line">			// If the image is complete but the naturalWidth is 0px</span><br><span class="line">			// it is probably broken</span><br><span class="line">			reject(image);</span><br><span class="line">		&#125; else &#123;</span><br><span class="line">			image.addEventListener(&apos;load&apos;, fulfill);</span><br><span class="line">			image.addEventListener(&apos;error&apos;, fulfill);</span><br><span class="line">		&#125;</span><br><span class="line">		function fulfill() &#123;</span><br><span class="line">			if (image.naturalWidth) &#123;</span><br><span class="line">				resolve(image);</span><br><span class="line">			&#125; else &#123;</span><br><span class="line">				reject(image);</span><br><span class="line">			&#125;</span><br><span class="line">			image.removeEventListener(&apos;load&apos;, fulfill);</span><br><span class="line">			image.removeEventListener(&apos;error&apos;, fulfill);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;);</span><br><span class="line">	promise.image = image;</span><br><span class="line">	return promise;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="获取类型"><a href="#获取类型" class="headerlink" title="获取类型"></a>获取类型</h3><p>({}).toString.call(obj) 的用法与 Object.prototype.toString.call(obj)一样。这两个返回的格式是[object [class]].</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const toType = (obj) =&gt;&#123;</span><br><span class="line">   return (&#123;&#125;).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase()</span><br><span class="line">&#125;</span><br><span class="line">toType(&#123;a: 4&#125;); //&quot;object&quot;</span><br><span class="line">toType([1, 2, 3]); //&quot;array&quot;</span><br><span class="line">(function() &#123;console.log(toType(arguments))&#125;)(); //arguments</span><br><span class="line">toType(new ReferenceError); //&quot;error&quot;</span><br><span class="line">toType(new Date); //&quot;date&quot;</span><br><span class="line">toType(/a-z/); //&quot;regexp&quot;</span><br><span class="line">toType(Math); //&quot;math&quot;</span><br><span class="line">toType(JSON); //&quot;json&quot;</span><br><span class="line">toType(new Number(4)); //&quot;number&quot;</span><br><span class="line">toType(new String(&quot;abc&quot;)); //&quot;string&quot;</span><br><span class="line">toType(new Boolean(true)); //&quot;boolean&quot;</span><br><span class="line"></span><br><span class="line">//typeof 也可以判断类型,但是只能获取基本类型，引用类型统一返回object，所以尽量用toType的方法;instanceof也可以,然鹅instanceof是基于原型链判断的，如果继承的话</span><br><span class="line">  class MyArray extends Array&#123;</span><br><span class="line">    constructor()&#123;</span><br><span class="line">      super()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  const myArray = new MyArray();</span><br><span class="line">  console.log(`Array: $&#123;myArray instanceof Array&#125;`);</span><br><span class="line">  console.log(`MyArray :$&#123;myArray instanceof MyArray&#125;`);</span><br><span class="line">  //这样两个返回的都是true</span><br></pre></td></tr></table></figure>
 
-<p>几个内置对象没有构造函数，因此不能用instanceof来判断类型</p>
+<p>几个内置对象没有构造函数，因此不能用 instanceof 来判断类型</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Math instanceof Math //TypeError</span><br></pre></td></tr></table></figure>
 
-<p>一个window可以包含多个iframe框架，意味着包含多个全局上下文，因此意味着每个类型有多个构造器，在这样的环境下，给定的对象类型不能保证是给定的构造函数的实例</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const ifFrame = document.createElement(&apos;iframe&apos;);</span><br><span class="line">document.body.appendChild(ifFrame);</span><br><span class="line">const IFrameArray = window.frames[1].Array; </span><br><span class="line">const array = new IFrameArray();</span><br><span class="line"></span><br><span class="line">array instanceof IFrameArray //true</span><br><span class="line">array instanceof Array // false</span><br></pre></td></tr></table></figure>
+<p>一个 window 可以包含多个 iframe 框架，意味着包含多个全局上下文，因此意味着每个类型有多个构造器，在这样的环境下，给定的对象类型不能保证是给定的构造函数的实例</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const ifFrame = document.createElement(&apos;iframe&apos;);</span><br><span class="line">document.body.appendChild(ifFrame);</span><br><span class="line">const IFrameArray = window.frames[1].Array;</span><br><span class="line">const array = new IFrameArray();</span><br><span class="line"></span><br><span class="line">array instanceof IFrameArray //true</span><br><span class="line">array instanceof Array // false</span><br></pre></td></tr></table></figure>
 
-<p>由于array的constructor是iframe中的Array,因此即使array 与 此时的window上下文中的Array都是数组范畴，但是instanceof是基于原型链来判断的，array的原型链是并没有指向当前window下的Array,因此array instanceof Array 为 false</p>
-<p>之前的toType有个问题,当toType的传参是window,window内置方法以及DOM时，有很长一串的结果返回时</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">toType(window);</span><br><span class="line">//&quot;global&quot; (Chrome) &quot;domwindow&quot; (Safari) &quot;window&quot; (FF/IE9) &quot;object&quot; (IE7/IE8)</span><br><span class="line"> </span><br><span class="line">toType(document);</span><br><span class="line">//&quot;htmldocument&quot; (Chrome/FF/Safari) &quot;document&quot; (IE9) &quot;object&quot; (IE7/IE8)</span><br><span class="line"> </span><br><span class="line">toType(document.createElement(&apos;a&apos;));</span><br><span class="line">//&quot;htmlanchorelement&quot; (Chrome/FF/Safari/IE) &quot;object&quot; (IE7/IE8)</span><br><span class="line"> </span><br><span class="line">toType(alert);</span><br><span class="line">//&quot;function&quot; (Chrome/FF/Safari/IE9) &quot;object&quot; (IE7/IE8)</span><br></pre></td></tr></table></figure>
+<p>由于 array 的 constructor 是 iframe 中的 Array,因此即使 array 与 此时的 window 上下文中的 Array 都是数组范畴，但是 instanceof 是基于原型链来判断的，array 的原型链是并没有指向当前 window 下的 Array,因此 array instanceof Array 为 false</p>
+<p>之前的 toType 有个问题,当 toType 的传参是 window,window 内置方法以及 DOM 时，有很长一串的结果返回时</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">toType(window);</span><br><span class="line">//&quot;global&quot; (Chrome) &quot;domwindow&quot; (Safari) &quot;window&quot; (FF/IE9) &quot;object&quot; (IE7/IE8)</span><br><span class="line"></span><br><span class="line">toType(document);</span><br><span class="line">//&quot;htmldocument&quot; (Chrome/FF/Safari) &quot;document&quot; (IE9) &quot;object&quot; (IE7/IE8)</span><br><span class="line"></span><br><span class="line">toType(document.createElement(&apos;a&apos;));</span><br><span class="line">//&quot;htmlanchorelement&quot; (Chrome/FF/Safari/IE) &quot;object&quot; (IE7/IE8)</span><br><span class="line"></span><br><span class="line">toType(alert);</span><br><span class="line">//&quot;function&quot; (Chrome/FF/Safari/IE9) &quot;object&quot; (IE7/IE8)</span><br></pre></td></tr></table></figure>
 
-<p>改进一下toType方法,将这个方法挂载到Object上,但是不要挂载到prototype上，将这个方法写成IIFE+闭包</p>
+<p>改进一下 toType 方法,将这个方法挂载到 Object 上,但是不要挂载到 prototype 上，将这个方法写成 IIFE+闭包</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Object.toType = (function toType(global) &#123;</span><br><span class="line">  return function(obj) &#123;</span><br><span class="line">    if (obj === global) &#123;</span><br><span class="line">      return &quot;global&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    return (&#123;&#125;).toString.call(obj).match(/\s([a-z|A-Z]+)/)[1].toLowerCase();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)(this)</span><br><span class="line">Object.toType(window); //&quot;global&quot; (all browsers)</span><br><span class="line">Object.toType([1,2,3]); //&quot;array&quot; (all browsers)</span><br><span class="line">Object.toType(/a-z/); //&quot;regexp&quot; (all browsers)</span><br><span class="line">Object.toType(JSON); //&quot;json&quot; (all browsers)</span><br></pre></td></tr></table></figure>
 
 <p>这个方法也不是万能的,如果扔进来一个未知类型,则会抛出异常</p>
@@ -2279,29 +2284,31 @@ createComponentInstance
 <p>用法</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">initialArrayWithRangeRight(5)// [5,4,3,2,1,0]</span><br></pre></td></tr></table></figure>
 
-<h3 id="创建加密hash"><a href="#创建加密hash" class="headerlink" title="创建加密hash"></a>创建加密hash</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const hashBrowser = val =&gt;</span><br><span class="line">  crypto.subtle.digest(&apos;SHA-256&apos;, new TextEncoder(&apos;utf-8&apos;).encode(val)).then(h =&gt; &#123;</span><br><span class="line">    let hexes = [],</span><br><span class="line">      view = new DataView(h);</span><br><span class="line">    for (let i = 0; i &lt; view.byteLength; i += 4)</span><br><span class="line">      hexes.push((&apos;00000000&apos; + view.getUint32(i).toString(16)).slice(-8));</span><br><span class="line">    return hexes.join(&apos;&apos;);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="创建加密-hash"><a href="#创建加密-hash" class="headerlink" title="创建加密 hash"></a>创建加密 hash</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const hashBrowser = val =&gt;</span><br><span class="line">  crypto.subtle.digest(&apos;SHA-256&apos;, new TextEncoder(&apos;utf-8&apos;).encode(val)).then(h =&gt; &#123;</span><br><span class="line">    let hexes = [],</span><br><span class="line">      view = new DataView(h);</span><br><span class="line">    for (let i = 0; i &lt; view.byteLength; i += 4)</span><br><span class="line">      hexes.push((&apos;00000000&apos; + view.getUint32(i).toString(16)).slice(-8));</span><br><span class="line">    return hexes.join(&apos;&apos;);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
 
 <p>用法</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hashBrowser(JSON.stringify(&#123; a: &apos;a&apos;, b: [1, 2, 3, 4], foo: &#123; c: &apos;bar&apos; &#125; &#125;)).then(console.log); // &apos;04aa106279f5977f59f9067fa9712afc4aedc6f5862a8defc34552d8c7206393&apos;</span><br></pre></td></tr></table></figure>
 
-<h3 id="自定义事件"><a href="#自定义事件" class="headerlink" title="自定义事件"></a>自定义事件</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> triggerEvnet = <span class="function">(<span class="params">el,eventType,detail</span>) =&gt;</span> el.dispatchEvent(<span class="keyword">new</span> CustomEvent(eventType,detail));</span><br></pre></td></tr></table></figure>
+<h3 id="自定义事件"><a href="#自定义事件" class="headerlink" title="自定义事件"></a>自定义事件</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> triggerEvnet = <span class="function">(<span class="params">el, eventType, detail</span>) =&gt;</span></span><br><span class="line">  el.dispatchEvent(<span class="keyword">new</span> CustomEvent(eventType, detail));</span><br></pre></td></tr></table></figure>
 
 <p>用法</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">triggerEvnet(<span class="built_in">document</span>.getElementById(<span class="string">'id'</span>),<span class="string">'click'</span>);<span class="comment">//触发前需要先注册方法，addEventListener或者attachEvent</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">triggerEvnet(<span class="built_in">document</span>.getElementById(<span class="string">"id"</span>), <span class="string">"click"</span>); <span class="comment">//触发前需要先注册方法，addEventListener或者attachEvent</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="isWritableStream"><a href="#isWritableStream" class="headerlink" title="isWritableStream"></a>isWritableStream</h3><p>检查给定参数是否是可写的流体</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> isWriteable = <span class="function"><span class="params">val</span> =&gt;</span> val !== <span class="literal">null</span> &amp;&amp;</span><br><span class="line">  <span class="keyword">typeof</span> val === <span class="string">'object'</span> &amp;&amp;</span><br><span class="line">  <span class="keyword">typeof</span> val.pipe === <span class="string">'function'</span> &amp;&amp;</span><br><span class="line">  <span class="keyword">typeof</span> val._write === <span class="string">'function'</span> &amp;&amp;</span><br><span class="line">  <span class="keyword">typeof</span> val._writableState === <span class="string">'object'</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> isWriteable = <span class="function">(<span class="params">val</span>) =&gt;</span></span><br><span class="line">  val !== <span class="literal">null</span> &amp;&amp;</span><br><span class="line">  <span class="keyword">typeof</span> val === <span class="string">"object"</span> &amp;&amp;</span><br><span class="line">  <span class="keyword">typeof</span> val.pipe === <span class="string">"function"</span> &amp;&amp;</span><br><span class="line">  <span class="keyword">typeof</span> val._write === <span class="string">"function"</span> &amp;&amp;</span><br><span class="line">  <span class="keyword">typeof</span> val._writableState === <span class="string">"object"</span>;</span><br></pre></td></tr></table></figure>
 
-<p>Node环境中使用</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line">isWritableStream(fs.createWriteStream(<span class="string">'test.txt'</span>)); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p>Node 环境中使用</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">"fs"</span>);</span><br><span class="line">isWritableStream(fs.createWriteStream(<span class="string">"test.txt"</span>)); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="打乱数组顺序"><a href="#打乱数组顺序" class="headerlink" title="打乱数组顺序"></a>打乱数组顺序</h3><p>洗牌算法</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> shuffle = <span class="function">(<span class="params">arr</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> m = arr.length;</span><br><span class="line">  <span class="keyword">while</span>(m)&#123;</span><br><span class="line">    <span class="keyword">const</span> i = <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random()*m--);</span><br><span class="line">    [arr[i],arr[m]] =[arr[m],arr[i]]; </span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> shuffle = <span class="function">(<span class="params">arr</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> m = arr.length;</span><br><span class="line">  <span class="keyword">while</span> (m) &#123;</span><br><span class="line">    <span class="keyword">const</span> i = <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * m--);</span><br><span class="line">    [arr[i], arr[m]] = [arr[m], arr[i]];</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> arr;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<h3 id="反解套"><a href="#反解套" class="headerlink" title="反解套"></a>反解套</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> unflattenObject = <span class="function"><span class="params">obj</span> =&gt;</span></span><br><span class="line">  <span class="built_in">Object</span>.keys(obj).reduce(<span class="function">(<span class="params">acc, k</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (k.indexOf(<span class="string">'.'</span>) !== <span class="number">-1</span>) &#123;</span><br><span class="line">      <span class="keyword">const</span> keys = k.split(<span class="string">'.'</span>);</span><br><span class="line">      <span class="built_in">Object</span>.assign(</span><br><span class="line">        acc,</span><br><span class="line">        <span class="built_in">JSON</span>.parse(</span><br><span class="line">          <span class="string">'&#123;'</span> +</span><br><span class="line">            keys.map(<span class="function">(<span class="params">v, i</span>) =&gt;</span> (i !== keys.length - <span class="number">1</span> ? <span class="string">`"<span class="subst">$&#123;v&#125;</span>":&#123;`</span> : <span class="string">`"<span class="subst">$&#123;v&#125;</span>":`</span>)).join(<span class="string">''</span>) +</span><br><span class="line">            obj[k] +</span><br><span class="line">            <span class="string">'&#125;'</span>.repeat(keys.length)</span><br><span class="line">        )</span><br><span class="line">      );</span><br><span class="line">    &#125; <span class="keyword">else</span> acc[k] = obj[k];</span><br><span class="line">    <span class="keyword">return</span> acc;</span><br><span class="line">  &#125;, &#123;&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="反解套"><a href="#反解套" class="headerlink" title="反解套"></a>反解套</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> unflattenObject = <span class="function">(<span class="params">obj</span>) =&gt;</span></span><br><span class="line">  <span class="built_in">Object</span>.keys(obj).reduce(<span class="function">(<span class="params">acc, k</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (k.indexOf(<span class="string">"."</span>) !== <span class="number">-1</span>) &#123;</span><br><span class="line">      <span class="keyword">const</span> keys = k.split(<span class="string">"."</span>);</span><br><span class="line">      <span class="built_in">Object</span>.assign(</span><br><span class="line">        acc,</span><br><span class="line">        <span class="built_in">JSON</span>.parse(</span><br><span class="line">          <span class="string">"&#123;"</span> +</span><br><span class="line">            keys</span><br><span class="line">              .map(<span class="function">(<span class="params">v, i</span>) =&gt;</span> (i !== keys.length - <span class="number">1</span> ? <span class="string">`"<span class="subst">$&#123;v&#125;</span>":&#123;`</span> : <span class="string">`"<span class="subst">$&#123;v&#125;</span>":`</span>))</span><br><span class="line">              .join(<span class="string">""</span>) +</span><br><span class="line">            obj[k] +</span><br><span class="line">            <span class="string">"&#125;"</span>.repeat(keys.length)</span><br><span class="line">        )</span><br><span class="line">      );</span><br><span class="line">    &#125; <span class="keyword">else</span> acc[k] = obj[k];</span><br><span class="line">    <span class="keyword">return</span> acc;</span><br><span class="line">  &#125;, &#123;&#125;);</span><br></pre></td></tr></table></figure>
 
 <p>example</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">unflattenObject(&#123; <span class="string">'a.b.c'</span>: <span class="number">1</span>, <span class="attr">d</span>: <span class="number">1</span> &#125;); <span class="comment">// &#123; a: &#123; b: &#123; c: 1 &#125; &#125;, d: 1 &#125;</span></span><br></pre></td></tr></table></figure>]]></content>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">unflattenObject(&#123; <span class="string">"a.b.c"</span>: <span class="number">1</span>, <span class="attr">d</span>: <span class="number">1</span> &#125;); <span class="comment">// &#123; a: &#123; b: &#123; c: 1 &#125; &#125;, d: 1 &#125;</span></span><br></pre></td></tr></table></figure>
+
+]]></content>
       <categories>
         <category>tool</category>
       </categories>
@@ -2366,74 +2373,6 @@ createComponentInstance
         <category>vue</category>
         <category>react</category>
       </categories>
-  </entry>
-  <entry>
-    <title>worker</title>
-    <url>/2021/05/18/worker/</url>
-    <content><![CDATA[<p>Web Worker 文献综述</p>
-<p>Web Worker 作为浏览器多线程技术, 在页面内容不断丰富, 功能日趋复杂的当下, 成为缓解页面卡顿, 提升应用性能的可选方案.<br>但她的容颜, 隐藏在边缘试探的科普文章和不知深浅的兼容性背后; 对 JS 单线程面试题倒背如流的前端工程师, 对多线程开发有着天然的陌生感.</p>
-<p>业务背景</p>
-<p>因为我负责的组件中有个是树组件，那么对于这个树组件有个功能是叫做搜索的功能，一开始的时候在搜索匹配节点的时候是在主线程中去执行代码，但是在遇到计算量大的时候，就会一直占用主线程的资源，导致页面不能及时的跟用户进行响应，那么我就想到了将这个计算的代码放到后台（也就是worker）去执行逻辑，这样的话就不会阻塞页面的渲染工作，因为worker的代码跟主线程的代码是属于并行的关系。</p>
-<h4 id="worker介绍"><a href="#worker介绍" class="headerlink" title="worker介绍"></a>worker介绍</h4><p>官方对这个<a href="https://link.zhihu.com/?target=https%3A//developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API" target="_blank" rel="noopener">web worker</a>的表述是</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Web Workers makes it possible to run a script operation </span><br><span class="line">in a background thread separate from the main execution thread </span><br><span class="line">of a web application.</span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/worker/worker-process.jpeg" alt="process"></p>
-<p>通过这个其实可以想到的是 并行可以提升执行效率，任务的拆分能减少页面的卡顿</p>
-<a id="more"></a>
-
-<h4 id="技术规范"><a href="#技术规范" class="headerlink" title="技术规范"></a>技术规范</h4><p><a href="https://www.w3.org/TR/workers/" target="_blank" rel="noopener">worker的技术规范</a>并不是近几年才开始提出的，它在09年就已经有了草案<br><img src="/images/worker/worker-draft.png" alt="worker draft"></p>
-<h4 id="Worker的分类"><a href="#Worker的分类" class="headerlink" title="Worker的分类"></a>Worker的分类</h4><p>在mdn上worker介绍了三种worker类型，分别是Dedicated workers （专用worker），Shared Worker（共享worker）以及 Service Worker。<br>Dedicated worker 只能与创建它的页面渲染进程通行，不能够进行多tab共享，这是最常见的也是用的最多的一种worker<br>而 SharedWorker 可以在多个浏览器 Tab 中访问到同一个 Worker 实例, 实现多 Tab 共享数据, 共享 webSocket 连接等. 看起来很美好, 但 safari 放弃了 SharedWorker 支持, 因为 webkit 引擎的技术原因. 如下图所示, 只在 safari 5~6 中短暂支持过.</p>
-<p><img src="/images/worker/shared-worker.jpeg" alt="shared worker"></p>
-<p>相比之下, DedicatedWorker 有着更广的兼容性和更多业务落地实践, 本文后面讨论中的 Worker 都是特指 DedicatedWorker.</p>
-<p>在创建worker的时候，那么其实是会创建操作系统级别的线程</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">The Worker interface spawns real OS-level threads. -- MDN</span><br></pre></td></tr></table></figure>
-
-<p>JS 多线程, 是有独立于主线程的 JS 运行环境. 如下图所示: Worker 线程有独立的内存空间, Message Queue, Event Loop, Call Stack 等, 线程间通过 postMessage 通信，并且多个线程是可以并发执行的。</p>
-<h4 id="异步任务与worker的区别"><a href="#异步任务与worker的区别" class="headerlink" title="异步任务与worker的区别"></a>异步任务与worker的区别</h4><p>JS 单线程中的”并发”, 准确来说是 Concurrent. 如下图所示, 运行时只有一个函数调用栈, 通过 Event Loop 实现不同 Task 的上下文切换(Context Switch). 这些 Task 通过 BOM API 调起其他线程为主线程工作, 但回调函数代码逻辑依然由 JS 串行运行.<br><img src="/images/worker/event-loop-and-worker.png" alt="event-loop"></p>
-<h4 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h4><ul>
-<li>可以减少主线程卡顿.</li>
-<li>可能会带来性能提升.</li>
-</ul>
-<p>Worker 的多线程能力, 使得同步 JS 任务的拆分一步到位: 从宏观上将整个同步 JS 任务异步化. 不需要再去苦苦寻找原子逻辑, 逻辑异步化的设计上也更加简单和可维护.</p>
-<p>这给我们带来更多的想象空间. 如下图所示, 在浏览器主线程渲染周期内, 将可能阻塞页面渲染的 JS 运行任务(Jank Job)迁移到 Worker 线程中, 进而减少主线程的负担, 缩短渲染间隔, 减少页面卡顿.</p>
-<h4 id="性能提升"><a href="#性能提升" class="headerlink" title="性能提升"></a>性能提升</h4><p>Worker 多线程并不会直接带来计算性能的提升, 能否提升与设备 CPU 核数和线程策略有关.</p>
-<h4 id="worker的线程策略"><a href="#worker的线程策略" class="headerlink" title="worker的线程策略"></a>worker的线程策略</h4><p>一台设备上相同任务在各线程中运行耗时是一样的. 如下图所示: 我们将主线程 JS 任务交给新建的 Worker 线程, 任务在 Worker 线程上运行并不会比原本主线程更快, 而线程新建消耗和通信开销使得渲染间隔可能变得更久.</p>
-<p>在单核机器上, 计算资源是内卷的, 新建的 Worker 线程并不能为页面争取到更多的计算资源. 在多核机器上, 新建的 Worker 线程和主线程都能做运算, 页面总计算资源增多, 但对单次任务来说, 在哪个线程上运行耗时是一样的.</p>
-<p>真正带来性能提升的是<code>多核多线程并发</code>.</p>
-<p>如多个没有依赖关系的同步任务, 在单线程上只能串行执行, 在多核多线程中可以并行执行.</p>
-<h4 id="把主线程还给-UI"><a href="#把主线程还给-UI" class="headerlink" title="把主线程还给 UI"></a>把主线程还给 UI</h4><p>Worker 的应用场景, 本质上是从主线程中剥离逻辑, 让主线程专注于 UI 渲染. </p>
-<h4 id="woker-通信方式"><a href="#woker-通信方式" class="headerlink" title="woker 通信方式"></a>woker 通信方式</h4><p><a href="https://developer.mozilla.org/en-US/docs/Web/API/DedicatedWorkerGlobalScope" target="_blank" rel="noopener">worker相关api</a><br><img src="/images/worker/thread.jpeg" alt="thread"></p>
-<h4 id="worker-跟主线程的-异同"><a href="#worker-跟主线程的-异同" class="headerlink" title="worker 跟主线程的 异同"></a>worker 跟主线程的 异同</h4><h5 id="共同点"><a href="#共同点" class="headerlink" title="共同点"></a>共同点</h5><ul>
-<li>包含完整的 JS 运行时, 支持 ECMAScript 规范定义的语言语法和内置对象.</li>
-<li>支持 XmlHttpRequest, 能独立发送网络请求与后台交互.</li>
-<li>包含只读的 Location, 指向 Worker 线程执行的 script url, 可通过 url 传递参数给 Worker 环境.</li>
-<li>包含只读的 Navigator, 用于获取浏览器信息, 如通过 Navigator.userAgent 识别浏览器.</li>
-<li>支持 setTimeout / setInterval 计时器, 可用于实现异步逻辑.</li>
-<li>支持 WebSocket 进行网络 I/O; 支持 IndexedDB 进行文件 I/O.</li>
-</ul>
-<h5 id="不同点"><a href="#不同点" class="headerlink" title="不同点"></a>不同点</h5><ul>
-<li>Worker 线程没有 DOM API, 无法新建和操作 DOM; 也无法访问到主线程的 DOM Element.</li>
-<li>Worker 线程和主线程间内存独立, Worker 线程无法访问页面上的全局变量(window, document 等)和 JS 函数.</li>
-<li>Worker 线程不能调用 alert() 或 confirm() 等 UI 相关的 BOM API.</li>
-<li>Worker 线程被主线程控制, 主线程可以新建和销毁 Worker.</li>
-<li>Worker 线程可以通过 self.close 自行销毁.</li>
-</ul>
-<p>从差异点上看, Worker 线程无法染指 UI, 并受主线程控制, 适合默默干活.</p>
-<h4 id="通信速度"><a href="#通信速度" class="headerlink" title="通信速度"></a>通信速度</h4><p>Worker 多线程虽然实现了 JS 任务的并行运行, 也带来额外的通信开销. 如下图所示, 从线程A 调用 postMessage 发送数据到线程B onmessage 接收到数据有时间差, 这段时间差称为通信消耗.</p>
-<p><img src="/images/worker/cost.jpeg" alt="oost"></p>
-<p>提升的性能 = 并行提升的性能 – 通信消耗的性能. 在线程计算能力固定的情况下, 要通过多线程提升更多性能, 需要尽量减少通信消耗.</p>
-<h4 id="数据传输方式"><a href="#数据传输方式" class="headerlink" title="数据传输方式"></a>数据传输方式</h4><p>通信方式有 3 种: Structured Clone, Transfer Memory 和 Shared Array Buffer.</p>
-<h5 id="Structured-Clone"><a href="#Structured-Clone" class="headerlink" title="Structured Clone"></a>Structured Clone</h5><p>Structured Clone 是 postMessage 默认的通信方式. 如下图所示, 复制一份线程A 的 JS Object 内存给到线程B, 线程B 能获取和操作新复制的内存.</p>
-<p>Structured Clone 通过复制内存的方式简单有效地隔离不同线程内存, 避免冲突; 且传输的 Object 数据结构很灵活. 但复制过程中, 线程A 要同步执行 Object Serialization, 线程B 要同步执行 Object Deserialization; 如果 Object 规模过大, 会占用大量的线程时间.</p>
-<h5 id="Transfer-Memory"><a href="#Transfer-Memory" class="headerlink" title="Transfer Memory"></a>Transfer Memory</h5><p>Transfer Memory 意为转移内存, 它不需要 Serialization/Deserialization, 能大大减少传输过程占用的线程时间. 如下图所示 , 线程A 将指定内存的所有权和操作权转给线程B, 但转让后线程A 无法再访问这块内存.</p>
-<p>Transfer Memory 以失去控制权来换取高效传输, 通过内存独占给多线程并发加锁. 但只能转让 ArrayBuffer 等大小规整的二进制(Raw Binary)数据; 对矩阵数据(如 RGB 图片,对rgb图片像素操作，比如取反色)比较适用. 实践上也要考虑从 JS Object 生成二进制数据的运算成本。</p>
-<h5 id="Shared-Array-Buffers"><a href="#Shared-Array-Buffers" class="headerlink" title="Shared Array Buffers"></a>Shared Array Buffers</h5><p>Shared Array Buffer 是共享内存, 线程A 和线程B 可以同时访问和操作同一块内存空间. 数据都共享了, 也就没有传输什么事了.<br>但多个并行的线程共享内存, 会产生竞争问题(Race Conditions). 不像前 2 种传输方式默认加锁, Shared Array Buffers 把难题抛给开发者, 开发者可以用 Atomics 来维护这块共享的内存. 作为较新的传输方式, 浏览器兼容性可想而知, 目前只有 Chrome 68+ 支持.</p>
-<h4 id="兼容性"><a href="#兼容性" class="headerlink" title="兼容性"></a>兼容性</h4><p>兼容性是前端技术方案评估中需要关注的问题. 对 Web Worker 更是如此, 因为 Worker 的多线程能力, 要么业务场景完全用不上; 要么一用就是重度依赖的基础能力.</p>
-<p>worker的兼容性还不错 ，能够兼容大部分的主流浏览器 skr</p>
-]]></content>
-      <tags>
-        <tag>worker javaScript</tag>
-      </tags>
   </entry>
   <entry>
     <title>vuex</title>
@@ -2515,6 +2454,74 @@ createComponentInstance
       </categories>
       <tags>
         <tag>Vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>worker</title>
+    <url>/2021/05/18/worker/</url>
+    <content><![CDATA[<p>Web Worker 文献综述</p>
+<p>Web Worker 作为浏览器多线程技术, 在页面内容不断丰富, 功能日趋复杂的当下, 成为缓解页面卡顿, 提升应用性能的可选方案.<br>但她的容颜, 隐藏在边缘试探的科普文章和不知深浅的兼容性背后; 对 JS 单线程面试题倒背如流的前端工程师, 对多线程开发有着天然的陌生感.</p>
+<p>业务背景</p>
+<p>因为我负责的组件中有个是树组件，那么对于这个树组件有个功能是叫做搜索的功能，一开始的时候在搜索匹配节点的时候是在主线程中去执行代码，但是在遇到计算量大的时候，就会一直占用主线程的资源，导致页面不能及时的跟用户进行响应，那么我就想到了将这个计算的代码放到后台（也就是worker）去执行逻辑，这样的话就不会阻塞页面的渲染工作，因为worker的代码跟主线程的代码是属于并行的关系。</p>
+<h4 id="worker介绍"><a href="#worker介绍" class="headerlink" title="worker介绍"></a>worker介绍</h4><p>官方对这个<a href="https://link.zhihu.com/?target=https%3A//developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API" target="_blank" rel="noopener">web worker</a>的表述是</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Web Workers makes it possible to run a script operation </span><br><span class="line">in a background thread separate from the main execution thread </span><br><span class="line">of a web application.</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/worker/worker-process.jpeg" alt="process"></p>
+<p>通过这个其实可以想到的是 并行可以提升执行效率，任务的拆分能减少页面的卡顿</p>
+<a id="more"></a>
+
+<h4 id="技术规范"><a href="#技术规范" class="headerlink" title="技术规范"></a>技术规范</h4><p><a href="https://www.w3.org/TR/workers/" target="_blank" rel="noopener">worker的技术规范</a>并不是近几年才开始提出的，它在09年就已经有了草案<br><img src="/images/worker/worker-draft.png" alt="worker draft"></p>
+<h4 id="Worker的分类"><a href="#Worker的分类" class="headerlink" title="Worker的分类"></a>Worker的分类</h4><p>在mdn上worker介绍了三种worker类型，分别是Dedicated workers （专用worker），Shared Worker（共享worker）以及 Service Worker。<br>Dedicated worker 只能与创建它的页面渲染进程通行，不能够进行多tab共享，这是最常见的也是用的最多的一种worker<br>而 SharedWorker 可以在多个浏览器 Tab 中访问到同一个 Worker 实例, 实现多 Tab 共享数据, 共享 webSocket 连接等. 看起来很美好, 但 safari 放弃了 SharedWorker 支持, 因为 webkit 引擎的技术原因. 如下图所示, 只在 safari 5~6 中短暂支持过.</p>
+<p><img src="/images/worker/shared-worker.jpeg" alt="shared worker"></p>
+<p>相比之下, DedicatedWorker 有着更广的兼容性和更多业务落地实践, 本文后面讨论中的 Worker 都是特指 DedicatedWorker.</p>
+<p>在创建worker的时候，那么其实是会创建操作系统级别的线程</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">The Worker interface spawns real OS-level threads. -- MDN</span><br></pre></td></tr></table></figure>
+
+<p>JS 多线程, 是有独立于主线程的 JS 运行环境. 如下图所示: Worker 线程有独立的内存空间, Message Queue, Event Loop, Call Stack 等, 线程间通过 postMessage 通信，并且多个线程是可以并发执行的。</p>
+<h4 id="异步任务与worker的区别"><a href="#异步任务与worker的区别" class="headerlink" title="异步任务与worker的区别"></a>异步任务与worker的区别</h4><p>JS 单线程中的”并发”, 准确来说是 Concurrent. 如下图所示, 运行时只有一个函数调用栈, 通过 Event Loop 实现不同 Task 的上下文切换(Context Switch). 这些 Task 通过 BOM API 调起其他线程为主线程工作, 但回调函数代码逻辑依然由 JS 串行运行.<br><img src="/images/worker/event-loop-and-worker.png" alt="event-loop"></p>
+<h4 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h4><ul>
+<li>可以减少主线程卡顿.</li>
+<li>可能会带来性能提升.</li>
+</ul>
+<p>Worker 的多线程能力, 使得同步 JS 任务的拆分一步到位: 从宏观上将整个同步 JS 任务异步化. 不需要再去苦苦寻找原子逻辑, 逻辑异步化的设计上也更加简单和可维护.</p>
+<p>这给我们带来更多的想象空间. 如下图所示, 在浏览器主线程渲染周期内, 将可能阻塞页面渲染的 JS 运行任务(Jank Job)迁移到 Worker 线程中, 进而减少主线程的负担, 缩短渲染间隔, 减少页面卡顿.</p>
+<h4 id="性能提升"><a href="#性能提升" class="headerlink" title="性能提升"></a>性能提升</h4><p>Worker 多线程并不会直接带来计算性能的提升, 能否提升与设备 CPU 核数和线程策略有关.</p>
+<h4 id="worker的线程策略"><a href="#worker的线程策略" class="headerlink" title="worker的线程策略"></a>worker的线程策略</h4><p>一台设备上相同任务在各线程中运行耗时是一样的. 如下图所示: 我们将主线程 JS 任务交给新建的 Worker 线程, 任务在 Worker 线程上运行并不会比原本主线程更快, 而线程新建消耗和通信开销使得渲染间隔可能变得更久.</p>
+<p>在单核机器上, 计算资源是内卷的, 新建的 Worker 线程并不能为页面争取到更多的计算资源. 在多核机器上, 新建的 Worker 线程和主线程都能做运算, 页面总计算资源增多, 但对单次任务来说, 在哪个线程上运行耗时是一样的.</p>
+<p>真正带来性能提升的是<code>多核多线程并发</code>.</p>
+<p>如多个没有依赖关系的同步任务, 在单线程上只能串行执行, 在多核多线程中可以并行执行.</p>
+<h4 id="把主线程还给-UI"><a href="#把主线程还给-UI" class="headerlink" title="把主线程还给 UI"></a>把主线程还给 UI</h4><p>Worker 的应用场景, 本质上是从主线程中剥离逻辑, 让主线程专注于 UI 渲染. </p>
+<h4 id="woker-通信方式"><a href="#woker-通信方式" class="headerlink" title="woker 通信方式"></a>woker 通信方式</h4><p><a href="https://developer.mozilla.org/en-US/docs/Web/API/DedicatedWorkerGlobalScope" target="_blank" rel="noopener">worker相关api</a><br><img src="/images/worker/thread.jpeg" alt="thread"></p>
+<h4 id="worker-跟主线程的-异同"><a href="#worker-跟主线程的-异同" class="headerlink" title="worker 跟主线程的 异同"></a>worker 跟主线程的 异同</h4><h5 id="共同点"><a href="#共同点" class="headerlink" title="共同点"></a>共同点</h5><ul>
+<li>包含完整的 JS 运行时, 支持 ECMAScript 规范定义的语言语法和内置对象.</li>
+<li>支持 XmlHttpRequest, 能独立发送网络请求与后台交互.</li>
+<li>包含只读的 Location, 指向 Worker 线程执行的 script url, 可通过 url 传递参数给 Worker 环境.</li>
+<li>包含只读的 Navigator, 用于获取浏览器信息, 如通过 Navigator.userAgent 识别浏览器.</li>
+<li>支持 setTimeout / setInterval 计时器, 可用于实现异步逻辑.</li>
+<li>支持 WebSocket 进行网络 I/O; 支持 IndexedDB 进行文件 I/O.</li>
+</ul>
+<h5 id="不同点"><a href="#不同点" class="headerlink" title="不同点"></a>不同点</h5><ul>
+<li>Worker 线程没有 DOM API, 无法新建和操作 DOM; 也无法访问到主线程的 DOM Element.</li>
+<li>Worker 线程和主线程间内存独立, Worker 线程无法访问页面上的全局变量(window, document 等)和 JS 函数.</li>
+<li>Worker 线程不能调用 alert() 或 confirm() 等 UI 相关的 BOM API.</li>
+<li>Worker 线程被主线程控制, 主线程可以新建和销毁 Worker.</li>
+<li>Worker 线程可以通过 self.close 自行销毁.</li>
+</ul>
+<p>从差异点上看, Worker 线程无法染指 UI, 并受主线程控制, 适合默默干活.</p>
+<h4 id="通信速度"><a href="#通信速度" class="headerlink" title="通信速度"></a>通信速度</h4><p>Worker 多线程虽然实现了 JS 任务的并行运行, 也带来额外的通信开销. 如下图所示, 从线程A 调用 postMessage 发送数据到线程B onmessage 接收到数据有时间差, 这段时间差称为通信消耗.</p>
+<p><img src="/images/worker/cost.jpeg" alt="oost"></p>
+<p>提升的性能 = 并行提升的性能 – 通信消耗的性能. 在线程计算能力固定的情况下, 要通过多线程提升更多性能, 需要尽量减少通信消耗.</p>
+<h4 id="数据传输方式"><a href="#数据传输方式" class="headerlink" title="数据传输方式"></a>数据传输方式</h4><p>通信方式有 3 种: Structured Clone, Transfer Memory 和 Shared Array Buffer.</p>
+<h5 id="Structured-Clone"><a href="#Structured-Clone" class="headerlink" title="Structured Clone"></a>Structured Clone</h5><p>Structured Clone 是 postMessage 默认的通信方式. 如下图所示, 复制一份线程A 的 JS Object 内存给到线程B, 线程B 能获取和操作新复制的内存.</p>
+<p>Structured Clone 通过复制内存的方式简单有效地隔离不同线程内存, 避免冲突; 且传输的 Object 数据结构很灵活. 但复制过程中, 线程A 要同步执行 Object Serialization, 线程B 要同步执行 Object Deserialization; 如果 Object 规模过大, 会占用大量的线程时间.</p>
+<h5 id="Transfer-Memory"><a href="#Transfer-Memory" class="headerlink" title="Transfer Memory"></a>Transfer Memory</h5><p>Transfer Memory 意为转移内存, 它不需要 Serialization/Deserialization, 能大大减少传输过程占用的线程时间. 如下图所示 , 线程A 将指定内存的所有权和操作权转给线程B, 但转让后线程A 无法再访问这块内存.</p>
+<p>Transfer Memory 以失去控制权来换取高效传输, 通过内存独占给多线程并发加锁. 但只能转让 ArrayBuffer 等大小规整的二进制(Raw Binary)数据; 对矩阵数据(如 RGB 图片,对rgb图片像素操作，比如取反色)比较适用. 实践上也要考虑从 JS Object 生成二进制数据的运算成本。</p>
+<h5 id="Shared-Array-Buffers"><a href="#Shared-Array-Buffers" class="headerlink" title="Shared Array Buffers"></a>Shared Array Buffers</h5><p>Shared Array Buffer 是共享内存, 线程A 和线程B 可以同时访问和操作同一块内存空间. 数据都共享了, 也就没有传输什么事了.<br>但多个并行的线程共享内存, 会产生竞争问题(Race Conditions). 不像前 2 种传输方式默认加锁, Shared Array Buffers 把难题抛给开发者, 开发者可以用 Atomics 来维护这块共享的内存. 作为较新的传输方式, 浏览器兼容性可想而知, 目前只有 Chrome 68+ 支持.</p>
+<h4 id="兼容性"><a href="#兼容性" class="headerlink" title="兼容性"></a>兼容性</h4><p>兼容性是前端技术方案评估中需要关注的问题. 对 Web Worker 更是如此, 因为 Worker 的多线程能力, 要么业务场景完全用不上; 要么一用就是重度依赖的基础能力.</p>
+<p>worker的兼容性还不错 ，能够兼容大部分的主流浏览器 skr</p>
+]]></content>
+      <tags>
+        <tag>worker javaScript</tag>
       </tags>
   </entry>
   <entry>
