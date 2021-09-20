@@ -17,25 +17,25 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"github.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"fnlearner.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="Proposal for a .item() method on all the built-in indexables这个方法是给有索引对象内置的一个方法，那么这个方法接收一个 number 类型的 index，对象能够根据 index 来确定值。那其实看到这会有个问题，具备索引的对象自己就能根据索引来确定值了，那么这个方法出现的意义是为什么？它其实是用负值的 index 来获取值，比如 12c">
 <meta name="keywords" content="JavaScript">
 <meta property="og:type" content="article">
 <meta property="og:title" content="item">
-<meta property="og:url" content="https://github.com/fnlearner/2020/10/07/item/index.html">
+<meta property="og:url" content="https://fnlearner.github.io/2020/10/07/item/index.html">
 <meta property="og:site_name" content="Personal Blog">
 <meta property="og:description" content="Proposal for a .item() method on all the built-in indexables这个方法是给有索引对象内置的一个方法，那么这个方法接收一个 number 类型的 index，对象能够根据 index 来确定值。那其实看到这会有个问题，具备索引的对象自己就能根据索引来确定值了，那么这个方法出现的意义是为什么？它其实是用负值的 index 来获取值，比如 12c">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://github.com/images/item/proposal.png">
+<meta property="og:image" content="https://fnlearner.github.io/images/item/proposal.png">
 <meta property="og:updated_time" content="2021-03-21T09:51:21.828Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="item">
 <meta name="twitter:description" content="Proposal for a .item() method on all the built-in indexables这个方法是给有索引对象内置的一个方法，那么这个方法接收一个 number 类型的 index，对象能够根据 index 来确定值。那其实看到这会有个问题，具备索引的对象自己就能根据索引来确定值了，那么这个方法出现的意义是为什么？它其实是用负值的 index 来获取值，比如 12c">
-<meta name="twitter:image" content="https://github.com/images/item/proposal.png">
+<meta name="twitter:image" content="https://fnlearner.github.io/images/item/proposal.png">
 
-<link rel="canonical" href="https://github.com/fnlearner/2020/10/07/item/">
+<link rel="canonical" href="https://fnlearner.github.io/2020/10/07/item/">
 
 
 <script id="page-configurations">
@@ -191,7 +191,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://github.com/fnlearner/2020/10/07/item/">
+    <link itemprop="mainEntityOfPage" href="https://fnlearner.github.io/2020/10/07/item/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -253,7 +253,7 @@
 <h4 id="2021-3-21-更新"><a href="#2021-3-21-更新" class="headerlink" title="2021-3-21 更新"></a>2021-3-21 更新</h4><p><img src="/images/item/proposal.png" alt="proposal"></p>
 <p>item方法更名为at方法</p>
 <p><code>Spec-compliant polyfills using the old name of .item(): Array.prototype.item, String.prototype.item</code></p>
-<p>The original iteration of this proposal proposed the name of the method to be .item(). Unfortunately, this was found out to be not web compatible. Libraries, notably YUI2 and YUI3, were duck-typing objects to be DOM collections based on the presence of a .item property. Please see <a href="https://github.com/tc39/proposal-relative-indexing-method/issues/28">#28</a>, <a href="https://github.com/tc39/proposal-relative-indexing-method/issues/31">#31</a>, and <a href="https://github.com/tc39/proposal-relative-indexing-method/issues/32">#32</a> for more details.</p>
+<p>The original iteration of this proposal proposed the name of the method to be .item(). Unfortunately, this was found out to be not web compatible. Libraries, notably YUI2 and YUI3, were duck-typing objects to be DOM collections based on the presence of a .item property. Please see <a href="https://github.com/tc39/proposal-relative-indexing-method/issues/28" target="_blank" rel="noopener">#28</a>, <a href="https://github.com/tc39/proposal-relative-indexing-method/issues/31" target="_blank" rel="noopener">#31</a>, and <a href="https://github.com/tc39/proposal-relative-indexing-method/issues/32" target="_blank" rel="noopener">#32</a> for more details.</p>
 <p>Captured below is the original motivation for choosing the .item() name and the original concerns.</p>
 
     </div>

@@ -17,28 +17,28 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"github.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"fnlearner.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="前言vue3 出了 beta，了解一下响应式数据的实现 正文reactive下面这些是在 reactive 中导入的外部文件 123456789101112131415import &amp;#123; isObject, toRawType, def, hasOwn, makeMap &amp;#125; from &apos;@vue/shared&apos;##这些都是通用方法## 两个handler，待会儿说为啥import">
 <meta name="keywords" content="TypeScript,Vue3">
 <meta property="og:type" content="article">
 <meta property="og:title" content="响应式模块">
-<meta property="og:url" content="https://github.com/fnlearner/2020/07/09/reactive/index.html">
+<meta property="og:url" content="https://fnlearner.github.io/2020/07/09/reactive/index.html">
 <meta property="og:site_name" content="Personal Blog">
 <meta property="og:description" content="前言vue3 出了 beta，了解一下响应式数据的实现 正文reactive下面这些是在 reactive 中导入的外部文件 123456789101112131415import &amp;#123; isObject, toRawType, def, hasOwn, makeMap &amp;#125; from &apos;@vue/shared&apos;##这些都是通用方法## 两个handler，待会儿说为啥import">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://github.com/images/reactive/code3.png">
-<meta property="og:image" content="https://github.com/images/reactive/code5.png">
-<meta property="og:image" content="https://github.com/images/reactive/code6.png">
-<meta property="og:image" content="https://github.com/images/reactive/code7.png">
+<meta property="og:image" content="https://fnlearner.github.io/images/reactive/code3.png">
+<meta property="og:image" content="https://fnlearner.github.io/images/reactive/code5.png">
+<meta property="og:image" content="https://fnlearner.github.io/images/reactive/code6.png">
+<meta property="og:image" content="https://fnlearner.github.io/images/reactive/code7.png">
 <meta property="og:updated_time" content="2020-10-07T09:41:15.634Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="响应式模块">
 <meta name="twitter:description" content="前言vue3 出了 beta，了解一下响应式数据的实现 正文reactive下面这些是在 reactive 中导入的外部文件 123456789101112131415import &amp;#123; isObject, toRawType, def, hasOwn, makeMap &amp;#125; from &apos;@vue/shared&apos;##这些都是通用方法## 两个handler，待会儿说为啥import">
-<meta name="twitter:image" content="https://github.com/images/reactive/code3.png">
+<meta name="twitter:image" content="https://fnlearner.github.io/images/reactive/code3.png">
 
-<link rel="canonical" href="https://github.com/fnlearner/2020/07/09/reactive/">
+<link rel="canonical" href="https://fnlearner.github.io/2020/07/09/reactive/">
 
 
 <script id="page-configurations">
@@ -194,7 +194,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://github.com/fnlearner/2020/07/09/reactive/">
+    <link itemprop="mainEntityOfPage" href="https://fnlearner.github.io/2020/07/09/reactive/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
