@@ -186,6 +186,169 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/fnlearner/2021/09/20/vue3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="ZJS">
+      <meta itemprop="description" content="你找到我了呀！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Personal Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/09/20/vue3/" class="post-title-link" itemprop="url">vue3</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-09-20 21:24:21 / 修改时间：22:22:42" itemprop="dateCreated datePublished" datetime="2021-09-20T21:24:21+08:00">2021-09-20</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="intro"><a href="#intro" class="headerlink" title="intro"></a>intro</h3><p>本文介绍vue3 的setup语法糖写法，语法的导入组件以及暴露模版变量均不用显示导出，引入 === 导出</p>
+<h3 id="接收属性"><a href="#接收属性" class="headerlink" title="接收属性"></a>接收属性</h3><p><code>defineProps</code>来接收从父级组件传递来的属性以及方法,能接收<code>string</code>类型的数组或者类型对象<br>example:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> props = defineProps(&#123;</span><br><span class="line">    msg?:<span class="built_in">String</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">const</span> props = defineProps([<span class="string">'msg'</span>])</span><br></pre></td></tr></table></figure>
+
+<p>除了上面这种接收类型声明，还可以采用的就是ts的类型注入写法<br>example:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> props = defineProps&lt;&#123;<span class="attr">msg</span>:string&#125;&gt;()</span><br></pre></td></tr></table></figure>
+
+<p>But以上写法不支持的是给默认值，具体可以查看vue的rfc<br>So vue提供了额外的一个方法-&gt; <code>withDefaults</code><br>example:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> props = withDefaults(defineProps&lt;&#123;<span class="attr">msg</span>:string&#125;&gt;(),&#123;<span class="attr">msg</span>:<span class="string">'12313123'</span>&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="触发方法到父组件"><a href="#触发方法到父组件" class="headerlink" title="触发方法到父组件"></a>触发方法到父组件</h3><p><code>defineEmits</code>用来定义子组件内部可以触发的事件</p>
+<p>example:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> emits = defineEmits([<span class="string">'input'</span>])</span><br></pre></td></tr></table></figure>
+
+<p>或者<br>example:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> emit = defineEmits&lt;&#123; (event:<span class="string">'change'</span>,<span class="attr">value</span>:string):<span class="keyword">void</span> &#125; &gt;()</span><br></pre></td></tr></table></figure>
+
+<p>子组件中未在<code>emit</code>中声明到事件将默认会认为是根元素的原生dom事件<br>使用方法 example:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">emit(<span class="string">'change'</span>,<span class="string">'1'</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="父组件使用子组件的变量defineExpose"><a href="#父组件使用子组件的变量defineExpose" class="headerlink" title="父组件使用子组件的变量defineExpose"></a>父组件使用子组件的变量<code>defineExpose</code></h3><p>example:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = <span class="number">1</span></span><br><span class="line">defineExpose(&#123;a&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>父组件直接ref调一下就行了</p>
+<h3 id="v-model-语法糖"><a href="#v-model-语法糖" class="headerlink" title="v-model 语法糖"></a>v-model 语法糖</h3><p>modelValue + update:modelValue</p>
+<p>v-model:show =&gt; update:show</p>
+<h3 id="css的v-bind语法糖"><a href="#css的v-bind语法糖" class="headerlink" title="css的v-bind语法糖"></a>css的<code>v-bind</code>语法糖</h3><p>js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> red = ref(<span class="string">'red'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>css</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.red</span>&#123;</span><br><span class="line">    <span class="attribute">color</span>:<span class="built_in">v-bind</span>(red)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>html</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">:class</span>=<span class="string">"red"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>编译结果</p>
+<p><code>&lt;div class=&quot;red&quot; style=&quot;--e43c18bc-red:red;&quot;&gt;12313123&lt;/div&gt;</code></p>
+<p>为什么会编译成行内样式？因为性能好 ，可以查看benchmark对比</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/fnlearner/2021/08/07/chrome/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="ZJS">
+      <meta itemprop="description" content="你找到我了呀！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Personal Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/08/07/chrome/" class="post-title-link" itemprop="url">浏览器</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-08-07 18:14:18 / 修改时间：18:16:39" itemprop="dateCreated datePublished" datetime="2021-08-07T18:14:18+08:00">2021-08-07</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="浏览器主要组件"><a href="#浏览器主要组件" class="headerlink" title="浏览器主要组件"></a>浏览器主要组件</h3><ul>
+<li>用户界面</li>
+<li>浏览器引擎</li>
+<li>呈现引擎</li>
+<li>网络</li>
+<li>用户界面后端</li>
+<li>JS解释器</li>
+<li>数据存储</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://github.com/fnlearner/2021/07/16/计算机网络/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -217,7 +380,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-07-18 14:36:26" itemprop="dateModified" datetime="2021-07-18T14:36:26+08:00">2021-07-18</time>
+                <time title="修改时间：2021-08-07 18:12:20" itemprop="dateModified" datetime="2021-08-07T18:12:20+08:00">2021-08-07</time>
               </span>
 
           
@@ -747,142 +910,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://github.com/fnlearner/2021/01/31/essay-8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="ZJS">
-      <meta itemprop="description" content="你找到我了呀！">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Personal Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/01/31/essay-8/" class="post-title-link" itemprop="url">今日随笔(1-31)</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-01-31 15:30:19" itemprop="dateCreated datePublished" datetime="2021-01-31T15:30:19+08:00">2021-01-31</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-02-10 15:23:09" itemprop="dateModified" datetime="2021-02-10T15:23:09+08:00">2021-02-10</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="null-vs-undefined"><a href="#null-vs-undefined" class="headerlink" title="null vs undefined"></a>null vs undefined</h3><p>The ECMAScript language specification describes them as follows:</p>
-<ul>
-<li>undefined 是被使用但是没有被赋值</li>
-<li>null 是对变量一个显示对声明一个值</li>
-</ul>
-<p>在JS中，每个变量能够同时被赋值引用类型和原始类型。因此，如果null意味着 不是一个对象，JS也需要一个初值意味着 既不是 引用类型 也不是 原始类型。那个值就是undefined。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/01/31/essay-8/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://github.com/fnlearner/2021/01/10/essay-7/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="ZJS">
-      <meta itemprop="description" content="你找到我了呀！">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Personal Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/01/10/essay-7/" class="post-title-link" itemprop="url">今日随笔</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-01-10 19:02:11 / 修改时间：19:04:03" itemprop="dateCreated datePublished" datetime="2021-01-10T19:02:11+08:00">2021-01-10</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><img src="/images/essay-7/essay.png" alt="essay"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -954,7 +981,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">53</span>
+          <span class="site-state-item-count">55</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -966,7 +993,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-count">24</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
