@@ -275,14 +275,14 @@
   </url>
   
   <url>
-    <loc>https://fnlearner.github.io/2020/01/08/intranet-contacts/</loc>
+    <loc>https://fnlearner.github.io/2019/08/05/hexo-config/</loc>
     
     <lastmod>2020-10-07</lastmod>
     
   </url>
   
   <url>
-    <loc>https://fnlearner.github.io/2019/08/05/hexo-config/</loc>
+    <loc>https://fnlearner.github.io/2020/01/08/intranet-contacts/</loc>
     
     <lastmod>2020-10-07</lastmod>
     
@@ -522,6 +522,13 @@
   </url>
   
   <url>
+    <loc>https://fnlearner.github.io/tagstags/gis-openlayers-ol6/</loc>
+    <lastmod>2021-09-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://fnlearner.github.io/tagstags/mutation/</loc>
     <lastmod>2021-09-20</lastmod>
     <changefreq>daily</changefreq>
@@ -530,13 +537,6 @@
   
   <url>
     <loc>https://fnlearner.github.io/tagstags/npm/</loc>
-    <lastmod>2021-09-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://fnlearner.github.io/tagstags/gis-openlayers-ol6/</loc>
     <lastmod>2021-09-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
