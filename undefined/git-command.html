@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"fnlearner.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="查看当前工作区状态git status 提交当前工作区文件到暂存区git add 提交暂存区的修改到当前分支git commit">
+<meta name="keywords" content="git,tool">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git常用命令集合">
+<meta property="og:url" content="https://fnlearner.github.io/undefined/git-command.html">
+<meta property="og:site_name" content="Personal Blog">
+<meta property="og:description" content="查看当前工作区状态git status 提交当前工作区文件到暂存区git add 提交暂存区的修改到当前分支git commit">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-10-07T09:41:15.631Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="git常用命令集合">
+<meta name="twitter:description" content="查看当前工作区状态git status 提交当前工作区文件到暂存区git add 提交暂存区的修改到当前分支git commit">
+
+<link rel="canonical" href="https://fnlearner.github.io/undefined/git-command.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>git常用命令集合 | Personal Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Personal Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404.html" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://fnlearner.github.io/undefined/git-command.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="ZJS">
+      <meta itemprop="description" content="你找到我了呀！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Personal Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          git常用命令集合
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-08-05 14:08:26" itemprop="dateCreated datePublished" datetime="2019-08-05T14:08:26+08:00">2019-08-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-07 17:41:15" itemprop="dateModified" datetime="2020-10-07T17:41:15+08:00">2020-10-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/tool/" itemprop="url" rel="index"><span itemprop="name">tool</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/tool/git/" itemprop="url" rel="index"><span itemprop="name">git</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h5 id="查看当前工作区状态"><a href="#查看当前工作区状态" class="headerlink" title="查看当前工作区状态"></a>查看当前工作区状态</h5><p><code>git status</code></p>
+<h5 id="提交当前工作区文件到暂存区"><a href="#提交当前工作区文件到暂存区" class="headerlink" title="提交当前工作区文件到暂存区"></a>提交当前工作区文件到暂存区</h5><p><code>git add</code></p>
+<h5 id="提交暂存区的修改到当前分支"><a href="#提交暂存区的修改到当前分支" class="headerlink" title="提交暂存区的修改到当前分支"></a>提交暂存区的修改到当前分支</h5><p><code>git commit</code></p>
+<a id="more"></a>
+<h5 id="把当前分支提交的修改推送到远程仓库去"><a href="#把当前分支提交的修改推送到远程仓库去" class="headerlink" title="把当前分支提交的修改推送到远程仓库去"></a>把当前分支提交的修改推送到远程仓库去</h5><p><code>git push origin master</code></p>
+<h5 id="查看仓库提交记录"><a href="#查看仓库提交记录" class="headerlink" title="查看仓库提交记录"></a>查看仓库提交记录</h5><p><code>git log</code></p>
+<h5 id="回退提交记录和工作区"><a href="#回退提交记录和工作区" class="headerlink" title="回退提交记录和工作区"></a>回退提交记录和工作区</h5><p><code>git reset --hard &lt;commitid&gt;</code></p>
+<h5 id="回退提交记录"><a href="#回退提交记录" class="headerlink" title="回退提交记录"></a>回退提交记录</h5><p><code>git reset --soft &lt;commitid&gt;</code></p>
+<h5 id="保存当前尚未添加到暂存区以及尚未提交到本地分支的代码-一般用于当修改文件的时候突然想要拉取远程仓库代码的尴尬情况-，stash是本地的，当push-pull的时候不会把statsh的代码传输到远程仓库去"><a href="#保存当前尚未添加到暂存区以及尚未提交到本地分支的代码-一般用于当修改文件的时候突然想要拉取远程仓库代码的尴尬情况-，stash是本地的，当push-pull的时候不会把statsh的代码传输到远程仓库去" class="headerlink" title="保存当前尚未添加到暂存区以及尚未提交到本地分支的代码(一般用于当修改文件的时候突然想要拉取远程仓库代码的尴尬情况)，stash是本地的，当push pull的时候不会把statsh的代码传输到远程仓库去"></a>保存当前尚未添加到暂存区以及尚未提交到本地分支的代码(一般用于当修改文件的时候突然想要拉取远程仓库代码的尴尬情况)，stash是本地的，当push pull的时候不会把statsh的代码传输到远程仓库去</h5><p><code>git stash</code></p>
+<h5 id="在工作区显示刚刚在statsh保存的代码以及文件"><a href="#在工作区显示刚刚在statsh保存的代码以及文件" class="headerlink" title="在工作区显示刚刚在statsh保存的代码以及文件"></a>在工作区显示刚刚在statsh保存的代码以及文件</h5><p><code>git stash apply</code></p>
+<h5 id="查看保存在stash的记录"><a href="#查看保存在stash的记录" class="headerlink" title="查看保存在stash的记录"></a>查看保存在stash的记录</h5><p><code>git stash list</code></p>
+<h5 id="撤销某一个操作，并且把当前撤销操作当成一次新的commit提交"><a href="#撤销某一个操作，并且把当前撤销操作当成一次新的commit提交" class="headerlink" title="撤销某一个操作，并且把当前撤销操作当成一次新的commit提交"></a>撤销某一个操作，并且把当前撤销操作当成一次新的commit提交</h5><p><code>git revert HEAD|&lt;commitid&gt;</code></p>
+<h5 id="删除远程分支"><a href="#删除远程分支" class="headerlink" title="删除远程分支"></a>删除远程分支</h5><p><code>git push origin --delete &lt;branchName&gt;</code></p>
+<h5 id="删除本地分支"><a href="#删除本地分支" class="headerlink" title="删除本地分支"></a>删除本地分支</h5><p><code>git branch -d|-D &lt;branchName&gt;</code></p>
+<h5 id="查看本地分支"><a href="#查看本地分支" class="headerlink" title="查看本地分支"></a>查看本地分支</h5><p><code>git branch</code></p>
+<h5 id="查看远程分支"><a href="#查看远程分支" class="headerlink" title="查看远程分支"></a>查看远程分支</h5><p><code>git branch -a</code></p>
+<h5 id="切换分支（如果本地要新建并且切换一个新的分支，要新加上-b参数，查看分支不需要加-b参数）"><a href="#切换分支（如果本地要新建并且切换一个新的分支，要新加上-b参数，查看分支不需要加-b参数）" class="headerlink" title="切换分支（如果本地要新建并且切换一个新的分支，要新加上-b参数，查看分支不需要加-b参数）"></a>切换分支（如果本地要新建并且切换一个新的分支，要新加上-b参数，查看分支不需要加-b参数）</h5><p><code>git checkout （-b） &lt;branchName&gt;</code></p>
+<h5 id="删除文件"><a href="#删除文件" class="headerlink" title="删除文件"></a>删除文件</h5><p><code>git rm &lt;fileName&gt;</code></p>
+<h5 id="删除文件夹"><a href="#删除文件夹" class="headerlink" title="删除文件夹"></a>删除文件夹</h5><p><code>git rm -r &lt;fileName&gt;</code></p>
+<h5 id="下载指定仓库-这个就不用多说了"><a href="#下载指定仓库-这个就不用多说了" class="headerlink" title="下载指定仓库(这个就不用多说了)"></a>下载指定仓库(这个就不用多说了)</h5><p><code>git clone &lt;repoUrl&gt;</code></p>
+<h5 id="添加子模块到当前仓库中"><a href="#添加子模块到当前仓库中" class="headerlink" title="添加子模块到当前仓库中"></a>添加子模块到当前仓库中</h5><p><code>git submodule add &lt;repo url&gt;</code></p>
+<h5 id="clone带有子模块的仓库时需要更新子模块"><a href="#clone带有子模块的仓库时需要更新子模块" class="headerlink" title="clone带有子模块的仓库时需要更新子模块"></a>clone带有子模块的仓库时需要更新子模块</h5><p><code>git submodule update --init --recursive</code></p>
+<h5 id="初始化本地仓库"><a href="#初始化本地仓库" class="headerlink" title="初始化本地仓库"></a>初始化本地仓库</h5><p><code>git init</code></p>
+<h5 id="添加远程仓库"><a href="#添加远程仓库" class="headerlink" title="添加远程仓库"></a>添加远程仓库</h5><p><code>git remote add [option_name] [repo_url]</code></p>
+<h5 id="从远程仓库拉取文件"><a href="#从远程仓库拉取文件" class="headerlink" title="从远程仓库拉取文件"></a>从远程仓库拉取文件</h5><p><code>git pull origin master</code><br><code>git pull origin master --allow-unrelated-histories</code></p>
+<h5 id="查看远程仓库地址"><a href="#查看远程仓库地址" class="headerlink" title="查看远程仓库地址"></a>查看远程仓库地址</h5><p><code>git remote -v</code></p>
+<html>
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <style>
+        .weather {
+            width: 100%;
+            height: 500px;
+            /* background: #212125; */
+            display: flex;
+            justify-content: flex-start;
+            align-content: center;
+            color: #e6e8db;
+        }
+        .cloudy {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            border-radius: 100%;
+            background: linear-gradient(to top right, #1b9ce2 0, #e0e2e5 90%);
+            box-shadow: 0 0 0 10px currentColor inset, 0 0 100px -10px;
+        }
+        .cloud {
+            position: absolute;
+            top: 25%;
+            left: 40%;
+            width: 100px;
+            height: 30px;
+            border-radius: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 20px 10px currentColor inset, 0 0 100px -10px #c9e8de;
+            animation: move 4000ms infinite ease-in-out;
+        }
+        .cloud::after {
+            left: 45px;
+            height: 35px;
+            width: 35px;
+        }
+        .cloud::before {
+            left: 15px;
+            height: 50px;
+            width: 50px;
+        }
+        .cloud::before,
+        .cloud::after {
+            content: '';
+            position: inherit;
+            border-radius: 100%;
+            background-color: inherit;
+            box-shadow: inherit;
+            bottom: 40%;
+        }
+        @keyframes move {
+            50% {
+                transform: translateX(-10px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="weather">
+        <div class="cloudy">
+            <span class="cloud"></span>
+        </div>
+    </div>
+
+</body>
+
+</html>
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="ZJS 微信支付">
+        <p>微信支付</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tagstags/git/" rel="tag"># git</a>
+              <a href="/tagstags/tool/" rel="tag"># tool</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/undefined/readingNote-JS.html" rel="prev" title="JavaScript读书笔记">
+      <i class="fa fa-chevron-left"></i> JavaScript读书笔记
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/undefined/hexo-config.html" rel="next" title="基于Hexo搭建个人博客">
+      基于Hexo搭建个人博客 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#查看当前工作区状态"><span class="nav-number">1.</span> <span class="nav-text">查看当前工作区状态</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#提交当前工作区文件到暂存区"><span class="nav-number">2.</span> <span class="nav-text">提交当前工作区文件到暂存区</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#提交暂存区的修改到当前分支"><span class="nav-number">3.</span> <span class="nav-text">提交暂存区的修改到当前分支</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#把当前分支提交的修改推送到远程仓库去"><span class="nav-number">4.</span> <span class="nav-text">把当前分支提交的修改推送到远程仓库去</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#查看仓库提交记录"><span class="nav-number">5.</span> <span class="nav-text">查看仓库提交记录</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#回退提交记录和工作区"><span class="nav-number">6.</span> <span class="nav-text">回退提交记录和工作区</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#回退提交记录"><span class="nav-number">7.</span> <span class="nav-text">回退提交记录</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#保存当前尚未添加到暂存区以及尚未提交到本地分支的代码-一般用于当修改文件的时候突然想要拉取远程仓库代码的尴尬情况-，stash是本地的，当push-pull的时候不会把statsh的代码传输到远程仓库去"><span class="nav-number">8.</span> <span class="nav-text">保存当前尚未添加到暂存区以及尚未提交到本地分支的代码(一般用于当修改文件的时候突然想要拉取远程仓库代码的尴尬情况)，stash是本地的，当push pull的时候不会把statsh的代码传输到远程仓库去</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#在工作区显示刚刚在statsh保存的代码以及文件"><span class="nav-number">9.</span> <span class="nav-text">在工作区显示刚刚在statsh保存的代码以及文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#查看保存在stash的记录"><span class="nav-number">10.</span> <span class="nav-text">查看保存在stash的记录</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#撤销某一个操作，并且把当前撤销操作当成一次新的commit提交"><span class="nav-number">11.</span> <span class="nav-text">撤销某一个操作，并且把当前撤销操作当成一次新的commit提交</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#删除远程分支"><span class="nav-number">12.</span> <span class="nav-text">删除远程分支</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#删除本地分支"><span class="nav-number">13.</span> <span class="nav-text">删除本地分支</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#查看本地分支"><span class="nav-number">14.</span> <span class="nav-text">查看本地分支</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#查看远程分支"><span class="nav-number">15.</span> <span class="nav-text">查看远程分支</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#切换分支（如果本地要新建并且切换一个新的分支，要新加上-b参数，查看分支不需要加-b参数）"><span class="nav-number">16.</span> <span class="nav-text">切换分支（如果本地要新建并且切换一个新的分支，要新加上-b参数，查看分支不需要加-b参数）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#删除文件"><span class="nav-number">17.</span> <span class="nav-text">删除文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#删除文件夹"><span class="nav-number">18.</span> <span class="nav-text">删除文件夹</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#下载指定仓库-这个就不用多说了"><span class="nav-number">19.</span> <span class="nav-text">下载指定仓库(这个就不用多说了)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#添加子模块到当前仓库中"><span class="nav-number">20.</span> <span class="nav-text">添加子模块到当前仓库中</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#clone带有子模块的仓库时需要更新子模块"><span class="nav-number">21.</span> <span class="nav-text">clone带有子模块的仓库时需要更新子模块</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#初始化本地仓库"><span class="nav-number">22.</span> <span class="nav-text">初始化本地仓库</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#添加远程仓库"><span class="nav-number">23.</span> <span class="nav-text">添加远程仓库</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#从远程仓库拉取文件"><span class="nav-number">24.</span> <span class="nav-text">从远程仓库拉取文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#查看远程仓库地址"><span class="nav-number">25.</span> <span class="nav-text">查看远程仓库地址</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="ZJS"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">ZJS</p>
+  <div class="site-description" itemprop="description">你找到我了呀！</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">55</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="/1525039433@qq.com" title="E-Mail → 1525039433@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZJS</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
