@@ -98,83 +98,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Traversing</title>
-    <url>/2019/09/Traversing/</url>
-    <content><![CDATA[<h3 id="深度优先遍历"><a href="#深度优先遍历" class="headerlink" title="深度优先遍历"></a>深度优先遍历</h3><p>从某个顶点v出发，首先访问该顶点然后依次从它的各个未被访问的邻接点出发深度优先搜索遍历图，直至图中所有和v有路径相通的顶点都被访问到</p>
-<a id="more"></a>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 递归</span></span><br><span class="line"><span class="built_in">let</span> deepTraversal1 = (node, nodeList = []) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (node !== null) &#123;</span><br><span class="line">    nodeList.push(node)</span><br><span class="line">    <span class="built_in">let</span> children = node.children</span><br><span class="line">    <span class="keyword">if</span>(children!==null||children.length!==0)&#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="built_in">let</span> i = 0; i &lt; children.length; i++) &#123;</span><br><span class="line">        deepTraversal1(children[i], nodeList)</span><br><span class="line">      &#125;</span><br><span class="line">     &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">return</span> nodeList</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 递归</span></span><br><span class="line"><span class="built_in">let</span> deepTraversal2= (node)=&gt;&#123;</span><br><span class="line">  <span class="built_in">let</span> nodes=[];</span><br><span class="line">  <span class="keyword">if</span>(node!== null)&#123;</span><br><span class="line">    nodes.push(node);</span><br><span class="line">    <span class="built_in">let</span> children = node.children;</span><br><span class="line">    <span class="keyword">if</span>(children!==null||children.length!==0)&#123;</span><br><span class="line">      <span class="keyword">for</span>(<span class="built_in">let</span> i=0;i&lt;children.length;i++)&#123;</span><br><span class="line">        nodes= nodes.concat(deepTraversal2(children[i]));</span><br><span class="line">      &#125;</span><br><span class="line">     &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">return</span> nodes;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 非递归</span></span><br><span class="line"><span class="built_in">let</span> deepTraversal2=(node)=&gt;&#123;</span><br><span class="line">  <span class="built_in">let</span> stack =[];</span><br><span class="line">  <span class="built_in">let</span> nodes=[];</span><br><span class="line">  <span class="keyword">if</span>(node)&#123;</span><br><span class="line">    /*如果node节点存在*/</span><br><span class="line">    stack.push(node);</span><br><span class="line">    <span class="keyword">while</span>(stack.length)&#123;</span><br><span class="line">      <span class="built_in">let</span> item= stack.pop();//取出队尾元素</span><br><span class="line">      <span class="built_in">let</span> children = item.children;//获取元素子节点</span><br><span class="line">      nodes.push(children);//推进子节点，结构与父节点一样</span><br><span class="line">      <span class="keyword">if</span>(children!==null||children.length!==0)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="built_in">let</span> i =0;i&lt;children.length;i++)&#123;</span><br><span class="line">          stack.push(children[i]);</span><br><span class="line">        &#125;</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">return</span> nodes;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="广度优先遍历"><a href="#广度优先遍历" class="headerlink" title="广度优先遍历"></a>广度优先遍历</h3><p>从某顶点v出发，在访问了v之后依次访问v的各个未曾访问过的邻接点，然后分别从这些邻接点出发依次访问它们的邻接点，并使得“先被访问的顶点的邻接点先于后被访问的顶点的邻接点被访问，直至图中所有已被访问的顶点的邻接点都被访问到</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">let</span> widthTraversal2=(node)=&gt;&#123;</span><br><span class="line">  <span class="built_in">let</span> nodes=[];</span><br><span class="line">  <span class="built_in">let</span> stack=[];</span><br><span class="line">  <span class="keyword">if</span>(node)&#123;</span><br><span class="line">    stack.push(node);</span><br><span class="line">    <span class="keyword">while</span>(stack.length)&#123;</span><br><span class="line">      <span class="built_in">let</span> item = stack.shift();</span><br><span class="line">      <span class="built_in">let</span> children = item.children;</span><br><span class="line">      nodes.push(node);</span><br><span class="line">      <span class="keyword">if</span>(children!==null||children.length!==0)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="built_in">let</span> i =0;i&lt;children.length;i++)&#123;</span><br><span class="line">          stack.push(children[i]);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">return</span> nodes;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>axios</title>
-    <url>/2020/09/axios/</url>
-    <content><![CDATA[<h3 id="为什么-axios-既可以用-axios-这样请求-，也可以-axios-get-这样请求？"><a href="#为什么-axios-既可以用-axios-这样请求-，也可以-axios-get-这样请求？" class="headerlink" title="为什么 axios 既可以用 axios({})这样请求 ，也可以 axios.get()这样请求？"></a>为什么 axios 既可以用 axios({})这样请求 ，也可以 axios.get()这样请求？</h3><p>在使<code>axios.create</code>的时候,调用了这个方法</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Create an instance of Axios</span><br><span class="line"> *</span><br><span class="line"> * @param &#123;Object&#125; defaultConfig The default config <span class="keyword">for</span> the instance</span><br><span class="line"> * @<span class="built_in">return</span> &#123;Axios&#125; A new instance of Axios</span><br><span class="line"> */</span><br><span class="line"><span class="keyword">function</span> createInstance(defaultConfig) &#123;</span><br><span class="line">  var context = new Axios(defaultConfig);//生成配置 和拦截器</span><br><span class="line">  <span class="comment"># 在这里，instance 是一个 wrapped 函数，将context作为参数传递给request，所以调用axios(&#123;&#125;)就是在调用request(&#123;&#125;)</span></span><br><span class="line">  var instance = <span class="built_in">bind</span>(Axios.prototype.request, context);</span><br><span class="line"></span><br><span class="line">  <span class="comment">#Copy axios.prototype to instance</span></span><br><span class="line">  <span class="comment"># 这个是把Axios原型链的东西挂载到instance上去</span></span><br><span class="line">  <span class="comment"># 因为instance 是个一个functoin，所以在直接赋值的时候不能直接看到</span></span><br><span class="line">  <span class="comment"># 能在instance 的prototype上可以看到</span></span><br><span class="line">  <span class="comment"># 所以在调用类似axios.get(）这类的方法是能正常运行</span></span><br><span class="line">  utils.extend(instance, Axios.prototype, context);</span><br><span class="line"></span><br><span class="line">  <span class="comment"># Copy context to instance</span></span><br><span class="line">  utils.extend(instance, context);</span><br><span class="line">  <span class="comment"># console.log(instance)</span></span><br><span class="line">  <span class="built_in">return</span> instance;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>从图中可以看到,方法之类的确实挂载到了原型链上<br><img src="/images/axios/prototype.png" alt="prototype"></p>
-<h3 id="cancalToken-怎么取消请求的"><a href="#cancalToken-怎么取消请求的" class="headerlink" title="cancalToken 怎么取消请求的"></a>cancalToken 怎么取消请求的</h3><p>那么其实什么时候需要取消请求，举一个很常见的例子，取消重复请求，就是当前已经发出请求的情况下，后续同样的请求如果发送就会被取消（如果是表单的提交也可以使用 dom 的 disabld 禁止点击 2333）<br>举个栗子：<br>在 axios 上是挂载了 Cancel 相应的东西</p>
-<ul>
-<li>axios.Cancel = require(‘./cancel/Cancel’);</li>
-<li>axios.CancelToken = require(‘./cancel/CancelToken’);</li>
-<li>axios.isCancel = require(‘./cancel/isCancel’);</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">var data = document.getElementById(<span class="string">"data"</span>).value;</span><br><span class="line">         const CancelToken = axios.CancelToken;</span><br><span class="line">         axios</span><br><span class="line">           .post(</span><br><span class="line">             <span class="string">"/post/server"</span>,</span><br><span class="line">             &#123;</span><br><span class="line">               data,</span><br><span class="line">             &#125;,</span><br><span class="line">             &#123;</span><br><span class="line">               cancelToken: new CancelToken((c) =&gt; &#123;</span><br><span class="line">                 cancel = c;</span><br><span class="line">                 console.log(c)</span><br><span class="line">               &#125;),</span><br><span class="line">             &#125;</span><br><span class="line">           )</span><br><span class="line">           .<span class="keyword">then</span>(<span class="keyword">function</span> (res) &#123;</span><br><span class="line">             output.className = <span class="string">"container"</span>;</span><br><span class="line">             output.innerHTML = res.data;</span><br><span class="line">           &#125;)</span><br><span class="line">           .catch(<span class="keyword">function</span> (err) &#123;</span><br><span class="line">             output.className = <span class="string">"container text-danger"</span>;</span><br><span class="line">             output.innerHTML = err.message;</span><br><span class="line">           &#125;);</span><br><span class="line">         cancel(<span class="string">'sdfsd'</span>);</span><br></pre></td></tr></table></figure>
-
-<p>然后这里 axios.post 实际上就是调用了<code>request</code>方法，方法的返回值是一个 promise，最后一个执行的 promise 是一个叫<code>dispatchRequest</code>的函数，函数位置在 core/dispatchRequest.js 文件下，因为返回的是一个 promise ，状态是 pendding，加入到微任务队列，然后执行主线程的<code>cancel</code>方法。cancel 方法是在初始化 cancelToken 的时候给 cancel 赋值了。</p>
-<p><code>cancelToken：</code></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">function</span> CancelToken(executor) &#123;</span><br><span class="line">  <span class="keyword">if</span> (typeof executor !== <span class="string">'function'</span>) &#123;</span><br><span class="line">    throw new TypeError(<span class="string">'executor must be a function.'</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  var resolvePromise;</span><br><span class="line">  <span class="comment"># 这里把resolve钩子赋值给resolvePromise 为了让cancel函数能够改变promise的状态</span></span><br><span class="line">  this.promise = new Promise(<span class="keyword">function</span> promiseExecutor(resolve) &#123;</span><br><span class="line">    resolvePromise = resolve;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  var token = this;</span><br><span class="line">  executor(<span class="keyword">function</span> cancel(message) &#123;</span><br><span class="line">    <span class="keyword">if</span> (token.reason) &#123;</span><br><span class="line">      <span class="comment"># Cancellation has already been requested</span></span><br><span class="line">      <span class="built_in">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    token.reason = new Cancel(message);</span><br><span class="line">    <span class="comment"># 这里改变promise状态位fulfilled</span></span><br><span class="line">    resolvePromise(token.reason);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>主线程任务执行完成的时候开始进入下一轮任务执行，没有宏任务需要执行，直接执行微任务，先执行刚刚 request 返回的 promise，其实是开始执行了<code>dispatchRequest</code></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">module.exports = <span class="keyword">function</span> dispatchRequest(config) &#123;</span><br><span class="line">  throwIfCancellationRequested(config);</span><br><span class="line">  <span class="comment"># 省略其他代码</span></span><br><span class="line">&#125;</span><br><span class="line">/**</span><br><span class="line"> * Throws a `Cancel` <span class="keyword">if</span> cancellation has been requested.</span><br><span class="line"> */</span><br><span class="line"><span class="keyword">function</span> throwIfCancellationRequested(config) &#123;</span><br><span class="line">  <span class="keyword">if</span> (config.cancelToken) &#123;</span><br><span class="line">      <span class="comment"># 这个方法挂载在canceltoken原型链傻姑娘</span></span><br><span class="line">    config.cancelToken.throwIfRequested();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">CancelToken.prototype.throwIfRequested = <span class="keyword">function</span> <span class="function"><span class="title">throwIfRequested</span></span>() &#123;</span><br><span class="line">  <span class="keyword">if</span> (this.reason) &#123;</span><br><span class="line">      <span class="comment"># 这里抛出错误，然后在主程序代码中的catch捕获，然后程序返回，不进行后续创建xhr对象的过程</span></span><br><span class="line">    throw this.reason;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>在xhr文件中看到有一段代码，长这样:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (config.cancelToken) &#123;</span><br><span class="line">      // Handle cancellation</span><br><span class="line">      config.cancelToken.promise.then(<span class="keyword">function</span> onCanceled(cancel) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!request) &#123;</span><br><span class="line">          <span class="built_in">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        request.abort();</span><br><span class="line">        reject(cancel);</span><br><span class="line">        // Clean up request</span><br><span class="line">        request = null;</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<p>那么上文中的resolvePromise改变后的promise就是在这里调用，那什么情况会到这里来执行请求，假如有A，B两个请求，A请求响应时间过长，然后等到B执行回调都回来的时候，直接把A请求给取（gan）消(diao)了</p>
-]]></content>
-  </entry>
-  <entry>
-    <title>部署hexo踩坑记录</title>
-    <url>/2020/11/bugsForNode/</url>
-    <content><![CDATA[<p>在执行下面这句代码的时候</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g -d</span><br></pre></td></tr></table></figure>
-
-<p>报错信息</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Something<span class="string">'s wrong. Maybe you can find the solution here: https://hexo.io/docs/troubleshooting.html</span></span><br><span class="line"><span class="string">TypeError [ERR_INVALID_ARG_TYPE]: The "mode" argument must be integer. Received an instance of Object</span></span><br><span class="line"><span class="string">    at copyFile (fs.js:1924:10)</span></span><br><span class="line"><span class="string">    at tryCatcher (/Users/zjs/Desktop/blog/node_modules/bluebird/js/release/util.js:16:23)</span></span><br><span class="line"><span class="string">    at ret (eval at makeNodePromisifiedEval (/Users/zjs/.nvm/versions/node/v14.10.0/lib/node_modules/hexo-cli/node_modules/bluebird/js/release/promisify.js:184:12), &lt;anonymous&gt;:13:39)</span></span><br></pre></td></tr></table></figure>
-
-<p>解决方案<br> NodeJs 版本从 14 回到 12 就🉑️！</p>
-]]></content>
-  </entry>
-  <entry>
-    <title>Chrome调试工具的那点事</title>
-    <url>/2019/09/chorme-panel/</url>
-    <content><![CDATA[<h3 id><a href="#" class="headerlink" title="$_"></a>$_</h3><p>调试的过程中，你经常会通过打印查看一些变量的值，但如果你想看一下上次执行的结果呢？再输一遍表达式吗</p>
-<a id="more"></a>
-<p>这时候 $_ 就派上了用场，$_ 是对上次执行的结果的 引用 ：<br><img src="/images/chrome_panel/demo1.png" alt="demo"></p>
-<h3 id="-1"><a href="#-1" class="headerlink" title="$$"></a>$$</h3><p>用Jquery库的同学都知道$是Jquery的缩写，在Chrome的调试面板中，如果你没有定义$这个变量，它在 console 中就是对这一大串函数 document.querySelector 的别名。$$则是==Array.from(document.querySelector),返回的是一个数组，而不是一个nodeList，可以帮我们省却很多时间</p>
-<h3 id="0"><a href="#0" class="headerlink" title="$0"></a>$0</h3><p>$0保存的是当前选中节点的引用,$1是上个节点，$2是上上个,到4截止。</p>
-<h3 id="截屏"><a href="#截屏" class="headerlink" title="截屏"></a>截屏</h3><p>截屏的时候你们肯定用的是qq或者tim的ctrl+alt+a或者微信的alt+a，其实浏览器本身也支持截屏<br><img src="/images/chrome_panel/demo2.gif" alt="图片"></p>
-<h3 id="切换主题"><a href="#切换主题" class="headerlink" title="切换主题"></a>切换主题</h3><p><img src="/images/chrome_panel/demo3.gif" alt="图片"></p>
-<p>PS:Ummm,还有其他命令我就不玩啦。忘了说，ctrl+shift+p打开那个command面板</p>
-<h3 id="打断点"><a href="#打断点" class="headerlink" title="打断点"></a>打断点</h3><p>大部分人打断点都是这样打滴<br><img src="/images/chrome_panel/demo4.png" alt="图片"><br>然鹅如果你只想看第50次循环中的数据是什么样的，难道需要前面的49次都断电吗？烦不烦？所以你可以酱紫：<br><img src="/images/chrome_panel/demo5.gif" alt="图片"></p>
-<p>设置条件断点后，可以指定在某个条件的时候断点，并且在右侧可以移除所有断点而不用手动一个个点取消。</p>
-]]></content>
-      <tags>
-        <tag>Chrome</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>自适应布局</title>
     <url>/2019/08/adaptive/</url>
     <content><![CDATA[<h2 id="grid"><a href="#grid" class="headerlink" title="grid"></a>grid</h2><p>css</p>
@@ -303,6 +226,83 @@
       </tags>
   </entry>
   <entry>
+    <title>Traversing</title>
+    <url>/2019/09/Traversing/</url>
+    <content><![CDATA[<h3 id="深度优先遍历"><a href="#深度优先遍历" class="headerlink" title="深度优先遍历"></a>深度优先遍历</h3><p>从某个顶点v出发，首先访问该顶点然后依次从它的各个未被访问的邻接点出发深度优先搜索遍历图，直至图中所有和v有路径相通的顶点都被访问到</p>
+<a id="more"></a>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 递归</span></span><br><span class="line"><span class="built_in">let</span> deepTraversal1 = (node, nodeList = []) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (node !== null) &#123;</span><br><span class="line">    nodeList.push(node)</span><br><span class="line">    <span class="built_in">let</span> children = node.children</span><br><span class="line">    <span class="keyword">if</span>(children!==null||children.length!==0)&#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="built_in">let</span> i = 0; i &lt; children.length; i++) &#123;</span><br><span class="line">        deepTraversal1(children[i], nodeList)</span><br><span class="line">      &#125;</span><br><span class="line">     &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">return</span> nodeList</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 递归</span></span><br><span class="line"><span class="built_in">let</span> deepTraversal2= (node)=&gt;&#123;</span><br><span class="line">  <span class="built_in">let</span> nodes=[];</span><br><span class="line">  <span class="keyword">if</span>(node!== null)&#123;</span><br><span class="line">    nodes.push(node);</span><br><span class="line">    <span class="built_in">let</span> children = node.children;</span><br><span class="line">    <span class="keyword">if</span>(children!==null||children.length!==0)&#123;</span><br><span class="line">      <span class="keyword">for</span>(<span class="built_in">let</span> i=0;i&lt;children.length;i++)&#123;</span><br><span class="line">        nodes= nodes.concat(deepTraversal2(children[i]));</span><br><span class="line">      &#125;</span><br><span class="line">     &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">return</span> nodes;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 非递归</span></span><br><span class="line"><span class="built_in">let</span> deepTraversal2=(node)=&gt;&#123;</span><br><span class="line">  <span class="built_in">let</span> stack =[];</span><br><span class="line">  <span class="built_in">let</span> nodes=[];</span><br><span class="line">  <span class="keyword">if</span>(node)&#123;</span><br><span class="line">    /*如果node节点存在*/</span><br><span class="line">    stack.push(node);</span><br><span class="line">    <span class="keyword">while</span>(stack.length)&#123;</span><br><span class="line">      <span class="built_in">let</span> item= stack.pop();//取出队尾元素</span><br><span class="line">      <span class="built_in">let</span> children = item.children;//获取元素子节点</span><br><span class="line">      nodes.push(children);//推进子节点，结构与父节点一样</span><br><span class="line">      <span class="keyword">if</span>(children!==null||children.length!==0)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="built_in">let</span> i =0;i&lt;children.length;i++)&#123;</span><br><span class="line">          stack.push(children[i]);</span><br><span class="line">        &#125;</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">return</span> nodes;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="广度优先遍历"><a href="#广度优先遍历" class="headerlink" title="广度优先遍历"></a>广度优先遍历</h3><p>从某顶点v出发，在访问了v之后依次访问v的各个未曾访问过的邻接点，然后分别从这些邻接点出发依次访问它们的邻接点，并使得“先被访问的顶点的邻接点先于后被访问的顶点的邻接点被访问，直至图中所有已被访问的顶点的邻接点都被访问到</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">let</span> widthTraversal2=(node)=&gt;&#123;</span><br><span class="line">  <span class="built_in">let</span> nodes=[];</span><br><span class="line">  <span class="built_in">let</span> stack=[];</span><br><span class="line">  <span class="keyword">if</span>(node)&#123;</span><br><span class="line">    stack.push(node);</span><br><span class="line">    <span class="keyword">while</span>(stack.length)&#123;</span><br><span class="line">      <span class="built_in">let</span> item = stack.shift();</span><br><span class="line">      <span class="built_in">let</span> children = item.children;</span><br><span class="line">      nodes.push(node);</span><br><span class="line">      <span class="keyword">if</span>(children!==null||children.length!==0)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="built_in">let</span> i =0;i&lt;children.length;i++)&#123;</span><br><span class="line">          stack.push(children[i]);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">return</span> nodes;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>axios</title>
+    <url>/2020/09/axios/</url>
+    <content><![CDATA[<h3 id="为什么-axios-既可以用-axios-这样请求-，也可以-axios-get-这样请求？"><a href="#为什么-axios-既可以用-axios-这样请求-，也可以-axios-get-这样请求？" class="headerlink" title="为什么 axios 既可以用 axios({})这样请求 ，也可以 axios.get()这样请求？"></a>为什么 axios 既可以用 axios({})这样请求 ，也可以 axios.get()这样请求？</h3><p>在使<code>axios.create</code>的时候,调用了这个方法</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Create an instance of Axios</span><br><span class="line"> *</span><br><span class="line"> * @param &#123;Object&#125; defaultConfig The default config <span class="keyword">for</span> the instance</span><br><span class="line"> * @<span class="built_in">return</span> &#123;Axios&#125; A new instance of Axios</span><br><span class="line"> */</span><br><span class="line"><span class="keyword">function</span> createInstance(defaultConfig) &#123;</span><br><span class="line">  var context = new Axios(defaultConfig);//生成配置 和拦截器</span><br><span class="line">  <span class="comment"># 在这里，instance 是一个 wrapped 函数，将context作为参数传递给request，所以调用axios(&#123;&#125;)就是在调用request(&#123;&#125;)</span></span><br><span class="line">  var instance = <span class="built_in">bind</span>(Axios.prototype.request, context);</span><br><span class="line"></span><br><span class="line">  <span class="comment">#Copy axios.prototype to instance</span></span><br><span class="line">  <span class="comment"># 这个是把Axios原型链的东西挂载到instance上去</span></span><br><span class="line">  <span class="comment"># 因为instance 是个一个functoin，所以在直接赋值的时候不能直接看到</span></span><br><span class="line">  <span class="comment"># 能在instance 的prototype上可以看到</span></span><br><span class="line">  <span class="comment"># 所以在调用类似axios.get(）这类的方法是能正常运行</span></span><br><span class="line">  utils.extend(instance, Axios.prototype, context);</span><br><span class="line"></span><br><span class="line">  <span class="comment"># Copy context to instance</span></span><br><span class="line">  utils.extend(instance, context);</span><br><span class="line">  <span class="comment"># console.log(instance)</span></span><br><span class="line">  <span class="built_in">return</span> instance;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>从图中可以看到,方法之类的确实挂载到了原型链上<br><img src="/images/axios/prototype.png" alt="prototype"></p>
+<h3 id="cancalToken-怎么取消请求的"><a href="#cancalToken-怎么取消请求的" class="headerlink" title="cancalToken 怎么取消请求的"></a>cancalToken 怎么取消请求的</h3><p>那么其实什么时候需要取消请求，举一个很常见的例子，取消重复请求，就是当前已经发出请求的情况下，后续同样的请求如果发送就会被取消（如果是表单的提交也可以使用 dom 的 disabld 禁止点击 2333）<br>举个栗子：<br>在 axios 上是挂载了 Cancel 相应的东西</p>
+<ul>
+<li>axios.Cancel = require(‘./cancel/Cancel’);</li>
+<li>axios.CancelToken = require(‘./cancel/CancelToken’);</li>
+<li>axios.isCancel = require(‘./cancel/isCancel’);</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">var data = document.getElementById(<span class="string">"data"</span>).value;</span><br><span class="line">         const CancelToken = axios.CancelToken;</span><br><span class="line">         axios</span><br><span class="line">           .post(</span><br><span class="line">             <span class="string">"/post/server"</span>,</span><br><span class="line">             &#123;</span><br><span class="line">               data,</span><br><span class="line">             &#125;,</span><br><span class="line">             &#123;</span><br><span class="line">               cancelToken: new CancelToken((c) =&gt; &#123;</span><br><span class="line">                 cancel = c;</span><br><span class="line">                 console.log(c)</span><br><span class="line">               &#125;),</span><br><span class="line">             &#125;</span><br><span class="line">           )</span><br><span class="line">           .<span class="keyword">then</span>(<span class="keyword">function</span> (res) &#123;</span><br><span class="line">             output.className = <span class="string">"container"</span>;</span><br><span class="line">             output.innerHTML = res.data;</span><br><span class="line">           &#125;)</span><br><span class="line">           .catch(<span class="keyword">function</span> (err) &#123;</span><br><span class="line">             output.className = <span class="string">"container text-danger"</span>;</span><br><span class="line">             output.innerHTML = err.message;</span><br><span class="line">           &#125;);</span><br><span class="line">         cancel(<span class="string">'sdfsd'</span>);</span><br></pre></td></tr></table></figure>
+
+<p>然后这里 axios.post 实际上就是调用了<code>request</code>方法，方法的返回值是一个 promise，最后一个执行的 promise 是一个叫<code>dispatchRequest</code>的函数，函数位置在 core/dispatchRequest.js 文件下，因为返回的是一个 promise ，状态是 pendding，加入到微任务队列，然后执行主线程的<code>cancel</code>方法。cancel 方法是在初始化 cancelToken 的时候给 cancel 赋值了。</p>
+<p><code>cancelToken：</code></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">function</span> CancelToken(executor) &#123;</span><br><span class="line">  <span class="keyword">if</span> (typeof executor !== <span class="string">'function'</span>) &#123;</span><br><span class="line">    throw new TypeError(<span class="string">'executor must be a function.'</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  var resolvePromise;</span><br><span class="line">  <span class="comment"># 这里把resolve钩子赋值给resolvePromise 为了让cancel函数能够改变promise的状态</span></span><br><span class="line">  this.promise = new Promise(<span class="keyword">function</span> promiseExecutor(resolve) &#123;</span><br><span class="line">    resolvePromise = resolve;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  var token = this;</span><br><span class="line">  executor(<span class="keyword">function</span> cancel(message) &#123;</span><br><span class="line">    <span class="keyword">if</span> (token.reason) &#123;</span><br><span class="line">      <span class="comment"># Cancellation has already been requested</span></span><br><span class="line">      <span class="built_in">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    token.reason = new Cancel(message);</span><br><span class="line">    <span class="comment"># 这里改变promise状态位fulfilled</span></span><br><span class="line">    resolvePromise(token.reason);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>主线程任务执行完成的时候开始进入下一轮任务执行，没有宏任务需要执行，直接执行微任务，先执行刚刚 request 返回的 promise，其实是开始执行了<code>dispatchRequest</code></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">module.exports = <span class="keyword">function</span> dispatchRequest(config) &#123;</span><br><span class="line">  throwIfCancellationRequested(config);</span><br><span class="line">  <span class="comment"># 省略其他代码</span></span><br><span class="line">&#125;</span><br><span class="line">/**</span><br><span class="line"> * Throws a `Cancel` <span class="keyword">if</span> cancellation has been requested.</span><br><span class="line"> */</span><br><span class="line"><span class="keyword">function</span> throwIfCancellationRequested(config) &#123;</span><br><span class="line">  <span class="keyword">if</span> (config.cancelToken) &#123;</span><br><span class="line">      <span class="comment"># 这个方法挂载在canceltoken原型链傻姑娘</span></span><br><span class="line">    config.cancelToken.throwIfRequested();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">CancelToken.prototype.throwIfRequested = <span class="keyword">function</span> <span class="function"><span class="title">throwIfRequested</span></span>() &#123;</span><br><span class="line">  <span class="keyword">if</span> (this.reason) &#123;</span><br><span class="line">      <span class="comment"># 这里抛出错误，然后在主程序代码中的catch捕获，然后程序返回，不进行后续创建xhr对象的过程</span></span><br><span class="line">    throw this.reason;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>在xhr文件中看到有一段代码，长这样:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (config.cancelToken) &#123;</span><br><span class="line">      // Handle cancellation</span><br><span class="line">      config.cancelToken.promise.then(<span class="keyword">function</span> onCanceled(cancel) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!request) &#123;</span><br><span class="line">          <span class="built_in">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        request.abort();</span><br><span class="line">        reject(cancel);</span><br><span class="line">        // Clean up request</span><br><span class="line">        request = null;</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>那么上文中的resolvePromise改变后的promise就是在这里调用，那什么情况会到这里来执行请求，假如有A，B两个请求，A请求响应时间过长，然后等到B执行回调都回来的时候，直接把A请求给取（gan）消(diao)了</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>部署hexo踩坑记录</title>
+    <url>/2020/11/bugsForNode/</url>
+    <content><![CDATA[<p>在执行下面这句代码的时候</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g -d</span><br></pre></td></tr></table></figure>
+
+<p>报错信息</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Something<span class="string">'s wrong. Maybe you can find the solution here: https://hexo.io/docs/troubleshooting.html</span></span><br><span class="line"><span class="string">TypeError [ERR_INVALID_ARG_TYPE]: The "mode" argument must be integer. Received an instance of Object</span></span><br><span class="line"><span class="string">    at copyFile (fs.js:1924:10)</span></span><br><span class="line"><span class="string">    at tryCatcher (/Users/zjs/Desktop/blog/node_modules/bluebird/js/release/util.js:16:23)</span></span><br><span class="line"><span class="string">    at ret (eval at makeNodePromisifiedEval (/Users/zjs/.nvm/versions/node/v14.10.0/lib/node_modules/hexo-cli/node_modules/bluebird/js/release/promisify.js:184:12), &lt;anonymous&gt;:13:39)</span></span><br></pre></td></tr></table></figure>
+
+<p>解决方案<br> NodeJs 版本从 14 回到 12 就🉑️！</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>Chrome调试工具的那点事</title>
+    <url>/2019/09/chorme-panel/</url>
+    <content><![CDATA[<h3 id><a href="#" class="headerlink" title="$_"></a>$_</h3><p>调试的过程中，你经常会通过打印查看一些变量的值，但如果你想看一下上次执行的结果呢？再输一遍表达式吗</p>
+<a id="more"></a>
+<p>这时候 $_ 就派上了用场，$_ 是对上次执行的结果的 引用 ：<br><img src="/images/chrome_panel/demo1.png" alt="demo"></p>
+<h3 id="-1"><a href="#-1" class="headerlink" title="$$"></a>$$</h3><p>用Jquery库的同学都知道$是Jquery的缩写，在Chrome的调试面板中，如果你没有定义$这个变量，它在 console 中就是对这一大串函数 document.querySelector 的别名。$$则是==Array.from(document.querySelector),返回的是一个数组，而不是一个nodeList，可以帮我们省却很多时间</p>
+<h3 id="0"><a href="#0" class="headerlink" title="$0"></a>$0</h3><p>$0保存的是当前选中节点的引用,$1是上个节点，$2是上上个,到4截止。</p>
+<h3 id="截屏"><a href="#截屏" class="headerlink" title="截屏"></a>截屏</h3><p>截屏的时候你们肯定用的是qq或者tim的ctrl+alt+a或者微信的alt+a，其实浏览器本身也支持截屏<br><img src="/images/chrome_panel/demo2.gif" alt="图片"></p>
+<h3 id="切换主题"><a href="#切换主题" class="headerlink" title="切换主题"></a>切换主题</h3><p><img src="/images/chrome_panel/demo3.gif" alt="图片"></p>
+<p>PS:Ummm,还有其他命令我就不玩啦。忘了说，ctrl+shift+p打开那个command面板</p>
+<h3 id="打断点"><a href="#打断点" class="headerlink" title="打断点"></a>打断点</h3><p>大部分人打断点都是这样打滴<br><img src="/images/chrome_panel/demo4.png" alt="图片"><br>然鹅如果你只想看第50次循环中的数据是什么样的，难道需要前面的49次都断电吗？烦不烦？所以你可以酱紫：<br><img src="/images/chrome_panel/demo5.gif" alt="图片"></p>
+<p>设置条件断点后，可以指定在某个条件的时候断点，并且在右侧可以移除所有断点而不用手动一个个点取消。</p>
+]]></content>
+      <tags>
+        <tag>Chrome</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>思考如何使a==1&amp;&amp;a==2&amp;&amp;a==3为true</title>
     <url>/2019/11/closure/</url>
     <content><![CDATA[<p>涉及运算符比较过程，运算符在比较两个值是否相等的时候做了什么,第二个涉及闭包JS比较两个数值是否相等可以用== 和=== ，<a id="more"></a>其中 == 会有隐式类型转换的操作，===则不会,在两个数比较时，先调用valueOf,如果返回的不是原始类型，继续调用toString,如果不是原始类型，抛出异常</p>
@@ -317,6 +317,22 @@
       <tags>
         <tag>JavaScript</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>随笔</title>
+    <url>/2020/10/conclusion/</url>
+    <content><![CDATA[<h3 id="笔记一"><a href="#笔记一" class="headerlink" title="笔记一"></a>笔记一</h3><p>在vue项目中使用ts-class的形式来编写组件的时候，要记得在export上面➕<code>@Component</code>装饰器，不然组件不能正常注册</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">import &#123;</span><br><span class="line">    Component,</span><br><span class="line">    Vue,</span><br><span class="line">    InjectReactive</span><br><span class="line">&#125; from <span class="string">'vue-property-decorator'</span>;</span><br><span class="line"></span><br><span class="line">@Component</span><br><span class="line">class Child extends Vue &#123;</span><br><span class="line">    @InjectReactive() node: number;</span><br><span class="line">    <span class="function"><span class="title">mounted</span></span>() &#123;</span><br><span class="line">        console.log(this.node)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果在页面中需要用到子组件的情况，需要像这样注册,并且<code>@Component</code>装饰器只需要写一次</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">import &#123;</span><br><span class="line">    Vue,</span><br><span class="line">    Component,</span><br><span class="line">    ProvideReactive</span><br><span class="line">&#125; from <span class="string">'vue-property-decorator'</span>;</span><br><span class="line">import Child from <span class="string">'./child.vue'</span></span><br><span class="line">@Component(&#123;</span><br><span class="line">    components: &#123;</span><br><span class="line">        Child</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line">class Parent extends Vue &#123;</span><br><span class="line">    @ProvideReactive() node = &#123;&#125;</span><br><span class="line">    <span class="function"><span class="title">mounted</span></span>() &#123;</span><br><span class="line">        this.node = 1</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="笔记二-—-ProvideReactive来做数据透传的注意点"><a href="#笔记二-—-ProvideReactive来做数据透传的注意点" class="headerlink" title="笔记二 — ProvideReactive来做数据透传的注意点"></a>笔记二 — ProvideReactive来做数据透传的注意点</h3><p>如果在组件中使用Provide来进行数据透传的话，数据是不带响应式的。如果需要数据具有响应式，那么需要用ProvideReactive来做属性的透传，代码例子可以看上一个代码，另外由于在路由跳转的时候，有时候会有Provide的值重新定义的问题，这时候控制台会抛出异常，具体可以看这个<br><a href="https://github.com/kaorun343/vue-property-decorator/issues/277" target="_blank" rel="noopener">issue</a>,有临时的解决方案</p>
+<h3 id="笔记三-—-在弹窗中保证数据的实时性"><a href="#笔记三-—-在弹窗中保证数据的实时性" class="headerlink" title="笔记三 — 在弹窗中保证数据的实时性"></a>笔记三 — 在弹窗中保证数据的实时性</h3><p>需要把数据以Provide的形式传递给弹窗，但是数据仅仅只在第一次显示的时候是正常的数据，在关闭弹窗后再一次开启弹窗，显示的数据是上一次的数据。原因暂时不知道。所以我在关闭弹窗的时候同时用v-if来销毁元素，这样每次打开的元素都是一个最新的元素，同时这个时候获取到的数据也是最新的数据。</p>
+<h3 id="笔记四-—-数据获取完后保证子组件获取最新的数据"><a href="#笔记四-—-数据获取完后保证子组件获取最新的数据" class="headerlink" title="笔记四 — 数据获取完后保证子组件获取最新的数据"></a>笔记四 — 数据获取完后保证子组件获取最新的数据</h3><p>在父组件用axios获取数据的时候，然后传递给子组件，但是子组件渲染的时候是定义时就给的默认值。<br>原因：父组件在请求数据的时候，子组件的生命周期已经走完并且已经渲染完成，所以这时候是拿不到请求后返回的真实数据<br>方案：我这里用v-if来判断获取的数据的长度是否为空来判断是否要渲染子组件，缺点：数据量很大的时候会有很长时间的空白。</p>
+<h3 id="笔记五-—-自定义组件绑定v-models"><a href="#笔记五-—-自定义组件绑定v-models" class="headerlink" title="笔记五 — 自定义组件绑定v-models"></a>笔记五 — 自定义组件绑定v-models</h3><p>想让自定义组件能够使用v-model语法糖，这样子组件的数据就可以实时的反馈到父组件中去</p>
+<p>在vue中，对input来说，v-model是value和input事件的语法糖，对于checkbox来说，监听的事件是change，给对应的元素添加对应的事件，然后在自组件emit出去，把相应的value值绑定到对应的dom元素中去。</p>
+]]></content>
   </entry>
   <entry>
     <title>GET 和 POST 的区别</title>
@@ -401,91 +417,6 @@
       </tags>
   </entry>
   <entry>
-    <title>浏览器</title>
-    <url>/2021/08/chrome/</url>
-    <content><![CDATA[<h3 id="浏览器主要组件"><a href="#浏览器主要组件" class="headerlink" title="浏览器主要组件"></a>浏览器主要组件</h3><ul>
-<li>用户界面</li>
-<li>浏览器引擎</li>
-<li>呈现引擎</li>
-<li>网络</li>
-<li>用户界面后端</li>
-<li>JS解释器</li>
-<li>数据存储</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>Chrome</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>随笔</title>
-    <url>/2020/10/conclusion/</url>
-    <content><![CDATA[<h3 id="笔记一"><a href="#笔记一" class="headerlink" title="笔记一"></a>笔记一</h3><p>在vue项目中使用ts-class的形式来编写组件的时候，要记得在export上面➕<code>@Component</code>装饰器，不然组件不能正常注册</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">import &#123;</span><br><span class="line">    Component,</span><br><span class="line">    Vue,</span><br><span class="line">    InjectReactive</span><br><span class="line">&#125; from <span class="string">'vue-property-decorator'</span>;</span><br><span class="line"></span><br><span class="line">@Component</span><br><span class="line">class Child extends Vue &#123;</span><br><span class="line">    @InjectReactive() node: number;</span><br><span class="line">    <span class="function"><span class="title">mounted</span></span>() &#123;</span><br><span class="line">        console.log(this.node)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>如果在页面中需要用到子组件的情况，需要像这样注册,并且<code>@Component</code>装饰器只需要写一次</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">import &#123;</span><br><span class="line">    Vue,</span><br><span class="line">    Component,</span><br><span class="line">    ProvideReactive</span><br><span class="line">&#125; from <span class="string">'vue-property-decorator'</span>;</span><br><span class="line">import Child from <span class="string">'./child.vue'</span></span><br><span class="line">@Component(&#123;</span><br><span class="line">    components: &#123;</span><br><span class="line">        Child</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line">class Parent extends Vue &#123;</span><br><span class="line">    @ProvideReactive() node = &#123;&#125;</span><br><span class="line">    <span class="function"><span class="title">mounted</span></span>() &#123;</span><br><span class="line">        this.node = 1</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="笔记二-—-ProvideReactive来做数据透传的注意点"><a href="#笔记二-—-ProvideReactive来做数据透传的注意点" class="headerlink" title="笔记二 — ProvideReactive来做数据透传的注意点"></a>笔记二 — ProvideReactive来做数据透传的注意点</h3><p>如果在组件中使用Provide来进行数据透传的话，数据是不带响应式的。如果需要数据具有响应式，那么需要用ProvideReactive来做属性的透传，代码例子可以看上一个代码，另外由于在路由跳转的时候，有时候会有Provide的值重新定义的问题，这时候控制台会抛出异常，具体可以看这个<br><a href="https://github.com/kaorun343/vue-property-decorator/issues/277" target="_blank" rel="noopener">issue</a>,有临时的解决方案</p>
-<h3 id="笔记三-—-在弹窗中保证数据的实时性"><a href="#笔记三-—-在弹窗中保证数据的实时性" class="headerlink" title="笔记三 — 在弹窗中保证数据的实时性"></a>笔记三 — 在弹窗中保证数据的实时性</h3><p>需要把数据以Provide的形式传递给弹窗，但是数据仅仅只在第一次显示的时候是正常的数据，在关闭弹窗后再一次开启弹窗，显示的数据是上一次的数据。原因暂时不知道。所以我在关闭弹窗的时候同时用v-if来销毁元素，这样每次打开的元素都是一个最新的元素，同时这个时候获取到的数据也是最新的数据。</p>
-<h3 id="笔记四-—-数据获取完后保证子组件获取最新的数据"><a href="#笔记四-—-数据获取完后保证子组件获取最新的数据" class="headerlink" title="笔记四 — 数据获取完后保证子组件获取最新的数据"></a>笔记四 — 数据获取完后保证子组件获取最新的数据</h3><p>在父组件用axios获取数据的时候，然后传递给子组件，但是子组件渲染的时候是定义时就给的默认值。<br>原因：父组件在请求数据的时候，子组件的生命周期已经走完并且已经渲染完成，所以这时候是拿不到请求后返回的真实数据<br>方案：我这里用v-if来判断获取的数据的长度是否为空来判断是否要渲染子组件，缺点：数据量很大的时候会有很长时间的空白。</p>
-<h3 id="笔记五-—-自定义组件绑定v-models"><a href="#笔记五-—-自定义组件绑定v-models" class="headerlink" title="笔记五 — 自定义组件绑定v-models"></a>笔记五 — 自定义组件绑定v-models</h3><p>想让自定义组件能够使用v-model语法糖，这样子组件的数据就可以实时的反馈到父组件中去</p>
-<p>在vue中，对input来说，v-model是value和input事件的语法糖，对于checkbox来说，监听的事件是change，给对应的元素添加对应的事件，然后在自组件emit出去，把相应的value值绑定到对应的dom元素中去。</p>
-]]></content>
-  </entry>
-  <entry>
-    <title>今日随笔(7-30)</title>
-    <url>/2020/07/essay-2/</url>
-    <content><![CDATA[<h2 id="用-ts-开发-react-组件"><a href="#用-ts-开发-react-组件" class="headerlink" title="用 ts 开发 react 组件"></a>用 ts 开发 react 组件</h2><br>
-
-<p><strong>基础函数式组件</strong></p>
-<p>不用传递任何的 prop，直接返回一个 jsx 作为 react 组件</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">Title</span></span>() &#123;</span><br><span class="line">  <span class="built_in">return</span> &lt;h1&gt;Welcome to this application&lt;/h1&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<a id="more"></a>
-<p><strong>带有 prop 的函数式组件</strong></p>
-<p>声明 props 类型并将 prop 传递给 jsx</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> GreetingProps = &#123;</span><br><span class="line">  name: string;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> Greeting(props: GreetingProps) &#123;</span><br><span class="line">  <span class="built_in">return</span> &lt;p&gt;Hi &#123;props.name&#125; 👋&lt;/p&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>对 prop 进行解构或许可读性更好</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> Greeting(&#123; name &#125;: GreetingProps) &#123;</span><br><span class="line">  <span class="built_in">return</span> &lt;p&gt;Hi &#123;name&#125; 👋&lt;/p&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>假如 GreetingProps 中的 name 可选，那么就要给 name 一个默认值，以防 name 会变成 undefined</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> LoginMsgProps = &#123;</span><br><span class="line">  name?: string;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> LoginMsg(&#123; name = <span class="string">"Guest"</span> &#125;: LoginMsgProps) &#123;</span><br><span class="line">  <span class="built_in">return</span> &lt;p&gt;Logged <span class="keyword">in</span> as &#123;name&#125;&lt;/p&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>Children</strong></p>
-<p>对于 children，更倾向于显示定义，而对于 ReactNode 类型来说，已经能够接受大多数的东西，比如 jsx，string 字符串等等</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> CardProps = &#123;</span><br><span class="line">  title: string;</span><br><span class="line">  children: React.ReactNode;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> <span class="keyword">function</span> Card(&#123; title, children &#125;: CardProps) &#123;</span><br><span class="line">  <span class="built_in">return</span> (</span><br><span class="line">    &lt;section className=<span class="string">"cards"</span>&gt;</span><br><span class="line">      &lt;h2&gt;&#123;title&#125;&lt;/h2&gt;</span><br><span class="line">      &#123;children&#125;</span><br><span class="line">    &lt;/section&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>当不需要 children 元素时，可以显示定义 children 的类型为 never</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> SaveButtonProps = &#123;</span><br><span class="line"></span><br><span class="line">  children: never</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这样当传递了 children 时就会抛出错误</p>
-<p><strong>对 html 元素使用拓展符</strong></p>
-<p>拓展符对于 html 元素来说是个很好的特性，因为它能帮助你确保你把所有的 html 属性都给挪到你需要的元素上</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> ButtonProps = JSX.IntrinsicElements[<span class="string">"button"</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> Button(&#123; ...allProps &#125;: ButtonProps) &#123;</span><br><span class="line">  <span class="built_in">return</span> &lt;button &#123;...allProps&#125; /&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>属性可以自定义设计</strong></p>
-<p>当需要对 html 某些属性进行约束时，可以对它们进行自定义设定</p>
-<p>如下这个例子，对 type 进行类型约束，这样仅能被赋予<code>&quot;primary&quot; | &quot;secondary&quot;</code>这两个值了</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> StyledButton = Omit&lt;</span><br><span class="line">  JSX.IntrinsicElements[<span class="string">"button"</span>],</span><br><span class="line">  <span class="string">"type"</span> | <span class="string">"className"</span></span><br><span class="line">&gt; &amp; &#123;</span><br><span class="line">  <span class="built_in">type</span>: <span class="string">"primary"</span> | <span class="string">"secondary"</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> StyledButton(&#123; <span class="built_in">type</span>, ...allProps &#125;: StyledButton) &#123;</span><br><span class="line">  <span class="built_in">return</span> &lt;Button className=&#123;`btn-<span class="variable">$&#123;type&#125;</span>`&#125; /&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>Required</strong></p>
-<p>为了防止被 omit 出来的属性会忘记进行添加，封装一个 helper 来进行约束,</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> MakeRequired&lt;T, K extends keyof T&gt; = Omit&lt;T, K&gt; &amp;</span><br><span class="line">  Required&lt;&#123; [P <span class="keyword">in</span> K]: T[P] &#125;&gt;;</span><br></pre></td></tr></table></figure>
-
-<p>这样既可以将需要约束的属性omit出来，同时还能够防止忘记添加被omit出来的属性</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> ImgProps</span><br><span class="line">  = MakeRequired&lt;</span><br><span class="line">    JSX.IntrinsicElements[<span class="string">"img"</span>],</span><br><span class="line">    <span class="string">"alt"</span> | <span class="string">"src"</span></span><br><span class="line">  &gt;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> <span class="keyword">function</span> Img(&#123; alt, ...allProps &#125;: ImgProps) &#123;</span><br><span class="line">  <span class="built_in">return</span> &lt;img alt=&#123;alt&#125; &#123;...allProps&#125; /&gt;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const zz = &lt;Img alt=<span class="string">"..."</span> src=<span class="string">"..."</span> /&gt;;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>essay</category>
-      </categories>
-      <tags>
-        <tag>essay</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>今日随笔</title>
     <url>/2021/03/essay-10/</url>
     <content><![CDATA[<h3 id="removeNonASCII"><a href="#removeNonASCII" class="headerlink" title="removeNonASCII"></a>removeNonASCII</h3><p>Removes non-printable ASCII characters.</p>
@@ -540,6 +471,58 @@
       <tags>
         <tag>JavaScript</tag>
         <tag>Tinymce</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>今日随笔(7-30)</title>
+    <url>/2020/07/essay-2/</url>
+    <content><![CDATA[<h2 id="用-ts-开发-react-组件"><a href="#用-ts-开发-react-组件" class="headerlink" title="用 ts 开发 react 组件"></a>用 ts 开发 react 组件</h2><br>
+
+<p><strong>基础函数式组件</strong></p>
+<p>不用传递任何的 prop，直接返回一个 jsx 作为 react 组件</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">Title</span></span>() &#123;</span><br><span class="line">  <span class="built_in">return</span> &lt;h1&gt;Welcome to this application&lt;/h1&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+<p><strong>带有 prop 的函数式组件</strong></p>
+<p>声明 props 类型并将 prop 传递给 jsx</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> GreetingProps = &#123;</span><br><span class="line">  name: string;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> Greeting(props: GreetingProps) &#123;</span><br><span class="line">  <span class="built_in">return</span> &lt;p&gt;Hi &#123;props.name&#125; 👋&lt;/p&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对 prop 进行解构或许可读性更好</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> Greeting(&#123; name &#125;: GreetingProps) &#123;</span><br><span class="line">  <span class="built_in">return</span> &lt;p&gt;Hi &#123;name&#125; 👋&lt;/p&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>假如 GreetingProps 中的 name 可选，那么就要给 name 一个默认值，以防 name 会变成 undefined</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> LoginMsgProps = &#123;</span><br><span class="line">  name?: string;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> LoginMsg(&#123; name = <span class="string">"Guest"</span> &#125;: LoginMsgProps) &#123;</span><br><span class="line">  <span class="built_in">return</span> &lt;p&gt;Logged <span class="keyword">in</span> as &#123;name&#125;&lt;/p&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Children</strong></p>
+<p>对于 children，更倾向于显示定义，而对于 ReactNode 类型来说，已经能够接受大多数的东西，比如 jsx，string 字符串等等</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> CardProps = &#123;</span><br><span class="line">  title: string;</span><br><span class="line">  children: React.ReactNode;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> <span class="keyword">function</span> Card(&#123; title, children &#125;: CardProps) &#123;</span><br><span class="line">  <span class="built_in">return</span> (</span><br><span class="line">    &lt;section className=<span class="string">"cards"</span>&gt;</span><br><span class="line">      &lt;h2&gt;&#123;title&#125;&lt;/h2&gt;</span><br><span class="line">      &#123;children&#125;</span><br><span class="line">    &lt;/section&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当不需要 children 元素时，可以显示定义 children 的类型为 never</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> SaveButtonProps = &#123;</span><br><span class="line"></span><br><span class="line">  children: never</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样当传递了 children 时就会抛出错误</p>
+<p><strong>对 html 元素使用拓展符</strong></p>
+<p>拓展符对于 html 元素来说是个很好的特性，因为它能帮助你确保你把所有的 html 属性都给挪到你需要的元素上</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> ButtonProps = JSX.IntrinsicElements[<span class="string">"button"</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> Button(&#123; ...allProps &#125;: ButtonProps) &#123;</span><br><span class="line">  <span class="built_in">return</span> &lt;button &#123;...allProps&#125; /&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>属性可以自定义设计</strong></p>
+<p>当需要对 html 某些属性进行约束时，可以对它们进行自定义设定</p>
+<p>如下这个例子，对 type 进行类型约束，这样仅能被赋予<code>&quot;primary&quot; | &quot;secondary&quot;</code>这两个值了</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> StyledButton = Omit&lt;</span><br><span class="line">  JSX.IntrinsicElements[<span class="string">"button"</span>],</span><br><span class="line">  <span class="string">"type"</span> | <span class="string">"className"</span></span><br><span class="line">&gt; &amp; &#123;</span><br><span class="line">  <span class="built_in">type</span>: <span class="string">"primary"</span> | <span class="string">"secondary"</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> StyledButton(&#123; <span class="built_in">type</span>, ...allProps &#125;: StyledButton) &#123;</span><br><span class="line">  <span class="built_in">return</span> &lt;Button className=&#123;`btn-<span class="variable">$&#123;type&#125;</span>`&#125; /&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Required</strong></p>
+<p>为了防止被 omit 出来的属性会忘记进行添加，封装一个 helper 来进行约束,</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> MakeRequired&lt;T, K extends keyof T&gt; = Omit&lt;T, K&gt; &amp;</span><br><span class="line">  Required&lt;&#123; [P <span class="keyword">in</span> K]: T[P] &#125;&gt;;</span><br></pre></td></tr></table></figure>
+
+<p>这样既可以将需要约束的属性omit出来，同时还能够防止忘记添加被omit出来的属性</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> ImgProps</span><br><span class="line">  = MakeRequired&lt;</span><br><span class="line">    JSX.IntrinsicElements[<span class="string">"img"</span>],</span><br><span class="line">    <span class="string">"alt"</span> | <span class="string">"src"</span></span><br><span class="line">  &gt;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> <span class="keyword">function</span> Img(&#123; alt, ...allProps &#125;: ImgProps) &#123;</span><br><span class="line">  <span class="built_in">return</span> &lt;img alt=&#123;alt&#125; &#123;...allProps&#125; /&gt;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const zz = &lt;Img alt=<span class="string">"..."</span> src=<span class="string">"..."</span> /&gt;;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>essay</category>
+      </categories>
+      <tags>
+        <tag>essay</tag>
       </tags>
   </entry>
   <entry>
@@ -652,6 +635,12 @@
 ]]></content>
   </entry>
   <entry>
+    <title>今日随笔</title>
+    <url>/2021/01/essay-7/</url>
+    <content><![CDATA[<p><img src="/images/essay-7/essay.png" alt="essay"></p>
+]]></content>
+  </entry>
+  <entry>
     <title>今日随笔(1-31)</title>
     <url>/2021/01/essay-8/</url>
     <content><![CDATA[<h3 id="null-vs-undefined"><a href="#null-vs-undefined" class="headerlink" title="null vs undefined"></a>null vs undefined</h3><p>The ECMAScript language specification describes them as follows:</p>
@@ -720,10 +709,113 @@
       </tags>
   </entry>
   <entry>
-    <title>今日随笔</title>
-    <url>/2021/01/essay-7/</url>
-    <content><![CDATA[<p><img src="/images/essay-7/essay.png" alt="essay"></p>
+    <title>今日随笔(2-10)</title>
+    <url>/2021/02/essay-9/</url>
+    <content><![CDATA[<h4 id="NaN-和-Number-isNaN"><a href="#NaN-和-Number-isNaN" class="headerlink" title="NaN 和 Number.isNaN"></a>NaN 和 Number.isNaN</h4><hr>
+<p>全局属性 NaN 的值表示不是一个数字（Not-A-Number）。</p>
+<p>NaN 属性的初始值就是 NaN，和 Number.NaN 的值一样。在现代浏览器中（ES5中）， NaN 属性是一个不可配置（non-configurable），不可写（non-writable）的属性。但在ES3中，这个属性的值是可以被更改的，但是也应该避免覆盖。  — mdn</p>
+<a id="more"></a>
+<p>NaN是唯一一个自身不相等的数字，判断一个值是否是NaN，主要是用两种方法来判断，一个是NaN，一个是Number.isNaN。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">NaN === NaN;        // <span class="literal">false</span></span><br><span class="line">Number.NaN === NaN; // <span class="literal">false</span></span><br><span class="line">isNaN(NaN);         // <span class="literal">true</span></span><br><span class="line">isNaN(Number.NaN);  // <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> valueIsNaN(v) &#123; <span class="built_in">return</span> v !== v; &#125;</span><br><span class="line">valueIsNaN(1);          // <span class="literal">false</span></span><br><span class="line">valueIsNaN(NaN);        // <span class="literal">true</span></span><br><span class="line">valueIsNaN(Number.NaN); // <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<p>对于两个方法还是有所不同的：如果当前值是NaN，或者将其强制转换为数字后将是NaN，则前者将返回true。而后者仅当值当前为NaN时才为true：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">isNaN(<span class="string">'hello world'</span>);        // <span class="literal">true</span> <span class="string">'hello world'</span>转数字失败变成NaN。</span><br><span class="line">Number.isNaN(<span class="string">'hello world'</span>); // <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+<p>对于NaN方法：</p>
+<ul>
+<li>Let num be ? ToNumber(number).</li>
+<li>If num is NaN, return true.</li>
+<li>Otherwise, return false.</li>
+</ul>
+<p>而对于Number.isNaN来说：</p>
+<ul>
+<li>If Type(number) is not Number, return false.</li>
+<li>If number is NaN, return true.</li>
+<li>Otherwise, return false.</li>
+</ul>
+<p>可以看到规范中定义的两个方法在第一步中对传递进来对参数的处理方式并不一样。因此这两个方法是有所区别的。</p>
 ]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>理解 flex-basis</title>
+    <url>/2020/11/flex/</url>
+    <content><![CDATA[<p>上个html代码</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"parent"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"child"</span>&gt;</span>Child<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"child"</span>&gt;</span>Child<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"child"</span>&gt;</span>Child<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>css≠</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.parent</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.child</span> &#123;</span><br><span class="line">  <span class="attribute">flex</span>: <span class="number">0</span> <span class="number">1</span> auto; <span class="comment">/* Default flex value */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<html>
+<style>
+body{
+    body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+}
+.parent {
+  display: flex;
+}
+.child {
+  flex: 0 1 auto; /* Default flex value */
+  /* 上面的代码相当于是
+  *flex-grow:0; flex-shrink:1;flex-basis:auto;s
+  *
+  */
+}
+.child-grow{
+    flex:1 0 auto;
+}
+.child-flex{
+    flex:1 1 auto
+}
+</style>
+<div class="parent">
+  <div class="child">Child</div>
+  <div class="child">Child</div>
+  <div class="child">Child</div>
+</div>
+</html>
+
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.child</span> &#123;</span><br><span class="line">  <span class="attribute">flex</span>: [flex-grow] [flex-shrink] [flex-basis];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><span id="showCssText"><span></span></span></p>
+<p><button id="toggle">toggle</button></p>
+<script>
+const btn = document.getElementById("toggle");
+btn.addEventListener('click',function(){
+        const span = document.getElementById('showCssText');
+        [...document.getElementsByClassName('child')].forEach(item=>{
+            const classList = item.classList;
+            // console.log(classList)
+            if(classList.length === 1 ){
+                classList.add('child-grow')
+                span.innerText = 'flex:1 0 auto;'
+            }else if(classList.length === 2){
+                classList.add('child-flex')
+                span.innerText = 'flex:1 1 auto'
+            }else{
+                classList.remove('child-flex')
+                classList.remove('child-grow')
+                span.innerText = 'flex: 0 1 auto; '
+            }
+        })
+})
+</script>
+
+
+<p>flex-basic 默认是auto，告诉元素保持一个理想的尺寸；但是默认情况下的元素宽度是多少？auto告诉元素它的宽度由它的内容决定。为了让子元素占据父元素的所有空间，可以给子元素的宽度设置为<code>width:100%</code>,或者<code>flex-basis:100%</code>,或者<code>flex-grow:1</code>。</p>
+<p>当给flex 的第三值 ，也就是 flex-basis 设置成1000px时，它会试着占据1000px的空间，如果不行，它会等比例占据其他元素的空间，但是其他元素内的文本长度同样会影响这个元素的位置分配；但是在更小的屏幕上可能会发现实际宽度并没有1000px，这是因为给了shrink，这个值告诉元素需要它等值缩小</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">.child-three &#123;</span><br><span class="line">  flex: 0 1 1000px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果grow 和 shrink都是0，那么元素不会等比例压缩，basis如果超出父元素宽度，那直接超出</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">.child-three &#123;</span><br><span class="line">  flex: 0 0 1000px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>css</tag>
+      </tags>
   </entry>
   <entry>
     <title>git常用命令集合</title>
@@ -873,115 +965,6 @@
       </tags>
   </entry>
   <entry>
-    <title>今日随笔(2-10)</title>
-    <url>/2021/02/essay-9/</url>
-    <content><![CDATA[<h4 id="NaN-和-Number-isNaN"><a href="#NaN-和-Number-isNaN" class="headerlink" title="NaN 和 Number.isNaN"></a>NaN 和 Number.isNaN</h4><hr>
-<p>全局属性 NaN 的值表示不是一个数字（Not-A-Number）。</p>
-<p>NaN 属性的初始值就是 NaN，和 Number.NaN 的值一样。在现代浏览器中（ES5中）， NaN 属性是一个不可配置（non-configurable），不可写（non-writable）的属性。但在ES3中，这个属性的值是可以被更改的，但是也应该避免覆盖。  — mdn</p>
-<a id="more"></a>
-<p>NaN是唯一一个自身不相等的数字，判断一个值是否是NaN，主要是用两种方法来判断，一个是NaN，一个是Number.isNaN。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">NaN === NaN;        // <span class="literal">false</span></span><br><span class="line">Number.NaN === NaN; // <span class="literal">false</span></span><br><span class="line">isNaN(NaN);         // <span class="literal">true</span></span><br><span class="line">isNaN(Number.NaN);  // <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> valueIsNaN(v) &#123; <span class="built_in">return</span> v !== v; &#125;</span><br><span class="line">valueIsNaN(1);          // <span class="literal">false</span></span><br><span class="line">valueIsNaN(NaN);        // <span class="literal">true</span></span><br><span class="line">valueIsNaN(Number.NaN); // <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-
-<p>对于两个方法还是有所不同的：如果当前值是NaN，或者将其强制转换为数字后将是NaN，则前者将返回true。而后者仅当值当前为NaN时才为true：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">isNaN(<span class="string">'hello world'</span>);        // <span class="literal">true</span> <span class="string">'hello world'</span>转数字失败变成NaN。</span><br><span class="line">Number.isNaN(<span class="string">'hello world'</span>); // <span class="literal">false</span></span><br></pre></td></tr></table></figure>
-
-<p>对于NaN方法：</p>
-<ul>
-<li>Let num be ? ToNumber(number).</li>
-<li>If num is NaN, return true.</li>
-<li>Otherwise, return false.</li>
-</ul>
-<p>而对于Number.isNaN来说：</p>
-<ul>
-<li>If Type(number) is not Number, return false.</li>
-<li>If number is NaN, return true.</li>
-<li>Otherwise, return false.</li>
-</ul>
-<p>可以看到规范中定义的两个方法在第一步中对传递进来对参数的处理方式并不一样。因此这两个方法是有所区别的。</p>
-]]></content>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>理解 flex-basis</title>
-    <url>/2020/11/flex/</url>
-    <content><![CDATA[<p>上个html代码</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"parent"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"child"</span>&gt;</span>Child<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"child"</span>&gt;</span>Child<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"child"</span>&gt;</span>Child<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>css≠</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.parent</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.child</span> &#123;</span><br><span class="line">  <span class="attribute">flex</span>: <span class="number">0</span> <span class="number">1</span> auto; <span class="comment">/* Default flex value */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<html>
-<style>
-body{
-    body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
-    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-}
-}
-.parent {
-  display: flex;
-}
-.child {
-  flex: 0 1 auto; /* Default flex value */
-  /* 上面的代码相当于是
-  *flex-grow:0; flex-shrink:1;flex-basis:auto;s
-  *
-  */
-}
-.child-grow{
-    flex:1 0 auto;
-}
-.child-flex{
-    flex:1 1 auto
-}
-</style>
-<div class="parent">
-  <div class="child">Child</div>
-  <div class="child">Child</div>
-  <div class="child">Child</div>
-</div>
-</html>
-
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.child</span> &#123;</span><br><span class="line">  <span class="attribute">flex</span>: [flex-grow] [flex-shrink] [flex-basis];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><span id="showCssText"><span></span></span></p>
-<p><button id="toggle">toggle</button></p>
-<script>
-const btn = document.getElementById("toggle");
-btn.addEventListener('click',function(){
-        const span = document.getElementById('showCssText');
-        [...document.getElementsByClassName('child')].forEach(item=>{
-            const classList = item.classList;
-            // console.log(classList)
-            if(classList.length === 1 ){
-                classList.add('child-grow')
-                span.innerText = 'flex:1 0 auto;'
-            }else if(classList.length === 2){
-                classList.add('child-flex')
-                span.innerText = 'flex:1 1 auto'
-            }else{
-                classList.remove('child-flex')
-                classList.remove('child-grow')
-                span.innerText = 'flex: 0 1 auto; '
-            }
-        })
-})
-</script>
-
-
-<p>flex-basic 默认是auto，告诉元素保持一个理想的尺寸；但是默认情况下的元素宽度是多少？auto告诉元素它的宽度由它的内容决定。为了让子元素占据父元素的所有空间，可以给子元素的宽度设置为<code>width:100%</code>,或者<code>flex-basis:100%</code>,或者<code>flex-grow:1</code>。</p>
-<p>当给flex 的第三值 ，也就是 flex-basis 设置成1000px时，它会试着占据1000px的空间，如果不行，它会等比例占据其他元素的空间，但是其他元素内的文本长度同样会影响这个元素的位置分配；但是在更小的屏幕上可能会发现实际宽度并没有1000px，这是因为给了shrink，这个值告诉元素需要它等值缩小</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">.child-three &#123;</span><br><span class="line">  flex: 0 1 1000px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>如果grow 和 shrink都是0，那么元素不会等比例压缩，basis如果超出父元素宽度，那直接超出</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">.child-three &#123;</span><br><span class="line">  flex: 0 0 1000px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <tags>
-        <tag>css</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>内网穿透</title>
     <url>/2020/01/intranet-contacts/</url>
     <content><![CDATA[<p>内网穿透就是把本地服务映射到具有公网IP地址的服务器上，通过访问在公网上的机器，就可以访问到内网</p>
@@ -995,6 +978,27 @@ btn.addEventListener('click',function(){
 ]]></content>
       <tags>
         <tag>tool</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>item</title>
+    <url>/2020/10/item/</url>
+    <content><![CDATA[<h3 id="Proposal-for-a-item-method-on-all-the-built-in-indexables"><a href="#Proposal-for-a-item-method-on-all-the-built-in-indexables" class="headerlink" title="Proposal for a .item() method on all the built-in indexables"></a>Proposal for a .item() method on all the built-in indexables</h3><p>这个方法是给有索引对象内置的一个方法，那么这个方法接收一个 number 类型的 index，对象能够根据 index 来确定值。那其实看到这会有个问题，具备索引的对象自己就能根据索引来确定值了，那么这个方法出现的意义是为什么？它其实是用负值的 index 来获取值，比如</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const arr =[1,2,3]</span><br><span class="line">arr.item(-1) // 3</span><br></pre></td></tr></table></figure>
+
+<p>是这样的用法。<br>那么这个方法是挂载在 String，Array，TypeArray 这三个数据结构的原型链上。<br>然后对于 dom 结构中类型 document.getElementById()这样的返回 NodeList 结构在经过 Array.from 转化之后同样会挂载 item 方法</p>
+<p>但是这个方法目前还处于 stage3 阶段，因此是不能直接使用的 hhhh。但是官方给出了 polyfill</p>
+<p>Like this:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> item(n) &#123;</span><br><span class="line">	<span class="comment"># ToInteger() abstract op</span></span><br><span class="line">	n = Math.trunc(n) || 0;</span><br><span class="line">	<span class="comment"># Allow negative indexing from the end</span></span><br><span class="line">	<span class="keyword">if</span>(n &lt; 0) n += this.length;</span><br><span class="line">	<span class="comment"># OOB access is guaranteed to return undefined</span></span><br><span class="line">	<span class="keyword">if</span>(n &lt; 0 || n &gt;= this.length) <span class="built_in">return</span> undefined;</span><br><span class="line">	<span class="comment"># Otherwise, this is just normal property access</span></span><br><span class="line">	<span class="built_in">return</span> this[n];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Other TypedArray constructors omitted for brevity.</span></span><br><span class="line"><span class="keyword">for</span> (<span class="built_in">let</span> C of [Array, String, Uint8Array]) &#123;</span><br><span class="line">    Object.defineProperty(C.prototype, <span class="string">"item"</span>,</span><br><span class="line">                          &#123; value: item,</span><br><span class="line">                            writable: <span class="literal">true</span>,</span><br><span class="line">                            enumerable: <span class="literal">false</span>,</span><br><span class="line">                            configurable: <span class="literal">true</span> &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2021-3-21-更新"><a href="#2021-3-21-更新" class="headerlink" title="2021-3-21 更新"></a>2021-3-21 更新</h4><p><img src="/images/item/proposal.png" alt="proposal"></p>
+<p>item方法更名为at方法</p>
+<p><code>Spec-compliant polyfills using the old name of .item(): Array.prototype.item, String.prototype.item</code></p>
+<p>The original iteration of this proposal proposed the name of the method to be .item(). Unfortunately, this was found out to be not web compatible. Libraries, notably YUI2 and YUI3, were duck-typing objects to be DOM collections based on the presence of a .item property. Please see <a href="https://github.com/tc39/proposal-relative-indexing-method/issues/28" target="_blank" rel="noopener">#28</a>, <a href="https://github.com/tc39/proposal-relative-indexing-method/issues/31" target="_blank" rel="noopener">#31</a>, and <a href="https://github.com/tc39/proposal-relative-indexing-method/issues/32" target="_blank" rel="noopener">#32</a> for more details.</p>
+<p>Captured below is the original motivation for choosing the .item() name and the original concerns.</p>
+]]></content>
+      <tags>
+        <tag>JavaScript</tag>
       </tags>
   </entry>
   <entry>
@@ -1133,27 +1137,6 @@ btn.addEventListener('click',function(){
       </tags>
   </entry>
   <entry>
-    <title>item</title>
-    <url>/2020/10/item/</url>
-    <content><![CDATA[<h3 id="Proposal-for-a-item-method-on-all-the-built-in-indexables"><a href="#Proposal-for-a-item-method-on-all-the-built-in-indexables" class="headerlink" title="Proposal for a .item() method on all the built-in indexables"></a>Proposal for a .item() method on all the built-in indexables</h3><p>这个方法是给有索引对象内置的一个方法，那么这个方法接收一个 number 类型的 index，对象能够根据 index 来确定值。那其实看到这会有个问题，具备索引的对象自己就能根据索引来确定值了，那么这个方法出现的意义是为什么？它其实是用负值的 index 来获取值，比如</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const arr =[1,2,3]</span><br><span class="line">arr.item(-1) // 3</span><br></pre></td></tr></table></figure>
-
-<p>是这样的用法。<br>那么这个方法是挂载在 String，Array，TypeArray 这三个数据结构的原型链上。<br>然后对于 dom 结构中类型 document.getElementById()这样的返回 NodeList 结构在经过 Array.from 转化之后同样会挂载 item 方法</p>
-<p>但是这个方法目前还处于 stage3 阶段，因此是不能直接使用的 hhhh。但是官方给出了 polyfill</p>
-<p>Like this:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> item(n) &#123;</span><br><span class="line">	<span class="comment"># ToInteger() abstract op</span></span><br><span class="line">	n = Math.trunc(n) || 0;</span><br><span class="line">	<span class="comment"># Allow negative indexing from the end</span></span><br><span class="line">	<span class="keyword">if</span>(n &lt; 0) n += this.length;</span><br><span class="line">	<span class="comment"># OOB access is guaranteed to return undefined</span></span><br><span class="line">	<span class="keyword">if</span>(n &lt; 0 || n &gt;= this.length) <span class="built_in">return</span> undefined;</span><br><span class="line">	<span class="comment"># Otherwise, this is just normal property access</span></span><br><span class="line">	<span class="built_in">return</span> this[n];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Other TypedArray constructors omitted for brevity.</span></span><br><span class="line"><span class="keyword">for</span> (<span class="built_in">let</span> C of [Array, String, Uint8Array]) &#123;</span><br><span class="line">    Object.defineProperty(C.prototype, <span class="string">"item"</span>,</span><br><span class="line">                          &#123; value: item,</span><br><span class="line">                            writable: <span class="literal">true</span>,</span><br><span class="line">                            enumerable: <span class="literal">false</span>,</span><br><span class="line">                            configurable: <span class="literal">true</span> &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="2021-3-21-更新"><a href="#2021-3-21-更新" class="headerlink" title="2021-3-21 更新"></a>2021-3-21 更新</h4><p><img src="/images/item/proposal.png" alt="proposal"></p>
-<p>item方法更名为at方法</p>
-<p><code>Spec-compliant polyfills using the old name of .item(): Array.prototype.item, String.prototype.item</code></p>
-<p>The original iteration of this proposal proposed the name of the method to be .item(). Unfortunately, this was found out to be not web compatible. Libraries, notably YUI2 and YUI3, were duck-typing objects to be DOM collections based on the presence of a .item property. Please see <a href="https://github.com/tc39/proposal-relative-indexing-method/issues/28" target="_blank" rel="noopener">#28</a>, <a href="https://github.com/tc39/proposal-relative-indexing-method/issues/31" target="_blank" rel="noopener">#31</a>, and <a href="https://github.com/tc39/proposal-relative-indexing-method/issues/32" target="_blank" rel="noopener">#32</a> for more details.</p>
-<p>Captured below is the original motivation for choosing the .item() name and the original concerns.</p>
-]]></content>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>leetcode第73之矩阵置0</title>
     <url>/2019/08/leetcode-73/</url>
     <content><![CDATA[<p>描述：: 给定一个 m x n 的矩阵，如果一个元素为 0，则将其所在行和列的所有元素都设为 0。请使用原地算法。</p>
@@ -1171,13 +1154,13 @@ btn.addEventListener('click',function(){
       </tags>
   </entry>
   <entry>
-    <title>leetcode第289之生命游戏</title>
-    <url>/2019/08/leetcode_289/</url>
-    <content><![CDATA[<p>描述：根据百度百科，生命游戏，简称为生命，是英国数学家约翰·何顿·康威在1970年发明的细胞自动机。</p>
-<p>给定一个包含 m × n 个格子的面板，每一个格子都可以看成是一个细胞。每个细胞具有一个初始状态 live（1）即为活细胞， 或 dead（0）即为死细胞。每个细胞与其八个相邻位置（水平，垂直，对角线）的细胞都遵循以下四条生存定律：</p>
-<p>如果活细胞周围八个位置的活细胞数少于两个，则该位置活细胞死亡；<br>如果活细胞周围八个位置有两个或三个活细胞，则该位置活细胞仍然存活；<br>如果活细胞周围八个位置有超过三个活细胞，则该位置活细胞死亡；<br>如果死细胞周围正好有三个活细胞，则该位置死细胞复活；<br>根据当前状态，写一个函数来计算面板上细胞的下一个（一次更新后的）状态。下一个状态是通过将上述规则同时应用于当前状态下的每个细胞所形成的，其中细胞的出生和死亡是同时发生的。</p>
+    <title>leetcode第55之跳跃游戏</title>
+    <url>/2019/08/leetcode_55/</url>
+    <content><![CDATA[<p> 描述:给定一个非负整数数组，你最初位于数组的第一个位置。</p>
+<p>数组中的每个元素代表你在该位置可以跳跃的最大长度。</p>
+<p>判断你是否能够到达最后一个位置</p>
 <a id="more"></a>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * leetcode 生命游戏</span><br><span class="line"> * @param &#123;number[][]&#125; board</span><br><span class="line"> * @<span class="built_in">return</span> &#123;void&#125; Do not <span class="built_in">return</span> anything, modify board <span class="keyword">in</span>-place instead.</span><br><span class="line"> */</span><br><span class="line">var gameOfLife = <span class="keyword">function</span>(board) &#123;</span><br><span class="line">    //额外空间法</span><br><span class="line">  <span class="built_in">let</span> tempArr = [];</span><br><span class="line">  <span class="keyword">for</span> (<span class="built_in">let</span> i = 0; i &lt; board.length; i++) &#123;</span><br><span class="line">    <span class="built_in">let</span> [...arr] = board[i];</span><br><span class="line">    tempArr.push(arr);</span><br><span class="line">  &#125;</span><br><span class="line">  const flag = (point, data, flag) =&gt; &#123;</span><br><span class="line">    <span class="built_in">let</span> count = 0;</span><br><span class="line">    <span class="built_in">let</span> top = 0,</span><br><span class="line">      bottom = data.length - 1;</span><br><span class="line">    //上下左右四个边界</span><br><span class="line">    //八个点 循环三层</span><br><span class="line">    <span class="keyword">if</span> (top &lt; point.x) &#123;</span><br><span class="line">      //说明当前节点的上一层节点存在至少一个节点</span><br><span class="line">      <span class="keyword">for</span> (<span class="built_in">let</span> i = point.y - 1; i &lt;= point.y + 1; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (data[point.x - 1][i] == flag) &#123;</span><br><span class="line">          ++count;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">let</span> i = point.y - 1; i &lt;= point.y + 1; i++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (data[point.x][i] == flag &amp;&amp; i != point.y) &#123;</span><br><span class="line">        ++count;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (bottom &gt; point.x) &#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="built_in">let</span> i = point.y - 1; i &lt;= point.y + 1; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (data[point.x + 1][i] == flag) &#123;</span><br><span class="line">          ++count;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> count;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">for</span> (<span class="built_in">let</span> x = 0; x &lt; board.length; x++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">let</span> y = 0; y &lt; board[0].length; y++) &#123;</span><br><span class="line">      const point = &#123;</span><br><span class="line">        x,</span><br><span class="line">        y</span><br><span class="line">      &#125;;</span><br><span class="line">      const count = flag(point, board, 1);</span><br><span class="line">      <span class="keyword">if</span> (count &lt; 2 &amp;&amp; board[x][y] == 1) &#123;</span><br><span class="line">        tempArr[x][y] = 0;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> ((count == 2 || count == 3) &amp;&amp; board[x][y] == 1) &#123;</span><br><span class="line">        tempArr[x][y] = 1;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (count &gt; 3 &amp;&amp; board[x][y] == 1) &#123;</span><br><span class="line">        tempArr[x][y] = 0;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (count == 3 &amp;&amp; board[x][y] == 0) &#123;</span><br><span class="line">        tempArr[x][y] = 1;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">return</span> Object.assign(board, tempArr);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">// console.log(<span class="string">"gameOfLife([\r\n    [0,1,0],\r\n    [0,0,1],\r\n    [1,1,1],\r\n    [0,0,0]\r\n  ]):"</span>, gameOfLife([</span><br><span class="line">//     [0,1,0],</span><br><span class="line">//     [0,0,1],</span><br><span class="line">//     [1,1,1],</span><br><span class="line">//     [0,0,0]</span><br><span class="line">//   ]));</span><br><span class="line">// gameOfLife([</span><br><span class="line">//     [0,1,0],</span><br><span class="line">//     [0,0,1],</span><br><span class="line">//     [1,1,1],</span><br><span class="line">//     [0,0,0]</span><br><span class="line">//   ]);</span><br><span class="line"></span><br><span class="line">var _gameOfLife = <span class="keyword">function</span>(board) &#123;</span><br><span class="line">    //原地算法</span><br><span class="line">  const flag = (point, data, flag) =&gt; &#123;</span><br><span class="line">    <span class="built_in">let</span> count = 0;</span><br><span class="line">    <span class="built_in">let</span> top = 0,</span><br><span class="line">      bottom = data.length - 1;</span><br><span class="line">    </span><br><span class="line">    //上下左右四个边界</span><br><span class="line">    //八个点 循环三层</span><br><span class="line">    <span class="keyword">if</span> (top &lt; point.x) &#123;</span><br><span class="line">      //说明当前节点的上一层节点存在至少一个节点</span><br><span class="line">      <span class="keyword">for</span> (<span class="built_in">let</span> i = point.y - 1; i &lt;= point.y + 1; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (data[point.x - 1][i] == flag[0]||data[point.x - 1][i] == flag[1]) &#123;</span><br><span class="line">          ++count;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">let</span> i = point.y - 1; i &lt;= point.y + 1; i++) &#123;</span><br><span class="line">      <span class="keyword">if</span> ((data[point.x ][i] == flag[0]||data[point.x ][i] == flag[1]) &amp;&amp; i != point.y) &#123;</span><br><span class="line">        ++count;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (bottom &gt; point.x) &#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="built_in">let</span> i = point.y - 1; i &lt;= point.y + 1; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (data[point.x +1][i] == flag[0]||data[point.x +1][i] == flag[1]) &#123;</span><br><span class="line">          ++count;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> count;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">for</span> (<span class="built_in">let</span> x = 0; x &lt; board.length; x++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">let</span> y = 0; y &lt; board[0].length; y++) &#123;</span><br><span class="line">      const point = &#123;</span><br><span class="line">        x,</span><br><span class="line">        y</span><br><span class="line">      &#125;;</span><br><span class="line">      //alive -&gt; dead -2</span><br><span class="line">      //dead -&gt; alive 2</span><br><span class="line">      const count = flag(point, board, [1,-2]);</span><br><span class="line">      <span class="keyword">if</span> (count &lt; 2 &amp;&amp; board[x][y] == 1) &#123;</span><br><span class="line">        board[x][y] = -2;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> ((count == 2 || count == 3) &amp;&amp; board[x][y] == 1) &#123;</span><br><span class="line">        board[x][y] = 1;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (count &gt; 3 &amp;&amp; board[x][y] == 1) &#123;</span><br><span class="line">        board[x][y] = -2;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (count == 3 &amp;&amp; board[x][y] == 0) &#123;</span><br><span class="line">        board[x][y] = 2;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span> (<span class="built_in">let</span> x = 0; x &lt; board.length; x++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">let</span> y = 0; y &lt; board[0].length; y++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (board[x][y] == -2) &#123;</span><br><span class="line">        board[x][y]=0;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span>(board[x][y]==2)&#123;</span><br><span class="line">        board[x][y]=1;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">return</span> board;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">console.log(<span class="string">"\r\n_gameOfLife([\r\n    [0,1,0],\r\n    [0,0,1],\r\n    [1,1,1],\r\n    [0,0,0]\r\n  ]):"</span>, </span><br><span class="line">_gameOfLife([</span><br><span class="line">    [0,1,0],[0,0,1],[1,1,1],[0,0,0]</span><br><span class="line">  ]));</span><br><span class="line"></span><br><span class="line">_gameOfLife([</span><br><span class="line">    [0,1,0],[0,0,1],[1,1,1],[0,0,0]</span><br><span class="line">  ])</span><br></pre></td></tr></table></figure>]]></content>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * @param &#123;number[]&#125; nums</span><br><span class="line"> * @<span class="built_in">return</span> &#123;boolean&#125;</span><br><span class="line"> */</span><br><span class="line"> </span><br><span class="line">var canJump = <span class="keyword">function</span>(nums) &#123;</span><br><span class="line">    const length = nums.length;</span><br><span class="line">    <span class="built_in">let</span> lastIndex = nums.length-1;</span><br><span class="line">    const res = [];</span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">let</span> i=lastIndex;i&gt;=0;--i)&#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[i]+i&gt;=lastIndex)&#123;</span><br><span class="line">             </span><br><span class="line">                lastIndex = i;</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> lastIndex == 0 ;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>leetcode</category>
       </categories>
@@ -1186,13 +1169,13 @@ btn.addEventListener('click',function(){
       </tags>
   </entry>
   <entry>
-    <title>leetcode第55之跳跃游戏</title>
-    <url>/2019/08/leetcode_55/</url>
-    <content><![CDATA[<p> 描述:给定一个非负整数数组，你最初位于数组的第一个位置。</p>
-<p>数组中的每个元素代表你在该位置可以跳跃的最大长度。</p>
-<p>判断你是否能够到达最后一个位置</p>
+    <title>leetcode第289之生命游戏</title>
+    <url>/2019/08/leetcode_289/</url>
+    <content><![CDATA[<p>描述：根据百度百科，生命游戏，简称为生命，是英国数学家约翰·何顿·康威在1970年发明的细胞自动机。</p>
+<p>给定一个包含 m × n 个格子的面板，每一个格子都可以看成是一个细胞。每个细胞具有一个初始状态 live（1）即为活细胞， 或 dead（0）即为死细胞。每个细胞与其八个相邻位置（水平，垂直，对角线）的细胞都遵循以下四条生存定律：</p>
+<p>如果活细胞周围八个位置的活细胞数少于两个，则该位置活细胞死亡；<br>如果活细胞周围八个位置有两个或三个活细胞，则该位置活细胞仍然存活；<br>如果活细胞周围八个位置有超过三个活细胞，则该位置活细胞死亡；<br>如果死细胞周围正好有三个活细胞，则该位置死细胞复活；<br>根据当前状态，写一个函数来计算面板上细胞的下一个（一次更新后的）状态。下一个状态是通过将上述规则同时应用于当前状态下的每个细胞所形成的，其中细胞的出生和死亡是同时发生的。</p>
 <a id="more"></a>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * @param &#123;number[]&#125; nums</span><br><span class="line"> * @<span class="built_in">return</span> &#123;boolean&#125;</span><br><span class="line"> */</span><br><span class="line"> </span><br><span class="line">var canJump = <span class="keyword">function</span>(nums) &#123;</span><br><span class="line">    const length = nums.length;</span><br><span class="line">    <span class="built_in">let</span> lastIndex = nums.length-1;</span><br><span class="line">    const res = [];</span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">let</span> i=lastIndex;i&gt;=0;--i)&#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[i]+i&gt;=lastIndex)&#123;</span><br><span class="line">             </span><br><span class="line">                lastIndex = i;</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> lastIndex == 0 ;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * leetcode 生命游戏</span><br><span class="line"> * @param &#123;number[][]&#125; board</span><br><span class="line"> * @<span class="built_in">return</span> &#123;void&#125; Do not <span class="built_in">return</span> anything, modify board <span class="keyword">in</span>-place instead.</span><br><span class="line"> */</span><br><span class="line">var gameOfLife = <span class="keyword">function</span>(board) &#123;</span><br><span class="line">    //额外空间法</span><br><span class="line">  <span class="built_in">let</span> tempArr = [];</span><br><span class="line">  <span class="keyword">for</span> (<span class="built_in">let</span> i = 0; i &lt; board.length; i++) &#123;</span><br><span class="line">    <span class="built_in">let</span> [...arr] = board[i];</span><br><span class="line">    tempArr.push(arr);</span><br><span class="line">  &#125;</span><br><span class="line">  const flag = (point, data, flag) =&gt; &#123;</span><br><span class="line">    <span class="built_in">let</span> count = 0;</span><br><span class="line">    <span class="built_in">let</span> top = 0,</span><br><span class="line">      bottom = data.length - 1;</span><br><span class="line">    //上下左右四个边界</span><br><span class="line">    //八个点 循环三层</span><br><span class="line">    <span class="keyword">if</span> (top &lt; point.x) &#123;</span><br><span class="line">      //说明当前节点的上一层节点存在至少一个节点</span><br><span class="line">      <span class="keyword">for</span> (<span class="built_in">let</span> i = point.y - 1; i &lt;= point.y + 1; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (data[point.x - 1][i] == flag) &#123;</span><br><span class="line">          ++count;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">let</span> i = point.y - 1; i &lt;= point.y + 1; i++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (data[point.x][i] == flag &amp;&amp; i != point.y) &#123;</span><br><span class="line">        ++count;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (bottom &gt; point.x) &#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="built_in">let</span> i = point.y - 1; i &lt;= point.y + 1; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (data[point.x + 1][i] == flag) &#123;</span><br><span class="line">          ++count;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> count;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">for</span> (<span class="built_in">let</span> x = 0; x &lt; board.length; x++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">let</span> y = 0; y &lt; board[0].length; y++) &#123;</span><br><span class="line">      const point = &#123;</span><br><span class="line">        x,</span><br><span class="line">        y</span><br><span class="line">      &#125;;</span><br><span class="line">      const count = flag(point, board, 1);</span><br><span class="line">      <span class="keyword">if</span> (count &lt; 2 &amp;&amp; board[x][y] == 1) &#123;</span><br><span class="line">        tempArr[x][y] = 0;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> ((count == 2 || count == 3) &amp;&amp; board[x][y] == 1) &#123;</span><br><span class="line">        tempArr[x][y] = 1;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (count &gt; 3 &amp;&amp; board[x][y] == 1) &#123;</span><br><span class="line">        tempArr[x][y] = 0;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (count == 3 &amp;&amp; board[x][y] == 0) &#123;</span><br><span class="line">        tempArr[x][y] = 1;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">return</span> Object.assign(board, tempArr);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">// console.log(<span class="string">"gameOfLife([\r\n    [0,1,0],\r\n    [0,0,1],\r\n    [1,1,1],\r\n    [0,0,0]\r\n  ]):"</span>, gameOfLife([</span><br><span class="line">//     [0,1,0],</span><br><span class="line">//     [0,0,1],</span><br><span class="line">//     [1,1,1],</span><br><span class="line">//     [0,0,0]</span><br><span class="line">//   ]));</span><br><span class="line">// gameOfLife([</span><br><span class="line">//     [0,1,0],</span><br><span class="line">//     [0,0,1],</span><br><span class="line">//     [1,1,1],</span><br><span class="line">//     [0,0,0]</span><br><span class="line">//   ]);</span><br><span class="line"></span><br><span class="line">var _gameOfLife = <span class="keyword">function</span>(board) &#123;</span><br><span class="line">    //原地算法</span><br><span class="line">  const flag = (point, data, flag) =&gt; &#123;</span><br><span class="line">    <span class="built_in">let</span> count = 0;</span><br><span class="line">    <span class="built_in">let</span> top = 0,</span><br><span class="line">      bottom = data.length - 1;</span><br><span class="line">    </span><br><span class="line">    //上下左右四个边界</span><br><span class="line">    //八个点 循环三层</span><br><span class="line">    <span class="keyword">if</span> (top &lt; point.x) &#123;</span><br><span class="line">      //说明当前节点的上一层节点存在至少一个节点</span><br><span class="line">      <span class="keyword">for</span> (<span class="built_in">let</span> i = point.y - 1; i &lt;= point.y + 1; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (data[point.x - 1][i] == flag[0]||data[point.x - 1][i] == flag[1]) &#123;</span><br><span class="line">          ++count;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">let</span> i = point.y - 1; i &lt;= point.y + 1; i++) &#123;</span><br><span class="line">      <span class="keyword">if</span> ((data[point.x ][i] == flag[0]||data[point.x ][i] == flag[1]) &amp;&amp; i != point.y) &#123;</span><br><span class="line">        ++count;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (bottom &gt; point.x) &#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="built_in">let</span> i = point.y - 1; i &lt;= point.y + 1; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (data[point.x +1][i] == flag[0]||data[point.x +1][i] == flag[1]) &#123;</span><br><span class="line">          ++count;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> count;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">for</span> (<span class="built_in">let</span> x = 0; x &lt; board.length; x++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">let</span> y = 0; y &lt; board[0].length; y++) &#123;</span><br><span class="line">      const point = &#123;</span><br><span class="line">        x,</span><br><span class="line">        y</span><br><span class="line">      &#125;;</span><br><span class="line">      //alive -&gt; dead -2</span><br><span class="line">      //dead -&gt; alive 2</span><br><span class="line">      const count = flag(point, board, [1,-2]);</span><br><span class="line">      <span class="keyword">if</span> (count &lt; 2 &amp;&amp; board[x][y] == 1) &#123;</span><br><span class="line">        board[x][y] = -2;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> ((count == 2 || count == 3) &amp;&amp; board[x][y] == 1) &#123;</span><br><span class="line">        board[x][y] = 1;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (count &gt; 3 &amp;&amp; board[x][y] == 1) &#123;</span><br><span class="line">        board[x][y] = -2;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (count == 3 &amp;&amp; board[x][y] == 0) &#123;</span><br><span class="line">        board[x][y] = 2;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span> (<span class="built_in">let</span> x = 0; x &lt; board.length; x++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">let</span> y = 0; y &lt; board[0].length; y++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (board[x][y] == -2) &#123;</span><br><span class="line">        board[x][y]=0;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span>(board[x][y]==2)&#123;</span><br><span class="line">        board[x][y]=1;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">return</span> board;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">console.log(<span class="string">"\r\n_gameOfLife([\r\n    [0,1,0],\r\n    [0,0,1],\r\n    [1,1,1],\r\n    [0,0,0]\r\n  ]):"</span>, </span><br><span class="line">_gameOfLife([</span><br><span class="line">    [0,1,0],[0,0,1],[1,1,1],[0,0,0]</span><br><span class="line">  ]));</span><br><span class="line"></span><br><span class="line">_gameOfLife([</span><br><span class="line">    [0,1,0],[0,0,1],[1,1,1],[0,0,0]</span><br><span class="line">  ])</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>leetcode</category>
       </categories>
@@ -1463,6 +1446,30 @@ btn.addEventListener('click',function(){
 ]]></content>
   </entry>
   <entry>
+    <title>元素定位</title>
+    <url>/2020/12/location/</url>
+    <content><![CDATA[<ol>
+<li><p>focus</p>
+<ul>
+<li><p>Options</p>
+<p>An optional object providing options to control aspects of the focusing process. This object may contain the following property:</p>
+<ul>
+<li><p>preventScroll Optional</p>
+<p> A Boolean value indicating whether or not the browser should scroll the document to bring the newly-focused element into view. A value of false for preventScroll (the default) means that the browser will scroll the element into view after focusing it. If preventScroll is set to true, no scrolling will occur.</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>计算元素的scrollTop，让滚动列表的scrollTop的值等于元素的scrollTop</p>
+</li>
+<li><p>scrollIntoView</p>
+<p> <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView" target="_blank" rel="noopener">文档</a></p>
+</li>
+</ol>
+]]></content>
+  </entry>
+  <entry>
     <title>面试总结(2)</title>
     <url>/2020/08/mianshi2/</url>
     <content><![CDATA[<h2 id="https握手过程"><a href="#https握手过程" class="headerlink" title="https握手过程"></a>https握手过程</h2><ol>
@@ -1668,30 +1675,6 @@ btn.addEventListener('click',function(){
       <tags>
         <tag>JavaScript</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>元素定位</title>
-    <url>/2020/12/location/</url>
-    <content><![CDATA[<ol>
-<li><p>focus</p>
-<ul>
-<li><p>Options</p>
-<p>An optional object providing options to control aspects of the focusing process. This object may contain the following property:</p>
-<ul>
-<li><p>preventScroll Optional</p>
-<p> A Boolean value indicating whether or not the browser should scroll the document to bring the newly-focused element into view. A value of false for preventScroll (the default) means that the browser will scroll the element into view after focusing it. If preventScroll is set to true, no scrolling will occur.</p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>计算元素的scrollTop，让滚动列表的scrollTop的值等于元素的scrollTop</p>
-</li>
-<li><p>scrollIntoView</p>
-<p> <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView" target="_blank" rel="noopener">文档</a></p>
-</li>
-</ol>
-]]></content>
   </entry>
   <entry>
     <title>provide of vue3</title>
@@ -1939,38 +1922,6 @@ createComponentInstance
       </tags>
   </entry>
   <entry>
-    <title>简单请求和复杂请求</title>
-    <url>/2020/09/request-of-complex-simply/</url>
-    <content><![CDATA[<h3 id="简单请求"><a href="#简单请求" class="headerlink" title="简单请求"></a>简单请求</h3><p>请求方法只能是以下三种：</p>
-<ol>
-<li>GET</li>
-<li>POST</li>
-<li>HEAD</li>
-</ol>
-<p>请求头只能用以下几种：</p>
-<ol>
-<li>Accept</li>
-<li>Accept-Language</li>
-<li>Content-Language</li>
-<li>Content-Type （需要注意额外的限制）</li>
-<li>DPR</li>
-<li>Downlink</li>
-<li>Save-Data</li>
-<li>Viewport-Width</li>
-<li>Width</li>
-</ol>
-<p>Content——Type只能有以下几种</p>
-<ol>
-<li>text/plain</li>
-<li>multipart/form-data</li>
-<li>application/x-www-form-urlencoded</li>
-</ol>
-<p>请求中的任意XMLHttpRequestUpload 对象均没有注册任何事件监听器；XMLHttpRequestUpload 对象可以使用 XMLHttpRequest.upload 属性访问。</p>
-<p>请求中没有使用 ReadableStream 对象。</p>
-<h3 id="复杂请求"><a href="#复杂请求" class="headerlink" title="复杂请求"></a>复杂请求</h3><p>非简单请求就是复杂亲求</p>
-]]></content>
-  </entry>
-  <entry>
     <title>JavaScript读书笔记</title>
     <url>/2019/08/readingNote-JS/</url>
     <content><![CDATA[<h2 id="new运算符的实现"><a href="#new运算符的实现" class="headerlink" title="new运算符的实现"></a>new运算符的实现</h2><h3 id="定义一个函数，以及原型链的方法"><a href="#定义一个函数，以及原型链的方法" class="headerlink" title="定义一个函数，以及原型链的方法"></a>定义一个函数，以及原型链的方法</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> Testfoo(name) &#123;</span><br><span class="line">    console.log(this[name]) </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Testfoo.prototype.sayHello= <span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">    console.log(<span class="string">'hello'</span>);</span><br><span class="line">    <span class="built_in">return</span> 1;</span><br><span class="line">&#125;</span><br><span class="line">//使用new运算符</span><br><span class="line"><span class="built_in">let</span> aaa = new Testfoo();</span><br><span class="line">aaa.sayHello();//输出hello</span><br><span class="line">//不使用new运算符</span><br><span class="line"><span class="built_in">let</span> testObj  = &#123;&#125;;//创建空对象</span><br><span class="line">testObj=Object.create(Testfoo.prototype);//创建一个具有Testfoo的原型链的空方法</span><br><span class="line">Testfoo.call(testObj);//指定this</span><br><span class="line">console.log(<span class="string">'testObj'</span>,testObj.sayHello());//输出hello</span><br></pre></td></tr></table></figure>
@@ -2177,6 +2128,38 @@ createComponentInstance
       </tags>
   </entry>
   <entry>
+    <title>简单请求和复杂请求</title>
+    <url>/2020/09/request-of-complex-simply/</url>
+    <content><![CDATA[<h3 id="简单请求"><a href="#简单请求" class="headerlink" title="简单请求"></a>简单请求</h3><p>请求方法只能是以下三种：</p>
+<ol>
+<li>GET</li>
+<li>POST</li>
+<li>HEAD</li>
+</ol>
+<p>请求头只能用以下几种：</p>
+<ol>
+<li>Accept</li>
+<li>Accept-Language</li>
+<li>Content-Language</li>
+<li>Content-Type （需要注意额外的限制）</li>
+<li>DPR</li>
+<li>Downlink</li>
+<li>Save-Data</li>
+<li>Viewport-Width</li>
+<li>Width</li>
+</ol>
+<p>Content——Type只能有以下几种</p>
+<ol>
+<li>text/plain</li>
+<li>multipart/form-data</li>
+<li>application/x-www-form-urlencoded</li>
+</ol>
+<p>请求中的任意XMLHttpRequestUpload 对象均没有注册任何事件监听器；XMLHttpRequestUpload 对象可以使用 XMLHttpRequest.upload 属性访问。</p>
+<p>请求中没有使用 ReadableStream 对象。</p>
+<h3 id="复杂请求"><a href="#复杂请求" class="headerlink" title="复杂请求"></a>复杂请求</h3><p>非简单请求就是复杂亲求</p>
+]]></content>
+  </entry>
+  <entry>
     <title>在JS文件使用svg加载svg文件</title>
     <url>/2020/10/svgInJS/</url>
     <content><![CDATA[<h3 id="怎么在js文件中用引用svg文件"><a href="#怎么在js文件中用引用svg文件" class="headerlink" title="怎么在js文件中用引用svg文件"></a>怎么在js文件中用引用svg文件</h3><p>使用webpack的require.context,它接收三个参数</p>
@@ -2222,114 +2205,6 @@ createComponentInstance
       <tags>
         <tag>JavaScript</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>优雅的书写方式</title>
-    <url>/2019/10/usage-for-better/</url>
-    <content><![CDATA[<h3 id="变量声明"><a href="#变量声明" class="headerlink" title="变量声明"></a>变量声明</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//变量声明用let or const</span><br><span class="line">let a = 1;</span><br><span class="line">const b = 2;</span><br></pre></td></tr></table></figure>
-
-<a id="more"></a>
-<h3 id="对象属性赋值"><a href="#对象属性赋值" class="headerlink" title="对象属性赋值"></a>对象属性赋值</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const getKey(key)&#123;</span><br><span class="line">  return `a key named $&#123;key&#125;`</span><br><span class="line">&#125;</span><br><span class="line">//使用动态属性作为键名，用计算后的属性</span><br><span class="line">const obj=&#123;</span><br><span class="line">  id:1,</span><br><span class="line">  name:&apos;John&apos;,</span><br><span class="line">  [getKey(&apos;enable&apos;)]:&apos;Tom&apos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="键名与键值的变量名相同，不需要写两遍"><a href="#键名与键值的变量名相同，不需要写两遍" class="headerlink" title="键名与键值的变量名相同，不需要写两遍"></a>键名与键值的变量名相同，不需要写两遍</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const name = &apos;John&apos;;</span><br><span class="line">const obj = &#123;</span><br><span class="line">  name</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="对象数据分组排序"><a href="#对象数据分组排序" class="headerlink" title="对象数据分组排序"></a>对象数据分组排序</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//解构赋值的排前面</span><br><span class="line">const name = &apos;John&apos;,age=2, grade = 80;</span><br><span class="line">const obj = &#123;</span><br><span class="line">  name,</span><br><span class="line">  age,</span><br><span class="line">  level:grade</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="属性声明"><a href="#属性声明" class="headerlink" title="属性声明"></a>属性声明</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//键名声明不需要写引号,仅有无效标识符需要加引号</span><br><span class="line">const obj = &#123;</span><br><span class="line">  a:1,</span><br><span class="line">  &apos;data-self:true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="不要直接调用Object-prototype的方法，比如hasOwnProperty"><a href="#不要直接调用Object-prototype的方法，比如hasOwnProperty" class="headerlink" title="不要直接调用Object.prototype的方法，比如hasOwnProperty"></a>不要直接调用Object.prototype的方法，比如hasOwnProperty</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const obj = &#123;</span><br><span class="line">  a:1</span><br><span class="line">&#125;</span><br><span class="line">//不要直接用ojb.hasOwnProperty(Do not use obj.hasOwnProperty directly)</span><br><span class="line"></span><br><span class="line">Object.prototype.hasOwnProperty.call(obj,key)//use Object.prototype.call instead</span><br><span class="line">//or</span><br><span class="line">const has = Object.prototype.hasOwnProperty;</span><br><span class="line">has.call(obj,key)//</span><br></pre></td></tr></table></figure>
-
-<h3 id="use-the-object-spread-operator-instead-of-Object-assign-to-shallow-copy-objects"><a href="#use-the-object-spread-operator-instead-of-Object-assign-to-shallow-copy-objects" class="headerlink" title="use the object spread operator instead of Object.assign to shallow-copy objects"></a>use the object spread operator instead of Object.assign to shallow-copy objects</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const obj = &#123;</span><br><span class="line">  name:&apos;Tom&apos;</span><br><span class="line">&#125;</span><br><span class="line">const cloneObj =&#123;...obj,age:1&#125;//cloneObj -&gt; &#123;name:&apos;Tom&apos;,age:1&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="use-spread-operator-to-copy-Array"><a href="#use-spread-operator-to-copy-Array" class="headerlink" title="use spread operator to copy Array"></a>use spread operator to copy Array</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const arr = [1,2,3,4];</span><br><span class="line">const cloneArr = [...arr];//cloneArr - .[1,2,3,4]</span><br></pre></td></tr></table></figure>
-
-<h3 id="use-Array-from-or-spread-operator-to-convert-an-iterable-Object"><a href="#use-Array-from-or-spread-operator-to-convert-an-iterable-Object" class="headerlink" title="use Array.from() or spread operator to convert an iterable Object"></a>use Array.from() or spread operator to convert an iterable Object</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const foo = document.querySelectorAll(&apos;.foo&apos;);//it is a nodelist</span><br><span class="line"></span><br><span class="line">const arrNode = Array.from(foo);</span><br><span class="line"></span><br><span class="line">//or</span><br><span class="line"></span><br><span class="line">const arrNode1 = [...foo];</span><br></pre></td></tr></table></figure>
-
-<h3 id="use-Array-from-instead-of-spread-operator-for-mapping-over-iterables-because-it-won’t-creat-an-intermediate-array"><a href="#use-Array-from-instead-of-spread-operator-for-mapping-over-iterables-because-it-won’t-creat-an-intermediate-array" class="headerlink" title="use Array.from() instead of spread operator  for mapping over iterables ,because it won’t creat an intermediate array"></a>use Array.from() instead of spread operator  for mapping over iterables ,because it won’t creat an intermediate array</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const foo =[1,2,3];</span><br><span class="line">const bar = Array.from(foo,function(item)&#123;</span><br><span class="line">  return Math.pow(item,2)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<h3 id="use-object-destructuring-when-accessing-and-using-multiple-properties-of-an-object"><a href="#use-object-destructuring-when-accessing-and-using-multiple-properties-of-an-object" class="headerlink" title="use object destructuring when accessing and using multiple properties of an object."></a>use object destructuring when accessing and using multiple properties of an object.</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//No</span><br><span class="line">const render = param =&gt; &#123;</span><br><span class="line">  const firstName = param.firstName;</span><br><span class="line">  const secondName = param.secondName;</span><br><span class="line">&#125;</span><br><span class="line">//Yes,and maybe we should give them default value,or if firstName or secondName dont exist in param , they will be undefined</span><br><span class="line">const render = param =&gt;&#123;</span><br><span class="line">  const &#123;</span><br><span class="line">    firstName=&apos;&apos; ,secondName=&apos;&apos;</span><br><span class="line">  &#125; = param;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="use-array-destructuring-instead-of-arr-0"><a href="#use-array-destructuring-instead-of-arr-0" class="headerlink" title="use array destructuring instead of arr[0]."></a>use array destructuring instead of arr[0].</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const render = param =&gt;&#123;</span><br><span class="line">  const [firstName,secondName] = param;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="use-object-destructuring-if-u-dont-need-certaine-property"><a href="#use-object-destructuring-if-u-dont-need-certaine-property" class="headerlink" title="use object destructuring if u dont need certaine property"></a>use object destructuring if u dont need certaine property</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// if u dont need secondName,u can use object destructuring,and what u need exists in rest</span><br><span class="line">const render = param =&gt;&#123;</span><br><span class="line">  const &#123;</span><br><span class="line">    secondName,...rest</span><br><span class="line">  &#125; =param//rest-&gt; &#123;firstName,age&#125;</span><br><span class="line">&#125;</span><br><span class="line">render(&#123;</span><br><span class="line">  firstName,</span><br><span class="line">  secondName,</span><br><span class="line">  age</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<h3 id="use-instead-of-‘’-or-“”"><a href="#use-instead-of-‘’-or-“”" class="headerlink" title="use `` instead of ‘’ or “”"></a>use `` instead of ‘’ or “”</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const name = &apos;John&apos;;</span><br><span class="line">//No</span><br><span class="line">const wholeName = &apos;My name is&apos;+ name;</span><br><span class="line">//Yes</span><br><span class="line">const wholeName = `my name is $&#123;name&#125;`</span><br></pre></td></tr></table></figure>
-
-<h3 id="dont-declare-function-in-a-block-like-if-while-etc"><a href="#dont-declare-function-in-a-block-like-if-while-etc" class="headerlink" title="dont declare function in a block like if,while ,etc"></a>dont declare function in a block like if,while ,etc</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//No</span><br><span class="line">if(true)&#123;</span><br><span class="line">  function test()&#123;</span><br><span class="line">    console.log(&apos;bad&apos;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">//Yes</span><br><span class="line">let test ;</span><br><span class="line">if(true)&#123;</span><br><span class="line">  test = () =&gt;&#123;</span><br><span class="line">    console.log(&apos;good&apos;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="use-spread-operator-…-instead-of-arguments-because-arguments-is-a-Array-like-Array-and-not-a-real-Array"><a href="#use-spread-operator-…-instead-of-arguments-because-arguments-is-a-Array-like-Array-and-not-a-real-Array" class="headerlink" title="use spread operator(…) instead of arguments,because arguments is a Array-like Array and not a real Array"></a>use spread operator(…) instead of arguments,because arguments is a Array-like Array and not a real Array</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//No</span><br><span class="line">const render = arguments =&gt; &#123;</span><br><span class="line">  const arr = Array.prototype.slice.call(arguments);</span><br><span class="line">&#125;</span><br><span class="line">//Yes</span><br><span class="line">const render =(...args) =&gt; &#123;</span><br><span class="line">  const arr = args;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="use-void-0-instead-of-undefined"><a href="#use-void-0-instead-of-undefined" class="headerlink" title="use void 0 instead of undefined"></a>use void 0 instead of undefined</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let undefined = 1;</span><br><span class="line">var a;</span><br><span class="line">console.log(a === undefined)// false</span><br><span class="line">console.log(a === void 0)//false</span><br></pre></td></tr></table></figure>
-
-<h3 id="in-a-module-with-single-export-use-default-export-instead-of-name-export"><a href="#in-a-module-with-single-export-use-default-export-instead-of-name-export" class="headerlink" title="in a module with single export use default export instead of name export"></a>in a module with single export use default export instead of name export</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export default function es6()&#123;&#125;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>vue3</title>
-    <url>/2021/09/vue3/</url>
-    <content><![CDATA[<h3 id="intro"><a href="#intro" class="headerlink" title="intro"></a>intro</h3><p>本文介绍vue3 的setup语法糖写法，语法的导入组件以及暴露模版变量均不用显示导出，引入 === 导出</p>
-<h3 id="接收属性"><a href="#接收属性" class="headerlink" title="接收属性"></a>接收属性</h3><p><code>defineProps</code>来接收从父级组件传递来的属性以及方法,能接收<code>string</code>类型的数组或者类型对象</p>
-<a id="more"></a>
-<p>example:</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> props = defineProps(&#123;</span><br><span class="line">    msg?:<span class="built_in">String</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">const</span> props = defineProps([<span class="string">'msg'</span>])</span><br></pre></td></tr></table></figure>
-
-<p>除了上面这种接收类型声明，还可以采用的就是ts的类型注入写法<br>example:</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> props = defineProps&lt;&#123;<span class="attr">msg</span>:string&#125;&gt;()</span><br></pre></td></tr></table></figure>
-
-<p>But以上写法不支持的是给默认值，具体可以查看vue的rfc<br>So vue提供了额外的一个方法-&gt; <code>withDefaults</code><br>example:</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> props = withDefaults(defineProps&lt;&#123;<span class="attr">msg</span>:string&#125;&gt;(),&#123;<span class="attr">msg</span>:<span class="string">'12313123'</span>&#125;)</span><br></pre></td></tr></table></figure>
-
-<h3 id="触发方法到父组件"><a href="#触发方法到父组件" class="headerlink" title="触发方法到父组件"></a>触发方法到父组件</h3><p><code>defineEmits</code>用来定义子组件内部可以触发的事件</p>
-<p>example:</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> emits = defineEmits([<span class="string">'input'</span>])</span><br></pre></td></tr></table></figure>
-
-<p>或者<br>example:</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> emit = defineEmits&lt;&#123; (event:<span class="string">'change'</span>,<span class="attr">value</span>:string):<span class="keyword">void</span> &#125; &gt;()</span><br></pre></td></tr></table></figure>
-
-<p>子组件中未在<code>emit</code>中声明到事件将默认会认为是根元素的原生dom事件<br>使用方法 example:</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">emit(<span class="string">'change'</span>,<span class="string">'1'</span>)</span><br></pre></td></tr></table></figure>
-
-<h3 id="父组件使用子组件的变量defineExpose"><a href="#父组件使用子组件的变量defineExpose" class="headerlink" title="父组件使用子组件的变量defineExpose"></a>父组件使用子组件的变量<code>defineExpose</code></h3><p>example:</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> a = <span class="number">1</span></span><br><span class="line">defineExpose(&#123;a&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>父组件直接ref调一下就行了</p>
-<h3 id="v-model-语法糖"><a href="#v-model-语法糖" class="headerlink" title="v-model 语法糖"></a>v-model 语法糖</h3><p>modelValue + update:modelValue</p>
-<p>v-model:show =&gt; update:show</p>
-<h3 id="css的v-bind语法糖"><a href="#css的v-bind语法糖" class="headerlink" title="css的v-bind语法糖"></a>css的<code>v-bind</code>语法糖</h3><p>js</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> red = ref(<span class="string">'red'</span>)</span><br></pre></td></tr></table></figure>
-
-<p>css</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.red</span>&#123;</span><br><span class="line">    <span class="attribute">color</span>:<span class="built_in">v-bind</span>(red)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>html</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">:class</span>=<span class="string">"red"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>编译结果</p>
-<p><code>&lt;div class=&quot;red&quot; style=&quot;--e43c18bc-red:red;&quot;&gt;12313123&lt;/div&gt;</code></p>
-<p>为什么会编译成行内样式？因为性能好 ，可以查看benchmark对比</p>
-<h3 id="defineExpose函数"><a href="#defineExpose函数" class="headerlink" title="defineExpose函数"></a>defineExpose函数</h3><p>setup语法下子组件数据默认不暴露出去，父组件只能调用在子组件中使用defineExpose暴露的数据或者方法，详见vue3的文档</p>
-]]></content>
-      <tags>
-        <tag>JavaScript</tag>
-        <tag>Vue</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>今日随笔</title>
-    <url>/2020/08/vue-react-new-release/</url>
-    <content><![CDATA[<p>react 更新了<br><img src="/images/update-of-frame/react.png" alt="react"></p>
-<p>vue脚手架更新</p>
-<p><img src="/images/update-of-frame/vue.jpeg" alt="vue"></p>
-<p>来玩~</p>
-]]></content>
-      <categories>
-        <category>vue</category>
-        <category>react</category>
-      </categories>
   </entry>
   <entry>
     <title>工具函数</title>
@@ -2458,6 +2333,114 @@ createComponentInstance
       </categories>
       <tags>
         <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>今日随笔</title>
+    <url>/2020/08/vue-react-new-release/</url>
+    <content><![CDATA[<p>react 更新了<br><img src="/images/update-of-frame/react.png" alt="react"></p>
+<p>vue脚手架更新</p>
+<p><img src="/images/update-of-frame/vue.jpeg" alt="vue"></p>
+<p>来玩~</p>
+]]></content>
+      <categories>
+        <category>vue</category>
+        <category>react</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>优雅的书写方式</title>
+    <url>/2019/10/usage-for-better/</url>
+    <content><![CDATA[<h3 id="变量声明"><a href="#变量声明" class="headerlink" title="变量声明"></a>变量声明</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//变量声明用let or const</span><br><span class="line">let a = 1;</span><br><span class="line">const b = 2;</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+<h3 id="对象属性赋值"><a href="#对象属性赋值" class="headerlink" title="对象属性赋值"></a>对象属性赋值</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const getKey(key)&#123;</span><br><span class="line">  return `a key named $&#123;key&#125;`</span><br><span class="line">&#125;</span><br><span class="line">//使用动态属性作为键名，用计算后的属性</span><br><span class="line">const obj=&#123;</span><br><span class="line">  id:1,</span><br><span class="line">  name:&apos;John&apos;,</span><br><span class="line">  [getKey(&apos;enable&apos;)]:&apos;Tom&apos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="键名与键值的变量名相同，不需要写两遍"><a href="#键名与键值的变量名相同，不需要写两遍" class="headerlink" title="键名与键值的变量名相同，不需要写两遍"></a>键名与键值的变量名相同，不需要写两遍</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const name = &apos;John&apos;;</span><br><span class="line">const obj = &#123;</span><br><span class="line">  name</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="对象数据分组排序"><a href="#对象数据分组排序" class="headerlink" title="对象数据分组排序"></a>对象数据分组排序</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//解构赋值的排前面</span><br><span class="line">const name = &apos;John&apos;,age=2, grade = 80;</span><br><span class="line">const obj = &#123;</span><br><span class="line">  name,</span><br><span class="line">  age,</span><br><span class="line">  level:grade</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="属性声明"><a href="#属性声明" class="headerlink" title="属性声明"></a>属性声明</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//键名声明不需要写引号,仅有无效标识符需要加引号</span><br><span class="line">const obj = &#123;</span><br><span class="line">  a:1,</span><br><span class="line">  &apos;data-self:true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="不要直接调用Object-prototype的方法，比如hasOwnProperty"><a href="#不要直接调用Object-prototype的方法，比如hasOwnProperty" class="headerlink" title="不要直接调用Object.prototype的方法，比如hasOwnProperty"></a>不要直接调用Object.prototype的方法，比如hasOwnProperty</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const obj = &#123;</span><br><span class="line">  a:1</span><br><span class="line">&#125;</span><br><span class="line">//不要直接用ojb.hasOwnProperty(Do not use obj.hasOwnProperty directly)</span><br><span class="line"></span><br><span class="line">Object.prototype.hasOwnProperty.call(obj,key)//use Object.prototype.call instead</span><br><span class="line">//or</span><br><span class="line">const has = Object.prototype.hasOwnProperty;</span><br><span class="line">has.call(obj,key)//</span><br></pre></td></tr></table></figure>
+
+<h3 id="use-the-object-spread-operator-instead-of-Object-assign-to-shallow-copy-objects"><a href="#use-the-object-spread-operator-instead-of-Object-assign-to-shallow-copy-objects" class="headerlink" title="use the object spread operator instead of Object.assign to shallow-copy objects"></a>use the object spread operator instead of Object.assign to shallow-copy objects</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const obj = &#123;</span><br><span class="line">  name:&apos;Tom&apos;</span><br><span class="line">&#125;</span><br><span class="line">const cloneObj =&#123;...obj,age:1&#125;//cloneObj -&gt; &#123;name:&apos;Tom&apos;,age:1&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="use-spread-operator-to-copy-Array"><a href="#use-spread-operator-to-copy-Array" class="headerlink" title="use spread operator to copy Array"></a>use spread operator to copy Array</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const arr = [1,2,3,4];</span><br><span class="line">const cloneArr = [...arr];//cloneArr - .[1,2,3,4]</span><br></pre></td></tr></table></figure>
+
+<h3 id="use-Array-from-or-spread-operator-to-convert-an-iterable-Object"><a href="#use-Array-from-or-spread-operator-to-convert-an-iterable-Object" class="headerlink" title="use Array.from() or spread operator to convert an iterable Object"></a>use Array.from() or spread operator to convert an iterable Object</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const foo = document.querySelectorAll(&apos;.foo&apos;);//it is a nodelist</span><br><span class="line"></span><br><span class="line">const arrNode = Array.from(foo);</span><br><span class="line"></span><br><span class="line">//or</span><br><span class="line"></span><br><span class="line">const arrNode1 = [...foo];</span><br></pre></td></tr></table></figure>
+
+<h3 id="use-Array-from-instead-of-spread-operator-for-mapping-over-iterables-because-it-won’t-creat-an-intermediate-array"><a href="#use-Array-from-instead-of-spread-operator-for-mapping-over-iterables-because-it-won’t-creat-an-intermediate-array" class="headerlink" title="use Array.from() instead of spread operator  for mapping over iterables ,because it won’t creat an intermediate array"></a>use Array.from() instead of spread operator  for mapping over iterables ,because it won’t creat an intermediate array</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const foo =[1,2,3];</span><br><span class="line">const bar = Array.from(foo,function(item)&#123;</span><br><span class="line">  return Math.pow(item,2)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="use-object-destructuring-when-accessing-and-using-multiple-properties-of-an-object"><a href="#use-object-destructuring-when-accessing-and-using-multiple-properties-of-an-object" class="headerlink" title="use object destructuring when accessing and using multiple properties of an object."></a>use object destructuring when accessing and using multiple properties of an object.</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//No</span><br><span class="line">const render = param =&gt; &#123;</span><br><span class="line">  const firstName = param.firstName;</span><br><span class="line">  const secondName = param.secondName;</span><br><span class="line">&#125;</span><br><span class="line">//Yes,and maybe we should give them default value,or if firstName or secondName dont exist in param , they will be undefined</span><br><span class="line">const render = param =&gt;&#123;</span><br><span class="line">  const &#123;</span><br><span class="line">    firstName=&apos;&apos; ,secondName=&apos;&apos;</span><br><span class="line">  &#125; = param;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="use-array-destructuring-instead-of-arr-0"><a href="#use-array-destructuring-instead-of-arr-0" class="headerlink" title="use array destructuring instead of arr[0]."></a>use array destructuring instead of arr[0].</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const render = param =&gt;&#123;</span><br><span class="line">  const [firstName,secondName] = param;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="use-object-destructuring-if-u-dont-need-certaine-property"><a href="#use-object-destructuring-if-u-dont-need-certaine-property" class="headerlink" title="use object destructuring if u dont need certaine property"></a>use object destructuring if u dont need certaine property</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// if u dont need secondName,u can use object destructuring,and what u need exists in rest</span><br><span class="line">const render = param =&gt;&#123;</span><br><span class="line">  const &#123;</span><br><span class="line">    secondName,...rest</span><br><span class="line">  &#125; =param//rest-&gt; &#123;firstName,age&#125;</span><br><span class="line">&#125;</span><br><span class="line">render(&#123;</span><br><span class="line">  firstName,</span><br><span class="line">  secondName,</span><br><span class="line">  age</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="use-instead-of-‘’-or-“”"><a href="#use-instead-of-‘’-or-“”" class="headerlink" title="use `` instead of ‘’ or “”"></a>use `` instead of ‘’ or “”</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const name = &apos;John&apos;;</span><br><span class="line">//No</span><br><span class="line">const wholeName = &apos;My name is&apos;+ name;</span><br><span class="line">//Yes</span><br><span class="line">const wholeName = `my name is $&#123;name&#125;`</span><br></pre></td></tr></table></figure>
+
+<h3 id="dont-declare-function-in-a-block-like-if-while-etc"><a href="#dont-declare-function-in-a-block-like-if-while-etc" class="headerlink" title="dont declare function in a block like if,while ,etc"></a>dont declare function in a block like if,while ,etc</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//No</span><br><span class="line">if(true)&#123;</span><br><span class="line">  function test()&#123;</span><br><span class="line">    console.log(&apos;bad&apos;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">//Yes</span><br><span class="line">let test ;</span><br><span class="line">if(true)&#123;</span><br><span class="line">  test = () =&gt;&#123;</span><br><span class="line">    console.log(&apos;good&apos;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="use-spread-operator-…-instead-of-arguments-because-arguments-is-a-Array-like-Array-and-not-a-real-Array"><a href="#use-spread-operator-…-instead-of-arguments-because-arguments-is-a-Array-like-Array-and-not-a-real-Array" class="headerlink" title="use spread operator(…) instead of arguments,because arguments is a Array-like Array and not a real Array"></a>use spread operator(…) instead of arguments,because arguments is a Array-like Array and not a real Array</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//No</span><br><span class="line">const render = arguments =&gt; &#123;</span><br><span class="line">  const arr = Array.prototype.slice.call(arguments);</span><br><span class="line">&#125;</span><br><span class="line">//Yes</span><br><span class="line">const render =(...args) =&gt; &#123;</span><br><span class="line">  const arr = args;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="use-void-0-instead-of-undefined"><a href="#use-void-0-instead-of-undefined" class="headerlink" title="use void 0 instead of undefined"></a>use void 0 instead of undefined</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let undefined = 1;</span><br><span class="line">var a;</span><br><span class="line">console.log(a === undefined)// false</span><br><span class="line">console.log(a === void 0)//false</span><br></pre></td></tr></table></figure>
+
+<h3 id="in-a-module-with-single-export-use-default-export-instead-of-name-export"><a href="#in-a-module-with-single-export-use-default-export-instead-of-name-export" class="headerlink" title="in a module with single export use default export instead of name export"></a>in a module with single export use default export instead of name export</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export default function es6()&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>vue3</title>
+    <url>/2021/09/vue3/</url>
+    <content><![CDATA[<h3 id="intro"><a href="#intro" class="headerlink" title="intro"></a>intro</h3><p>本文介绍vue3 的setup语法糖写法，语法的导入组件以及暴露模版变量均不用显示导出，引入 === 导出</p>
+<h3 id="接收属性"><a href="#接收属性" class="headerlink" title="接收属性"></a>接收属性</h3><p><code>defineProps</code>来接收从父级组件传递来的属性以及方法,能接收<code>string</code>类型的数组或者类型对象</p>
+<a id="more"></a>
+<p>example:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> props = defineProps(&#123;</span><br><span class="line">    msg?:<span class="built_in">String</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">const</span> props = defineProps([<span class="string">'msg'</span>])</span><br></pre></td></tr></table></figure>
+
+<p>除了上面这种接收类型声明，还可以采用的就是ts的类型注入写法<br>example:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> props = defineProps&lt;&#123;<span class="attr">msg</span>:string&#125;&gt;()</span><br></pre></td></tr></table></figure>
+
+<p>But以上写法不支持的是给默认值，具体可以查看vue的rfc<br>So vue提供了额外的一个方法-&gt; <code>withDefaults</code><br>example:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> props = withDefaults(defineProps&lt;&#123;<span class="attr">msg</span>:string&#125;&gt;(),&#123;<span class="attr">msg</span>:<span class="string">'12313123'</span>&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="触发方法到父组件"><a href="#触发方法到父组件" class="headerlink" title="触发方法到父组件"></a>触发方法到父组件</h3><p><code>defineEmits</code>用来定义子组件内部可以触发的事件</p>
+<p>example:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> emits = defineEmits([<span class="string">'input'</span>])</span><br></pre></td></tr></table></figure>
+
+<p>或者<br>example:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> emit = defineEmits&lt;&#123; (event:<span class="string">'change'</span>,<span class="attr">value</span>:string):<span class="keyword">void</span> &#125; &gt;()</span><br></pre></td></tr></table></figure>
+
+<p>子组件中未在<code>emit</code>中声明到事件将默认会认为是根元素的原生dom事件<br>使用方法 example:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">emit(<span class="string">'change'</span>,<span class="string">'1'</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="父组件使用子组件的变量defineExpose"><a href="#父组件使用子组件的变量defineExpose" class="headerlink" title="父组件使用子组件的变量defineExpose"></a>父组件使用子组件的变量<code>defineExpose</code></h3><p>example:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> a = <span class="number">1</span></span><br><span class="line">defineExpose(&#123;a&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>父组件直接ref调一下就行了</p>
+<h3 id="v-model-语法糖"><a href="#v-model-语法糖" class="headerlink" title="v-model 语法糖"></a>v-model 语法糖</h3><p>modelValue + update:modelValue</p>
+<p>v-model:show =&gt; update:show</p>
+<h3 id="css的v-bind语法糖"><a href="#css的v-bind语法糖" class="headerlink" title="css的v-bind语法糖"></a>css的<code>v-bind</code>语法糖</h3><p>js</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> red = ref(<span class="string">'red'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>css</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.red</span>&#123;</span><br><span class="line">    <span class="attribute">color</span>:<span class="built_in">v-bind</span>(red)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>html</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">:class</span>=<span class="string">"red"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>编译结果</p>
+<p><code>&lt;div class=&quot;red&quot; style=&quot;--e43c18bc-red:red;&quot;&gt;12313123&lt;/div&gt;</code></p>
+<p>为什么会编译成行内样式？因为性能好 ，可以查看benchmark对比</p>
+<h3 id="defineExpose函数"><a href="#defineExpose函数" class="headerlink" title="defineExpose函数"></a>defineExpose函数</h3><p>setup语法下子组件数据默认不暴露出去，父组件只能调用在子组件中使用defineExpose暴露的数据或者方法，详见vue3的文档</p>
+]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+        <tag>Vue</tag>
       </tags>
   </entry>
   <entry>
