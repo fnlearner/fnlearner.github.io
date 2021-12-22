@@ -27,25 +27,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Traversing</title>
-    <url>/2019/09/Traversing/</url>
-    <content><![CDATA[<h3 id="深度优先遍历"><a href="#深度优先遍历" class="headerlink" title="深度优先遍历"></a>深度优先遍历</h3><p>从某个顶点v出发，首先访问该顶点然后依次从它的各个未被访问的邻接点出发深度优先搜索遍历图，直至图中所有和v有路径相通的顶点都被访问到</p>
-<a id="more"></a>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 递归</span></span><br><span class="line"><span class="built_in">let</span> deepTraversal1 = (node, nodeList = []) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (node !== null) &#123;</span><br><span class="line">    nodeList.push(node)</span><br><span class="line">    <span class="built_in">let</span> children = node.children</span><br><span class="line">    <span class="keyword">if</span>(children!==null||children.length!==0)&#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="built_in">let</span> i = 0; i &lt; children.length; i++) &#123;</span><br><span class="line">        deepTraversal1(children[i], nodeList)</span><br><span class="line">      &#125;</span><br><span class="line">     &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">return</span> nodeList</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 递归</span></span><br><span class="line"><span class="built_in">let</span> deepTraversal2= (node)=&gt;&#123;</span><br><span class="line">  <span class="built_in">let</span> nodes=[];</span><br><span class="line">  <span class="keyword">if</span>(node!== null)&#123;</span><br><span class="line">    nodes.push(node);</span><br><span class="line">    <span class="built_in">let</span> children = node.children;</span><br><span class="line">    <span class="keyword">if</span>(children!==null||children.length!==0)&#123;</span><br><span class="line">      <span class="keyword">for</span>(<span class="built_in">let</span> i=0;i&lt;children.length;i++)&#123;</span><br><span class="line">        nodes= nodes.concat(deepTraversal2(children[i]));</span><br><span class="line">      &#125;</span><br><span class="line">     &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">return</span> nodes;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 非递归</span></span><br><span class="line"><span class="built_in">let</span> deepTraversal2=(node)=&gt;&#123;</span><br><span class="line">  <span class="built_in">let</span> stack =[];</span><br><span class="line">  <span class="built_in">let</span> nodes=[];</span><br><span class="line">  <span class="keyword">if</span>(node)&#123;</span><br><span class="line">    /*如果node节点存在*/</span><br><span class="line">    stack.push(node);</span><br><span class="line">    <span class="keyword">while</span>(stack.length)&#123;</span><br><span class="line">      <span class="built_in">let</span> item= stack.pop();//取出队尾元素</span><br><span class="line">      <span class="built_in">let</span> children = item.children;//获取元素子节点</span><br><span class="line">      nodes.push(children);//推进子节点，结构与父节点一样</span><br><span class="line">      <span class="keyword">if</span>(children!==null||children.length!==0)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="built_in">let</span> i =0;i&lt;children.length;i++)&#123;</span><br><span class="line">          stack.push(children[i]);</span><br><span class="line">        &#125;</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">return</span> nodes;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="广度优先遍历"><a href="#广度优先遍历" class="headerlink" title="广度优先遍历"></a>广度优先遍历</h3><p>从某顶点v出发，在访问了v之后依次访问v的各个未曾访问过的邻接点，然后分别从这些邻接点出发依次访问它们的邻接点，并使得“先被访问的顶点的邻接点先于后被访问的顶点的邻接点被访问，直至图中所有已被访问的顶点的邻接点都被访问到</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">let</span> widthTraversal2=(node)=&gt;&#123;</span><br><span class="line">  <span class="built_in">let</span> nodes=[];</span><br><span class="line">  <span class="built_in">let</span> stack=[];</span><br><span class="line">  <span class="keyword">if</span>(node)&#123;</span><br><span class="line">    stack.push(node);</span><br><span class="line">    <span class="keyword">while</span>(stack.length)&#123;</span><br><span class="line">      <span class="built_in">let</span> item = stack.shift();</span><br><span class="line">      <span class="built_in">let</span> children = item.children;</span><br><span class="line">      nodes.push(node);</span><br><span class="line">      <span class="keyword">if</span>(children!==null||children.length!==0)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="built_in">let</span> i =0;i&lt;children.length;i++)&#123;</span><br><span class="line">          stack.push(children[i]);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">return</span> nodes;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>ObjectKeys</title>
     <url>/2020/07/ObjectKeys/</url>
     <content><![CDATA[<h3 id="Object-keys"><a href="#Object-keys" class="headerlink" title="Object.keys"></a>Object.keys</h3><p>上一个Object.keys()在js中的用法</p>
@@ -117,44 +98,23 @@
       </tags>
   </entry>
   <entry>
-    <title>axios</title>
-    <url>/2020/09/axios/</url>
-    <content><![CDATA[<h3 id="为什么-axios-既可以用-axios-这样请求-，也可以-axios-get-这样请求？"><a href="#为什么-axios-既可以用-axios-这样请求-，也可以-axios-get-这样请求？" class="headerlink" title="为什么 axios 既可以用 axios({})这样请求 ，也可以 axios.get()这样请求？"></a>为什么 axios 既可以用 axios({})这样请求 ，也可以 axios.get()这样请求？</h3><p>在使<code>axios.create</code>的时候,调用了这个方法</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Create an instance of Axios</span><br><span class="line"> *</span><br><span class="line"> * @param &#123;Object&#125; defaultConfig The default config <span class="keyword">for</span> the instance</span><br><span class="line"> * @<span class="built_in">return</span> &#123;Axios&#125; A new instance of Axios</span><br><span class="line"> */</span><br><span class="line"><span class="keyword">function</span> createInstance(defaultConfig) &#123;</span><br><span class="line">  var context = new Axios(defaultConfig);//生成配置 和拦截器</span><br><span class="line">  <span class="comment"># 在这里，instance 是一个 wrapped 函数，将context作为参数传递给request，所以调用axios(&#123;&#125;)就是在调用request(&#123;&#125;)</span></span><br><span class="line">  var instance = <span class="built_in">bind</span>(Axios.prototype.request, context);</span><br><span class="line"></span><br><span class="line">  <span class="comment">#Copy axios.prototype to instance</span></span><br><span class="line">  <span class="comment"># 这个是把Axios原型链的东西挂载到instance上去</span></span><br><span class="line">  <span class="comment"># 因为instance 是个一个functoin，所以在直接赋值的时候不能直接看到</span></span><br><span class="line">  <span class="comment"># 能在instance 的prototype上可以看到</span></span><br><span class="line">  <span class="comment"># 所以在调用类似axios.get(）这类的方法是能正常运行</span></span><br><span class="line">  utils.extend(instance, Axios.prototype, context);</span><br><span class="line"></span><br><span class="line">  <span class="comment"># Copy context to instance</span></span><br><span class="line">  utils.extend(instance, context);</span><br><span class="line">  <span class="comment"># console.log(instance)</span></span><br><span class="line">  <span class="built_in">return</span> instance;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    <title>Traversing</title>
+    <url>/2019/09/Traversing/</url>
+    <content><![CDATA[<h3 id="深度优先遍历"><a href="#深度优先遍历" class="headerlink" title="深度优先遍历"></a>深度优先遍历</h3><p>从某个顶点v出发，首先访问该顶点然后依次从它的各个未被访问的邻接点出发深度优先搜索遍历图，直至图中所有和v有路径相通的顶点都被访问到</p>
+<a id="more"></a>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 递归</span></span><br><span class="line"><span class="built_in">let</span> deepTraversal1 = (node, nodeList = []) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (node !== null) &#123;</span><br><span class="line">    nodeList.push(node)</span><br><span class="line">    <span class="built_in">let</span> children = node.children</span><br><span class="line">    <span class="keyword">if</span>(children!==null||children.length!==0)&#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="built_in">let</span> i = 0; i &lt; children.length; i++) &#123;</span><br><span class="line">        deepTraversal1(children[i], nodeList)</span><br><span class="line">      &#125;</span><br><span class="line">     &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">return</span> nodeList</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>从图中可以看到,方法之类的确实挂载到了原型链上<br><img src="/images/axios/prototype.png" alt="prototype"></p>
-<h3 id="cancalToken-怎么取消请求的"><a href="#cancalToken-怎么取消请求的" class="headerlink" title="cancalToken 怎么取消请求的"></a>cancalToken 怎么取消请求的</h3><p>那么其实什么时候需要取消请求，举一个很常见的例子，取消重复请求，就是当前已经发出请求的情况下，后续同样的请求如果发送就会被取消（如果是表单的提交也可以使用 dom 的 disabld 禁止点击 2333）<br>举个栗子：<br>在 axios 上是挂载了 Cancel 相应的东西</p>
-<ul>
-<li>axios.Cancel = require(‘./cancel/Cancel’);</li>
-<li>axios.CancelToken = require(‘./cancel/CancelToken’);</li>
-<li>axios.isCancel = require(‘./cancel/isCancel’);</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">var data = document.getElementById(<span class="string">"data"</span>).value;</span><br><span class="line">         const CancelToken = axios.CancelToken;</span><br><span class="line">         axios</span><br><span class="line">           .post(</span><br><span class="line">             <span class="string">"/post/server"</span>,</span><br><span class="line">             &#123;</span><br><span class="line">               data,</span><br><span class="line">             &#125;,</span><br><span class="line">             &#123;</span><br><span class="line">               cancelToken: new CancelToken((c) =&gt; &#123;</span><br><span class="line">                 cancel = c;</span><br><span class="line">                 console.log(c)</span><br><span class="line">               &#125;),</span><br><span class="line">             &#125;</span><br><span class="line">           )</span><br><span class="line">           .<span class="keyword">then</span>(<span class="keyword">function</span> (res) &#123;</span><br><span class="line">             output.className = <span class="string">"container"</span>;</span><br><span class="line">             output.innerHTML = res.data;</span><br><span class="line">           &#125;)</span><br><span class="line">           .catch(<span class="keyword">function</span> (err) &#123;</span><br><span class="line">             output.className = <span class="string">"container text-danger"</span>;</span><br><span class="line">             output.innerHTML = err.message;</span><br><span class="line">           &#125;);</span><br><span class="line">         cancel(<span class="string">'sdfsd'</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 递归</span></span><br><span class="line"><span class="built_in">let</span> deepTraversal2= (node)=&gt;&#123;</span><br><span class="line">  <span class="built_in">let</span> nodes=[];</span><br><span class="line">  <span class="keyword">if</span>(node!== null)&#123;</span><br><span class="line">    nodes.push(node);</span><br><span class="line">    <span class="built_in">let</span> children = node.children;</span><br><span class="line">    <span class="keyword">if</span>(children!==null||children.length!==0)&#123;</span><br><span class="line">      <span class="keyword">for</span>(<span class="built_in">let</span> i=0;i&lt;children.length;i++)&#123;</span><br><span class="line">        nodes= nodes.concat(deepTraversal2(children[i]));</span><br><span class="line">      &#125;</span><br><span class="line">     &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">return</span> nodes;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>然后这里 axios.post 实际上就是调用了<code>request</code>方法，方法的返回值是一个 promise，最后一个执行的 promise 是一个叫<code>dispatchRequest</code>的函数，函数位置在 core/dispatchRequest.js 文件下，因为返回的是一个 promise ，状态是 pendding，加入到微任务队列，然后执行主线程的<code>cancel</code>方法。cancel 方法是在初始化 cancelToken 的时候给 cancel 赋值了。</p>
-<p><code>cancelToken：</code></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">function</span> CancelToken(executor) &#123;</span><br><span class="line">  <span class="keyword">if</span> (typeof executor !== <span class="string">'function'</span>) &#123;</span><br><span class="line">    throw new TypeError(<span class="string">'executor must be a function.'</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  var resolvePromise;</span><br><span class="line">  <span class="comment"># 这里把resolve钩子赋值给resolvePromise 为了让cancel函数能够改变promise的状态</span></span><br><span class="line">  this.promise = new Promise(<span class="keyword">function</span> promiseExecutor(resolve) &#123;</span><br><span class="line">    resolvePromise = resolve;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  var token = this;</span><br><span class="line">  executor(<span class="keyword">function</span> cancel(message) &#123;</span><br><span class="line">    <span class="keyword">if</span> (token.reason) &#123;</span><br><span class="line">      <span class="comment"># Cancellation has already been requested</span></span><br><span class="line">      <span class="built_in">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    token.reason = new Cancel(message);</span><br><span class="line">    <span class="comment"># 这里改变promise状态位fulfilled</span></span><br><span class="line">    resolvePromise(token.reason);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 非递归</span></span><br><span class="line"><span class="built_in">let</span> deepTraversal2=(node)=&gt;&#123;</span><br><span class="line">  <span class="built_in">let</span> stack =[];</span><br><span class="line">  <span class="built_in">let</span> nodes=[];</span><br><span class="line">  <span class="keyword">if</span>(node)&#123;</span><br><span class="line">    /*如果node节点存在*/</span><br><span class="line">    stack.push(node);</span><br><span class="line">    <span class="keyword">while</span>(stack.length)&#123;</span><br><span class="line">      <span class="built_in">let</span> item= stack.pop();//取出队尾元素</span><br><span class="line">      <span class="built_in">let</span> children = item.children;//获取元素子节点</span><br><span class="line">      nodes.push(children);//推进子节点，结构与父节点一样</span><br><span class="line">      <span class="keyword">if</span>(children!==null||children.length!==0)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="built_in">let</span> i =0;i&lt;children.length;i++)&#123;</span><br><span class="line">          stack.push(children[i]);</span><br><span class="line">        &#125;</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">return</span> nodes;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>主线程任务执行完成的时候开始进入下一轮任务执行，没有宏任务需要执行，直接执行微任务，先执行刚刚 request 返回的 promise，其实是开始执行了<code>dispatchRequest</code></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">module.exports = <span class="keyword">function</span> dispatchRequest(config) &#123;</span><br><span class="line">  throwIfCancellationRequested(config);</span><br><span class="line">  <span class="comment"># 省略其他代码</span></span><br><span class="line">&#125;</span><br><span class="line">/**</span><br><span class="line"> * Throws a `Cancel` <span class="keyword">if</span> cancellation has been requested.</span><br><span class="line"> */</span><br><span class="line"><span class="keyword">function</span> throwIfCancellationRequested(config) &#123;</span><br><span class="line">  <span class="keyword">if</span> (config.cancelToken) &#123;</span><br><span class="line">      <span class="comment"># 这个方法挂载在canceltoken原型链傻姑娘</span></span><br><span class="line">    config.cancelToken.throwIfRequested();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">CancelToken.prototype.throwIfRequested = <span class="keyword">function</span> <span class="function"><span class="title">throwIfRequested</span></span>() &#123;</span><br><span class="line">  <span class="keyword">if</span> (this.reason) &#123;</span><br><span class="line">      <span class="comment"># 这里抛出错误，然后在主程序代码中的catch捕获，然后程序返回，不进行后续创建xhr对象的过程</span></span><br><span class="line">    throw this.reason;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="广度优先遍历"><a href="#广度优先遍历" class="headerlink" title="广度优先遍历"></a>广度优先遍历</h3><p>从某顶点v出发，在访问了v之后依次访问v的各个未曾访问过的邻接点，然后分别从这些邻接点出发依次访问它们的邻接点，并使得“先被访问的顶点的邻接点先于后被访问的顶点的邻接点被访问，直至图中所有已被访问的顶点的邻接点都被访问到</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">let</span> widthTraversal2=(node)=&gt;&#123;</span><br><span class="line">  <span class="built_in">let</span> nodes=[];</span><br><span class="line">  <span class="built_in">let</span> stack=[];</span><br><span class="line">  <span class="keyword">if</span>(node)&#123;</span><br><span class="line">    stack.push(node);</span><br><span class="line">    <span class="keyword">while</span>(stack.length)&#123;</span><br><span class="line">      <span class="built_in">let</span> item = stack.shift();</span><br><span class="line">      <span class="built_in">let</span> children = item.children;</span><br><span class="line">      nodes.push(node);</span><br><span class="line">      <span class="keyword">if</span>(children!==null||children.length!==0)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="built_in">let</span> i =0;i&lt;children.length;i++)&#123;</span><br><span class="line">          stack.push(children[i]);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">return</span> nodes;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>在xhr文件中看到有一段代码，长这样:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (config.cancelToken) &#123;</span><br><span class="line">      // Handle cancellation</span><br><span class="line">      config.cancelToken.promise.then(<span class="keyword">function</span> onCanceled(cancel) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!request) &#123;</span><br><span class="line">          <span class="built_in">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        request.abort();</span><br><span class="line">        reject(cancel);</span><br><span class="line">        // Clean up request</span><br><span class="line">        request = null;</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<p>那么上文中的resolvePromise改变后的promise就是在这里调用，那什么情况会到这里来执行请求，假如有A，B两个请求，A请求响应时间过长，然后等到B执行回调都回来的时候，直接把A请求给取（gan）消(diao)了</p>
 ]]></content>
-  </entry>
-  <entry>
-    <title>部署hexo踩坑记录</title>
-    <url>/2020/11/bugsForNode/</url>
-    <content><![CDATA[<p>在执行下面这句代码的时候</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g -d</span><br></pre></td></tr></table></figure>
-
-<p>报错信息</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Something<span class="string">'s wrong. Maybe you can find the solution here: https://hexo.io/docs/troubleshooting.html</span></span><br><span class="line"><span class="string">TypeError [ERR_INVALID_ARG_TYPE]: The "mode" argument must be integer. Received an instance of Object</span></span><br><span class="line"><span class="string">    at copyFile (fs.js:1924:10)</span></span><br><span class="line"><span class="string">    at tryCatcher (/Users/zjs/Desktop/blog/node_modules/bluebird/js/release/util.js:16:23)</span></span><br><span class="line"><span class="string">    at ret (eval at makeNodePromisifiedEval (/Users/zjs/.nvm/versions/node/v14.10.0/lib/node_modules/hexo-cli/node_modules/bluebird/js/release/promisify.js:184:12), &lt;anonymous&gt;:13:39)</span></span><br></pre></td></tr></table></figure>
-
-<p>解决方案<br> NodeJs 版本从 14 回到 12 就🉑️！</p>
-]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
   </entry>
   <entry>
     <title>自适应布局</title>
@@ -283,6 +243,46 @@
         <tag>JavaScript</tag>
         <tag>css</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>axios</title>
+    <url>/2020/09/axios/</url>
+    <content><![CDATA[<h3 id="为什么-axios-既可以用-axios-这样请求-，也可以-axios-get-这样请求？"><a href="#为什么-axios-既可以用-axios-这样请求-，也可以-axios-get-这样请求？" class="headerlink" title="为什么 axios 既可以用 axios({})这样请求 ，也可以 axios.get()这样请求？"></a>为什么 axios 既可以用 axios({})这样请求 ，也可以 axios.get()这样请求？</h3><p>在使<code>axios.create</code>的时候,调用了这个方法</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Create an instance of Axios</span><br><span class="line"> *</span><br><span class="line"> * @param &#123;Object&#125; defaultConfig The default config <span class="keyword">for</span> the instance</span><br><span class="line"> * @<span class="built_in">return</span> &#123;Axios&#125; A new instance of Axios</span><br><span class="line"> */</span><br><span class="line"><span class="keyword">function</span> createInstance(defaultConfig) &#123;</span><br><span class="line">  var context = new Axios(defaultConfig);//生成配置 和拦截器</span><br><span class="line">  <span class="comment"># 在这里，instance 是一个 wrapped 函数，将context作为参数传递给request，所以调用axios(&#123;&#125;)就是在调用request(&#123;&#125;)</span></span><br><span class="line">  var instance = <span class="built_in">bind</span>(Axios.prototype.request, context);</span><br><span class="line"></span><br><span class="line">  <span class="comment">#Copy axios.prototype to instance</span></span><br><span class="line">  <span class="comment"># 这个是把Axios原型链的东西挂载到instance上去</span></span><br><span class="line">  <span class="comment"># 因为instance 是个一个functoin，所以在直接赋值的时候不能直接看到</span></span><br><span class="line">  <span class="comment"># 能在instance 的prototype上可以看到</span></span><br><span class="line">  <span class="comment"># 所以在调用类似axios.get(）这类的方法是能正常运行</span></span><br><span class="line">  utils.extend(instance, Axios.prototype, context);</span><br><span class="line"></span><br><span class="line">  <span class="comment"># Copy context to instance</span></span><br><span class="line">  utils.extend(instance, context);</span><br><span class="line">  <span class="comment"># console.log(instance)</span></span><br><span class="line">  <span class="built_in">return</span> instance;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>从图中可以看到,方法之类的确实挂载到了原型链上<br><img src="/images/axios/prototype.png" alt="prototype"></p>
+<h3 id="cancalToken-怎么取消请求的"><a href="#cancalToken-怎么取消请求的" class="headerlink" title="cancalToken 怎么取消请求的"></a>cancalToken 怎么取消请求的</h3><p>那么其实什么时候需要取消请求，举一个很常见的例子，取消重复请求，就是当前已经发出请求的情况下，后续同样的请求如果发送就会被取消（如果是表单的提交也可以使用 dom 的 disabld 禁止点击 2333）<br>举个栗子：<br>在 axios 上是挂载了 Cancel 相应的东西</p>
+<ul>
+<li>axios.Cancel = require(‘./cancel/Cancel’);</li>
+<li>axios.CancelToken = require(‘./cancel/CancelToken’);</li>
+<li>axios.isCancel = require(‘./cancel/isCancel’);</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">var data = document.getElementById(<span class="string">"data"</span>).value;</span><br><span class="line">         const CancelToken = axios.CancelToken;</span><br><span class="line">         axios</span><br><span class="line">           .post(</span><br><span class="line">             <span class="string">"/post/server"</span>,</span><br><span class="line">             &#123;</span><br><span class="line">               data,</span><br><span class="line">             &#125;,</span><br><span class="line">             &#123;</span><br><span class="line">               cancelToken: new CancelToken((c) =&gt; &#123;</span><br><span class="line">                 cancel = c;</span><br><span class="line">                 console.log(c)</span><br><span class="line">               &#125;),</span><br><span class="line">             &#125;</span><br><span class="line">           )</span><br><span class="line">           .<span class="keyword">then</span>(<span class="keyword">function</span> (res) &#123;</span><br><span class="line">             output.className = <span class="string">"container"</span>;</span><br><span class="line">             output.innerHTML = res.data;</span><br><span class="line">           &#125;)</span><br><span class="line">           .catch(<span class="keyword">function</span> (err) &#123;</span><br><span class="line">             output.className = <span class="string">"container text-danger"</span>;</span><br><span class="line">             output.innerHTML = err.message;</span><br><span class="line">           &#125;);</span><br><span class="line">         cancel(<span class="string">'sdfsd'</span>);</span><br></pre></td></tr></table></figure>
+
+<p>然后这里 axios.post 实际上就是调用了<code>request</code>方法，方法的返回值是一个 promise，最后一个执行的 promise 是一个叫<code>dispatchRequest</code>的函数，函数位置在 core/dispatchRequest.js 文件下，因为返回的是一个 promise ，状态是 pendding，加入到微任务队列，然后执行主线程的<code>cancel</code>方法。cancel 方法是在初始化 cancelToken 的时候给 cancel 赋值了。</p>
+<p><code>cancelToken：</code></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">function</span> CancelToken(executor) &#123;</span><br><span class="line">  <span class="keyword">if</span> (typeof executor !== <span class="string">'function'</span>) &#123;</span><br><span class="line">    throw new TypeError(<span class="string">'executor must be a function.'</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  var resolvePromise;</span><br><span class="line">  <span class="comment"># 这里把resolve钩子赋值给resolvePromise 为了让cancel函数能够改变promise的状态</span></span><br><span class="line">  this.promise = new Promise(<span class="keyword">function</span> promiseExecutor(resolve) &#123;</span><br><span class="line">    resolvePromise = resolve;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  var token = this;</span><br><span class="line">  executor(<span class="keyword">function</span> cancel(message) &#123;</span><br><span class="line">    <span class="keyword">if</span> (token.reason) &#123;</span><br><span class="line">      <span class="comment"># Cancellation has already been requested</span></span><br><span class="line">      <span class="built_in">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    token.reason = new Cancel(message);</span><br><span class="line">    <span class="comment"># 这里改变promise状态位fulfilled</span></span><br><span class="line">    resolvePromise(token.reason);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>主线程任务执行完成的时候开始进入下一轮任务执行，没有宏任务需要执行，直接执行微任务，先执行刚刚 request 返回的 promise，其实是开始执行了<code>dispatchRequest</code></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">module.exports = <span class="keyword">function</span> dispatchRequest(config) &#123;</span><br><span class="line">  throwIfCancellationRequested(config);</span><br><span class="line">  <span class="comment"># 省略其他代码</span></span><br><span class="line">&#125;</span><br><span class="line">/**</span><br><span class="line"> * Throws a `Cancel` <span class="keyword">if</span> cancellation has been requested.</span><br><span class="line"> */</span><br><span class="line"><span class="keyword">function</span> throwIfCancellationRequested(config) &#123;</span><br><span class="line">  <span class="keyword">if</span> (config.cancelToken) &#123;</span><br><span class="line">      <span class="comment"># 这个方法挂载在canceltoken原型链傻姑娘</span></span><br><span class="line">    config.cancelToken.throwIfRequested();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">CancelToken.prototype.throwIfRequested = <span class="keyword">function</span> <span class="function"><span class="title">throwIfRequested</span></span>() &#123;</span><br><span class="line">  <span class="keyword">if</span> (this.reason) &#123;</span><br><span class="line">      <span class="comment"># 这里抛出错误，然后在主程序代码中的catch捕获，然后程序返回，不进行后续创建xhr对象的过程</span></span><br><span class="line">    throw this.reason;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>在xhr文件中看到有一段代码，长这样:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (config.cancelToken) &#123;</span><br><span class="line">      // Handle cancellation</span><br><span class="line">      config.cancelToken.promise.then(<span class="keyword">function</span> onCanceled(cancel) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!request) &#123;</span><br><span class="line">          <span class="built_in">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        request.abort();</span><br><span class="line">        reject(cancel);</span><br><span class="line">        // Clean up request</span><br><span class="line">        request = null;</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>那么上文中的resolvePromise改变后的promise就是在这里调用，那什么情况会到这里来执行请求，假如有A，B两个请求，A请求响应时间过长，然后等到B执行回调都回来的时候，直接把A请求给取（gan）消(diao)了</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>部署hexo踩坑记录</title>
+    <url>/2020/11/bugsForNode/</url>
+    <content><![CDATA[<p>在执行下面这句代码的时候</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g -d</span><br></pre></td></tr></table></figure>
+
+<p>报错信息</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Something<span class="string">'s wrong. Maybe you can find the solution here: https://hexo.io/docs/troubleshooting.html</span></span><br><span class="line"><span class="string">TypeError [ERR_INVALID_ARG_TYPE]: The "mode" argument must be integer. Received an instance of Object</span></span><br><span class="line"><span class="string">    at copyFile (fs.js:1924:10)</span></span><br><span class="line"><span class="string">    at tryCatcher (/Users/zjs/Desktop/blog/node_modules/bluebird/js/release/util.js:16:23)</span></span><br><span class="line"><span class="string">    at ret (eval at makeNodePromisifiedEval (/Users/zjs/.nvm/versions/node/v14.10.0/lib/node_modules/hexo-cli/node_modules/bluebird/js/release/promisify.js:184:12), &lt;anonymous&gt;:13:39)</span></span><br></pre></td></tr></table></figure>
+
+<p>解决方案<br> NodeJs 版本从 14 回到 12 就🉑️！</p>
+]]></content>
   </entry>
   <entry>
     <title>Chrome调试工具的那点事</title>
@@ -526,38 +526,6 @@
       </tags>
   </entry>
   <entry>
-    <title>今日随笔(8-6)</title>
-    <url>/2020/08/essay-4/</url>
-    <content><![CDATA[<p>先看代码</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const a = 1</span><br><span class="line">[...[1,2,3]].forEach(item=&gt;console.log(item))</span><br></pre></td></tr></table></figure>
-
-<p>乍一看，是不是感觉挺正常的，在浏览器的log窗口应该能输出1，2，3，才对<br>然后在浏览器跑一下，发现</p>
-<p><img src="/images/essay-4/unexpected_error.png.png" alt="error"></p>
-<p>然后emm排查了一下，语法是没问题的，浏览器版本是最新的开发版本，es6的语法肯定是支持的，那问题其实就是a=1 后面漏了分号，所以代码就成了这样</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const a = 1[...[1,2,3]].forEach(item=&gt;console.log(item))</span><br></pre></td></tr></table></figure>
-
-<p>那代码成了这样那肯定不能正确解析了～</p>
-<p>果然，漏写分号不是好习惯～</p>
-]]></content>
-  </entry>
-  <entry>
-    <title>今日随笔(2020-10-11)</title>
-    <url>/2020/10/essay-5/</url>
-    <content><![CDATA[<h3 id="命令行文件的上传与下载"><a href="#命令行文件的上传与下载" class="headerlink" title="命令行文件的上传与下载"></a>命令行文件的上传与下载</h3><p>文件的上传和下载命令都是scp</p>
-<p><strong>上传</strong><br>从服务器上下载文件 scp username@servername:/path/filename /Users/mac/Desktop（本地目录，例如：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">scp root@47.98.37.170:/root/test.txt /Users/mac/Desktop就是将服务器上的/root/test.txt下载到本地的/Users/mac/Desktop目录下。注意两个地址之间有空格！</span><br></pre></td></tr></table></figure>
-
-<p><strong>下载</strong><br>上传本地文件到服务器 scp /path/filename username@servername:/path ;</p>
-<p>note： 下载命令就是将两个路径换一个位置就行了。</p>
-<h3 id="TS-4-0的一些更新"><a href="#TS-4-0的一些更新" class="headerlink" title="TS 4.0的一些更新"></a>TS 4.0的一些更新</h3><h4 id="类型解构"><a href="#类型解构" class="headerlink" title="类型解构"></a>类型解构</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> Strings = [string, string];</span><br><span class="line"><span class="built_in">type</span> Numbers = number[]</span><br><span class="line"></span><br><span class="line"><span class="built_in">type</span> Unbounded = [...Strings, ...Numbers, boolean];</span><br><span class="line"><span class="comment"># // [string, string, ...Array&lt;number | boolean&gt;]</span></span><br><span class="line"><span class="comment"># 按照官方的解释就是解构一个已知长度的类型的时候，那么最后的结果类型也是没有任何限制的，在解构类型之后添加的类型声明都要添加到被解构类型的类型中去</span></span><br></pre></td></tr></table></figure>
-
-<p>—待续哈，明天更新</p>
-]]></content>
-      <tags>
-        <tag>TypeScript Upload</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>docker</title>
     <url>/2020/07/essay-3/</url>
     <content><![CDATA[<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>Docker 是由开发人员和系统管理员 构建 、运行和容器共享的应用程序的一个平台。使用容器部署应用程序称之为集装箱化。</p>
@@ -613,6 +581,38 @@
       </categories>
       <tags>
         <tag>docker</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>今日随笔(8-6)</title>
+    <url>/2020/08/essay-4/</url>
+    <content><![CDATA[<p>先看代码</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const a = 1</span><br><span class="line">[...[1,2,3]].forEach(item=&gt;console.log(item))</span><br></pre></td></tr></table></figure>
+
+<p>乍一看，是不是感觉挺正常的，在浏览器的log窗口应该能输出1，2，3，才对<br>然后在浏览器跑一下，发现</p>
+<p><img src="/images/essay-4/unexpected_error.png.png" alt="error"></p>
+<p>然后emm排查了一下，语法是没问题的，浏览器版本是最新的开发版本，es6的语法肯定是支持的，那问题其实就是a=1 后面漏了分号，所以代码就成了这样</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const a = 1[...[1,2,3]].forEach(item=&gt;console.log(item))</span><br></pre></td></tr></table></figure>
+
+<p>那代码成了这样那肯定不能正确解析了～</p>
+<p>果然，漏写分号不是好习惯～</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>今日随笔(2020-10-11)</title>
+    <url>/2020/10/essay-5/</url>
+    <content><![CDATA[<h3 id="命令行文件的上传与下载"><a href="#命令行文件的上传与下载" class="headerlink" title="命令行文件的上传与下载"></a>命令行文件的上传与下载</h3><p>文件的上传和下载命令都是scp</p>
+<p><strong>上传</strong><br>从服务器上下载文件 scp username@servername:/path/filename /Users/mac/Desktop（本地目录，例如：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">scp root@47.98.37.170:/root/test.txt /Users/mac/Desktop就是将服务器上的/root/test.txt下载到本地的/Users/mac/Desktop目录下。注意两个地址之间有空格！</span><br></pre></td></tr></table></figure>
+
+<p><strong>下载</strong><br>上传本地文件到服务器 scp /path/filename username@servername:/path ;</p>
+<p>note： 下载命令就是将两个路径换一个位置就行了。</p>
+<h3 id="TS-4-0的一些更新"><a href="#TS-4-0的一些更新" class="headerlink" title="TS 4.0的一些更新"></a>TS 4.0的一些更新</h3><h4 id="类型解构"><a href="#类型解构" class="headerlink" title="类型解构"></a>类型解构</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> Strings = [string, string];</span><br><span class="line"><span class="built_in">type</span> Numbers = number[]</span><br><span class="line"></span><br><span class="line"><span class="built_in">type</span> Unbounded = [...Strings, ...Numbers, boolean];</span><br><span class="line"><span class="comment"># // [string, string, ...Array&lt;number | boolean&gt;]</span></span><br><span class="line"><span class="comment"># 按照官方的解释就是解构一个已知长度的类型的时候，那么最后的结果类型也是没有任何限制的，在解构类型之后添加的类型声明都要添加到被解构类型的类型中去</span></span><br></pre></td></tr></table></figure>
+
+<p>—待续哈，明天更新</p>
+]]></content>
+      <tags>
+        <tag>TypeScript Upload</tag>
       </tags>
   </entry>
   <entry>
@@ -740,6 +740,19 @@
       </tags>
   </entry>
   <entry>
+    <title>今日随笔</title>
+    <url>/2021/12/essay12-22/</url>
+    <content><![CDATA[<p><img src="/images/essay12-22/xianxiang.png" alt="现象"></p>
+<p>全局调用g函数发现this为undefined，按照我的理解在全局调用的函数this应该是指向windows，然而这里却输出的是undefined<br>因此我去查了资料，发现在规范上是这么写的</p>
+<p><img src="/images/essay12-22/class.jpg" alt="class"><br>如果所示class中默认为严格模式，而在严格模式中，未指明this指向的话this是等于undefined的，this是在运行时确定的，而不是在声明的时候确定的，因此这里的<code>g()</code>在全局环境中调用未指明this指向，因此此时输出undefined。<br><img src="/images/essay12-22/function.jpg" alt="function"><br>而在function中是可以指定是否是严格模式的</p>
+]]></content>
+      <tags>
+        <tag>TypeScript</tag>
+        <tag>Class</tag>
+        <tag>This</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>理解 flex-basis</title>
     <url>/2020/11/flex/</url>
     <content><![CDATA[<p>上个html代码</p>
@@ -815,19 +828,6 @@ btn.addEventListener('click',function(){
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">.child-three &#123;</span><br><span class="line">  flex: 0 0 1000px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
       <tags>
         <tag>css</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>今日随笔</title>
-    <url>/2021/12/essay12-22/</url>
-    <content><![CDATA[<p><img src="/images/essay12-22/xianxiang.png" alt="现象"></p>
-<p>全局调用g函数发现this为undefined，按照我的理解在全局调用的函数this应该是指向windows，然而这里却输出的是undefined<br>因此我去查了资料，发现在规范上是这么写的</p>
-<p><img src="/images/essay12-22/class.jpg" alt="class"><br>如果所示class中默认为严格模式，而在严格模式中，未指明this指向的话this是等于undefined的，this是在运行时确定的，而不是在声明的时候确定的，因此这里的<code>g()</code>在全局环境中调用未指明this指向，因此此时输出undefined。<br><img src="/images/essay12-22/function.jpg" alt="function"><br>而在function中是可以指定是否是严格模式的</p>
-]]></content>
-      <tags>
-        <tag>TypeScript</tag>
-        <tag>Class</tag>
-        <tag>This</tag>
       </tags>
   </entry>
   <entry>
@@ -2173,6 +2173,21 @@ createComponentInstance
 ]]></content>
   </entry>
   <entry>
+    <title>节流</title>
+    <url>/2021/02/throttle/</url>
+    <content><![CDATA[<h5 id="创建一个节流函数在给定的毫秒中最多调用一次"><a href="#创建一个节流函数在给定的毫秒中最多调用一次" class="headerlink" title="创建一个节流函数在给定的毫秒中最多调用一次"></a>创建一个节流函数在给定的毫秒中最多调用一次</h5><p>Creates a throttled function that only invokes the provided function at most once per every wait milliseconds</p>
+<hr>
+<p>使用setTimeout 和 clearTimeout 对给定对方法节流。fn使用<code>Function.prototype.apply()</code>this上下文应用到函数中并且提供必要到参数arguments。使用<code>Date.now()</code>收集上一次函数的调用时间。没有给定第二个参数 <code>wait</code>的情况，默认设置时间间隔为0</p>
+<a id="more"></a>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> throttle = <span class="function">(<span class="params">fn, wait</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> inThrottle, lastFn, lastTime;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> context = <span class="keyword">this</span>,</span><br><span class="line">      args = <span class="built_in">arguments</span>;</span><br><span class="line">    <span class="keyword">if</span> (!inThrottle) &#123;</span><br><span class="line">      fn.apply(context, args);</span><br><span class="line">      lastTime = <span class="built_in">Date</span>.now();</span><br><span class="line">      inThrottle = <span class="literal">true</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      clearTimeout(lastFn);</span><br><span class="line">      lastFn = setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">Date</span>.now() - lastTime &gt;= wait) &#123;</span><br><span class="line">          fn.apply(context, args);</span><br><span class="line">          lastTime = <span class="built_in">Date</span>.now();</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;, <span class="built_in">Math</span>.max(wait - (<span class="built_in">Date</span>.now() - lastTime), <span class="number">0</span>));</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h5 id="for-instance"><a href="#for-instance" class="headerlink" title="for instance"></a>for instance</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(</span><br><span class="line">  <span class="string">'resize'</span>,</span><br><span class="line">  throttle(<span class="function"><span class="keyword">function</span>(<span class="params">evt</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">window</span>.innerWidth);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">window</span>.innerHeight);</span><br><span class="line">  &#125;, <span class="number">250</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>在JS文件使用svg加载svg文件</title>
     <url>/2020/10/svgInJS/</url>
     <content><![CDATA[<h3 id="怎么在js文件中用引用svg文件"><a href="#怎么在js文件中用引用svg文件" class="headerlink" title="怎么在js文件中用引用svg文件"></a>怎么在js文件中用引用svg文件</h3><p>使用webpack的require.context,它接收三个参数</p>
@@ -2203,21 +2218,6 @@ createComponentInstance
 
 <p>所以在JS中使用svg标签来加载对应的svg文件的时候只需要在svg标签加入use 然后给id属性赋值为对应symbol的id，比如<code>id=&quot;#icon-404&quot;</code></p>
 ]]></content>
-  </entry>
-  <entry>
-    <title>节流</title>
-    <url>/2021/02/throttle/</url>
-    <content><![CDATA[<h5 id="创建一个节流函数在给定的毫秒中最多调用一次"><a href="#创建一个节流函数在给定的毫秒中最多调用一次" class="headerlink" title="创建一个节流函数在给定的毫秒中最多调用一次"></a>创建一个节流函数在给定的毫秒中最多调用一次</h5><p>Creates a throttled function that only invokes the provided function at most once per every wait milliseconds</p>
-<hr>
-<p>使用setTimeout 和 clearTimeout 对给定对方法节流。fn使用<code>Function.prototype.apply()</code>this上下文应用到函数中并且提供必要到参数arguments。使用<code>Date.now()</code>收集上一次函数的调用时间。没有给定第二个参数 <code>wait</code>的情况，默认设置时间间隔为0</p>
-<a id="more"></a>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> throttle = <span class="function">(<span class="params">fn, wait</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> inThrottle, lastFn, lastTime;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> context = <span class="keyword">this</span>,</span><br><span class="line">      args = <span class="built_in">arguments</span>;</span><br><span class="line">    <span class="keyword">if</span> (!inThrottle) &#123;</span><br><span class="line">      fn.apply(context, args);</span><br><span class="line">      lastTime = <span class="built_in">Date</span>.now();</span><br><span class="line">      inThrottle = <span class="literal">true</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      clearTimeout(lastFn);</span><br><span class="line">      lastFn = setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">Date</span>.now() - lastTime &gt;= wait) &#123;</span><br><span class="line">          fn.apply(context, args);</span><br><span class="line">          lastTime = <span class="built_in">Date</span>.now();</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;, <span class="built_in">Math</span>.max(wait - (<span class="built_in">Date</span>.now() - lastTime), <span class="number">0</span>));</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h5 id="for-instance"><a href="#for-instance" class="headerlink" title="for instance"></a>for instance</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(</span><br><span class="line">  <span class="string">'resize'</span>,</span><br><span class="line">  throttle(<span class="function"><span class="keyword">function</span>(<span class="params">evt</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">window</span>.innerWidth);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">window</span>.innerHeight);</span><br><span class="line">  &#125;, <span class="number">250</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>]]></content>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
   </entry>
   <entry>
     <title>工具函数</title>
