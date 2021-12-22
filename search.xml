@@ -2173,21 +2173,6 @@ createComponentInstance
 ]]></content>
   </entry>
   <entry>
-    <title>节流</title>
-    <url>/2021/02/throttle/</url>
-    <content><![CDATA[<h5 id="创建一个节流函数在给定的毫秒中最多调用一次"><a href="#创建一个节流函数在给定的毫秒中最多调用一次" class="headerlink" title="创建一个节流函数在给定的毫秒中最多调用一次"></a>创建一个节流函数在给定的毫秒中最多调用一次</h5><p>Creates a throttled function that only invokes the provided function at most once per every wait milliseconds</p>
-<hr>
-<p>使用setTimeout 和 clearTimeout 对给定对方法节流。fn使用<code>Function.prototype.apply()</code>this上下文应用到函数中并且提供必要到参数arguments。使用<code>Date.now()</code>收集上一次函数的调用时间。没有给定第二个参数 <code>wait</code>的情况，默认设置时间间隔为0</p>
-<a id="more"></a>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> throttle = <span class="function">(<span class="params">fn, wait</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> inThrottle, lastFn, lastTime;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> context = <span class="keyword">this</span>,</span><br><span class="line">      args = <span class="built_in">arguments</span>;</span><br><span class="line">    <span class="keyword">if</span> (!inThrottle) &#123;</span><br><span class="line">      fn.apply(context, args);</span><br><span class="line">      lastTime = <span class="built_in">Date</span>.now();</span><br><span class="line">      inThrottle = <span class="literal">true</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      clearTimeout(lastFn);</span><br><span class="line">      lastFn = setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">Date</span>.now() - lastTime &gt;= wait) &#123;</span><br><span class="line">          fn.apply(context, args);</span><br><span class="line">          lastTime = <span class="built_in">Date</span>.now();</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;, <span class="built_in">Math</span>.max(wait - (<span class="built_in">Date</span>.now() - lastTime), <span class="number">0</span>));</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h5 id="for-instance"><a href="#for-instance" class="headerlink" title="for instance"></a>for instance</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(</span><br><span class="line">  <span class="string">'resize'</span>,</span><br><span class="line">  throttle(<span class="function"><span class="keyword">function</span>(<span class="params">evt</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">window</span>.innerWidth);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">window</span>.innerHeight);</span><br><span class="line">  &#125;, <span class="number">250</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>]]></content>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>在JS文件使用svg加载svg文件</title>
     <url>/2020/10/svgInJS/</url>
     <content><![CDATA[<h3 id="怎么在js文件中用引用svg文件"><a href="#怎么在js文件中用引用svg文件" class="headerlink" title="怎么在js文件中用引用svg文件"></a>怎么在js文件中用引用svg文件</h3><p>使用webpack的require.context,它接收三个参数</p>
@@ -2218,6 +2203,21 @@ createComponentInstance
 
 <p>所以在JS中使用svg标签来加载对应的svg文件的时候只需要在svg标签加入use 然后给id属性赋值为对应symbol的id，比如<code>id=&quot;#icon-404&quot;</code></p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>节流</title>
+    <url>/2021/02/throttle/</url>
+    <content><![CDATA[<h5 id="创建一个节流函数在给定的毫秒中最多调用一次"><a href="#创建一个节流函数在给定的毫秒中最多调用一次" class="headerlink" title="创建一个节流函数在给定的毫秒中最多调用一次"></a>创建一个节流函数在给定的毫秒中最多调用一次</h5><p>Creates a throttled function that only invokes the provided function at most once per every wait milliseconds</p>
+<hr>
+<p>使用setTimeout 和 clearTimeout 对给定对方法节流。fn使用<code>Function.prototype.apply()</code>this上下文应用到函数中并且提供必要到参数arguments。使用<code>Date.now()</code>收集上一次函数的调用时间。没有给定第二个参数 <code>wait</code>的情况，默认设置时间间隔为0</p>
+<a id="more"></a>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> throttle = <span class="function">(<span class="params">fn, wait</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> inThrottle, lastFn, lastTime;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> context = <span class="keyword">this</span>,</span><br><span class="line">      args = <span class="built_in">arguments</span>;</span><br><span class="line">    <span class="keyword">if</span> (!inThrottle) &#123;</span><br><span class="line">      fn.apply(context, args);</span><br><span class="line">      lastTime = <span class="built_in">Date</span>.now();</span><br><span class="line">      inThrottle = <span class="literal">true</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      clearTimeout(lastFn);</span><br><span class="line">      lastFn = setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">Date</span>.now() - lastTime &gt;= wait) &#123;</span><br><span class="line">          fn.apply(context, args);</span><br><span class="line">          lastTime = <span class="built_in">Date</span>.now();</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;, <span class="built_in">Math</span>.max(wait - (<span class="built_in">Date</span>.now() - lastTime), <span class="number">0</span>));</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h5 id="for-instance"><a href="#for-instance" class="headerlink" title="for instance"></a>for instance</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(</span><br><span class="line">  <span class="string">'resize'</span>,</span><br><span class="line">  throttle(<span class="function"><span class="keyword">function</span>(<span class="params">evt</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">window</span>.innerWidth);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">window</span>.innerHeight);</span><br><span class="line">  &#125;, <span class="number">250</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
   </entry>
   <entry>
     <title>工具函数</title>
