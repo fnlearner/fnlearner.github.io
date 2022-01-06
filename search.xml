@@ -179,98 +179,6 @@
       </tags>
   </entry>
   <entry>
-    <title>cdn</title>
-    <url>/2022/01/cdn/</url>
-    <content><![CDATA[<p>CDN(Content Delivery Network)是指内容分发网络，也称为内容传送网络，</p>
-<h3 id="组成"><a href="#组成" class="headerlink" title="组成"></a>组成</h3><p>CDN由以下几个关键技术组成：</p>
-<ul>
-<li>内容缓存设备</li>
-<li>内容交换机</li>
-<li>内容路由器</li>
-<li>CDN内容管理系统<a id="more"></a>
-<code>内容缓存设备</code>：是CDN网络节点，位于用户接入点，是面向最终用户的内容提供设备，可以缓存静态web内容和流媒体内容，实现内容的边缘传播和存储，以便用户可以就近访问</li>
-</ul>
-<p><code>内容交换机</code>：处于用户接入集中点，可以均衡单点多个内容缓存设备的负载，并对内容进行缓存负载平衡及访问控制 </p>
-<p><code>内容路由器</code>：负责将用户的请求调度到适当的设备上。</p>
-<p><code>内容管理系统</code>：负责整个CDN的管理，作用是进行内容管理，如内容的注入和发布、内容的分发、内容的审核、内容的服务等</p>
-<h3 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h3><p>cdn具有一下几个功能：</p>
-<ul>
-<li>节省骨干网宽带，减少带宽需求量</li>
-<li>提供服务端加速，解决由于用户访问量大造成的服务器过载问题</li>
-<li>服务器商能通过cache技术在本地缓存用户访问过的web页面和对象，实现相同对象的访问无须占用主干的出口带宽，并提高首屏加载速度</li>
-<li>克服网站分布不均问题，降低网站自身建设和维护成本</li>
-<li>降低‘通信风暴’的影响，提高网络访问的稳定性</li>
-</ul>
-<h3 id="CDN原理"><a href="#CDN原理" class="headerlink" title="CDN原理"></a>CDN原理</h3><p>基本原理是广泛采用各种缓存服务器，将这些缓存服务器分布到用户访问相对集中的地区或者网络中，在用户访问网站时，利用全局负载技术将用户的访问指向距离最近的工作正常的缓存服务器上，由缓存服务器直接响应用户的请求。</p>
-<h3 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h3><p>源服务器push内容到CDN，在用户每次请求页面的时候，相对应的边缘服务器就返回内容给用户，这样用户就不用每次都向源服务器请求数据；</p>
-<p>如果源服务器没有把网页内容提前给CDN进行备份，那么当用户请求网页的时候，CDN就得向源服务器索取网页内容了，也叫做pull;</p>
-<h3 id="问题："><a href="#问题：" class="headerlink" title="问题："></a>问题：</h3><ul>
-<li>服务器过载怎么办？<ul>
-<li>通过负载均衡来解决，把用户的请求转移到没有超载的缓存服务器上去</li>
-</ul>
-</li>
-<li>负载均衡怎么实现？<ul>
-<li>采用任播的通信方式，服务器对外都有同样的一个ip地址，在收到请求后，由离用户最近的服务器来作出响应</li>
-</ul>
-</li>
-<li>回源怎么实现？<ul>
-<li>当cdn缓存服务器中没有符合用户要求的资源的时候，缓存服务器会请求上一级的缓存服务器，当所有的缓存服务器中都没有符合要求的资源的时候，就会到源服务器中去寻找对应的资源。</li>
-</ul>
-</li>
-<li>什么时候触发回源？<ul>
-<li>没有资源，资源过期或者缓存的资源不是缓存资源等情况</li>
-</ul>
-</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>cdn</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>部署hexo踩坑记录</title>
-    <url>/2020/11/bugsForNode/</url>
-    <content><![CDATA[<p>在执行下面这句代码的时候</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g -d</span><br></pre></td></tr></table></figure>
-
-<p>报错信息</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Something<span class="string">'s wrong. Maybe you can find the solution here: https://hexo.io/docs/troubleshooting.html</span></span><br><span class="line"><span class="string">TypeError [ERR_INVALID_ARG_TYPE]: The "mode" argument must be integer. Received an instance of Object</span></span><br><span class="line"><span class="string">    at copyFile (fs.js:1924:10)</span></span><br><span class="line"><span class="string">    at tryCatcher (/Users/zjs/Desktop/blog/node_modules/bluebird/js/release/util.js:16:23)</span></span><br><span class="line"><span class="string">    at ret (eval at makeNodePromisifiedEval (/Users/zjs/.nvm/versions/node/v14.10.0/lib/node_modules/hexo-cli/node_modules/bluebird/js/release/promisify.js:184:12), &lt;anonymous&gt;:13:39)</span></span><br></pre></td></tr></table></figure>
-
-<p>解决方案<br> NodeJs 版本从 14 回到 12 就🉑️！</p>
-]]></content>
-  </entry>
-  <entry>
-    <title>GET 和 POST 的区别</title>
-    <url>/2020/09/diff-between-get-post/</url>
-    <content><![CDATA[<h2 id="GET请求"><a href="#GET请求" class="headerlink" title="GET请求"></a>GET请求</h2><ol>
-<li>GET请求返回的资源会被浏览器缓存</li>
-<li>GET请求会保存在浏览器的历史记录中</li>
-<li>GET请求能当书签</li>
-<li>GET不能用来处理敏感数据</li>
-<li>有长度限制（具体长度参见各个浏览器规范）</li>
-<li>仅仅用来获取数据，不能修改</li>
-<li>参数的数据类型，只接收ascll编码</li>
-<li>仅支持url编码</li>
-<li>产生一个数据包</li>
-<li>页面重载或者回退没有影响</li>
-</ol>
-<h2 id="POST请求"><a href="#POST请求" class="headerlink" title="POST请求"></a>POST请求</h2><ol>
-<li>请求不会被缓存</li>
-<li>不会保存在历史记录中</li>
-<li>不能作为书签</li>
-<li>数据长度没有限制</li>
-<li>参数的数据类型没有限制</li>
-<li>支持多种编码</li>
-<li>两个数据包，需要服务器响应100后继续发出请求之后服务器（可能）响应200</li>
-<li>刷新或者回退 数据会重新提交</li>
-</ol>
-<h2 id="其他http方法"><a href="#其他http方法" class="headerlink" title="其他http方法"></a>其他http方法</h2><h3 id="put"><a href="#put" class="headerlink" title="put"></a>put</h3><p>put方法跟post一样，也是用来创建或者更新资源的，但是跟post不一样的地方在于put请求是幂等的，也就是说put请求发起多次所产生的结果是跟第一个一样的；那么对于post请求，重复请求就会产生多次创建相同资源的副作用</p>
-<h3 id="head"><a href="#head" class="headerlink" title="head"></a>head</h3><p>head请求跟get请求是差不多相同的，不同的地方在于head请求没有返回体<br>那么head 请求通常是在发起get请求之前检查get请求返回的是什么，比如在下载文件的时候或者下载请求体的时候</p>
-<h3 id="delete"><a href="#delete" class="headerlink" title="delete"></a>delete</h3><p>删除方法用来删除资源</p>
-<h3 id="options"><a href="#options" class="headerlink" title="options"></a>options</h3><p>是复杂请求的预检请求</p>
-]]></content>
-  </entry>
-  <entry>
     <title>自适应布局</title>
     <url>/2019/08/adaptive/</url>
     <content><![CDATA[<h2 id="grid"><a href="#grid" class="headerlink" title="grid"></a>grid</h2><p>css</p>
@@ -399,6 +307,148 @@
       </tags>
   </entry>
   <entry>
+    <title>dh算法</title>
+    <url>/2022/01/dh%E7%AE%97%E6%B3%95/</url>
+    <content><![CDATA[<p>全称 Diffie Hellman密钥交换算法</p>
+<p>DH算法属于公钥加密算法，https加密过程客户端C与服务端需要用到dh算法或者RSA算法来协商用户加密数据的session key</p>
+<p>在加密数据时使用对称密码算法，密钥管理使用公钥密码技术</p>
+<a id="more"></a>
+<h3 id="背景介绍-–-离散对数"><a href="#背景介绍-–-离散对数" class="headerlink" title="背景介绍 – 离散对数"></a>背景介绍 – 离散对数</h3><p>假设a, p均为素数，则有以下等式：<br>{a<sup>1</sup>mod p, a<sup>2</sup>mod p,…, a<sup>(p-1)</sup>mod p} ={1, 2, …, p-1} //{}表示集合 ，假定为T</p>
+<p>对于任意⼀个数x,若0&lt;x&lt;p,则必定存在唯⼀的y (0&lt;y&lt;p),使得x = a<sup>y</sup>mod p，当p很⼤时，很难求出y。</p>
+<p>有以下公式：</p>
+<p>((a<sup>x</sup>mod p)<sup>y</sup>)mod p = a<sup>xy</sup>mod p</p>
+<p>example:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">a = 3,p = 7</span><br><span class="line"></span><br><span class="line">3mod7 = 3</span><br><span class="line">9mod7 = 2</span><br><span class="line">27mod7 = 6 </span><br><span class="line"></span><br><span class="line">此时集合T为&#123;2,3,6&#125;</span><br></pre></td></tr></table></figure>
+
+<p>dh算法的安全性则是基于这个问题的难解性。</p>
+<h3 id="DH算法基本原理"><a href="#DH算法基本原理" class="headerlink" title="DH算法基本原理"></a>DH算法基本原理</h3><p><img src="/images/dh%E7%AE%97%E6%B3%95/%E5%8E%9F%E7%90%86.png" alt="原理"></p>
+<p>此时两个计算的共享密钥是相等的，中间人通过窃听双方在通信过程中的信息是可以获取到Ya，Yb，a，q这四个值的，而中间人若想知道双方计算出来的K的话，就需要知道某一方的指数，即Xb或者Xa，假设说中间人要获取Xb的值，那么Xb就等于${log_a{Yb}}$,而计算离散对数的结果是非常困难的，而对于大素数来说，求解离散对数被认为是不可能的，因此当q取极大值时，计算Xb是不可能的。</p>
+<p>example:</p>
+<p>a = 3 q = 17</p>
+<p>当Xa = 15 时</p>
+<p>Ya = 3<sup>15</sup> mod 17 = 6</p>
+<p>6 – &gt; 发送给了Blob</p>
+<p>当Xb = 13 时</p>
+<p>Yb = 3<sup>13</sup> mode 17 = 12</p>
+<p>12 –&gt; 发送给Alice</p>
+<p>Alice的共享密钥为 12<sup>15</sup> mode 17 = 10</p>
+<p>Blob的共享密钥为 6<sup>13</sup> mode 17 = 10</p>
+<p>以上即为DH加密算法</p>
+<p>摘自<a href="https://www.bilibili.com/video/BV12w411f7c5?from=search&seid=7708955631160057078&spm_id_from=333.337.0.0" target="_blank" rel="noopener">blibli</a></p>
+]]></content>
+      <tags>
+        <tag>dh</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>cdn</title>
+    <url>/2022/01/cdn/</url>
+    <content><![CDATA[<p>CDN(Content Delivery Network)是指内容分发网络，也称为内容传送网络，</p>
+<h3 id="组成"><a href="#组成" class="headerlink" title="组成"></a>组成</h3><p>CDN由以下几个关键技术组成：</p>
+<ul>
+<li>内容缓存设备</li>
+<li>内容交换机</li>
+<li>内容路由器</li>
+<li>CDN内容管理系统<a id="more"></a>
+<code>内容缓存设备</code>：是CDN网络节点，位于用户接入点，是面向最终用户的内容提供设备，可以缓存静态web内容和流媒体内容，实现内容的边缘传播和存储，以便用户可以就近访问</li>
+</ul>
+<p><code>内容交换机</code>：处于用户接入集中点，可以均衡单点多个内容缓存设备的负载，并对内容进行缓存负载平衡及访问控制 </p>
+<p><code>内容路由器</code>：负责将用户的请求调度到适当的设备上。</p>
+<p><code>内容管理系统</code>：负责整个CDN的管理，作用是进行内容管理，如内容的注入和发布、内容的分发、内容的审核、内容的服务等</p>
+<h3 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h3><p>cdn具有一下几个功能：</p>
+<ul>
+<li>节省骨干网宽带，减少带宽需求量</li>
+<li>提供服务端加速，解决由于用户访问量大造成的服务器过载问题</li>
+<li>服务器商能通过cache技术在本地缓存用户访问过的web页面和对象，实现相同对象的访问无须占用主干的出口带宽，并提高首屏加载速度</li>
+<li>克服网站分布不均问题，降低网站自身建设和维护成本</li>
+<li>降低‘通信风暴’的影响，提高网络访问的稳定性</li>
+</ul>
+<h3 id="CDN原理"><a href="#CDN原理" class="headerlink" title="CDN原理"></a>CDN原理</h3><p>基本原理是广泛采用各种缓存服务器，将这些缓存服务器分布到用户访问相对集中的地区或者网络中，在用户访问网站时，利用全局负载技术将用户的访问指向距离最近的工作正常的缓存服务器上，由缓存服务器直接响应用户的请求。</p>
+<h3 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h3><p>源服务器push内容到CDN，在用户每次请求页面的时候，相对应的边缘服务器就返回内容给用户，这样用户就不用每次都向源服务器请求数据；</p>
+<p>如果源服务器没有把网页内容提前给CDN进行备份，那么当用户请求网页的时候，CDN就得向源服务器索取网页内容了，也叫做pull;</p>
+<h3 id="问题："><a href="#问题：" class="headerlink" title="问题："></a>问题：</h3><ul>
+<li>服务器过载怎么办？<ul>
+<li>通过负载均衡来解决，把用户的请求转移到没有超载的缓存服务器上去</li>
+</ul>
+</li>
+<li>负载均衡怎么实现？<ul>
+<li>采用任播的通信方式，服务器对外都有同样的一个ip地址，在收到请求后，由离用户最近的服务器来作出响应</li>
+</ul>
+</li>
+<li>回源怎么实现？<ul>
+<li>当cdn缓存服务器中没有符合用户要求的资源的时候，缓存服务器会请求上一级的缓存服务器，当所有的缓存服务器中都没有符合要求的资源的时候，就会到源服务器中去寻找对应的资源。</li>
+</ul>
+</li>
+<li>什么时候触发回源？<ul>
+<li>没有资源，资源过期或者缓存的资源不是缓存资源等情况</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>cdn</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>GET 和 POST 的区别</title>
+    <url>/2020/09/diff-between-get-post/</url>
+    <content><![CDATA[<h2 id="GET请求"><a href="#GET请求" class="headerlink" title="GET请求"></a>GET请求</h2><ol>
+<li>GET请求返回的资源会被浏览器缓存</li>
+<li>GET请求会保存在浏览器的历史记录中</li>
+<li>GET请求能当书签</li>
+<li>GET不能用来处理敏感数据</li>
+<li>有长度限制（具体长度参见各个浏览器规范）</li>
+<li>仅仅用来获取数据，不能修改</li>
+<li>参数的数据类型，只接收ascll编码</li>
+<li>仅支持url编码</li>
+<li>产生一个数据包</li>
+<li>页面重载或者回退没有影响</li>
+</ol>
+<h2 id="POST请求"><a href="#POST请求" class="headerlink" title="POST请求"></a>POST请求</h2><ol>
+<li>请求不会被缓存</li>
+<li>不会保存在历史记录中</li>
+<li>不能作为书签</li>
+<li>数据长度没有限制</li>
+<li>参数的数据类型没有限制</li>
+<li>支持多种编码</li>
+<li>两个数据包，需要服务器响应100后继续发出请求之后服务器（可能）响应200</li>
+<li>刷新或者回退 数据会重新提交</li>
+</ol>
+<h2 id="其他http方法"><a href="#其他http方法" class="headerlink" title="其他http方法"></a>其他http方法</h2><h3 id="put"><a href="#put" class="headerlink" title="put"></a>put</h3><p>put方法跟post一样，也是用来创建或者更新资源的，但是跟post不一样的地方在于put请求是幂等的，也就是说put请求发起多次所产生的结果是跟第一个一样的；那么对于post请求，重复请求就会产生多次创建相同资源的副作用</p>
+<h3 id="head"><a href="#head" class="headerlink" title="head"></a>head</h3><p>head请求跟get请求是差不多相同的，不同的地方在于head请求没有返回体<br>那么head 请求通常是在发起get请求之前检查get请求返回的是什么，比如在下载文件的时候或者下载请求体的时候</p>
+<h3 id="delete"><a href="#delete" class="headerlink" title="delete"></a>delete</h3><p>删除方法用来删除资源</p>
+<h3 id="options"><a href="#options" class="headerlink" title="options"></a>options</h3><p>是复杂请求的预检请求</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>部署hexo踩坑记录</title>
+    <url>/2020/11/bugsForNode/</url>
+    <content><![CDATA[<p>在执行下面这句代码的时候</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g -d</span><br></pre></td></tr></table></figure>
+
+<p>报错信息</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Something<span class="string">'s wrong. Maybe you can find the solution here: https://hexo.io/docs/troubleshooting.html</span></span><br><span class="line"><span class="string">TypeError [ERR_INVALID_ARG_TYPE]: The "mode" argument must be integer. Received an instance of Object</span></span><br><span class="line"><span class="string">    at copyFile (fs.js:1924:10)</span></span><br><span class="line"><span class="string">    at tryCatcher (/Users/zjs/Desktop/blog/node_modules/bluebird/js/release/util.js:16:23)</span></span><br><span class="line"><span class="string">    at ret (eval at makeNodePromisifiedEval (/Users/zjs/.nvm/versions/node/v14.10.0/lib/node_modules/hexo-cli/node_modules/bluebird/js/release/promisify.js:184:12), &lt;anonymous&gt;:13:39)</span></span><br></pre></td></tr></table></figure>
+
+<p>解决方案<br> NodeJs 版本从 14 回到 12 就🉑️！</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>随笔</title>
+    <url>/2020/10/conclusion/</url>
+    <content><![CDATA[<h3 id="笔记一"><a href="#笔记一" class="headerlink" title="笔记一"></a>笔记一</h3><p>在vue项目中使用ts-class的形式来编写组件的时候，要记得在export上面➕<code>@Component</code>装饰器，不然组件不能正常注册</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">import &#123;</span><br><span class="line">    Component,</span><br><span class="line">    Vue,</span><br><span class="line">    InjectReactive</span><br><span class="line">&#125; from <span class="string">'vue-property-decorator'</span>;</span><br><span class="line"></span><br><span class="line">@Component</span><br><span class="line">class Child extends Vue &#123;</span><br><span class="line">    @InjectReactive() node: number;</span><br><span class="line">    <span class="function"><span class="title">mounted</span></span>() &#123;</span><br><span class="line">        console.log(this.node)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果在页面中需要用到子组件的情况，需要像这样注册,并且<code>@Component</code>装饰器只需要写一次</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">import &#123;</span><br><span class="line">    Vue,</span><br><span class="line">    Component,</span><br><span class="line">    ProvideReactive</span><br><span class="line">&#125; from <span class="string">'vue-property-decorator'</span>;</span><br><span class="line">import Child from <span class="string">'./child.vue'</span></span><br><span class="line">@Component(&#123;</span><br><span class="line">    components: &#123;</span><br><span class="line">        Child</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line">class Parent extends Vue &#123;</span><br><span class="line">    @ProvideReactive() node = &#123;&#125;</span><br><span class="line">    <span class="function"><span class="title">mounted</span></span>() &#123;</span><br><span class="line">        this.node = 1</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="笔记二-—-ProvideReactive来做数据透传的注意点"><a href="#笔记二-—-ProvideReactive来做数据透传的注意点" class="headerlink" title="笔记二 — ProvideReactive来做数据透传的注意点"></a>笔记二 — ProvideReactive来做数据透传的注意点</h3><p>如果在组件中使用Provide来进行数据透传的话，数据是不带响应式的。如果需要数据具有响应式，那么需要用ProvideReactive来做属性的透传，代码例子可以看上一个代码，另外由于在路由跳转的时候，有时候会有Provide的值重新定义的问题，这时候控制台会抛出异常，具体可以看这个<br><a href="https://github.com/kaorun343/vue-property-decorator/issues/277" target="_blank" rel="noopener">issue</a>,有临时的解决方案</p>
+<h3 id="笔记三-—-在弹窗中保证数据的实时性"><a href="#笔记三-—-在弹窗中保证数据的实时性" class="headerlink" title="笔记三 — 在弹窗中保证数据的实时性"></a>笔记三 — 在弹窗中保证数据的实时性</h3><p>需要把数据以Provide的形式传递给弹窗，但是数据仅仅只在第一次显示的时候是正常的数据，在关闭弹窗后再一次开启弹窗，显示的数据是上一次的数据。原因暂时不知道。所以我在关闭弹窗的时候同时用v-if来销毁元素，这样每次打开的元素都是一个最新的元素，同时这个时候获取到的数据也是最新的数据。</p>
+<h3 id="笔记四-—-数据获取完后保证子组件获取最新的数据"><a href="#笔记四-—-数据获取完后保证子组件获取最新的数据" class="headerlink" title="笔记四 — 数据获取完后保证子组件获取最新的数据"></a>笔记四 — 数据获取完后保证子组件获取最新的数据</h3><p>在父组件用axios获取数据的时候，然后传递给子组件，但是子组件渲染的时候是定义时就给的默认值。<br>原因：父组件在请求数据的时候，子组件的生命周期已经走完并且已经渲染完成，所以这时候是拿不到请求后返回的真实数据<br>方案：我这里用v-if来判断获取的数据的长度是否为空来判断是否要渲染子组件，缺点：数据量很大的时候会有很长时间的空白。</p>
+<h3 id="笔记五-—-自定义组件绑定v-models"><a href="#笔记五-—-自定义组件绑定v-models" class="headerlink" title="笔记五 — 自定义组件绑定v-models"></a>笔记五 — 自定义组件绑定v-models</h3><p>想让自定义组件能够使用v-model语法糖，这样子组件的数据就可以实时的反馈到父组件中去</p>
+<p>在vue中，对input来说，v-model是value和input事件的语法糖，对于checkbox来说，监听的事件是change，给对应的元素添加对应的事件，然后在自组件emit出去，把相应的value值绑定到对应的dom元素中去。</p>
+]]></content>
+  </entry>
+  <entry>
     <title>今日随笔(7-29)</title>
     <url>/2020/07/essay-1/</url>
     <content><![CDATA[<h2 id="runAsync"><a href="#runAsync" class="headerlink" title="runAsync"></a>runAsync</h2><p>使用 web worker 在一个单独的线程中执行函数，能够允许执行不阻塞 UI 渲染的耗时函数</p>
@@ -447,48 +497,6 @@
       </categories>
       <tags>
         <tag>essay</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>随笔</title>
-    <url>/2020/10/conclusion/</url>
-    <content><![CDATA[<h3 id="笔记一"><a href="#笔记一" class="headerlink" title="笔记一"></a>笔记一</h3><p>在vue项目中使用ts-class的形式来编写组件的时候，要记得在export上面➕<code>@Component</code>装饰器，不然组件不能正常注册</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">import &#123;</span><br><span class="line">    Component,</span><br><span class="line">    Vue,</span><br><span class="line">    InjectReactive</span><br><span class="line">&#125; from <span class="string">'vue-property-decorator'</span>;</span><br><span class="line"></span><br><span class="line">@Component</span><br><span class="line">class Child extends Vue &#123;</span><br><span class="line">    @InjectReactive() node: number;</span><br><span class="line">    <span class="function"><span class="title">mounted</span></span>() &#123;</span><br><span class="line">        console.log(this.node)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>如果在页面中需要用到子组件的情况，需要像这样注册,并且<code>@Component</code>装饰器只需要写一次</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">import &#123;</span><br><span class="line">    Vue,</span><br><span class="line">    Component,</span><br><span class="line">    ProvideReactive</span><br><span class="line">&#125; from <span class="string">'vue-property-decorator'</span>;</span><br><span class="line">import Child from <span class="string">'./child.vue'</span></span><br><span class="line">@Component(&#123;</span><br><span class="line">    components: &#123;</span><br><span class="line">        Child</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line">class Parent extends Vue &#123;</span><br><span class="line">    @ProvideReactive() node = &#123;&#125;</span><br><span class="line">    <span class="function"><span class="title">mounted</span></span>() &#123;</span><br><span class="line">        this.node = 1</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="笔记二-—-ProvideReactive来做数据透传的注意点"><a href="#笔记二-—-ProvideReactive来做数据透传的注意点" class="headerlink" title="笔记二 — ProvideReactive来做数据透传的注意点"></a>笔记二 — ProvideReactive来做数据透传的注意点</h3><p>如果在组件中使用Provide来进行数据透传的话，数据是不带响应式的。如果需要数据具有响应式，那么需要用ProvideReactive来做属性的透传，代码例子可以看上一个代码，另外由于在路由跳转的时候，有时候会有Provide的值重新定义的问题，这时候控制台会抛出异常，具体可以看这个<br><a href="https://github.com/kaorun343/vue-property-decorator/issues/277" target="_blank" rel="noopener">issue</a>,有临时的解决方案</p>
-<h3 id="笔记三-—-在弹窗中保证数据的实时性"><a href="#笔记三-—-在弹窗中保证数据的实时性" class="headerlink" title="笔记三 — 在弹窗中保证数据的实时性"></a>笔记三 — 在弹窗中保证数据的实时性</h3><p>需要把数据以Provide的形式传递给弹窗，但是数据仅仅只在第一次显示的时候是正常的数据，在关闭弹窗后再一次开启弹窗，显示的数据是上一次的数据。原因暂时不知道。所以我在关闭弹窗的时候同时用v-if来销毁元素，这样每次打开的元素都是一个最新的元素，同时这个时候获取到的数据也是最新的数据。</p>
-<h3 id="笔记四-—-数据获取完后保证子组件获取最新的数据"><a href="#笔记四-—-数据获取完后保证子组件获取最新的数据" class="headerlink" title="笔记四 — 数据获取完后保证子组件获取最新的数据"></a>笔记四 — 数据获取完后保证子组件获取最新的数据</h3><p>在父组件用axios获取数据的时候，然后传递给子组件，但是子组件渲染的时候是定义时就给的默认值。<br>原因：父组件在请求数据的时候，子组件的生命周期已经走完并且已经渲染完成，所以这时候是拿不到请求后返回的真实数据<br>方案：我这里用v-if来判断获取的数据的长度是否为空来判断是否要渲染子组件，缺点：数据量很大的时候会有很长时间的空白。</p>
-<h3 id="笔记五-—-自定义组件绑定v-models"><a href="#笔记五-—-自定义组件绑定v-models" class="headerlink" title="笔记五 — 自定义组件绑定v-models"></a>笔记五 — 自定义组件绑定v-models</h3><p>想让自定义组件能够使用v-model语法糖，这样子组件的数据就可以实时的反馈到父组件中去</p>
-<p>在vue中，对input来说，v-model是value和input事件的语法糖，对于checkbox来说，监听的事件是change，给对应的元素添加对应的事件，然后在自组件emit出去，把相应的value值绑定到对应的dom元素中去。</p>
-]]></content>
-  </entry>
-  <entry>
-    <title>今日随笔</title>
-    <url>/2021/03/essay-10/</url>
-    <content><![CDATA[<h3 id="removeNonASCII"><a href="#removeNonASCII" class="headerlink" title="removeNonASCII"></a>removeNonASCII</h3><p>Removes non-printable ASCII characters.</p>
-<p>Use a regular expression to remove non-printable ASCII characters.</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> removeNonASCII = <span class="function"><span class="params">str</span> =&gt;</span> str.replace(<span class="regexp">/[^\x20-\x7E]/g</span>, <span class="string">''</span>)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">removeNonASCII(<span class="string">'äÄçÇéÉêlorem-ipsumöÖÐþúÚ'</span>); <span class="comment">// 'lorem-ipsum'</span></span><br></pre></td></tr></table></figure>
-
-<a id="more"></a>
-<h3 id="Constant-width-to-height-ratio"><a href="#Constant-width-to-height-ratio" class="headerlink" title="Constant width to height ratio"></a>Constant width to height ratio</h3><p>iven an element of variable width, it will ensure its height remains proportionate in a responsive fashion (i.e., its width to height ratio remains constant).</p>
-<p><code>html</code></p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"constant-width-to-height-ratio"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p><code>css</code></p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.constant-width-to-height-ratio</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#333</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">50%</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.constant-width-to-height-ratio</span><span class="selector-pseudo">::before</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">''</span>;</span><br><span class="line">  <span class="attribute">padding-top</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">float</span>: left;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.constant-width-to-height-ratio</span><span class="selector-pseudo">::after</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">''</span>;</span><br><span class="line">  <span class="attribute">display</span>: block;</span><br><span class="line">  <span class="attribute">clear</span>: both;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><code>description</code><br>padding-top on the ::before pseudo-element causes the height of the element to equal a percentage of its width. 100% therefore means the element’s height will always be 100% of the width, creating a responsive square.</p>
-<p>This method also allows content to be placed inside the element normally.</p>
-<p><code>browser support</code></p>
-<p>✅ No caveats.</p>
-]]></content>
-      <tags>
-        <tag>JavaScript</tag>
       </tags>
   </entry>
   <entry>
@@ -542,33 +550,6 @@
       <tags>
         <tag>essay</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>今日随笔（3.21)）</title>
-    <url>/2021/03/essay-11/</url>
-    <content><![CDATA[<h4 id="How-to-Make-Badass-Shadows"><a href="#How-to-Make-Badass-Shadows" class="headerlink" title="How to Make Badass Shadows"></a>How to Make Badass Shadows</h4><p><a href="https://blog.prototypr.io/how-to-make-badass-shadows-564b3a30aba4" target="_blank" rel="noopener">Tips to help create better UI shadows.</a>  </p>
-<h4 id="Jest"><a href="#Jest" class="headerlink" title="Jest"></a>Jest</h4><p><a href="https://pragmaticpineapple.com/7-ways-to-debug-jest-tests-in-terminal/" target="_blank" rel="noopener">7 Ways to Debug Jest Tests in Terminal</a></p>
-<a id="more"></a>]]></content>
-      <tags>
-        <tag>JavaScript</tag>
-        <tag>css</tag>
-        <tag>Jest</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>今日随笔(8-6)</title>
-    <url>/2020/08/essay-4/</url>
-    <content><![CDATA[<p>先看代码</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const a = 1</span><br><span class="line">[...[1,2,3]].forEach(item=&gt;console.log(item))</span><br></pre></td></tr></table></figure>
-
-<p>乍一看，是不是感觉挺正常的，在浏览器的log窗口应该能输出1，2，3，才对<br>然后在浏览器跑一下，发现</p>
-<p><img src="/images/essay-4/unexpected_error.png.png" alt="error"></p>
-<p>然后emm排查了一下，语法是没问题的，浏览器版本是最新的开发版本，es6的语法肯定是支持的，那问题其实就是a=1 后面漏了分号，所以代码就成了这样</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const a = 1[...[1,2,3]].forEach(item=&gt;console.log(item))</span><br></pre></td></tr></table></figure>
-
-<p>那代码成了这样那肯定不能正确解析了～</p>
-<p>果然，漏写分号不是好习惯～</p>
-]]></content>
   </entry>
   <entry>
     <title>docker</title>
@@ -629,6 +610,59 @@
       </tags>
   </entry>
   <entry>
+    <title>今日随笔（3.21)）</title>
+    <url>/2021/03/essay-11/</url>
+    <content><![CDATA[<h4 id="How-to-Make-Badass-Shadows"><a href="#How-to-Make-Badass-Shadows" class="headerlink" title="How to Make Badass Shadows"></a>How to Make Badass Shadows</h4><p><a href="https://blog.prototypr.io/how-to-make-badass-shadows-564b3a30aba4" target="_blank" rel="noopener">Tips to help create better UI shadows.</a>  </p>
+<h4 id="Jest"><a href="#Jest" class="headerlink" title="Jest"></a>Jest</h4><p><a href="https://pragmaticpineapple.com/7-ways-to-debug-jest-tests-in-terminal/" target="_blank" rel="noopener">7 Ways to Debug Jest Tests in Terminal</a></p>
+<a id="more"></a>]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+        <tag>css</tag>
+        <tag>Jest</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>今日随笔(8-6)</title>
+    <url>/2020/08/essay-4/</url>
+    <content><![CDATA[<p>先看代码</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const a = 1</span><br><span class="line">[...[1,2,3]].forEach(item=&gt;console.log(item))</span><br></pre></td></tr></table></figure>
+
+<p>乍一看，是不是感觉挺正常的，在浏览器的log窗口应该能输出1，2，3，才对<br>然后在浏览器跑一下，发现</p>
+<p><img src="/images/essay-4/unexpected_error.png.png" alt="error"></p>
+<p>然后emm排查了一下，语法是没问题的，浏览器版本是最新的开发版本，es6的语法肯定是支持的，那问题其实就是a=1 后面漏了分号，所以代码就成了这样</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const a = 1[...[1,2,3]].forEach(item=&gt;console.log(item))</span><br></pre></td></tr></table></figure>
+
+<p>那代码成了这样那肯定不能正确解析了～</p>
+<p>果然，漏写分号不是好习惯～</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>今日随笔</title>
+    <url>/2021/03/essay-10/</url>
+    <content><![CDATA[<h3 id="removeNonASCII"><a href="#removeNonASCII" class="headerlink" title="removeNonASCII"></a>removeNonASCII</h3><p>Removes non-printable ASCII characters.</p>
+<p>Use a regular expression to remove non-printable ASCII characters.</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> removeNonASCII = <span class="function"><span class="params">str</span> =&gt;</span> str.replace(<span class="regexp">/[^\x20-\x7E]/g</span>, <span class="string">''</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">removeNonASCII(<span class="string">'äÄçÇéÉêlorem-ipsumöÖÐþúÚ'</span>); <span class="comment">// 'lorem-ipsum'</span></span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+<h3 id="Constant-width-to-height-ratio"><a href="#Constant-width-to-height-ratio" class="headerlink" title="Constant width to height ratio"></a>Constant width to height ratio</h3><p>iven an element of variable width, it will ensure its height remains proportionate in a responsive fashion (i.e., its width to height ratio remains constant).</p>
+<p><code>html</code></p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"constant-width-to-height-ratio"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>css</code></p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.constant-width-to-height-ratio</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#333</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">50%</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.constant-width-to-height-ratio</span><span class="selector-pseudo">::before</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">''</span>;</span><br><span class="line">  <span class="attribute">padding-top</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">float</span>: left;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.constant-width-to-height-ratio</span><span class="selector-pseudo">::after</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">''</span>;</span><br><span class="line">  <span class="attribute">display</span>: block;</span><br><span class="line">  <span class="attribute">clear</span>: both;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>description</code><br>padding-top on the ::before pseudo-element causes the height of the element to equal a percentage of its width. 100% therefore means the element’s height will always be 100% of the width, creating a responsive square.</p>
+<p>This method also allows content to be placed inside the element normally.</p>
+<p><code>browser support</code></p>
+<p>✅ No caveats.</p>
+]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>今日随笔</title>
     <url>/2021/11/essay-12/</url>
     <content><![CDATA[<h4 id="tinymce爬坑记录"><a href="#tinymce爬坑记录" class="headerlink" title="tinymce爬坑记录"></a>tinymce爬坑记录</h4><br>
@@ -648,21 +682,10 @@
       </tags>
   </entry>
   <entry>
-    <title>今日随笔(2020-10-11)</title>
-    <url>/2020/10/essay-5/</url>
-    <content><![CDATA[<h3 id="命令行文件的上传与下载"><a href="#命令行文件的上传与下载" class="headerlink" title="命令行文件的上传与下载"></a>命令行文件的上传与下载</h3><p>文件的上传和下载命令都是scp</p>
-<p><strong>上传</strong><br>从服务器上下载文件 scp username@servername:/path/filename /Users/mac/Desktop（本地目录，例如：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">scp root@47.98.37.170:/root/test.txt /Users/mac/Desktop就是将服务器上的/root/test.txt下载到本地的/Users/mac/Desktop目录下。注意两个地址之间有空格！</span><br></pre></td></tr></table></figure>
-
-<p><strong>下载</strong><br>上传本地文件到服务器 scp /path/filename username@servername:/path ;</p>
-<p>note： 下载命令就是将两个路径换一个位置就行了。</p>
-<h3 id="TS-4-0的一些更新"><a href="#TS-4-0的一些更新" class="headerlink" title="TS 4.0的一些更新"></a>TS 4.0的一些更新</h3><h4 id="类型解构"><a href="#类型解构" class="headerlink" title="类型解构"></a>类型解构</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> Strings = [string, string];</span><br><span class="line"><span class="built_in">type</span> Numbers = number[]</span><br><span class="line"></span><br><span class="line"><span class="built_in">type</span> Unbounded = [...Strings, ...Numbers, boolean];</span><br><span class="line"><span class="comment"># // [string, string, ...Array&lt;number | boolean&gt;]</span></span><br><span class="line"><span class="comment"># 按照官方的解释就是解构一个已知长度的类型的时候，那么最后的结果类型也是没有任何限制的，在解构类型之后添加的类型声明都要添加到被解构类型的类型中去</span></span><br></pre></td></tr></table></figure>
-
-<p>—待续哈，明天更新</p>
+    <title>今日随笔</title>
+    <url>/2021/01/essay-7/</url>
+    <content><![CDATA[<p><img src="/images/essay-7/essay.png" alt="essay"></p>
 ]]></content>
-      <tags>
-        <tag>TypeScript Upload</tag>
-      </tags>
   </entry>
   <entry>
     <title>今日随笔(2020-12-27)</title>
@@ -684,10 +707,21 @@
 ]]></content>
   </entry>
   <entry>
-    <title>今日随笔</title>
-    <url>/2021/01/essay-7/</url>
-    <content><![CDATA[<p><img src="/images/essay-7/essay.png" alt="essay"></p>
+    <title>今日随笔(2020-10-11)</title>
+    <url>/2020/10/essay-5/</url>
+    <content><![CDATA[<h3 id="命令行文件的上传与下载"><a href="#命令行文件的上传与下载" class="headerlink" title="命令行文件的上传与下载"></a>命令行文件的上传与下载</h3><p>文件的上传和下载命令都是scp</p>
+<p><strong>上传</strong><br>从服务器上下载文件 scp username@servername:/path/filename /Users/mac/Desktop（本地目录，例如：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">scp root@47.98.37.170:/root/test.txt /Users/mac/Desktop就是将服务器上的/root/test.txt下载到本地的/Users/mac/Desktop目录下。注意两个地址之间有空格！</span><br></pre></td></tr></table></figure>
+
+<p><strong>下载</strong><br>上传本地文件到服务器 scp /path/filename username@servername:/path ;</p>
+<p>note： 下载命令就是将两个路径换一个位置就行了。</p>
+<h3 id="TS-4-0的一些更新"><a href="#TS-4-0的一些更新" class="headerlink" title="TS 4.0的一些更新"></a>TS 4.0的一些更新</h3><h4 id="类型解构"><a href="#类型解构" class="headerlink" title="类型解构"></a>类型解构</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">type</span> Strings = [string, string];</span><br><span class="line"><span class="built_in">type</span> Numbers = number[]</span><br><span class="line"></span><br><span class="line"><span class="built_in">type</span> Unbounded = [...Strings, ...Numbers, boolean];</span><br><span class="line"><span class="comment"># // [string, string, ...Array&lt;number | boolean&gt;]</span></span><br><span class="line"><span class="comment"># 按照官方的解释就是解构一个已知长度的类型的时候，那么最后的结果类型也是没有任何限制的，在解构类型之后添加的类型声明都要添加到被解构类型的类型中去</span></span><br></pre></td></tr></table></figure>
+
+<p>—待续哈，明天更新</p>
 ]]></content>
+      <tags>
+        <tag>TypeScript Upload</tag>
+      </tags>
   </entry>
   <entry>
     <title>今日随笔(1-31)</title>
@@ -965,6 +999,127 @@
       </tags>
   </entry>
   <entry>
+    <title>javascript浮点数精度问题</title>
+    <url>/2019/10/javascript-float-num/</url>
+    <content><![CDATA[<h3 id="浮点数陷阱"><a href="#浮点数陷阱" class="headerlink" title="浮点数陷阱"></a>浮点数陷阱</h3><p>原文：<a href="https://zhuanlan.zhihu.com/ne-fe" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/ne-fe</a></p>
+<p>众所周知，JavaScript 浮点数运算时经常遇到会 0.000000001 和 0.999999999 这样奇怪的结果，如 0.1+0.2=0.30000000000000004、1-0.9=0.09999999999999998，很多人知道这是浮点数误差问题，但具体就说不清楚了。本文帮你理清这背后的原理以及解决方案，还会向你解释JS中的大数危机和四则运算中会遇到的坑。</p>
+<a id="more"></a>
+<h3 id="浮点数的储存"><a href="#浮点数的储存" class="headerlink" title="浮点数的储存"></a>浮点数的储存</h3><p>首先要搞清楚 JavaScript 如何存储小数。和其它语言如 Java 和 Python 不同，JavaScript 中所有数字包括整数和小数都只有一种类型 — Number。它的实现遵循 IEEE 754 标准，使用 64 位固定长度来表示，也就是标准的 double 双精度浮点数（相关的还有float 32位单精度）。</p>
+<p>这样的存储结构优点是可以归一化处理整数和小数，节省存储空间。</p>
+<p>64位比特又可分为三个部分：</p>
+<ul>
+<li>符号位S：第 1 位是正负数符号位（sign），0代表正数，1代表负数</li>
+<li>指数位E：中间的 11 位存储指数（exponent），用来表示次方数</li>
+<li>尾数位M：最后的 52 位是尾数（mantissa），超出的部分自动进一舍零</li>
+</ul>
+<p><img src="/images/javascript_float_num/demo1.png" alt="图片"></p>
+<p>实际数字就可以用以下公式来计算：<br><img src="/images/javascript_float_num/demo2.png" alt="图片"></p>
+<p>公式推导过程见维基百科<a href="https://zh.wikipedia.org/wiki/%E9%9B%99%E7%B2%BE%E5%BA%A6%E6%B5%AE%E9%BB%9E%E6%95%B8" target="_blank" rel="noopener">wiki</a></p>
+<h3 id="为什么0-1-0-2-0-30000000000000004"><a href="#为什么0-1-0-2-0-30000000000000004" class="headerlink" title="为什么0.1+0.2 =0.30000000000000004?"></a>为什么0.1+0.2 =0.30000000000000004?</h3><p>0.1 转成二进制表示为 0.0001100110011001100(1100循环)，1.100110011001100x2^-4，所以 E=-4+1023=1019；M 舍去首位的1，得到 100110011…。<br>转化成十进制后为 0.100000000000000005551115123126，因此就出现了浮点误差。<br>接着0.1+0.2计算步骤为</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">0.00011001100110011001100110011001100110011001100110011010 +</span><br><span class="line">0.0011001100110011001100110011001100110011001100110011010 =</span><br><span class="line">0.0100110011001100110011001100110011001100110011001100111</span><br><span class="line">// 转成十进制正好是 0.30000000000000004</span><br></pre></td></tr></table></figure>
+
+<p>因为 mantissa 固定长度是 52 位，再加上省略的一位，最多可以表示的数是 2^53=9007199254740992，对应科学计数尾数是 9.007199254740992，这也是 JS 最多能表示的精度，如果整数大于 9007199254740992 会出现什么情况呢？<br>由于 E 最大值是 1023，所以最大可以表示的整数是 2^1024 - 1，这就是能表示的最大整数。但你并不能这样计算这个数字，因为从 2^1024 开始就变成了 Infinity</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Math.pow(2, 1023)</span><br><span class="line">//8.98846567431158e+307</span><br><span class="line"></span><br><span class="line">//Math.pow(2, 1024)</span><br><span class="line">Infinity</span><br></pre></td></tr></table></figure>
+
+<p>那么对于 (2^53, 2^63) 之间的数会出现什么情况呢？</p>
+<ul>
+<li>(2^53, 2^54) 之间的数会两个选一个，只能精确表示偶数</li>
+<li>(2^54, 2^55) 之间的数会四个选一个，只能精确表示4个倍数</li>
+<li>… 依次跳过更多2的倍数<br>下面这张图能很好的表示 JavaScript 中浮点数和实数（Real Number）之间的对应关系<br><img src="/images/javascript_float_num/demo3.jfif" alt="real number"></li>
+</ul>
+<p>要想解决大数的问题你可以引用第三方库 bignumber.js，原理是把所有数字当作字符串，重新实现了计算逻辑，缺点是性能比原生的差很多</p>
+<h3 id="toPrecision-vs-toFixed"><a href="#toPrecision-vs-toFixed" class="headerlink" title="toPrecision vs toFixed"></a>toPrecision vs toFixed</h3><p>数据处理时，这两个函数很容易混淆。它们的共同点是把数字转成字符串供展示使用。注意在计算的中间过程不要使用，只用于最终结果。</p>
+<p>不同点就需要注意一下</p>
+<ul>
+<li>toPrecision 是处理精度，精度是从左至右第一个不为0的数开始数起。</li>
+<li>toFixed 是小数点后指定位数取整，从小数点开始数起。</li>
+</ul>
+<p>两者都能对多余数字做凑整处理，也有些人用 toFixed 来做四舍五入，但一定要知道它是有 Bug 的。</p>
+<p>如：1.005.toFixed(2) 返回的是 1.00 而不是 1.01。</p>
+<p>原因： 1.005 实际对应的数字是 1.00499999999999989，在四舍五入时全部被舍去！</p>
+<p>解法：使用专业的四舍五入函数 Math.round() 来处理。但 Math.round(1.005 * 100) / 100 还是不行，因为 1.005 * 100 = 100.49999999999999。还需要把乘法和除法精度误差都解决后再使用 Math.round。</p>
+<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><ul>
+<li><a href="https://github.com/dt-fe/number-precision" target="_blank" rel="noopener">https://github.com/dt-fe/number-precision</a></li>
+<li>BigInt</li>
+<li>Number.EPSILON,表示 1 与Number可表示的大于 1 的最小的浮点数之间的差值。如果两个数的差值小于这个，就认为这两个数相等</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>jsonp实现</title>
+    <url>/2019/11/jsonp/</url>
+    <content><![CDATA[<p>由于浏览器的同源策略，所以当不同源发送请求时，会发生跨域，请求返回的结果被浏览器所拦截，其中一个解决办法就是用jsonp,jquery中的ajax中就支持了jsonp的数据类型</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$.ajax(&#123;</span><br><span class="line"> url: &apos;http://twitter.com/status/user_timeline/padraicb.json?count=10&apos;,</span><br><span class="line"> dataType: &apos;jsonp&apos;,</span><br><span class="line"> success: function onSuccess() &#123; &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+<h3 id="什么是jsonp？"><a href="#什么是jsonp？" class="headerlink" title="什么是jsonp？"></a>什么是jsonp？</h3><p>jsonp就是我们开发人员利用了script标签的特性来绕过了浏览器的同源策略，因为script加载资源的时候不受浏览器同源策略的影响，但是这个策略（同源策略）不允许读取与当前网站不同源的回复，只允许发送请求，不允许读取请求</p>
+<p>一个网站的origin由三分部分组成，首先就是URI的格式（http://）,接着是主机名（比如：baidu.com），最后是端口号（比如：443）。像 <a href="http://logrocket.com" target="_blank" rel="noopener">http://logrocket.com</a> 和 https:////logrocket.com 是两个不同的origin因为URI的格式不同。</p>
+<h3 id="它怎么工作的？"><a href="#它怎么工作的？" class="headerlink" title="它怎么工作的？"></a>它怎么工作的？</h3><p>假如本地端口启动在localhost：8080，我们发送一个请求到提供json api的服务上去</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">https://www.server.com/api/person/1</span><br></pre></td></tr></table></figure>
+
+<p>然后响应的话可能长这样</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;firstName&quot;: &quot;Maciej&quot;,</span><br><span class="line">  &quot;lastName&quot;: &quot;Cieslar&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>但是由于同源策略的限制，我们可以发送请求到服务端，但是服务端返回的请求被浏览器给拦截了，因为网站跟服务器不同源。</p>
+<p>script元素可以代替我们自己发送请求，同源策略不限制它，它能够加载并且执行外链资源的js，这样的话比如在 <a href="https://logrocket.com的网站可以从不同来源的提供商加载google" target="_blank" rel="noopener">https://logrocket.com的网站可以从不同来源的提供商加载google</a> Map库，比如CDN</p>
+<p>通过给script中的src赋值成想要访问的请求，script标签将会获取到响应，并且在浏览器中执行</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;script src=&quot;https://www.server.com/api/person/1&quot; async=&quot;true&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>但是问题在于，script会自动解析并且执行返回的js代码。在这种情况下，上面返回的代码会是JSON格式的。JSON会被解析成js代码，因此浏览器会抛出一个错误因为JSON不是有效的JS代码<br><img src="https://i0.wp.com/blog.logrocket.com/wp-content/uploads/2019/11/invalid-syntax-error.png?w=730&ssl=1" alt="图片"></p>
+<p>因此我们必须返回一个正常运行的JS代码这样script解析并且运行的时候浏览器才不会抛出错误。我们只要把返回的JSON赋值给JS变量或者作为函数的参数就行，毕竟本质上来说，JSON也属于JS对象格式。</p>
+<p>因此与其返回纯JSON格式，服务器倒不如返回JS代码。在返回的代码中，将JSON对象放在返回的函数中作为参数传递，函数的名字需要由客户端来传递，提供的函数名字在查询参数中叫做callback</p>
+<p>在查询中提供回调函数的名字后，我们在全局上下文中创建了一个函数（function），这个函数在响应被解析并且执行的时候回调用一次</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">https://www.server.com/api/person/1?callback=callbackName</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">callbackName(&#123;</span><br><span class="line">  &quot;firstName&quot;: &quot;Maciej&quot;,</span><br><span class="line">  &quot;lastName&quot;: &quot;Cieslar&quot;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>因为callbackName在接收到回调的时候callbackName挂载到window上，因此上面的代码其实就是相当于</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">window.callbackName(&#123;</span><br><span class="line">  &quot;firstName&quot;: &quot;Maciej&quot;,</span><br><span class="line">  &quot;lastName&quot;: &quot;Cieslar&quot;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>这段代码会在window上下文执行，这个函数将由script下载的代码来执行</p>
+<p>为了让jsonp能够正常工作，前后端都需要支持。当对于函数的命名没有标准的规范的时候，前端通常会给发送的函数命名为callback</p>
+<h3 id="创建一个jsonp的实现"><a href="#创建一个jsonp的实现" class="headerlink" title="创建一个jsonp的实现"></a>创建一个jsonp的实现</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let jsonpID = 0;</span><br><span class="line"></span><br><span class="line">function jsonp(url, timeout = 7500) &#123;</span><br><span class="line">  const head = document.querySelector(&apos;head&apos;);</span><br><span class="line">  jsonpID += 1;</span><br><span class="line"></span><br><span class="line">  return new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">    let script = document.createElement(&apos;script&apos;);</span><br><span class="line">    const callbackName = `jsonpCallback$&#123;jsonpID&#125;`;</span><br><span class="line"></span><br><span class="line">    script.src = encodeURI(`$&#123;url&#125;?callback=$&#123;callbackName&#125;`);</span><br><span class="line">    script.async = true;</span><br><span class="line"></span><br><span class="line">    const timeoutId = window.setTimeout(() =&gt; &#123;</span><br><span class="line">      cleanUp();</span><br><span class="line"></span><br><span class="line">      return reject(new Error(&apos;Timeout&apos;));</span><br><span class="line">    &#125;, timeout);</span><br><span class="line"></span><br><span class="line">    window[callbackName] = data =&gt; &#123;</span><br><span class="line">      cleanUp();</span><br><span class="line"></span><br><span class="line">      return resolve(data);</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    script.addEventListener(&apos;error&apos;, error =&gt; &#123;</span><br><span class="line">      cleanUp();</span><br><span class="line"></span><br><span class="line">      return reject(error);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    function cleanUp() &#123;</span><br><span class="line">      window[callbackName] = undefined;</span><br><span class="line">      head.removeChild(script);</span><br><span class="line">      window.clearTimeout(timeoutId);</span><br><span class="line">      script = null;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    head.appendChild(script);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如上所示，jsonpID是一个共享的变量，它会确保每个请求都有独一无二的函数名字。<br>首先我们把head对象的引用保存在一个叫head的变量中，然后我们会增加jsonpID来确保函数名唯一。在函数内部返回一个promise，我们创建一个script标签以及由jsonpCallback和独一无二的ID组成的callbackName,然后我们把提供的url放到script标签的src属性上，设置callbackName = callbackName，这个实现不支持添加参数，只能get请求，可以添加async确保不会阻塞浏览器</p>
+<p>返回的结果有三种可能</p>
+<ul>
+<li>要么正确  </li>
+<li>要么错误  </li>
+<li>要么超时<br>在上面的代码中都做了处理</li>
+</ul>
+<p>在cleanUp函数中抽象清理过程，三个函数-超时，成功，失败-看起来都长一样 </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const timeoutId = window.setTimeout(() =&gt; &#123;</span><br><span class="line">  cleanUp();</span><br><span class="line"></span><br><span class="line">  return reject(new Error(&apos;Timeout&apos;));</span><br><span class="line">&#125;, timeout);</span><br><span class="line"></span><br><span class="line">window[callbackName] = data =&gt; &#123;</span><br><span class="line">  cleanUp();</span><br><span class="line"></span><br><span class="line">  return resolve(data);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">script.addEventListener(&apos;error&apos;, error =&gt; &#123;</span><br><span class="line">  cleanUp();</span><br><span class="line"></span><br><span class="line">  return reject(error);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>然后在请求完成后调用cleanUp函数,注销挂载在window上的callbackName，移除script节点，清除定时器，将script置空，让script能被浏览器正常GC</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function cleanUp() &#123;</span><br><span class="line">  window[callbackName] = undefined;</span><br><span class="line">  head.removeChild(script);</span><br><span class="line">  window.clearTimeout(timeoutId);</span><br><span class="line">  script = null;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后我们再把script插入到head头中，script将会在插入的时候自动发送请求,<br>来个例子</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">jsonp(</span><br><span class="line">  &apos;https://gist.github.com/maciejcieslar/1c1f79d5778af4c2ee17927de769cea3.json&apos;</span><br><span class="line">)</span><br><span class="line">  .then(console.log)</span><br><span class="line">  .catch(console.error);</span><br></pre></td></tr></table></figure>
+
+<p>PS：当初被问的时候就不会，好气啊</p>
+]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>leetcode第1003之检查替换后的词是否有效</title>
+    <url>/2019/08/leetcode-1003/</url>
+    <content><![CDATA[<p>描述：: 给定有效字符串 “abc”。<br>对于任何有效的字符串 V，我们可以将 V 分成两个部分 X 和 Y，使得 X + Y（X 与 Y 连接）等于 V。（X 或 Y 可以为空。）那么，X + “abc” + Y 也同样是有效的。<br>例如，如果 S = “abc”，则有效字符串的示例是：”abc”，”aabcbc”，”abcabc”，”abcabcababcc”。无效字符串的示例是：”abccba”，”ab”，”cababc”，”bac”。<br>如果给定字符串 S 有效，则返回 true；否则，返回 false</p>
+<a id="more"></a>
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * @param &#123;string&#125; S</span><br><span class="line"> * @<span class="built_in">return</span> &#123;boolean&#125;</span><br><span class="line"> */</span><br><span class="line">var isValid = <span class="keyword">function</span>(S) &#123;</span><br><span class="line">    <span class="built_in">let</span> temp= <span class="string">''</span>;</span><br><span class="line">    <span class="keyword">while</span>(S.indexOf(<span class="string">'abc'</span>)!=-1)&#123;</span><br><span class="line">        temp= S.split(<span class="string">'abc'</span>).filter(item=&gt;item).join(<span class="string">""</span>);</span><br><span class="line">        S = temp;</span><br><span class="line">    &#125;</span><br><span class="line">    const isFlag=(str)=&gt;&#123;</span><br><span class="line">         <span class="built_in">return</span> str ==<span class="string">''</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> isFlag(S);</span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>今日随笔</title>
     <url>/2021/12/essay12-29/</url>
     <content><![CDATA[<h3 id="同源策略"><a href="#同源策略" class="headerlink" title="同源策略"></a>同源策略</h3><p>同源的定义：如果两个 URL 的 protocol、port (en-US) (如果有指定的话)和 host 都相同的话，则这两个 URL 是同源。这个方案也被称为“协议/主机/端口元组”，或者直接是 “元组”。（“元组” 是指一组项目构成的整体，双重/三重/四重/五重/等的通用形式）。</p>
@@ -988,6 +1143,20 @@
 ]]></content>
       <tags>
         <tag>同源策略</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>leetcode第70之爬楼梯</title>
+    <url>/2019/08/leetcode-70/</url>
+    <content><![CDATA[<p>描述：假设你正在爬楼梯。需要 n 阶你才能到达楼顶。</p>
+<p>每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？</p>
+<p>注意：给定 n 是一个正整数。<br>两种写法，一种递归，一种开循环。<br>写递归有一个问题，当数据量庞大的时候，递归会爆栈，开循环就不存在爆栈的问题，因为循环只是在一个调用栈执行的，并且不会像递归一样重复计算值。</p>
+<a id="more"></a>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 爬楼梯</span><br><span class="line"> * @param &#123;number&#125; n</span><br><span class="line"> * @<span class="built_in">return</span> &#123;number&#125;</span><br><span class="line"> */</span><br><span class="line">var climbStairs = <span class="keyword">function</span>(n) &#123;</span><br><span class="line">    <span class="built_in">let</span> ans =[1,2];</span><br><span class="line">    <span class="keyword">if</span>(n==1||n==2)&#123;</span><br><span class="line">        <span class="built_in">return</span> ans[n-1];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">let</span> i = 2;i&lt;n;i++)&#123;</span><br><span class="line">        ans[i]=ans[i-1]+ans[i-2];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> ans[n-1]</span><br><span class="line"></span><br><span class="line">    // <span class="keyword">else</span> &#123;</span><br><span class="line">    //     <span class="built_in">return</span> climbStairs(n-1)+climbStairs(n-2);</span><br><span class="line">    // &#125;</span><br><span class="line">&#125;;</span><br><span class="line">console.log(<span class="string">"climbStairs(44):"</span>, climbStairs(44));</span><br><span class="line">// climbStairs(3)</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>leetcode</tag>
       </tags>
   </entry>
   <entry>
@@ -1069,158 +1238,6 @@ btn.addEventListener('click',function(){
       </tags>
   </entry>
   <entry>
-    <title>javascript浮点数精度问题</title>
-    <url>/2019/10/javascript-float-num/</url>
-    <content><![CDATA[<h3 id="浮点数陷阱"><a href="#浮点数陷阱" class="headerlink" title="浮点数陷阱"></a>浮点数陷阱</h3><p>原文：<a href="https://zhuanlan.zhihu.com/ne-fe" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/ne-fe</a></p>
-<p>众所周知，JavaScript 浮点数运算时经常遇到会 0.000000001 和 0.999999999 这样奇怪的结果，如 0.1+0.2=0.30000000000000004、1-0.9=0.09999999999999998，很多人知道这是浮点数误差问题，但具体就说不清楚了。本文帮你理清这背后的原理以及解决方案，还会向你解释JS中的大数危机和四则运算中会遇到的坑。</p>
-<a id="more"></a>
-<h3 id="浮点数的储存"><a href="#浮点数的储存" class="headerlink" title="浮点数的储存"></a>浮点数的储存</h3><p>首先要搞清楚 JavaScript 如何存储小数。和其它语言如 Java 和 Python 不同，JavaScript 中所有数字包括整数和小数都只有一种类型 — Number。它的实现遵循 IEEE 754 标准，使用 64 位固定长度来表示，也就是标准的 double 双精度浮点数（相关的还有float 32位单精度）。</p>
-<p>这样的存储结构优点是可以归一化处理整数和小数，节省存储空间。</p>
-<p>64位比特又可分为三个部分：</p>
-<ul>
-<li>符号位S：第 1 位是正负数符号位（sign），0代表正数，1代表负数</li>
-<li>指数位E：中间的 11 位存储指数（exponent），用来表示次方数</li>
-<li>尾数位M：最后的 52 位是尾数（mantissa），超出的部分自动进一舍零</li>
-</ul>
-<p><img src="/images/javascript_float_num/demo1.png" alt="图片"></p>
-<p>实际数字就可以用以下公式来计算：<br><img src="/images/javascript_float_num/demo2.png" alt="图片"></p>
-<p>公式推导过程见维基百科<a href="https://zh.wikipedia.org/wiki/%E9%9B%99%E7%B2%BE%E5%BA%A6%E6%B5%AE%E9%BB%9E%E6%95%B8" target="_blank" rel="noopener">wiki</a></p>
-<h3 id="为什么0-1-0-2-0-30000000000000004"><a href="#为什么0-1-0-2-0-30000000000000004" class="headerlink" title="为什么0.1+0.2 =0.30000000000000004?"></a>为什么0.1+0.2 =0.30000000000000004?</h3><p>0.1 转成二进制表示为 0.0001100110011001100(1100循环)，1.100110011001100x2^-4，所以 E=-4+1023=1019；M 舍去首位的1，得到 100110011…。<br>转化成十进制后为 0.100000000000000005551115123126，因此就出现了浮点误差。<br>接着0.1+0.2计算步骤为</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">0.00011001100110011001100110011001100110011001100110011010 +</span><br><span class="line">0.0011001100110011001100110011001100110011001100110011010 =</span><br><span class="line">0.0100110011001100110011001100110011001100110011001100111</span><br><span class="line">// 转成十进制正好是 0.30000000000000004</span><br></pre></td></tr></table></figure>
-
-<p>因为 mantissa 固定长度是 52 位，再加上省略的一位，最多可以表示的数是 2^53=9007199254740992，对应科学计数尾数是 9.007199254740992，这也是 JS 最多能表示的精度，如果整数大于 9007199254740992 会出现什么情况呢？<br>由于 E 最大值是 1023，所以最大可以表示的整数是 2^1024 - 1，这就是能表示的最大整数。但你并不能这样计算这个数字，因为从 2^1024 开始就变成了 Infinity</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Math.pow(2, 1023)</span><br><span class="line">//8.98846567431158e+307</span><br><span class="line"></span><br><span class="line">//Math.pow(2, 1024)</span><br><span class="line">Infinity</span><br></pre></td></tr></table></figure>
-
-<p>那么对于 (2^53, 2^63) 之间的数会出现什么情况呢？</p>
-<ul>
-<li>(2^53, 2^54) 之间的数会两个选一个，只能精确表示偶数</li>
-<li>(2^54, 2^55) 之间的数会四个选一个，只能精确表示4个倍数</li>
-<li>… 依次跳过更多2的倍数<br>下面这张图能很好的表示 JavaScript 中浮点数和实数（Real Number）之间的对应关系<br><img src="/images/javascript_float_num/demo3.jfif" alt="real number"></li>
-</ul>
-<p>要想解决大数的问题你可以引用第三方库 bignumber.js，原理是把所有数字当作字符串，重新实现了计算逻辑，缺点是性能比原生的差很多</p>
-<h3 id="toPrecision-vs-toFixed"><a href="#toPrecision-vs-toFixed" class="headerlink" title="toPrecision vs toFixed"></a>toPrecision vs toFixed</h3><p>数据处理时，这两个函数很容易混淆。它们的共同点是把数字转成字符串供展示使用。注意在计算的中间过程不要使用，只用于最终结果。</p>
-<p>不同点就需要注意一下</p>
-<ul>
-<li>toPrecision 是处理精度，精度是从左至右第一个不为0的数开始数起。</li>
-<li>toFixed 是小数点后指定位数取整，从小数点开始数起。</li>
-</ul>
-<p>两者都能对多余数字做凑整处理，也有些人用 toFixed 来做四舍五入，但一定要知道它是有 Bug 的。</p>
-<p>如：1.005.toFixed(2) 返回的是 1.00 而不是 1.01。</p>
-<p>原因： 1.005 实际对应的数字是 1.00499999999999989，在四舍五入时全部被舍去！</p>
-<p>解法：使用专业的四舍五入函数 Math.round() 来处理。但 Math.round(1.005 * 100) / 100 还是不行，因为 1.005 * 100 = 100.49999999999999。还需要把乘法和除法精度误差都解决后再使用 Math.round。</p>
-<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><ul>
-<li><a href="https://github.com/dt-fe/number-precision" target="_blank" rel="noopener">https://github.com/dt-fe/number-precision</a></li>
-<li>BigInt</li>
-<li>Number.EPSILON,表示 1 与Number可表示的大于 1 的最小的浮点数之间的差值。如果两个数的差值小于这个，就认为这两个数相等</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>leetcode第1003之检查替换后的词是否有效</title>
-    <url>/2019/08/leetcode-1003/</url>
-    <content><![CDATA[<p>描述：: 给定有效字符串 “abc”。<br>对于任何有效的字符串 V，我们可以将 V 分成两个部分 X 和 Y，使得 X + Y（X 与 Y 连接）等于 V。（X 或 Y 可以为空。）那么，X + “abc” + Y 也同样是有效的。<br>例如，如果 S = “abc”，则有效字符串的示例是：”abc”，”aabcbc”，”abcabc”，”abcabcababcc”。无效字符串的示例是：”abccba”，”ab”，”cababc”，”bac”。<br>如果给定字符串 S 有效，则返回 true；否则，返回 false</p>
-<a id="more"></a>
-
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * @param &#123;string&#125; S</span><br><span class="line"> * @<span class="built_in">return</span> &#123;boolean&#125;</span><br><span class="line"> */</span><br><span class="line">var isValid = <span class="keyword">function</span>(S) &#123;</span><br><span class="line">    <span class="built_in">let</span> temp= <span class="string">''</span>;</span><br><span class="line">    <span class="keyword">while</span>(S.indexOf(<span class="string">'abc'</span>)!=-1)&#123;</span><br><span class="line">        temp= S.split(<span class="string">'abc'</span>).filter(item=&gt;item).join(<span class="string">""</span>);</span><br><span class="line">        S = temp;</span><br><span class="line">    &#125;</span><br><span class="line">    const isFlag=(str)=&gt;&#123;</span><br><span class="line">         <span class="built_in">return</span> str ==<span class="string">''</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> isFlag(S);</span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>leetcode</category>
-      </categories>
-      <tags>
-        <tag>leetcode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>jsonp实现</title>
-    <url>/2019/11/jsonp/</url>
-    <content><![CDATA[<p>由于浏览器的同源策略，所以当不同源发送请求时，会发生跨域，请求返回的结果被浏览器所拦截，其中一个解决办法就是用jsonp,jquery中的ajax中就支持了jsonp的数据类型</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$.ajax(&#123;</span><br><span class="line"> url: &apos;http://twitter.com/status/user_timeline/padraicb.json?count=10&apos;,</span><br><span class="line"> dataType: &apos;jsonp&apos;,</span><br><span class="line"> success: function onSuccess() &#123; &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<a id="more"></a>
-<h3 id="什么是jsonp？"><a href="#什么是jsonp？" class="headerlink" title="什么是jsonp？"></a>什么是jsonp？</h3><p>jsonp就是我们开发人员利用了script标签的特性来绕过了浏览器的同源策略，因为script加载资源的时候不受浏览器同源策略的影响，但是这个策略（同源策略）不允许读取与当前网站不同源的回复，只允许发送请求，不允许读取请求</p>
-<p>一个网站的origin由三分部分组成，首先就是URI的格式（http://）,接着是主机名（比如：baidu.com），最后是端口号（比如：443）。像 <a href="http://logrocket.com" target="_blank" rel="noopener">http://logrocket.com</a> 和 https:////logrocket.com 是两个不同的origin因为URI的格式不同。</p>
-<h3 id="它怎么工作的？"><a href="#它怎么工作的？" class="headerlink" title="它怎么工作的？"></a>它怎么工作的？</h3><p>假如本地端口启动在localhost：8080，我们发送一个请求到提供json api的服务上去</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">https://www.server.com/api/person/1</span><br></pre></td></tr></table></figure>
-
-<p>然后响应的话可能长这样</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;firstName&quot;: &quot;Maciej&quot;,</span><br><span class="line">  &quot;lastName&quot;: &quot;Cieslar&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>但是由于同源策略的限制，我们可以发送请求到服务端，但是服务端返回的请求被浏览器给拦截了，因为网站跟服务器不同源。</p>
-<p>script元素可以代替我们自己发送请求，同源策略不限制它，它能够加载并且执行外链资源的js，这样的话比如在 <a href="https://logrocket.com的网站可以从不同来源的提供商加载google" target="_blank" rel="noopener">https://logrocket.com的网站可以从不同来源的提供商加载google</a> Map库，比如CDN</p>
-<p>通过给script中的src赋值成想要访问的请求，script标签将会获取到响应，并且在浏览器中执行</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;script src=&quot;https://www.server.com/api/person/1&quot; async=&quot;true&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-<p>但是问题在于，script会自动解析并且执行返回的js代码。在这种情况下，上面返回的代码会是JSON格式的。JSON会被解析成js代码，因此浏览器会抛出一个错误因为JSON不是有效的JS代码<br><img src="https://i0.wp.com/blog.logrocket.com/wp-content/uploads/2019/11/invalid-syntax-error.png?w=730&ssl=1" alt="图片"></p>
-<p>因此我们必须返回一个正常运行的JS代码这样script解析并且运行的时候浏览器才不会抛出错误。我们只要把返回的JSON赋值给JS变量或者作为函数的参数就行，毕竟本质上来说，JSON也属于JS对象格式。</p>
-<p>因此与其返回纯JSON格式，服务器倒不如返回JS代码。在返回的代码中，将JSON对象放在返回的函数中作为参数传递，函数的名字需要由客户端来传递，提供的函数名字在查询参数中叫做callback</p>
-<p>在查询中提供回调函数的名字后，我们在全局上下文中创建了一个函数（function），这个函数在响应被解析并且执行的时候回调用一次</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">https://www.server.com/api/person/1?callback=callbackName</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">callbackName(&#123;</span><br><span class="line">  &quot;firstName&quot;: &quot;Maciej&quot;,</span><br><span class="line">  &quot;lastName&quot;: &quot;Cieslar&quot;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>因为callbackName在接收到回调的时候callbackName挂载到window上，因此上面的代码其实就是相当于</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">window.callbackName(&#123;</span><br><span class="line">  &quot;firstName&quot;: &quot;Maciej&quot;,</span><br><span class="line">  &quot;lastName&quot;: &quot;Cieslar&quot;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>这段代码会在window上下文执行，这个函数将由script下载的代码来执行</p>
-<p>为了让jsonp能够正常工作，前后端都需要支持。当对于函数的命名没有标准的规范的时候，前端通常会给发送的函数命名为callback</p>
-<h3 id="创建一个jsonp的实现"><a href="#创建一个jsonp的实现" class="headerlink" title="创建一个jsonp的实现"></a>创建一个jsonp的实现</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let jsonpID = 0;</span><br><span class="line"></span><br><span class="line">function jsonp(url, timeout = 7500) &#123;</span><br><span class="line">  const head = document.querySelector(&apos;head&apos;);</span><br><span class="line">  jsonpID += 1;</span><br><span class="line"></span><br><span class="line">  return new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">    let script = document.createElement(&apos;script&apos;);</span><br><span class="line">    const callbackName = `jsonpCallback$&#123;jsonpID&#125;`;</span><br><span class="line"></span><br><span class="line">    script.src = encodeURI(`$&#123;url&#125;?callback=$&#123;callbackName&#125;`);</span><br><span class="line">    script.async = true;</span><br><span class="line"></span><br><span class="line">    const timeoutId = window.setTimeout(() =&gt; &#123;</span><br><span class="line">      cleanUp();</span><br><span class="line"></span><br><span class="line">      return reject(new Error(&apos;Timeout&apos;));</span><br><span class="line">    &#125;, timeout);</span><br><span class="line"></span><br><span class="line">    window[callbackName] = data =&gt; &#123;</span><br><span class="line">      cleanUp();</span><br><span class="line"></span><br><span class="line">      return resolve(data);</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    script.addEventListener(&apos;error&apos;, error =&gt; &#123;</span><br><span class="line">      cleanUp();</span><br><span class="line"></span><br><span class="line">      return reject(error);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    function cleanUp() &#123;</span><br><span class="line">      window[callbackName] = undefined;</span><br><span class="line">      head.removeChild(script);</span><br><span class="line">      window.clearTimeout(timeoutId);</span><br><span class="line">      script = null;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    head.appendChild(script);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>如上所示，jsonpID是一个共享的变量，它会确保每个请求都有独一无二的函数名字。<br>首先我们把head对象的引用保存在一个叫head的变量中，然后我们会增加jsonpID来确保函数名唯一。在函数内部返回一个promise，我们创建一个script标签以及由jsonpCallback和独一无二的ID组成的callbackName,然后我们把提供的url放到script标签的src属性上，设置callbackName = callbackName，这个实现不支持添加参数，只能get请求，可以添加async确保不会阻塞浏览器</p>
-<p>返回的结果有三种可能</p>
-<ul>
-<li>要么正确  </li>
-<li>要么错误  </li>
-<li>要么超时<br>在上面的代码中都做了处理</li>
-</ul>
-<p>在cleanUp函数中抽象清理过程，三个函数-超时，成功，失败-看起来都长一样 </p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const timeoutId = window.setTimeout(() =&gt; &#123;</span><br><span class="line">  cleanUp();</span><br><span class="line"></span><br><span class="line">  return reject(new Error(&apos;Timeout&apos;));</span><br><span class="line">&#125;, timeout);</span><br><span class="line"></span><br><span class="line">window[callbackName] = data =&gt; &#123;</span><br><span class="line">  cleanUp();</span><br><span class="line"></span><br><span class="line">  return resolve(data);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">script.addEventListener(&apos;error&apos;, error =&gt; &#123;</span><br><span class="line">  cleanUp();</span><br><span class="line"></span><br><span class="line">  return reject(error);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<p>然后在请求完成后调用cleanUp函数,注销挂载在window上的callbackName，移除script节点，清除定时器，将script置空，让script能被浏览器正常GC</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function cleanUp() &#123;</span><br><span class="line">  window[callbackName] = undefined;</span><br><span class="line">  head.removeChild(script);</span><br><span class="line">  window.clearTimeout(timeoutId);</span><br><span class="line">  script = null;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>然后我们再把script插入到head头中，script将会在插入的时候自动发送请求,<br>来个例子</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">jsonp(</span><br><span class="line">  &apos;https://gist.github.com/maciejcieslar/1c1f79d5778af4c2ee17927de769cea3.json&apos;</span><br><span class="line">)</span><br><span class="line">  .then(console.log)</span><br><span class="line">  .catch(console.error);</span><br></pre></td></tr></table></figure>
-
-<p>PS：当初被问的时候就不会，好气啊</p>
-]]></content>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>leetcode第70之爬楼梯</title>
-    <url>/2019/08/leetcode-70/</url>
-    <content><![CDATA[<p>描述：假设你正在爬楼梯。需要 n 阶你才能到达楼顶。</p>
-<p>每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？</p>
-<p>注意：给定 n 是一个正整数。<br>两种写法，一种递归，一种开循环。<br>写递归有一个问题，当数据量庞大的时候，递归会爆栈，开循环就不存在爆栈的问题，因为循环只是在一个调用栈执行的，并且不会像递归一样重复计算值。</p>
-<a id="more"></a>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 爬楼梯</span><br><span class="line"> * @param &#123;number&#125; n</span><br><span class="line"> * @<span class="built_in">return</span> &#123;number&#125;</span><br><span class="line"> */</span><br><span class="line">var climbStairs = <span class="keyword">function</span>(n) &#123;</span><br><span class="line">    <span class="built_in">let</span> ans =[1,2];</span><br><span class="line">    <span class="keyword">if</span>(n==1||n==2)&#123;</span><br><span class="line">        <span class="built_in">return</span> ans[n-1];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">let</span> i = 2;i&lt;n;i++)&#123;</span><br><span class="line">        ans[i]=ans[i-1]+ans[i-2];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> ans[n-1]</span><br><span class="line"></span><br><span class="line">    // <span class="keyword">else</span> &#123;</span><br><span class="line">    //     <span class="built_in">return</span> climbStairs(n-1)+climbStairs(n-2);</span><br><span class="line">    // &#125;</span><br><span class="line">&#125;;</span><br><span class="line">console.log(<span class="string">"climbStairs(44):"</span>, climbStairs(44));</span><br><span class="line">// climbStairs(3)</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <tags>
-        <tag>leetcode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>leetcode第73之矩阵置0</title>
-    <url>/2019/08/leetcode-73/</url>
-    <content><![CDATA[<p>描述：: 给定一个 m x n 的矩阵，如果一个元素为 0，则将其所在行和列的所有元素都设为 0。请使用原地算法。</p>
-<a id="more"></a>
-
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * @param &#123;number[][]&#125; matrix</span><br><span class="line"> * @<span class="built_in">return</span> &#123;void&#125; Do not <span class="built_in">return</span> anything, modify matrix <span class="keyword">in</span>-place instead.</span><br><span class="line"> */</span><br><span class="line">var setZeroes = <span class="keyword">function</span>(matrix) &#123;</span><br><span class="line">    <span class="built_in">let</span> columns=new Set(),rows=new Set();</span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">let</span> row =0;row&lt;matrix.length;row++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="built_in">let</span> column =0;column&lt;matrix[row].length;column++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(matrix[row][column]==0)&#123;</span><br><span class="line">                columns.add(column);</span><br><span class="line">                rows.add(row);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">let</span> row =0;row&lt;matrix.length;row++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="built_in">let</span> column =0;column&lt;matrix[row].length;column++)&#123;</span><br><span class="line">           <span class="keyword">if</span>(rows.has(row)||columns.has(column))&#123;</span><br><span class="line">               matrix[row][column]=0;</span><br><span class="line">           &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> matrix;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>题解：将0所在的行列储存起来作为标记，第二次循环的时候判断元素当前所在行或者列是否在标记的行或列即可</p>
-]]></content>
-      <categories>
-        <category>leetcode</category>
-      </categories>
-      <tags>
-        <tag>leetcode</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>item</title>
     <url>/2020/10/item/</url>
     <content><![CDATA[<h3 id="Proposal-for-a-item-method-on-all-the-built-in-indexables"><a href="#Proposal-for-a-item-method-on-all-the-built-in-indexables" class="headerlink" title="Proposal for a .item() method on all the built-in indexables"></a>Proposal for a .item() method on all the built-in indexables</h3><p>这个方法是给有索引对象内置的一个方法，那么这个方法接收一个 number 类型的 index，对象能够根据 index 来确定值。那其实看到这会有个问题，具备索引的对象自己就能根据索引来确定值了，那么这个方法出现的意义是为什么？它其实是用负值的 index 来获取值，比如</p>
@@ -1242,28 +1259,15 @@ btn.addEventListener('click',function(){
       </tags>
   </entry>
   <entry>
-    <title>leetcode第289之生命游戏</title>
-    <url>/2019/08/leetcode_289/</url>
-    <content><![CDATA[<p>描述：根据百度百科，生命游戏，简称为生命，是英国数学家约翰·何顿·康威在1970年发明的细胞自动机。</p>
-<p>给定一个包含 m × n 个格子的面板，每一个格子都可以看成是一个细胞。每个细胞具有一个初始状态 live（1）即为活细胞， 或 dead（0）即为死细胞。每个细胞与其八个相邻位置（水平，垂直，对角线）的细胞都遵循以下四条生存定律：</p>
-<p>如果活细胞周围八个位置的活细胞数少于两个，则该位置活细胞死亡；<br>如果活细胞周围八个位置有两个或三个活细胞，则该位置活细胞仍然存活；<br>如果活细胞周围八个位置有超过三个活细胞，则该位置活细胞死亡；<br>如果死细胞周围正好有三个活细胞，则该位置死细胞复活；<br>根据当前状态，写一个函数来计算面板上细胞的下一个（一次更新后的）状态。下一个状态是通过将上述规则同时应用于当前状态下的每个细胞所形成的，其中细胞的出生和死亡是同时发生的。</p>
+    <title>leetcode第73之矩阵置0</title>
+    <url>/2019/08/leetcode-73/</url>
+    <content><![CDATA[<p>描述：: 给定一个 m x n 的矩阵，如果一个元素为 0，则将其所在行和列的所有元素都设为 0。请使用原地算法。</p>
 <a id="more"></a>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * leetcode 生命游戏</span><br><span class="line"> * @param &#123;number[][]&#125; board</span><br><span class="line"> * @<span class="built_in">return</span> &#123;void&#125; Do not <span class="built_in">return</span> anything, modify board <span class="keyword">in</span>-place instead.</span><br><span class="line"> */</span><br><span class="line">var gameOfLife = <span class="keyword">function</span>(board) &#123;</span><br><span class="line">    //额外空间法</span><br><span class="line">  <span class="built_in">let</span> tempArr = [];</span><br><span class="line">  <span class="keyword">for</span> (<span class="built_in">let</span> i = 0; i &lt; board.length; i++) &#123;</span><br><span class="line">    <span class="built_in">let</span> [...arr] = board[i];</span><br><span class="line">    tempArr.push(arr);</span><br><span class="line">  &#125;</span><br><span class="line">  const flag = (point, data, flag) =&gt; &#123;</span><br><span class="line">    <span class="built_in">let</span> count = 0;</span><br><span class="line">    <span class="built_in">let</span> top = 0,</span><br><span class="line">      bottom = data.length - 1;</span><br><span class="line">    //上下左右四个边界</span><br><span class="line">    //八个点 循环三层</span><br><span class="line">    <span class="keyword">if</span> (top &lt; point.x) &#123;</span><br><span class="line">      //说明当前节点的上一层节点存在至少一个节点</span><br><span class="line">      <span class="keyword">for</span> (<span class="built_in">let</span> i = point.y - 1; i &lt;= point.y + 1; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (data[point.x - 1][i] == flag) &#123;</span><br><span class="line">          ++count;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">let</span> i = point.y - 1; i &lt;= point.y + 1; i++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (data[point.x][i] == flag &amp;&amp; i != point.y) &#123;</span><br><span class="line">        ++count;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (bottom &gt; point.x) &#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="built_in">let</span> i = point.y - 1; i &lt;= point.y + 1; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (data[point.x + 1][i] == flag) &#123;</span><br><span class="line">          ++count;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> count;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">for</span> (<span class="built_in">let</span> x = 0; x &lt; board.length; x++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">let</span> y = 0; y &lt; board[0].length; y++) &#123;</span><br><span class="line">      const point = &#123;</span><br><span class="line">        x,</span><br><span class="line">        y</span><br><span class="line">      &#125;;</span><br><span class="line">      const count = flag(point, board, 1);</span><br><span class="line">      <span class="keyword">if</span> (count &lt; 2 &amp;&amp; board[x][y] == 1) &#123;</span><br><span class="line">        tempArr[x][y] = 0;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> ((count == 2 || count == 3) &amp;&amp; board[x][y] == 1) &#123;</span><br><span class="line">        tempArr[x][y] = 1;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (count &gt; 3 &amp;&amp; board[x][y] == 1) &#123;</span><br><span class="line">        tempArr[x][y] = 0;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (count == 3 &amp;&amp; board[x][y] == 0) &#123;</span><br><span class="line">        tempArr[x][y] = 1;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">return</span> Object.assign(board, tempArr);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">// console.log(<span class="string">"gameOfLife([\r\n    [0,1,0],\r\n    [0,0,1],\r\n    [1,1,1],\r\n    [0,0,0]\r\n  ]):"</span>, gameOfLife([</span><br><span class="line">//     [0,1,0],</span><br><span class="line">//     [0,0,1],</span><br><span class="line">//     [1,1,1],</span><br><span class="line">//     [0,0,0]</span><br><span class="line">//   ]));</span><br><span class="line">// gameOfLife([</span><br><span class="line">//     [0,1,0],</span><br><span class="line">//     [0,0,1],</span><br><span class="line">//     [1,1,1],</span><br><span class="line">//     [0,0,0]</span><br><span class="line">//   ]);</span><br><span class="line"></span><br><span class="line">var _gameOfLife = <span class="keyword">function</span>(board) &#123;</span><br><span class="line">    //原地算法</span><br><span class="line">  const flag = (point, data, flag) =&gt; &#123;</span><br><span class="line">    <span class="built_in">let</span> count = 0;</span><br><span class="line">    <span class="built_in">let</span> top = 0,</span><br><span class="line">      bottom = data.length - 1;</span><br><span class="line">    </span><br><span class="line">    //上下左右四个边界</span><br><span class="line">    //八个点 循环三层</span><br><span class="line">    <span class="keyword">if</span> (top &lt; point.x) &#123;</span><br><span class="line">      //说明当前节点的上一层节点存在至少一个节点</span><br><span class="line">      <span class="keyword">for</span> (<span class="built_in">let</span> i = point.y - 1; i &lt;= point.y + 1; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (data[point.x - 1][i] == flag[0]||data[point.x - 1][i] == flag[1]) &#123;</span><br><span class="line">          ++count;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">let</span> i = point.y - 1; i &lt;= point.y + 1; i++) &#123;</span><br><span class="line">      <span class="keyword">if</span> ((data[point.x ][i] == flag[0]||data[point.x ][i] == flag[1]) &amp;&amp; i != point.y) &#123;</span><br><span class="line">        ++count;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (bottom &gt; point.x) &#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="built_in">let</span> i = point.y - 1; i &lt;= point.y + 1; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (data[point.x +1][i] == flag[0]||data[point.x +1][i] == flag[1]) &#123;</span><br><span class="line">          ++count;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> count;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">for</span> (<span class="built_in">let</span> x = 0; x &lt; board.length; x++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">let</span> y = 0; y &lt; board[0].length; y++) &#123;</span><br><span class="line">      const point = &#123;</span><br><span class="line">        x,</span><br><span class="line">        y</span><br><span class="line">      &#125;;</span><br><span class="line">      //alive -&gt; dead -2</span><br><span class="line">      //dead -&gt; alive 2</span><br><span class="line">      const count = flag(point, board, [1,-2]);</span><br><span class="line">      <span class="keyword">if</span> (count &lt; 2 &amp;&amp; board[x][y] == 1) &#123;</span><br><span class="line">        board[x][y] = -2;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> ((count == 2 || count == 3) &amp;&amp; board[x][y] == 1) &#123;</span><br><span class="line">        board[x][y] = 1;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (count &gt; 3 &amp;&amp; board[x][y] == 1) &#123;</span><br><span class="line">        board[x][y] = -2;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (count == 3 &amp;&amp; board[x][y] == 0) &#123;</span><br><span class="line">        board[x][y] = 2;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span> (<span class="built_in">let</span> x = 0; x &lt; board.length; x++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">let</span> y = 0; y &lt; board[0].length; y++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (board[x][y] == -2) &#123;</span><br><span class="line">        board[x][y]=0;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span>(board[x][y]==2)&#123;</span><br><span class="line">        board[x][y]=1;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">return</span> board;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">console.log(<span class="string">"\r\n_gameOfLife([\r\n    [0,1,0],\r\n    [0,0,1],\r\n    [1,1,1],\r\n    [0,0,0]\r\n  ]):"</span>, </span><br><span class="line">_gameOfLife([</span><br><span class="line">    [0,1,0],[0,0,1],[1,1,1],[0,0,0]</span><br><span class="line">  ]));</span><br><span class="line"></span><br><span class="line">_gameOfLife([</span><br><span class="line">    [0,1,0],[0,0,1],[1,1,1],[0,0,0]</span><br><span class="line">  ])</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>leetcode</category>
-      </categories>
-      <tags>
-        <tag>leetcode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>leetcode第55之跳跃游戏</title>
-    <url>/2019/08/leetcode_55/</url>
-    <content><![CDATA[<p> 描述:给定一个非负整数数组，你最初位于数组的第一个位置。</p>
-<p>数组中的每个元素代表你在该位置可以跳跃的最大长度。</p>
-<p>判断你是否能够到达最后一个位置</p>
-<a id="more"></a>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * @param &#123;number[]&#125; nums</span><br><span class="line"> * @<span class="built_in">return</span> &#123;boolean&#125;</span><br><span class="line"> */</span><br><span class="line"> </span><br><span class="line">var canJump = <span class="keyword">function</span>(nums) &#123;</span><br><span class="line">    const length = nums.length;</span><br><span class="line">    <span class="built_in">let</span> lastIndex = nums.length-1;</span><br><span class="line">    const res = [];</span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">let</span> i=lastIndex;i&gt;=0;--i)&#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[i]+i&gt;=lastIndex)&#123;</span><br><span class="line">             </span><br><span class="line">                lastIndex = i;</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> lastIndex == 0 ;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * @param &#123;number[][]&#125; matrix</span><br><span class="line"> * @<span class="built_in">return</span> &#123;void&#125; Do not <span class="built_in">return</span> anything, modify matrix <span class="keyword">in</span>-place instead.</span><br><span class="line"> */</span><br><span class="line">var setZeroes = <span class="keyword">function</span>(matrix) &#123;</span><br><span class="line">    <span class="built_in">let</span> columns=new Set(),rows=new Set();</span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">let</span> row =0;row&lt;matrix.length;row++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="built_in">let</span> column =0;column&lt;matrix[row].length;column++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(matrix[row][column]==0)&#123;</span><br><span class="line">                columns.add(column);</span><br><span class="line">                rows.add(row);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">let</span> row =0;row&lt;matrix.length;row++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="built_in">let</span> column =0;column&lt;matrix[row].length;column++)&#123;</span><br><span class="line">           <span class="keyword">if</span>(rows.has(row)||columns.has(column))&#123;</span><br><span class="line">               matrix[row][column]=0;</span><br><span class="line">           &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> matrix;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>题解：将0所在的行列储存起来作为标记，第二次循环的时候判断元素当前所在行或者列是否在标记的行或列即可</p>
+]]></content>
       <categories>
         <category>leetcode</category>
       </categories>
@@ -1334,142 +1338,33 @@ btn.addEventListener('click',function(){
       </tags>
   </entry>
   <entry>
-    <title>mutationObserver</title>
-    <url>/2019/12/mutationObserver/</url>
-    <content><![CDATA[<h3 id="MutationObserver-一个监听dom元素变化的接口"><a href="#MutationObserver-一个监听dom元素变化的接口" class="headerlink" title="MutationObserver,一个监听dom元素变化的接口"></a>MutationObserver,一个监听dom元素变化的接口</h3><p>dom元素观察者，监视 DOM 变动的接口，但是事件是异步的，需要等所有dom元素渲染完之后才执行<br>实例化一个observer对象,回调函数接收两个参数，一个是改变的属性所组成的一个对象数组，一个是实例本身</p>
+    <title>leetcode第55之跳跃游戏</title>
+    <url>/2019/08/leetcode_55/</url>
+    <content><![CDATA[<p> 描述:给定一个非负整数数组，你最初位于数组的第一个位置。</p>
+<p>数组中的每个元素代表你在该位置可以跳跃的最大长度。</p>
+<p>判断你是否能够到达最后一个位置</p>
 <a id="more"></a>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const observer = new MutationObserver(mutationCallback);</span><br></pre></td></tr></table></figure>
-
-<p>以下是它的属性介绍<br>|  属性   | 类型  | 描述  |<br>|  —-  | —-  | —- |<br>| childList  | Boolean |是否观察子节点的变动<br>| attributes  | Boolean |是否观察属性的变动<br>| characterData  | Boolean |是否节点内容或节点文本的变动<br>| subtree  | Boolean |是否观察所有后代节点的变动<br>| attributeOldValue  | Boolean |观察 attributes 变动时，是否记录变动前的属性值<br>| characterDataOldValue  | Boolean |观察 characterData 变动时，是否记录变动前的属性值<br>| attributeFilter  | Boolean |表示需要观察的特定属性（比如[‘class’,’src’]），不在此数组中的属性变化时将被忽略</p>
-<p>实例初始化后,实例调用observe来监听targetNode属性的变化，需要监听的属性放在config中</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const config = &#123;</span><br><span class="line">    attributes:true,</span><br><span class="line">    childList:true,</span><br><span class="line">    subtree:true</span><br><span class="line">&#125;</span><br><span class="line">const targetNode = document.getElementById(&apos;test&apos;);</span><br><span class="line">observer.observe(targetNode,config)</span><br></pre></td></tr></table></figure>
-
-<p>回调函数中可以这样写</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const mutationCallback = (mutationList)=&gt;&#123;</span><br><span class="line">  for(let mutation of mutationList)&#123;</span><br><span class="line">    const type = mutation.type;</span><br><span class="line">    switch(type)&#123;</span><br><span class="line">      case &apos;childList&apos;:</span><br><span class="line">        console.log(&apos;A child node has added or removed&apos;);</span><br><span class="line">        break;</span><br><span class="line">      case &apos;attributes&apos;:</span><br><span class="line">        console.log(`the $&#123;mutation.attributaName&#125; attribute was modified`);</span><br><span class="line">        break;</span><br><span class="line">      case &apos;subtree&apos;:</span><br><span class="line">        console.log(&apos;the subtree was modified&apos;;)</span><br><span class="line">        break</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>基本这样就可以完成了一个对dom元素的监听了</p>
-<p>当不想监听dom元素变化的时候,可以用disconnect来取消监听</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">observer.disconnnet()</span><br></pre></td></tr></table></figure>]]></content>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * @param &#123;number[]&#125; nums</span><br><span class="line"> * @<span class="built_in">return</span> &#123;boolean&#125;</span><br><span class="line"> */</span><br><span class="line"> </span><br><span class="line">var canJump = <span class="keyword">function</span>(nums) &#123;</span><br><span class="line">    const length = nums.length;</span><br><span class="line">    <span class="built_in">let</span> lastIndex = nums.length-1;</span><br><span class="line">    const res = [];</span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">let</span> i=lastIndex;i&gt;=0;--i)&#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[i]+i&gt;=lastIndex)&#123;</span><br><span class="line">             </span><br><span class="line">                lastIndex = i;</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> lastIndex == 0 ;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
       <tags>
-        <tag>mutation</tag>
+        <tag>leetcode</tag>
       </tags>
   </entry>
   <entry>
-    <title>面试总结(2)</title>
-    <url>/2020/08/mianshi2/</url>
-    <content><![CDATA[<h2 id="https握手过程"><a href="#https握手过程" class="headerlink" title="https握手过程"></a>https握手过程</h2><ol>
-<li>服务端生成公私钥</li>
-<li>服务端把公钥，加密的hash算法以及个人信息发送给CA</li>
-<li>CA把服务端发送来的明文信息用服务端发来的hash算法加密生成密文，然后用CA的私钥对密文进行加密生成签名</li>
-<li>CA把证书发还给服务端，证书内容包括签名，以及证书的颁发对象以及 颁发者等信息。</li>
-<li>服务端把证书和明文信息一起发送给客户端</li>
-<li>客户端接收服务端发送的证书，用内置在操作系统的公钥对签名进行解密，然后用服务端发来对hash算法对明文进行加密，如果两次生成的字符串相等，那么数据是可信的</li>
-<li>客户端在本地随机生成random1，发送给服务端</li>
-<li>服务端在本地随机生成random2，发送给客户端</li>
-<li>客户端在本地随机生成random3，然后用服务端发来的公钥对random3加密发送给服务端</li>
-<li>客户端服务端根据三个随机random各自生成对称密钥</li>
-<li>用生成的对称密钥加密一段握手信息，发送给服务端。双端验证。</li>
-<li>后续加密用生成的对称密钥加密<a id="more"></a>
-<h2 id="输入URL到页面渲染过程"><a href="#输入URL到页面渲染过程" class="headerlink" title="输入URL到页面渲染过程"></a>输入URL到页面渲染过程</h2></li>
-<li>浏览器进程拼接URL，加协议</li>
-<li>网络进程根据URl做DNS解析</li>
-<li>请求的资源返回给渲染进程</li>
-<li>渲染进程根据返回的状态码以及content-type来进行后续的流程</li>
-<li>是html类型则进行渲染流程</li>
-<li>生成CSSOM以及DOM</li>
-<li>生成Render树。</li>
-<li>根据render树生成图层树</li>
-<li>渲染进程对图层进行绘制，把图层绘制拆分成一个个的绘制指令，绘制指令组成绘制列表</li>
-<li>渲染进程的合成线程来进行实际的绘制操作</li>
-<li>合成线程在光栅化线程中执行光栅化（把图层转化成位图）</li>
-<li>光栅化采用GPU加速，因此实际绘制过程在GPU进程</li>
-<li>光栅化结束渲染进程通知浏览器进程</li>
-<li>浏览器进程接收drawquard命令，将其页面内容绘制到内存中，最后再将内存显示在屏幕上。</li>
-<li>done！</li>
-</ol>
-<h2 id="字符串翻转"><a href="#字符串翻转" class="headerlink" title="字符串翻转"></a>字符串翻转</h2><p>略</p>
-<h2 id="字符串转数组"><a href="#字符串转数组" class="headerlink" title="字符串转数组"></a>字符串转数组</h2><p>parseInt Number 两者区别<br>略</p>
-<h2 id="DNS解析过程"><a href="#DNS解析过程" class="headerlink" title="DNS解析过程"></a>DNS解析过程</h2><p>找本地缓存，没找到请求域名服务器</p>
-<h2 id="DNS劫持"><a href="#DNS劫持" class="headerlink" title="DNS劫持"></a>DNS劫持</h2><p>略</p>
-<h2 id="强缓存-协商缓存"><a href="#强缓存-协商缓存" class="headerlink" title="强缓存 协商缓存"></a>强缓存 协商缓存</h2><ul>
-<li><p>强缓存：</p>
-<ul>
-<li>Cache-Control</li>
-<li>Expire</li>
-</ul>
-</li>
-<li><p>协商缓存：</p>
-<ul>
-<li>If-Modified-Since</li>
-<li>Etag<br>其他略</li>
-</ul>
-</li>
-</ul>
-<h2 id="vue双向绑定原理"><a href="#vue双向绑定原理" class="headerlink" title="vue双向绑定原理"></a>vue双向绑定原理</h2><p>数据劫持 ➕ 发布订阅</p>
-<h2 id="vue响应式原理"><a href="#vue响应式原理" class="headerlink" title="vue响应式原理"></a>vue响应式原理</h2><p>依赖收集 + 依赖更细</p>
-<h2 id="react-fiber"><a href="#react-fiber" class="headerlink" title="react fiber"></a>react fiber</h2><ol>
-<li>根据component生成fiber树</li>
-<li>每个节点都对应一个fiber节点</li>
-<li>当前渲染在屏幕上的是current树</li>
-<li>current树有一个是alternate的指针指向wip树</li>
-<li>wip也有相同的指针指向current树</li>
-<li>wip树是fork了一份current树，这个叫做double buffering</li>
-<li>有两个阶段，一个是render，一个是commit</li>
-<li>render阶段可以被打断，commit阶段不可以被打断</li>
-<li>render阶段的任务主要根据插入的顺序来执行，通过使用requestIdlecallback这个api来实现任务的调度</li>
-<li>高优先级的任务可以打断低优先级的任务执行，比如用户输入等需要及时反馈的任务属于高优先级，而对于数据获取这类的任务属于低优先级</li>
-<li>react内部通过使用messageChannel来实现reqeustIdleCallback的polyfill</li>
-</ol>
-<h2 id="xss防御"><a href="#xss防御" class="headerlink" title="xss防御"></a>xss防御</h2><ol>
-<li>转码</li>
-<li>白名单</li>
-<li>过滤</li>
-</ol>
-<h2 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h2><ol>
-<li>SameSite<ul>
-<li>Lax</li>
-<li>Strict</li>
-<li>None</li>
-</ul>
-</li>
-<li>x-frame-option</li>
-<li>csp<ul>
-<li>default-src</li>
-<li>image-src</li>
-<li>media-src</li>
-<li>script-src</li>
-</ul>
-</li>
-<li>token</li>
-<li>refer/origin</li>
-</ol>
-<h2 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h2><ol>
-<li><p>webpack</p>
-<ul>
-<li>缩小构建体积（分包，tree-shaking，剔除第三方库不需要的模块）</li>
-<li>缓存（cache-loader，hard-source-webpack-plugin，dll）</li>
-<li>预加载（preload）</li>
-<li>减少请求资源数（mini-css-extract-plugin，html-webpack-plugin）</li>
-</ul>
-</li>
-<li><p>差异化服务</p>
-</li>
-<li><p>图片懒加载（非可视区域图片用placeholder替代或者低质量图片）</p>
-</li>
-<li><p>减少时间复杂度</p>
-</li>
-<li><p>非必要文件异步加载或动态加载模块</p>
-</li>
-<li><p>对核心内容启用SSR</p>
-</li>
-</ol>
-<h2 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h2><p>CORS</p>
-<p>img</p>
-<p>script</p>
-]]></content>
+    <title>leetcode第289之生命游戏</title>
+    <url>/2019/08/leetcode_289/</url>
+    <content><![CDATA[<p>描述：根据百度百科，生命游戏，简称为生命，是英国数学家约翰·何顿·康威在1970年发明的细胞自动机。</p>
+<p>给定一个包含 m × n 个格子的面板，每一个格子都可以看成是一个细胞。每个细胞具有一个初始状态 live（1）即为活细胞， 或 dead（0）即为死细胞。每个细胞与其八个相邻位置（水平，垂直，对角线）的细胞都遵循以下四条生存定律：</p>
+<p>如果活细胞周围八个位置的活细胞数少于两个，则该位置活细胞死亡；<br>如果活细胞周围八个位置有两个或三个活细胞，则该位置活细胞仍然存活；<br>如果活细胞周围八个位置有超过三个活细胞，则该位置活细胞死亡；<br>如果死细胞周围正好有三个活细胞，则该位置死细胞复活；<br>根据当前状态，写一个函数来计算面板上细胞的下一个（一次更新后的）状态。下一个状态是通过将上述规则同时应用于当前状态下的每个细胞所形成的，其中细胞的出生和死亡是同时发生的。</p>
+<a id="more"></a>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * leetcode 生命游戏</span><br><span class="line"> * @param &#123;number[][]&#125; board</span><br><span class="line"> * @<span class="built_in">return</span> &#123;void&#125; Do not <span class="built_in">return</span> anything, modify board <span class="keyword">in</span>-place instead.</span><br><span class="line"> */</span><br><span class="line">var gameOfLife = <span class="keyword">function</span>(board) &#123;</span><br><span class="line">    //额外空间法</span><br><span class="line">  <span class="built_in">let</span> tempArr = [];</span><br><span class="line">  <span class="keyword">for</span> (<span class="built_in">let</span> i = 0; i &lt; board.length; i++) &#123;</span><br><span class="line">    <span class="built_in">let</span> [...arr] = board[i];</span><br><span class="line">    tempArr.push(arr);</span><br><span class="line">  &#125;</span><br><span class="line">  const flag = (point, data, flag) =&gt; &#123;</span><br><span class="line">    <span class="built_in">let</span> count = 0;</span><br><span class="line">    <span class="built_in">let</span> top = 0,</span><br><span class="line">      bottom = data.length - 1;</span><br><span class="line">    //上下左右四个边界</span><br><span class="line">    //八个点 循环三层</span><br><span class="line">    <span class="keyword">if</span> (top &lt; point.x) &#123;</span><br><span class="line">      //说明当前节点的上一层节点存在至少一个节点</span><br><span class="line">      <span class="keyword">for</span> (<span class="built_in">let</span> i = point.y - 1; i &lt;= point.y + 1; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (data[point.x - 1][i] == flag) &#123;</span><br><span class="line">          ++count;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">let</span> i = point.y - 1; i &lt;= point.y + 1; i++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (data[point.x][i] == flag &amp;&amp; i != point.y) &#123;</span><br><span class="line">        ++count;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (bottom &gt; point.x) &#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="built_in">let</span> i = point.y - 1; i &lt;= point.y + 1; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (data[point.x + 1][i] == flag) &#123;</span><br><span class="line">          ++count;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> count;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">for</span> (<span class="built_in">let</span> x = 0; x &lt; board.length; x++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">let</span> y = 0; y &lt; board[0].length; y++) &#123;</span><br><span class="line">      const point = &#123;</span><br><span class="line">        x,</span><br><span class="line">        y</span><br><span class="line">      &#125;;</span><br><span class="line">      const count = flag(point, board, 1);</span><br><span class="line">      <span class="keyword">if</span> (count &lt; 2 &amp;&amp; board[x][y] == 1) &#123;</span><br><span class="line">        tempArr[x][y] = 0;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> ((count == 2 || count == 3) &amp;&amp; board[x][y] == 1) &#123;</span><br><span class="line">        tempArr[x][y] = 1;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (count &gt; 3 &amp;&amp; board[x][y] == 1) &#123;</span><br><span class="line">        tempArr[x][y] = 0;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (count == 3 &amp;&amp; board[x][y] == 0) &#123;</span><br><span class="line">        tempArr[x][y] = 1;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">return</span> Object.assign(board, tempArr);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">// console.log(<span class="string">"gameOfLife([\r\n    [0,1,0],\r\n    [0,0,1],\r\n    [1,1,1],\r\n    [0,0,0]\r\n  ]):"</span>, gameOfLife([</span><br><span class="line">//     [0,1,0],</span><br><span class="line">//     [0,0,1],</span><br><span class="line">//     [1,1,1],</span><br><span class="line">//     [0,0,0]</span><br><span class="line">//   ]));</span><br><span class="line">// gameOfLife([</span><br><span class="line">//     [0,1,0],</span><br><span class="line">//     [0,0,1],</span><br><span class="line">//     [1,1,1],</span><br><span class="line">//     [0,0,0]</span><br><span class="line">//   ]);</span><br><span class="line"></span><br><span class="line">var _gameOfLife = <span class="keyword">function</span>(board) &#123;</span><br><span class="line">    //原地算法</span><br><span class="line">  const flag = (point, data, flag) =&gt; &#123;</span><br><span class="line">    <span class="built_in">let</span> count = 0;</span><br><span class="line">    <span class="built_in">let</span> top = 0,</span><br><span class="line">      bottom = data.length - 1;</span><br><span class="line">    </span><br><span class="line">    //上下左右四个边界</span><br><span class="line">    //八个点 循环三层</span><br><span class="line">    <span class="keyword">if</span> (top &lt; point.x) &#123;</span><br><span class="line">      //说明当前节点的上一层节点存在至少一个节点</span><br><span class="line">      <span class="keyword">for</span> (<span class="built_in">let</span> i = point.y - 1; i &lt;= point.y + 1; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (data[point.x - 1][i] == flag[0]||data[point.x - 1][i] == flag[1]) &#123;</span><br><span class="line">          ++count;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">let</span> i = point.y - 1; i &lt;= point.y + 1; i++) &#123;</span><br><span class="line">      <span class="keyword">if</span> ((data[point.x ][i] == flag[0]||data[point.x ][i] == flag[1]) &amp;&amp; i != point.y) &#123;</span><br><span class="line">        ++count;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (bottom &gt; point.x) &#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="built_in">let</span> i = point.y - 1; i &lt;= point.y + 1; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (data[point.x +1][i] == flag[0]||data[point.x +1][i] == flag[1]) &#123;</span><br><span class="line">          ++count;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> count;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">for</span> (<span class="built_in">let</span> x = 0; x &lt; board.length; x++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">let</span> y = 0; y &lt; board[0].length; y++) &#123;</span><br><span class="line">      const point = &#123;</span><br><span class="line">        x,</span><br><span class="line">        y</span><br><span class="line">      &#125;;</span><br><span class="line">      //alive -&gt; dead -2</span><br><span class="line">      //dead -&gt; alive 2</span><br><span class="line">      const count = flag(point, board, [1,-2]);</span><br><span class="line">      <span class="keyword">if</span> (count &lt; 2 &amp;&amp; board[x][y] == 1) &#123;</span><br><span class="line">        board[x][y] = -2;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> ((count == 2 || count == 3) &amp;&amp; board[x][y] == 1) &#123;</span><br><span class="line">        board[x][y] = 1;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (count &gt; 3 &amp;&amp; board[x][y] == 1) &#123;</span><br><span class="line">        board[x][y] = -2;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (count == 3 &amp;&amp; board[x][y] == 0) &#123;</span><br><span class="line">        board[x][y] = 2;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span> (<span class="built_in">let</span> x = 0; x &lt; board.length; x++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">let</span> y = 0; y &lt; board[0].length; y++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (board[x][y] == -2) &#123;</span><br><span class="line">        board[x][y]=0;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span>(board[x][y]==2)&#123;</span><br><span class="line">        board[x][y]=1;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">return</span> board;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">console.log(<span class="string">"\r\n_gameOfLife([\r\n    [0,1,0],\r\n    [0,0,1],\r\n    [1,1,1],\r\n    [0,0,0]\r\n  ]):"</span>, </span><br><span class="line">_gameOfLife([</span><br><span class="line">    [0,1,0],[0,0,1],[1,1,1],[0,0,0]</span><br><span class="line">  ]));</span><br><span class="line"></span><br><span class="line">_gameOfLife([</span><br><span class="line">    [0,1,0],[0,0,1],[1,1,1],[0,0,0]</span><br><span class="line">  ])</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
       <tags>
-        <tag>article</tag>
-        <tag>conclusion</tag>
+        <tag>leetcode</tag>
       </tags>
   </entry>
   <entry>
@@ -1673,6 +1568,145 @@ btn.addEventListener('click',function(){
 ]]></content>
   </entry>
   <entry>
+    <title>面试总结(2)</title>
+    <url>/2020/08/mianshi2/</url>
+    <content><![CDATA[<h2 id="https握手过程"><a href="#https握手过程" class="headerlink" title="https握手过程"></a>https握手过程</h2><ol>
+<li>服务端生成公私钥</li>
+<li>服务端把公钥，加密的hash算法以及个人信息发送给CA</li>
+<li>CA把服务端发送来的明文信息用服务端发来的hash算法加密生成密文，然后用CA的私钥对密文进行加密生成签名</li>
+<li>CA把证书发还给服务端，证书内容包括签名，以及证书的颁发对象以及 颁发者等信息。</li>
+<li>服务端把证书和明文信息一起发送给客户端</li>
+<li>客户端接收服务端发送的证书，用内置在操作系统的公钥对签名进行解密，然后用服务端发来对hash算法对明文进行加密，如果两次生成的字符串相等，那么数据是可信的</li>
+<li>客户端在本地随机生成random1，发送给服务端</li>
+<li>服务端在本地随机生成random2，发送给客户端</li>
+<li>客户端在本地随机生成random3，然后用服务端发来的公钥对random3加密发送给服务端</li>
+<li>客户端服务端根据三个随机random各自生成对称密钥</li>
+<li>用生成的对称密钥加密一段握手信息，发送给服务端。双端验证。</li>
+<li>后续加密用生成的对称密钥加密<a id="more"></a>
+<h2 id="输入URL到页面渲染过程"><a href="#输入URL到页面渲染过程" class="headerlink" title="输入URL到页面渲染过程"></a>输入URL到页面渲染过程</h2></li>
+<li>浏览器进程拼接URL，加协议</li>
+<li>网络进程根据URl做DNS解析</li>
+<li>请求的资源返回给渲染进程</li>
+<li>渲染进程根据返回的状态码以及content-type来进行后续的流程</li>
+<li>是html类型则进行渲染流程</li>
+<li>生成CSSOM以及DOM</li>
+<li>生成Render树。</li>
+<li>根据render树生成图层树</li>
+<li>渲染进程对图层进行绘制，把图层绘制拆分成一个个的绘制指令，绘制指令组成绘制列表</li>
+<li>渲染进程的合成线程来进行实际的绘制操作</li>
+<li>合成线程在光栅化线程中执行光栅化（把图层转化成位图）</li>
+<li>光栅化采用GPU加速，因此实际绘制过程在GPU进程</li>
+<li>光栅化结束渲染进程通知浏览器进程</li>
+<li>浏览器进程接收drawquard命令，将其页面内容绘制到内存中，最后再将内存显示在屏幕上。</li>
+<li>done！</li>
+</ol>
+<h2 id="字符串翻转"><a href="#字符串翻转" class="headerlink" title="字符串翻转"></a>字符串翻转</h2><p>略</p>
+<h2 id="字符串转数组"><a href="#字符串转数组" class="headerlink" title="字符串转数组"></a>字符串转数组</h2><p>parseInt Number 两者区别<br>略</p>
+<h2 id="DNS解析过程"><a href="#DNS解析过程" class="headerlink" title="DNS解析过程"></a>DNS解析过程</h2><p>找本地缓存，没找到请求域名服务器</p>
+<h2 id="DNS劫持"><a href="#DNS劫持" class="headerlink" title="DNS劫持"></a>DNS劫持</h2><p>略</p>
+<h2 id="强缓存-协商缓存"><a href="#强缓存-协商缓存" class="headerlink" title="强缓存 协商缓存"></a>强缓存 协商缓存</h2><ul>
+<li><p>强缓存：</p>
+<ul>
+<li>Cache-Control</li>
+<li>Expire</li>
+</ul>
+</li>
+<li><p>协商缓存：</p>
+<ul>
+<li>If-Modified-Since</li>
+<li>Etag<br>其他略</li>
+</ul>
+</li>
+</ul>
+<h2 id="vue双向绑定原理"><a href="#vue双向绑定原理" class="headerlink" title="vue双向绑定原理"></a>vue双向绑定原理</h2><p>数据劫持 ➕ 发布订阅</p>
+<h2 id="vue响应式原理"><a href="#vue响应式原理" class="headerlink" title="vue响应式原理"></a>vue响应式原理</h2><p>依赖收集 + 依赖更细</p>
+<h2 id="react-fiber"><a href="#react-fiber" class="headerlink" title="react fiber"></a>react fiber</h2><ol>
+<li>根据component生成fiber树</li>
+<li>每个节点都对应一个fiber节点</li>
+<li>当前渲染在屏幕上的是current树</li>
+<li>current树有一个是alternate的指针指向wip树</li>
+<li>wip也有相同的指针指向current树</li>
+<li>wip树是fork了一份current树，这个叫做double buffering</li>
+<li>有两个阶段，一个是render，一个是commit</li>
+<li>render阶段可以被打断，commit阶段不可以被打断</li>
+<li>render阶段的任务主要根据插入的顺序来执行，通过使用requestIdlecallback这个api来实现任务的调度</li>
+<li>高优先级的任务可以打断低优先级的任务执行，比如用户输入等需要及时反馈的任务属于高优先级，而对于数据获取这类的任务属于低优先级</li>
+<li>react内部通过使用messageChannel来实现reqeustIdleCallback的polyfill</li>
+</ol>
+<h2 id="xss防御"><a href="#xss防御" class="headerlink" title="xss防御"></a>xss防御</h2><ol>
+<li>转码</li>
+<li>白名单</li>
+<li>过滤</li>
+</ol>
+<h2 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h2><ol>
+<li>SameSite<ul>
+<li>Lax</li>
+<li>Strict</li>
+<li>None</li>
+</ul>
+</li>
+<li>x-frame-option</li>
+<li>csp<ul>
+<li>default-src</li>
+<li>image-src</li>
+<li>media-src</li>
+<li>script-src</li>
+</ul>
+</li>
+<li>token</li>
+<li>refer/origin</li>
+</ol>
+<h2 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h2><ol>
+<li><p>webpack</p>
+<ul>
+<li>缩小构建体积（分包，tree-shaking，剔除第三方库不需要的模块）</li>
+<li>缓存（cache-loader，hard-source-webpack-plugin，dll）</li>
+<li>预加载（preload）</li>
+<li>减少请求资源数（mini-css-extract-plugin，html-webpack-plugin）</li>
+</ul>
+</li>
+<li><p>差异化服务</p>
+</li>
+<li><p>图片懒加载（非可视区域图片用placeholder替代或者低质量图片）</p>
+</li>
+<li><p>减少时间复杂度</p>
+</li>
+<li><p>非必要文件异步加载或动态加载模块</p>
+</li>
+<li><p>对核心内容启用SSR</p>
+</li>
+</ol>
+<h2 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h2><p>CORS</p>
+<p>img</p>
+<p>script</p>
+]]></content>
+      <tags>
+        <tag>article</tag>
+        <tag>conclusion</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>mutationObserver</title>
+    <url>/2019/12/mutationObserver/</url>
+    <content><![CDATA[<h3 id="MutationObserver-一个监听dom元素变化的接口"><a href="#MutationObserver-一个监听dom元素变化的接口" class="headerlink" title="MutationObserver,一个监听dom元素变化的接口"></a>MutationObserver,一个监听dom元素变化的接口</h3><p>dom元素观察者，监视 DOM 变动的接口，但是事件是异步的，需要等所有dom元素渲染完之后才执行<br>实例化一个observer对象,回调函数接收两个参数，一个是改变的属性所组成的一个对象数组，一个是实例本身</p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const observer = new MutationObserver(mutationCallback);</span><br></pre></td></tr></table></figure>
+
+<p>以下是它的属性介绍<br>|  属性   | 类型  | 描述  |<br>|  —-  | —-  | —- |<br>| childList  | Boolean |是否观察子节点的变动<br>| attributes  | Boolean |是否观察属性的变动<br>| characterData  | Boolean |是否节点内容或节点文本的变动<br>| subtree  | Boolean |是否观察所有后代节点的变动<br>| attributeOldValue  | Boolean |观察 attributes 变动时，是否记录变动前的属性值<br>| characterDataOldValue  | Boolean |观察 characterData 变动时，是否记录变动前的属性值<br>| attributeFilter  | Boolean |表示需要观察的特定属性（比如[‘class’,’src’]），不在此数组中的属性变化时将被忽略</p>
+<p>实例初始化后,实例调用observe来监听targetNode属性的变化，需要监听的属性放在config中</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const config = &#123;</span><br><span class="line">    attributes:true,</span><br><span class="line">    childList:true,</span><br><span class="line">    subtree:true</span><br><span class="line">&#125;</span><br><span class="line">const targetNode = document.getElementById(&apos;test&apos;);</span><br><span class="line">observer.observe(targetNode,config)</span><br></pre></td></tr></table></figure>
+
+<p>回调函数中可以这样写</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const mutationCallback = (mutationList)=&gt;&#123;</span><br><span class="line">  for(let mutation of mutationList)&#123;</span><br><span class="line">    const type = mutation.type;</span><br><span class="line">    switch(type)&#123;</span><br><span class="line">      case &apos;childList&apos;:</span><br><span class="line">        console.log(&apos;A child node has added or removed&apos;);</span><br><span class="line">        break;</span><br><span class="line">      case &apos;attributes&apos;:</span><br><span class="line">        console.log(`the $&#123;mutation.attributaName&#125; attribute was modified`);</span><br><span class="line">        break;</span><br><span class="line">      case &apos;subtree&apos;:</span><br><span class="line">        console.log(&apos;the subtree was modified&apos;;)</span><br><span class="line">        break</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>基本这样就可以完成了一个对dom元素的监听了</p>
+<p>当不想监听dom元素变化的时候,可以用disconnect来取消监听</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">observer.disconnnet()</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>mutation</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>npm包的发布</title>
     <url>/2020/09/npm-pkg/</url>
     <content><![CDATA[<p><strong>趁趁趁着还不太忙，补个npm包的发布</strong></p>
@@ -1714,121 +1748,6 @@ btn.addEventListener('click',function(){
 <p> <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView" target="_blank" rel="noopener">文档</a></p>
 </li>
 </ol>
-]]></content>
-  </entry>
-  <entry>
-    <title>polyfill</title>
-    <url>/2021/07/polyfill/</url>
-    <content><![CDATA[<h2 id="Promise-all"><a href="#Promise-all" class="headerlink" title="Promise.all"></a>Promise.all</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Promise</span>.all = <span class="function"><span class="keyword">function</span> (<span class="params">promises</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> results = [];</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    promises.forEach(<span class="function">(<span class="params">p, index</span>) =&gt;</span> &#123;</span><br><span class="line">      p.then(<span class="function">(<span class="params">result</span>) =&gt;</span> &#123;</span><br><span class="line">        results.push(result);</span><br><span class="line">        <span class="keyword">if</span> (index === promises.length - <span class="number">1</span>) &#123;</span><br><span class="line">          resolve(results);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;).catch(<span class="function">(<span class="params">err</span>) =&gt;</span> reject(err));</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Promise-any"><a href="#Promise-any" class="headerlink" title="Promise.any"></a>Promise.any</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Promise</span>.any = <span class="function"><span class="keyword">function</span> (<span class="params">promises</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> result = [];</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    promises.forEach(<span class="function">(<span class="params">item, index</span>) =&gt;</span> &#123;</span><br><span class="line">      item</span><br><span class="line">        .then(<span class="function">(<span class="params">res</span>) =&gt;</span> resolve(res))</span><br><span class="line">        .catch(<span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">          result.push(error);</span><br><span class="line">          <span class="keyword">if</span> (index === pro mises.length - <span class="number">1</span>) &#123;</span><br><span class="line">              <span class="comment">// 如果全部都失败，返回结果合集</span></span><br><span class="line">            reject(result);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>openlayers</title>
-    <url>/2021/03/openlayers/</url>
-    <content><![CDATA[<h3 id="Introduce"><a href="#Introduce" class="headerlink" title="Introduce"></a>Introduce</h3><p>近期项目接触到gis到东西，我选择了openlayers6这个开源库来做项目开发，踩来几个坑，记录一下。</p>
-<h3 id="加载自定义图片作为底图"><a href="#加载自定义图片作为底图" class="headerlink" title="加载自定义图片作为底图"></a>加载自定义图片作为底图</h3><p>在加载自定义图片作为底图时，我把url给image对象</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> img = <span class="keyword">new</span> Image()</span><br><span class="line"><span class="keyword">const</span> url = <span class="string">'/static/img.ppng'</span></span><br><span class="line">img.url = url</span><br></pre></td></tr></table></figure>
-
-<a id="more"></a>
-<p>在渲染map对象时，我用到是layer下的image，在给定的source这个属性值，我用ImageCanvas来渲染自定义的图层。这是一开始写的代码,但是在这段代码中，会有两个问题：</p>
-<ul>
-<li>第一个问题是在画布初始渲染的时候会渲染不出来的，必须在缩放层级之后画布才能正常显示；</li>
-<li>第二个问题就是不管怎么滚动或者平移，画布总会自动聚焦到中心。</li>
-</ul>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">return</span> <span class="keyword">new</span> ImageCanvas(&#123;</span><br><span class="line">     canvasFunction: (</span><br><span class="line">       extent,</span><br><span class="line">       resolution,</span><br><span class="line">       pixelRatio,</span><br><span class="line">       size </span><br><span class="line">     ) =&gt; &#123;</span><br><span class="line">       <span class="keyword">const</span> canvas = <span class="built_in">document</span>.createElement(<span class="string">'canvas'</span>);</span><br><span class="line">       canvas.width = size[<span class="number">0</span>];</span><br><span class="line">       canvas.height = size[<span class="number">1</span>];</span><br><span class="line">       <span class="keyword">const</span> img = <span class="keyword">new</span> Image()</span><br><span class="line">       <span class="keyword">const</span> url = <span class="string">'/static/img.ppng'</span></span><br><span class="line">       img.url = url</span><br><span class="line">       img.onolad = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">           ctx.drawImage(img, <span class="number">0</span>, <span class="number">0</span>, size[<span class="number">0</span>], size[<span class="number">1</span>]);</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> canvas;</span><br><span class="line">     &#125;,</span><br><span class="line">     projection: <span class="string">'EPSG:3857'</span></span><br><span class="line">   &#125;);</span><br></pre></td></tr></table></figure>
-
-<p>首先第一个问题解决方案，那就是在img到onload里面来进行一个底图渲染的工作。<br>第二个问题的原因是因为openlayers 中不管对地图平移还是缩放，都会进行重绘的操作，所以解决方案就是设置一个临时变量来判断是否是第一次绘制。</p>
-<p>like this </p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">return</span> <span class="keyword">new</span> ImageCanvas(&#123;</span><br><span class="line">      canvasFunction: (</span><br><span class="line">        extent,</span><br><span class="line">        resolution,</span><br><span class="line">        pixelRatio,</span><br><span class="line">        size <span class="comment">/*, projection*/</span></span><br><span class="line">      ) =&gt; &#123;</span><br><span class="line">        <span class="keyword">const</span> canvas = <span class="built_in">document</span>.createElement(<span class="string">'canvas'</span>);</span><br><span class="line">        canvas.width = size[<span class="number">0</span>];</span><br><span class="line">        canvas.height = size[<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">        <span class="comment">// eslint-disable-next-line @typescript-eslint/no-non-null-assertion</span></span><br><span class="line">        <span class="keyword">const</span> ctx = canvas.getContext(<span class="string">'2d'</span>)!;</span><br><span class="line">        <span class="comment">// 这里必须要做一个判断，每次的范围变动都会引起重绘，从而触发该回调函数</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.isFirst) &#123;</span><br><span class="line">          <span class="keyword">this</span>.isFirst = <span class="literal">false</span>;</span><br><span class="line">          ctx.beginPath();</span><br><span class="line">          ctx.drawImage(img, <span class="number">0</span>, <span class="number">0</span>, size[<span class="number">0</span>], size[<span class="number">1</span>]);</span><br><span class="line">          ctx.closePath();</span><br><span class="line"></span><br><span class="line">          <span class="keyword">return</span> canvas;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      projection: <span class="string">'EPSG:3857'</span></span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
-
-<h3 id="底图限制拖动范围"><a href="#底图限制拖动范围" class="headerlink" title="底图限制拖动范围"></a>底图限制拖动范围</h3><p>在view中定义extent即可</p>
-<h3 id="在移动feature时限制在容器之内"><a href="#在移动feature时限制在容器之内" class="headerlink" title="在移动feature时限制在容器之内"></a>在移动feature时限制在容器之内</h3><ul>
-<li>首先要限制范围，首选需要获取到容器到边界。获取view的extent即可</li>
-<li>其次需要在移动过程中获取多边形的边界。调用getExtent即可</li>
-<li>然后需要做临界值判断，根据boolean值来判断是否允许移动，容器边界跟feature边界比较即可。</li>
-<li>最后怎么来移动，参考库中自带的Translate可以发现，是获取到feature到geometry到translate方法来移动，当判断临界值时，移动的距离设置为0即可。</li>
-</ul>
-<p>为了应对不同分辨率或者容器大小下的限制范围 — 由于extent不会自动针对分辨率或者容器大小来计算，所以需要使用calculateExtent来根据容器大小获取最新的extent</p>
-<p>以上 需要重写部分Translate的实现</p>
-<h3 id="在编辑feature时同样需要限制范围。"><a href="#在编辑feature时同样需要限制范围。" class="headerlink" title="在编辑feature时同样需要限制范围。"></a>在编辑feature时同样需要限制范围。</h3><p>原理同移动feature，但是略复杂</p>
-<h3 id="undo-redo的实现"><a href="#undo-redo的实现" class="headerlink" title="undo redo的实现"></a>undo redo的实现</h3><p>因为需求中仅要记录移动feature和编辑feature，因此在undo redo的时候就是在addFeature和removeFeature中来回切换，只要记录当前操作的undo操作和redo操作即 — 在项目中undo 和redo的过程其实就是清除绘画和重新绘画的过程，我大概试了上百次，performance表现良好，一片绿色，但是记得在新增新的modify或者translate的时候要把上次的清除，不然有性能问题，非常卡。</p>
-<h3 id="点击feature实行交互，点击空白取消交互，点击其他feature，当前交互，上次取消交互。"><a href="#点击feature实行交互，点击空白取消交互，点击其他feature，当前交互，上次取消交互。" class="headerlink" title="点击feature实行交互，点击空白取消交互，点击其他feature，当前交互，上次取消交互。"></a>点击feature实行交互，点击空白取消交互，点击其他feature，当前交互，上次取消交互。</h3><p>之前是自己直接用click事件来做处理，后来发现selet这个可以帮我处理点击和取消点击的样式问题，但是仍然需要我自己处理交互问题，每次点击feature的时候其实就是把上次的modify和translate删除，然后重新添加一份当前点击feature的modify和translate，</p>
-]]></content>
-      <tags>
-        <tag>gis openlayers ol6</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>provide of vue3</title>
-    <url>/2020/06/provide/</url>
-    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>好奇provide怎么实现的，然后呢就去扒了下源码hhh，看了下provide的function，有点懵,provide的代码在runtime-core/src/apiInject.ts里面</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> interface InjectionKey&lt;T&gt; extends <span class="built_in">Symbol</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">provide</span>&lt;<span class="title">T</span>&gt;(<span class="params">key: InjectionKey&lt;T&gt; | string, value: T</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!currentInstance) &#123;</span><br><span class="line">    <span class="keyword">if</span> (__DEV__) &#123;</span><br><span class="line">      warn(<span class="string">`provide() can only be used inside setup().`</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> provides = currentInstance.provides</span><br><span class="line">    # by default an instance inherits its parent's provides object</span><br><span class="line">    # but when it needs to provide values of its own, it creates its</span><br><span class="line">    # own provides object using parent provides object as prototype.</span><br><span class="line">    # this way in `inject` we can simply look up injections from direct</span><br><span class="line">    # parent and let the prototype chain do the work.</span><br><span class="line">    <span class="keyword">const</span> parentProvides =</span><br><span class="line">      currentInstance.parent &amp;&amp; currentInstance.parent.provides</span><br><span class="line">    <span class="keyword">if</span> (parentProvides === provides) &#123;</span><br><span class="line">      provides = currentInstance.provides = <span class="built_in">Object</span>.create(parentProvides)</span><br><span class="line">    &#125;</span><br><span class="line">    # TS doesn't allow symbol as index type</span><br><span class="line">    provides[key <span class="keyword">as</span> string] = value</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<a id="more"></a>
-<p>有点纳闷为啥parentProvides === provides 的时候就可以判断当前的实例调用了provide，然后我用尤大的那个vite写了个demo，父元素调用provide，子元素也调用provide<br><br>App.vue</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;img alt=<span class="string">"Vue logo"</span> src=<span class="string">"./assets/logo.png"</span> /&gt;</span><br><span class="line">  &lt;HelloWorld msg=<span class="string">"Hello Vue 3.0 + Vite"</span> /&gt;</span><br><span class="line">  &#123;&#123;foo&#125;&#125;</span><br><span class="line">&lt;<span class="regexp">/template&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp">import HelloWorld from './</span>components/HelloWorld.vue<span class="string">'</span></span><br><span class="line"><span class="string">import &#123;provide,inject&#125; from '</span>vue<span class="string">'</span></span><br><span class="line"><span class="string">export default &#123;</span></span><br><span class="line"><span class="string">  name: '</span>App<span class="string">',</span></span><br><span class="line"><span class="string">  components: &#123;</span></span><br><span class="line"><span class="string">    HelloWorld</span></span><br><span class="line"><span class="string">  &#125;,</span></span><br><span class="line"><span class="string">  setup(props,ctx)&#123;</span></span><br><span class="line"><span class="string">	  provide('</span>foo<span class="string">',1)</span></span><br><span class="line"><span class="string">	  // console.log(ctx,props)</span></span><br><span class="line"><span class="string">	  return &#123;</span></span><br><span class="line"><span class="string">		  foo:inject('</span>foo<span class="string">')</span></span><br><span class="line"><span class="string">	  &#125;</span></span><br><span class="line"><span class="string">  &#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">&lt;/script&gt;</span></span><br><span class="line"><span class="string">&lt;br&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>HelloWorld.vue</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;&#123; msg &#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">"count++"</span>&gt;</span>count is: &#123;&#123; count &#125;&#125;<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">		Edit</span><br><span class="line">		<span class="tag">&lt;<span class="name">code</span>&gt;</span>components/HelloWorld.vue<span class="tag">&lt;/<span class="name">code</span>&gt;</span></span><br><span class="line">		to test hot module replacement.</span><br><span class="line">	<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">	&#123;&#123;foo&#125;&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="keyword">import</span> &#123; ref ,provide,inject,defineComponent&#125; <span class="keyword">from</span> <span class="string">'vue'</span>;</span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> defineComponent(&#123;</span></span><br><span class="line"><span class="javascript">	name: <span class="string">'HelloWorld'</span>,</span></span><br><span class="line">	props: &#123;</span><br><span class="line"><span class="javascript">		msg: <span class="built_in">String</span></span></span><br><span class="line">	&#125;,</span><br><span class="line">	setup(props,ctx ) &#123;</span><br><span class="line"><span class="javascript">		<span class="comment">// debugger</span></span></span><br><span class="line"><span class="javascript">		<span class="keyword">const</span> count = ref(<span class="number">0</span>);</span></span><br><span class="line"><span class="javascript">		provide(<span class="string">'bar'</span>,<span class="number">2</span>)</span></span><br><span class="line"><span class="javascript">		<span class="comment">// debugger</span></span></span><br><span class="line"><span class="javascript">		<span class="comment">// console.log(ctx.provide)</span></span></span><br><span class="line"><span class="javascript">		<span class="keyword">const</span> foo = inject(<span class="string">'foo'</span>)</span></span><br><span class="line"><span class="javascript">		<span class="keyword">return</span> &#123;</span></span><br><span class="line">			count,</span><br><span class="line">			foo</span><br><span class="line">		&#125;;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>在debug的时候在调用栈里面发现在调用mount的时候以此调用了render,patch,processComponent,mountComponent..这些方法，render和patch应该是和dom相关，然后看processComponent</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> processComponent = <span class="function">(<span class="params">n1, n2, container, anchor, parentComponent, parentSuspense, isSVG, optimized</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (n1 == <span class="literal">null</span>) &#123;</span><br><span class="line">          <span class="keyword">if</span> (n2.shapeFlag &amp; <span class="number">512</span> <span class="comment">/* COMPONENT_KEPT_ALIVE */</span>) &#123;</span><br><span class="line">              parentComponent.ctx.activate(n2, container, anchor, isSVG, optimized);</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="keyword">else</span> &#123;</span><br><span class="line">              mountComponent(n2, container, anchor, parentComponent, parentSuspense, isSVG, optimized);</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">else</span> &#123;</span><br><span class="line">          updateComponent(n1, n2, optimized);</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;;</span><br></pre></td></tr></table></figure>
-
-<p>emmm看起来还是跟dom相关,直接看渲染组件的时候干了啥吧。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> mountComponent = <span class="function">(<span class="params">initialVNode, container, anchor, parentComponent, parentSuspense, isSVG, optimized</span>) =&gt;</span> &#123;</span><br><span class="line">       <span class="keyword">const</span> instance = (initialVNode.component = createComponentInstance(initialVNode, parentComponent, parentSuspense)); <span class="comment">//看这个实例</span></span><br><span class="line">       <span class="comment">//省略代码</span></span><br><span class="line">       <span class="comment">// setup() is async. This component relies on async logic to be resolved</span></span><br><span class="line">       <span class="comment">// before proceeding</span></span><br><span class="line">       <span class="comment">//省略代码</span></span><br><span class="line">   &#125;;</span><br></pre></td></tr></table></figure>
-
-<br>
-createComponentInstance
-
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createComponentInstance</span>(<span class="params">vnode, parent, suspense</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// inherit parent app context - or - if root, adopt from root vnode</span></span><br><span class="line">    <span class="comment">// 继承父级app上下文，如果是root，调整为根节点</span></span><br><span class="line">    <span class="keyword">const</span> appContext = (parent ? parent.appContext : vnode.appContext) || emptyAppContext;</span><br><span class="line">    <span class="keyword">const</span> instance = &#123;</span><br><span class="line">        <span class="comment">//省略</span></span><br><span class="line">        provides: parent ? parent.provides : <span class="built_in">Object</span>.create(appContext.provides),</span><br><span class="line">        <span class="comment">//省略</span></span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> ((process.env.NODE_ENV !== <span class="string">'production'</span>)) &#123;</span><br><span class="line">        instance.ctx = createRenderContext(instance);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        instance.ctx = &#123; <span class="attr">_</span>: instance &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    instance.root = parent ? parent.root : instance;</span><br><span class="line">    instance.emit = emit.bind(<span class="literal">null</span>, instance);</span><br><span class="line">    <span class="keyword">return</span> instance;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>可以看到如果instance如果有父元素的话，instance里面的provides是会继承父节点中的provides<br>所以这就是为啥provide方法中判断当前的provide和父元素的是否相等，因为如果当前节点调用provide方法的话，那么当前元素的provide一定是和父元素的provide的引用地址相同的，所以当前的provide就可以把父元素的provide当做原型链来生成一个新的object<br><br><br>然后我回头看了下provide方法的注解，默认情况下实例是继承父元素的provides的，操啊，我花这么多时间是干啥啊！</p>
-]]></content>
-      <categories>
-        <category>Vue</category>
-        <category>JavaScript</category>
-      </categories>
-      <tags>
-        <tag>JavaScript</tag>
-        <tag>Vue</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>简单请求和复杂请求</title>
-    <url>/2020/09/request-of-complex-simply/</url>
-    <content><![CDATA[<h3 id="简单请求"><a href="#简单请求" class="headerlink" title="简单请求"></a>简单请求</h3><p>请求方法只能是以下三种：</p>
-<ol>
-<li>GET</li>
-<li>POST</li>
-<li>HEAD</li>
-</ol>
-<p>请求头只能用以下几种：</p>
-<ol>
-<li>Accept</li>
-<li>Accept-Language</li>
-<li>Content-Language</li>
-<li>Content-Type （需要注意额外的限制）</li>
-<li>DPR</li>
-<li>Downlink</li>
-<li>Save-Data</li>
-<li>Viewport-Width</li>
-<li>Width</li>
-</ol>
-<p>Content——Type只能有以下几种</p>
-<ol>
-<li>text/plain</li>
-<li>multipart/form-data</li>
-<li>application/x-www-form-urlencoded</li>
-</ol>
-<p>请求中的任意XMLHttpRequestUpload 对象均没有注册任何事件监听器；XMLHttpRequestUpload 对象可以使用 XMLHttpRequest.upload 属性访问。</p>
-<p>请求中没有使用 ReadableStream 对象。</p>
-<h3 id="复杂请求"><a href="#复杂请求" class="headerlink" title="复杂请求"></a>复杂请求</h3><p>非简单请求就是复杂亲求</p>
 ]]></content>
   </entry>
   <entry>
@@ -2042,6 +1961,109 @@ createComponentInstance
       </tags>
   </entry>
   <entry>
+    <title>openlayers</title>
+    <url>/2021/03/openlayers/</url>
+    <content><![CDATA[<h3 id="Introduce"><a href="#Introduce" class="headerlink" title="Introduce"></a>Introduce</h3><p>近期项目接触到gis到东西，我选择了openlayers6这个开源库来做项目开发，踩来几个坑，记录一下。</p>
+<h3 id="加载自定义图片作为底图"><a href="#加载自定义图片作为底图" class="headerlink" title="加载自定义图片作为底图"></a>加载自定义图片作为底图</h3><p>在加载自定义图片作为底图时，我把url给image对象</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> img = <span class="keyword">new</span> Image()</span><br><span class="line"><span class="keyword">const</span> url = <span class="string">'/static/img.ppng'</span></span><br><span class="line">img.url = url</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+<p>在渲染map对象时，我用到是layer下的image，在给定的source这个属性值，我用ImageCanvas来渲染自定义的图层。这是一开始写的代码,但是在这段代码中，会有两个问题：</p>
+<ul>
+<li>第一个问题是在画布初始渲染的时候会渲染不出来的，必须在缩放层级之后画布才能正常显示；</li>
+<li>第二个问题就是不管怎么滚动或者平移，画布总会自动聚焦到中心。</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">return</span> <span class="keyword">new</span> ImageCanvas(&#123;</span><br><span class="line">     canvasFunction: (</span><br><span class="line">       extent,</span><br><span class="line">       resolution,</span><br><span class="line">       pixelRatio,</span><br><span class="line">       size </span><br><span class="line">     ) =&gt; &#123;</span><br><span class="line">       <span class="keyword">const</span> canvas = <span class="built_in">document</span>.createElement(<span class="string">'canvas'</span>);</span><br><span class="line">       canvas.width = size[<span class="number">0</span>];</span><br><span class="line">       canvas.height = size[<span class="number">1</span>];</span><br><span class="line">       <span class="keyword">const</span> img = <span class="keyword">new</span> Image()</span><br><span class="line">       <span class="keyword">const</span> url = <span class="string">'/static/img.ppng'</span></span><br><span class="line">       img.url = url</span><br><span class="line">       img.onolad = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">           ctx.drawImage(img, <span class="number">0</span>, <span class="number">0</span>, size[<span class="number">0</span>], size[<span class="number">1</span>]);</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> canvas;</span><br><span class="line">     &#125;,</span><br><span class="line">     projection: <span class="string">'EPSG:3857'</span></span><br><span class="line">   &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>首先第一个问题解决方案，那就是在img到onload里面来进行一个底图渲染的工作。<br>第二个问题的原因是因为openlayers 中不管对地图平移还是缩放，都会进行重绘的操作，所以解决方案就是设置一个临时变量来判断是否是第一次绘制。</p>
+<p>like this </p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">return</span> <span class="keyword">new</span> ImageCanvas(&#123;</span><br><span class="line">      canvasFunction: (</span><br><span class="line">        extent,</span><br><span class="line">        resolution,</span><br><span class="line">        pixelRatio,</span><br><span class="line">        size <span class="comment">/*, projection*/</span></span><br><span class="line">      ) =&gt; &#123;</span><br><span class="line">        <span class="keyword">const</span> canvas = <span class="built_in">document</span>.createElement(<span class="string">'canvas'</span>);</span><br><span class="line">        canvas.width = size[<span class="number">0</span>];</span><br><span class="line">        canvas.height = size[<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">        <span class="comment">// eslint-disable-next-line @typescript-eslint/no-non-null-assertion</span></span><br><span class="line">        <span class="keyword">const</span> ctx = canvas.getContext(<span class="string">'2d'</span>)!;</span><br><span class="line">        <span class="comment">// 这里必须要做一个判断，每次的范围变动都会引起重绘，从而触发该回调函数</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.isFirst) &#123;</span><br><span class="line">          <span class="keyword">this</span>.isFirst = <span class="literal">false</span>;</span><br><span class="line">          ctx.beginPath();</span><br><span class="line">          ctx.drawImage(img, <span class="number">0</span>, <span class="number">0</span>, size[<span class="number">0</span>], size[<span class="number">1</span>]);</span><br><span class="line">          ctx.closePath();</span><br><span class="line"></span><br><span class="line">          <span class="keyword">return</span> canvas;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      projection: <span class="string">'EPSG:3857'</span></span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="底图限制拖动范围"><a href="#底图限制拖动范围" class="headerlink" title="底图限制拖动范围"></a>底图限制拖动范围</h3><p>在view中定义extent即可</p>
+<h3 id="在移动feature时限制在容器之内"><a href="#在移动feature时限制在容器之内" class="headerlink" title="在移动feature时限制在容器之内"></a>在移动feature时限制在容器之内</h3><ul>
+<li>首先要限制范围，首选需要获取到容器到边界。获取view的extent即可</li>
+<li>其次需要在移动过程中获取多边形的边界。调用getExtent即可</li>
+<li>然后需要做临界值判断，根据boolean值来判断是否允许移动，容器边界跟feature边界比较即可。</li>
+<li>最后怎么来移动，参考库中自带的Translate可以发现，是获取到feature到geometry到translate方法来移动，当判断临界值时，移动的距离设置为0即可。</li>
+</ul>
+<p>为了应对不同分辨率或者容器大小下的限制范围 — 由于extent不会自动针对分辨率或者容器大小来计算，所以需要使用calculateExtent来根据容器大小获取最新的extent</p>
+<p>以上 需要重写部分Translate的实现</p>
+<h3 id="在编辑feature时同样需要限制范围。"><a href="#在编辑feature时同样需要限制范围。" class="headerlink" title="在编辑feature时同样需要限制范围。"></a>在编辑feature时同样需要限制范围。</h3><p>原理同移动feature，但是略复杂</p>
+<h3 id="undo-redo的实现"><a href="#undo-redo的实现" class="headerlink" title="undo redo的实现"></a>undo redo的实现</h3><p>因为需求中仅要记录移动feature和编辑feature，因此在undo redo的时候就是在addFeature和removeFeature中来回切换，只要记录当前操作的undo操作和redo操作即 — 在项目中undo 和redo的过程其实就是清除绘画和重新绘画的过程，我大概试了上百次，performance表现良好，一片绿色，但是记得在新增新的modify或者translate的时候要把上次的清除，不然有性能问题，非常卡。</p>
+<h3 id="点击feature实行交互，点击空白取消交互，点击其他feature，当前交互，上次取消交互。"><a href="#点击feature实行交互，点击空白取消交互，点击其他feature，当前交互，上次取消交互。" class="headerlink" title="点击feature实行交互，点击空白取消交互，点击其他feature，当前交互，上次取消交互。"></a>点击feature实行交互，点击空白取消交互，点击其他feature，当前交互，上次取消交互。</h3><p>之前是自己直接用click事件来做处理，后来发现selet这个可以帮我处理点击和取消点击的样式问题，但是仍然需要我自己处理交互问题，每次点击feature的时候其实就是把上次的modify和translate删除，然后重新添加一份当前点击feature的modify和translate，</p>
+]]></content>
+      <tags>
+        <tag>gis openlayers ol6</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>provide of vue3</title>
+    <url>/2020/06/provide/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>好奇provide怎么实现的，然后呢就去扒了下源码hhh，看了下provide的function，有点懵,provide的代码在runtime-core/src/apiInject.ts里面</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> interface InjectionKey&lt;T&gt; extends <span class="built_in">Symbol</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">provide</span>&lt;<span class="title">T</span>&gt;(<span class="params">key: InjectionKey&lt;T&gt; | string, value: T</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!currentInstance) &#123;</span><br><span class="line">    <span class="keyword">if</span> (__DEV__) &#123;</span><br><span class="line">      warn(<span class="string">`provide() can only be used inside setup().`</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> provides = currentInstance.provides</span><br><span class="line">    # by default an instance inherits its parent's provides object</span><br><span class="line">    # but when it needs to provide values of its own, it creates its</span><br><span class="line">    # own provides object using parent provides object as prototype.</span><br><span class="line">    # this way in `inject` we can simply look up injections from direct</span><br><span class="line">    # parent and let the prototype chain do the work.</span><br><span class="line">    <span class="keyword">const</span> parentProvides =</span><br><span class="line">      currentInstance.parent &amp;&amp; currentInstance.parent.provides</span><br><span class="line">    <span class="keyword">if</span> (parentProvides === provides) &#123;</span><br><span class="line">      provides = currentInstance.provides = <span class="built_in">Object</span>.create(parentProvides)</span><br><span class="line">    &#125;</span><br><span class="line">    # TS doesn't allow symbol as index type</span><br><span class="line">    provides[key <span class="keyword">as</span> string] = value</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+<p>有点纳闷为啥parentProvides === provides 的时候就可以判断当前的实例调用了provide，然后我用尤大的那个vite写了个demo，父元素调用provide，子元素也调用provide<br><br>App.vue</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;img alt=<span class="string">"Vue logo"</span> src=<span class="string">"./assets/logo.png"</span> /&gt;</span><br><span class="line">  &lt;HelloWorld msg=<span class="string">"Hello Vue 3.0 + Vite"</span> /&gt;</span><br><span class="line">  &#123;&#123;foo&#125;&#125;</span><br><span class="line">&lt;<span class="regexp">/template&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp">import HelloWorld from './</span>components/HelloWorld.vue<span class="string">'</span></span><br><span class="line"><span class="string">import &#123;provide,inject&#125; from '</span>vue<span class="string">'</span></span><br><span class="line"><span class="string">export default &#123;</span></span><br><span class="line"><span class="string">  name: '</span>App<span class="string">',</span></span><br><span class="line"><span class="string">  components: &#123;</span></span><br><span class="line"><span class="string">    HelloWorld</span></span><br><span class="line"><span class="string">  &#125;,</span></span><br><span class="line"><span class="string">  setup(props,ctx)&#123;</span></span><br><span class="line"><span class="string">	  provide('</span>foo<span class="string">',1)</span></span><br><span class="line"><span class="string">	  // console.log(ctx,props)</span></span><br><span class="line"><span class="string">	  return &#123;</span></span><br><span class="line"><span class="string">		  foo:inject('</span>foo<span class="string">')</span></span><br><span class="line"><span class="string">	  &#125;</span></span><br><span class="line"><span class="string">  &#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">&lt;/script&gt;</span></span><br><span class="line"><span class="string">&lt;br&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>HelloWorld.vue</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;&#123; msg &#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">"count++"</span>&gt;</span>count is: &#123;&#123; count &#125;&#125;<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">		Edit</span><br><span class="line">		<span class="tag">&lt;<span class="name">code</span>&gt;</span>components/HelloWorld.vue<span class="tag">&lt;/<span class="name">code</span>&gt;</span></span><br><span class="line">		to test hot module replacement.</span><br><span class="line">	<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">	&#123;&#123;foo&#125;&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="keyword">import</span> &#123; ref ,provide,inject,defineComponent&#125; <span class="keyword">from</span> <span class="string">'vue'</span>;</span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> defineComponent(&#123;</span></span><br><span class="line"><span class="javascript">	name: <span class="string">'HelloWorld'</span>,</span></span><br><span class="line">	props: &#123;</span><br><span class="line"><span class="javascript">		msg: <span class="built_in">String</span></span></span><br><span class="line">	&#125;,</span><br><span class="line">	setup(props,ctx ) &#123;</span><br><span class="line"><span class="javascript">		<span class="comment">// debugger</span></span></span><br><span class="line"><span class="javascript">		<span class="keyword">const</span> count = ref(<span class="number">0</span>);</span></span><br><span class="line"><span class="javascript">		provide(<span class="string">'bar'</span>,<span class="number">2</span>)</span></span><br><span class="line"><span class="javascript">		<span class="comment">// debugger</span></span></span><br><span class="line"><span class="javascript">		<span class="comment">// console.log(ctx.provide)</span></span></span><br><span class="line"><span class="javascript">		<span class="keyword">const</span> foo = inject(<span class="string">'foo'</span>)</span></span><br><span class="line"><span class="javascript">		<span class="keyword">return</span> &#123;</span></span><br><span class="line">			count,</span><br><span class="line">			foo</span><br><span class="line">		&#125;;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在debug的时候在调用栈里面发现在调用mount的时候以此调用了render,patch,processComponent,mountComponent..这些方法，render和patch应该是和dom相关，然后看processComponent</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> processComponent = <span class="function">(<span class="params">n1, n2, container, anchor, parentComponent, parentSuspense, isSVG, optimized</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (n1 == <span class="literal">null</span>) &#123;</span><br><span class="line">          <span class="keyword">if</span> (n2.shapeFlag &amp; <span class="number">512</span> <span class="comment">/* COMPONENT_KEPT_ALIVE */</span>) &#123;</span><br><span class="line">              parentComponent.ctx.activate(n2, container, anchor, isSVG, optimized);</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="keyword">else</span> &#123;</span><br><span class="line">              mountComponent(n2, container, anchor, parentComponent, parentSuspense, isSVG, optimized);</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">else</span> &#123;</span><br><span class="line">          updateComponent(n1, n2, optimized);</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;;</span><br></pre></td></tr></table></figure>
+
+<p>emmm看起来还是跟dom相关,直接看渲染组件的时候干了啥吧。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> mountComponent = <span class="function">(<span class="params">initialVNode, container, anchor, parentComponent, parentSuspense, isSVG, optimized</span>) =&gt;</span> &#123;</span><br><span class="line">       <span class="keyword">const</span> instance = (initialVNode.component = createComponentInstance(initialVNode, parentComponent, parentSuspense)); <span class="comment">//看这个实例</span></span><br><span class="line">       <span class="comment">//省略代码</span></span><br><span class="line">       <span class="comment">// setup() is async. This component relies on async logic to be resolved</span></span><br><span class="line">       <span class="comment">// before proceeding</span></span><br><span class="line">       <span class="comment">//省略代码</span></span><br><span class="line">   &#125;;</span><br></pre></td></tr></table></figure>
+
+<br>
+createComponentInstance
+
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createComponentInstance</span>(<span class="params">vnode, parent, suspense</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// inherit parent app context - or - if root, adopt from root vnode</span></span><br><span class="line">    <span class="comment">// 继承父级app上下文，如果是root，调整为根节点</span></span><br><span class="line">    <span class="keyword">const</span> appContext = (parent ? parent.appContext : vnode.appContext) || emptyAppContext;</span><br><span class="line">    <span class="keyword">const</span> instance = &#123;</span><br><span class="line">        <span class="comment">//省略</span></span><br><span class="line">        provides: parent ? parent.provides : <span class="built_in">Object</span>.create(appContext.provides),</span><br><span class="line">        <span class="comment">//省略</span></span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> ((process.env.NODE_ENV !== <span class="string">'production'</span>)) &#123;</span><br><span class="line">        instance.ctx = createRenderContext(instance);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        instance.ctx = &#123; <span class="attr">_</span>: instance &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    instance.root = parent ? parent.root : instance;</span><br><span class="line">    instance.emit = emit.bind(<span class="literal">null</span>, instance);</span><br><span class="line">    <span class="keyword">return</span> instance;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到如果instance如果有父元素的话，instance里面的provides是会继承父节点中的provides<br>所以这就是为啥provide方法中判断当前的provide和父元素的是否相等，因为如果当前节点调用provide方法的话，那么当前元素的provide一定是和父元素的provide的引用地址相同的，所以当前的provide就可以把父元素的provide当做原型链来生成一个新的object<br><br><br>然后我回头看了下provide方法的注解，默认情况下实例是继承父元素的provides的，操啊，我花这么多时间是干啥啊！</p>
+]]></content>
+      <categories>
+        <category>Vue</category>
+        <category>JavaScript</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+        <tag>Vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>简单请求和复杂请求</title>
+    <url>/2020/09/request-of-complex-simply/</url>
+    <content><![CDATA[<h3 id="简单请求"><a href="#简单请求" class="headerlink" title="简单请求"></a>简单请求</h3><p>请求方法只能是以下三种：</p>
+<ol>
+<li>GET</li>
+<li>POST</li>
+<li>HEAD</li>
+</ol>
+<p>请求头只能用以下几种：</p>
+<ol>
+<li>Accept</li>
+<li>Accept-Language</li>
+<li>Content-Language</li>
+<li>Content-Type （需要注意额外的限制）</li>
+<li>DPR</li>
+<li>Downlink</li>
+<li>Save-Data</li>
+<li>Viewport-Width</li>
+<li>Width</li>
+</ol>
+<p>Content——Type只能有以下几种</p>
+<ol>
+<li>text/plain</li>
+<li>multipart/form-data</li>
+<li>application/x-www-form-urlencoded</li>
+</ol>
+<p>请求中的任意XMLHttpRequestUpload 对象均没有注册任何事件监听器；XMLHttpRequestUpload 对象可以使用 XMLHttpRequest.upload 属性访问。</p>
+<p>请求中没有使用 ReadableStream 对象。</p>
+<h3 id="复杂请求"><a href="#复杂请求" class="headerlink" title="复杂请求"></a>复杂请求</h3><p>非简单请求就是复杂亲求</p>
+]]></content>
+  </entry>
+  <entry>
     <title>JavaScript读书笔记</title>
     <url>/2019/08/readingNote-JS/</url>
     <content><![CDATA[<h2 id="new运算符的实现"><a href="#new运算符的实现" class="headerlink" title="new运算符的实现"></a>new运算符的实现</h2><h3 id="定义一个函数，以及原型链的方法"><a href="#定义一个函数，以及原型链的方法" class="headerlink" title="定义一个函数，以及原型链的方法"></a>定义一个函数，以及原型链的方法</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> Testfoo(name) &#123;</span><br><span class="line">    console.log(this[name]) </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Testfoo.prototype.sayHello= <span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">    console.log(<span class="string">'hello'</span>);</span><br><span class="line">    <span class="built_in">return</span> 1;</span><br><span class="line">&#125;</span><br><span class="line">//使用new运算符</span><br><span class="line"><span class="built_in">let</span> aaa = new Testfoo();</span><br><span class="line">aaa.sayHello();//输出hello</span><br><span class="line">//不使用new运算符</span><br><span class="line"><span class="built_in">let</span> testObj  = &#123;&#125;;//创建空对象</span><br><span class="line">testObj=Object.create(Testfoo.prototype);//创建一个具有Testfoo的原型链的空方法</span><br><span class="line">Testfoo.call(testObj);//指定this</span><br><span class="line">console.log(<span class="string">'testObj'</span>,testObj.sayHello());//输出hello</span><br></pre></td></tr></table></figure>
@@ -2248,16 +2270,13 @@ createComponentInstance
       </tags>
   </entry>
   <entry>
-    <title>节流</title>
-    <url>/2021/02/throttle/</url>
-    <content><![CDATA[<h5 id="创建一个节流函数在给定的毫秒中最多调用一次"><a href="#创建一个节流函数在给定的毫秒中最多调用一次" class="headerlink" title="创建一个节流函数在给定的毫秒中最多调用一次"></a>创建一个节流函数在给定的毫秒中最多调用一次</h5><p>Creates a throttled function that only invokes the provided function at most once per every wait milliseconds</p>
-<hr>
-<p>使用setTimeout 和 clearTimeout 对给定对方法节流。fn使用<code>Function.prototype.apply()</code>this上下文应用到函数中并且提供必要到参数arguments。使用<code>Date.now()</code>收集上一次函数的调用时间。没有给定第二个参数 <code>wait</code>的情况，默认设置时间间隔为0</p>
-<a id="more"></a>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> throttle = <span class="function">(<span class="params">fn, wait</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> inThrottle, lastFn, lastTime;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> context = <span class="keyword">this</span>,</span><br><span class="line">      args = <span class="built_in">arguments</span>;</span><br><span class="line">    <span class="keyword">if</span> (!inThrottle) &#123;</span><br><span class="line">      fn.apply(context, args);</span><br><span class="line">      lastTime = <span class="built_in">Date</span>.now();</span><br><span class="line">      inThrottle = <span class="literal">true</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      clearTimeout(lastFn);</span><br><span class="line">      lastFn = setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">Date</span>.now() - lastTime &gt;= wait) &#123;</span><br><span class="line">          fn.apply(context, args);</span><br><span class="line">          lastTime = <span class="built_in">Date</span>.now();</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;, <span class="built_in">Math</span>.max(wait - (<span class="built_in">Date</span>.now() - lastTime), <span class="number">0</span>));</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+    <title>polyfill</title>
+    <url>/2021/07/polyfill/</url>
+    <content><![CDATA[<h2 id="Promise-all"><a href="#Promise-all" class="headerlink" title="Promise.all"></a>Promise.all</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Promise</span>.all = <span class="function"><span class="keyword">function</span> (<span class="params">promises</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> results = [];</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    promises.forEach(<span class="function">(<span class="params">p, index</span>) =&gt;</span> &#123;</span><br><span class="line">      p.then(<span class="function">(<span class="params">result</span>) =&gt;</span> &#123;</span><br><span class="line">        results.push(result);</span><br><span class="line">        <span class="keyword">if</span> (index === promises.length - <span class="number">1</span>) &#123;</span><br><span class="line">          resolve(results);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;).catch(<span class="function">(<span class="params">err</span>) =&gt;</span> reject(err));</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<hr>
-<h5 id="for-instance"><a href="#for-instance" class="headerlink" title="for instance"></a>for instance</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(</span><br><span class="line">  <span class="string">'resize'</span>,</span><br><span class="line">  throttle(<span class="function"><span class="keyword">function</span>(<span class="params">evt</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">window</span>.innerWidth);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">window</span>.innerHeight);</span><br><span class="line">  &#125;, <span class="number">250</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>]]></content>
+<h2 id="Promise-any"><a href="#Promise-any" class="headerlink" title="Promise.any"></a>Promise.any</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Promise</span>.any = <span class="function"><span class="keyword">function</span> (<span class="params">promises</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> result = [];</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    promises.forEach(<span class="function">(<span class="params">item, index</span>) =&gt;</span> &#123;</span><br><span class="line">      item</span><br><span class="line">        .then(<span class="function">(<span class="params">res</span>) =&gt;</span> resolve(res))</span><br><span class="line">        .catch(<span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">          result.push(error);</span><br><span class="line">          <span class="keyword">if</span> (index === pro mises.length - <span class="number">1</span>) &#123;</span><br><span class="line">              <span class="comment">// 如果全部都失败，返回结果合集</span></span><br><span class="line">            reject(result);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+]]></content>
       <tags>
         <tag>JavaScript</tag>
       </tags>
@@ -2319,38 +2338,6 @@ createComponentInstance
         <category>vue</category>
         <category>react</category>
       </categories>
-  </entry>
-  <entry>
-    <title>在JS文件使用svg加载svg文件</title>
-    <url>/2020/10/svgInJS/</url>
-    <content><![CDATA[<h3 id="怎么在js文件中用引用svg文件"><a href="#怎么在js文件中用引用svg文件" class="headerlink" title="怎么在js文件中用引用svg文件"></a>怎么在js文件中用引用svg文件</h3><p>使用webpack的require.context,它接收三个参数</p>
-<ul>
-<li>要搜索的文件夹目录</li>
-<li>是否还应该搜索它的子目录，</li>
-<li>以及一个匹配文件的正则表达式。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const req = require.context(<span class="string">'./svg'</span>, <span class="literal">false</span>, /\.svg$/)</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<p>req返回的是一个方法</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> webpackContext(req) &#123;</span><br><span class="line">	var id = webpackContextResolve(req);</span><br><span class="line">	<span class="built_in">return</span> __webpack_require__(id);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>包含三个属性</p>
-<ul>
-<li>id</li>
-<li>keys </li>
-<li>resolve<a id="more"></a>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">webpackContext.keys = <span class="keyword">function</span> <span class="function"><span class="title">webpackContextKeys</span></span>() &#123;</span><br><span class="line">	<span class="built_in">return</span> Object.keys(map);</span><br><span class="line">&#125;;</span><br><span class="line">webpackContext.resolve = webpackContextResolve;</span><br><span class="line">webpackContext.id = <span class="string">"./src/icons/svg sync \\.svg$"</span>;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<p>再使用<code>const requireAll = requireContext =&gt; requireContext.keys().map(requireContext)</code>之后，会得到一个Module的数组,数组的每一项就是执行import后的Module<br><img src="/images/svg-in-js/map.png" alt="dom"><br><img src="/images/svg-in-js/image.png" alt="image"><br>Module数组<br><img src="/images/svg-in-js/module.png" alt="module"><br><strong>webpack_require</strong>方法</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> __webpack_require__(moduleId) &#123;</span><br><span class="line">/******/</span><br><span class="line">/******/ 		// Check <span class="keyword">if</span> module is <span class="keyword">in</span> cache</span><br><span class="line">/******/ 		<span class="keyword">if</span>(installedModules[moduleId]) &#123;</span><br><span class="line">/******/ 			<span class="built_in">return</span> installedModules[moduleId].exports;</span><br><span class="line">/******/ 		&#125;</span><br><span class="line">/******/ 		// Create a new module (and put it into the cache)</span><br><span class="line">/******/ 		var module = installedModules[moduleId] = &#123;</span><br><span class="line">/******/ 			i: moduleId,</span><br><span class="line">/******/ 			l: <span class="literal">false</span>,</span><br><span class="line">/******/ 			exports: &#123;&#125;,</span><br><span class="line">/******/ 			hot: hotCreateModule(moduleId),</span><br><span class="line">/******/ 			parents: (hotCurrentParentsTemp = hotCurrentParents, hotCurrentParents = [], hotCurrentParentsTemp),</span><br><span class="line">/******/ 			children: []</span><br><span class="line">/******/ 		&#125;;</span><br><span class="line">/******/</span><br><span class="line">/******/ 		// Execute the module <span class="keyword">function</span></span><br><span class="line">/******/ 		modules[moduleId].call(module.exports, module, module.exports, hotCreateRequire(moduleId));</span><br><span class="line">/******/</span><br><span class="line">/******/ 		// Flag the module as loaded</span><br><span class="line">/******/ 		module.l = <span class="literal">true</span>;</span><br><span class="line">/******/</span><br><span class="line">/******/ 		// Return the exports of the module</span><br><span class="line">/******/ 		<span class="built_in">return</span> module.exports;</span><br><span class="line">/******/ 	&#125;</span><br></pre></td></tr></table></figure>
-
-<p>svg example</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/***/ <span class="string">"./src/icons/svg/bug.svg"</span>:</span><br><span class="line">/*!*******************************!*\</span><br><span class="line">  !*** ./src/icons/svg/bug.svg ***!</span><br><span class="line">  \*******************************/</span><br><span class="line">/*! exports provided: default */</span><br><span class="line">/***/ (<span class="keyword">function</span>(module, __webpack_exports__, __webpack_require__) &#123;</span><br><span class="line"></span><br><span class="line"><span class="string">"use strict"</span>;</span><br><span class="line"><span class="built_in">eval</span>(<span class="string">"__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! svg-baker-runtime/browser-symbol */ \"./node_modules/svg-baker-runtime/browser-symbol.js\");\n/* harmony import */ var svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! svg-sprite-loader/runtime/browser-sprite.build */ \"./node_modules/svg-sprite-loader/runtime/browser-sprite.build.js\");\n/* harmony import */ var svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1__);\n\n\nvar symbol = new svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0___default.a(&#123;\n  \"id\": \"icon-bug\",\n  \"use\": \"icon-bug-usage\",\n  \"viewBox\": \"0 0 128 128\",\n  \"content\": \"&lt;symbol xmlns=\\\"http://www.w3.org/2000/svg\\\" viewBox=\\\"0 0 128 128\\\" id=\\\"icon-bug\\\"&gt;&lt;path d=\\\"M127.88 73.143c0 1.412-.506 2.635-1.518 3.669-1.011 1.033-2.209 1.55-3.592 1.55h-17.887c0 9.296-1.783 17.178-5.35 23.645l16.609 17.044c1.011 1.034 1.517 2.257 1.517 3.67 0 1.412-.506 2.635-1.517 3.668-.958 1.033-2.155 1.55-3.593 1.55-1.438 0-2.635-.517-3.593-1.55l-15.811-16.063a15.49 15.49 0 0 1-1.196 1.06c-.532.434-1.65 1.208-3.353 2.322a50.104 50.104 0 0 1-5.192 2.974c-1.758.87-3.94 1.658-6.546 2.364-2.607.706-5.189 1.06-7.748 1.06V47.044H58.89v73.062c-2.716 0-5.417-.367-8.106-1.102-2.688-.734-5.003-1.631-6.945-2.692a66.769 66.769 0 0 1-5.268-3.179c-1.571-1.057-2.73-1.94-3.476-2.65L33.9 109.34l-14.611 16.877c-1.066 1.14-2.344 1.711-3.833 1.711-1.277 0-2.422-.434-3.434-1.304-1.012-.978-1.557-2.187-1.635-3.627-.079-1.44.333-2.705 1.236-3.794l16.129-18.51c-3.087-6.197-4.63-13.644-4.63-22.342H5.235c-1.383 0-2.58-.517-3.592-1.55S.125 74.545.125 73.132c0-1.412.506-2.635 1.518-3.668 1.012-1.034 2.21-1.55 3.592-1.55h17.887V43.939L9.308 29.833c-1.012-1.033-1.517-2.256-1.517-3.669 0-1.412.505-2.635 1.517-3.668 1.012-1.034 2.21-1.55 3.593-1.55s2.58.516 3.593 1.55l13.813 14.106h67.396l13.814-14.106c1.012-1.034 2.21-1.55 3.592-1.55 1.384 0 2.581.516 3.593 1.55 1.012 1.033 1.518 2.256 1.518 3.668 0 1.413-.506 2.636-1.518 3.67l-13.814 14.105v23.975h17.887c1.383 0 2.58.516 3.593 1.55 1.011 1.033 1.517 2.256 1.517 3.668l-.005.01zM89.552 26.175H38.448c0-7.23 2.489-13.386 7.466-18.469C50.892 2.623 56.92.082 64 .082c7.08 0 13.108 2.541 18.086 7.624 4.977 5.083 7.466 11.24 7.466 18.469z\\\" /&gt;&lt;/symbol&gt;\"\n&#125;);\nvar result = svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1___default.a.add(symbol);\n/* harmony default export */ __webpack_exports__[\"default\"] = (symbol);//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9zcmMvaWNvbnMvc3ZnL2J1Zy5zdmcuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvaWNvbnMvc3ZnL2J1Zy5zdmc/MjI4NiJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgU3ByaXRlU3ltYm9sIGZyb20gXCJzdmctYmFrZXItcnVudGltZS9icm93c2VyLXN5bWJvbFwiO1xuaW1wb3J0IHNwcml0ZSBmcm9tIFwic3ZnLXNwcml0ZS1sb2FkZXIvcnVudGltZS9icm93c2VyLXNwcml0ZS5idWlsZFwiO1xudmFyIHN5bWJvbCA9IG5ldyBTcHJpdGVTeW1ib2woe1xuICBcImlkXCI6IFwiaWNvbi1idWdcIixcbiAgXCJ1c2VcIjogXCJpY29uLWJ1Zy11c2FnZVwiLFxuICBcInZpZXdCb3hcIjogXCIwIDAgMTI4IDEyOFwiLFxuICBcImNvbnRlbnRcIjogXCI8c3ltYm9sIHhtbG5zPVxcXCJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Z1xcXCIgdmlld0JveD1cXFwiMCAwIDEyOCAxMjhcXFwiIGlkPVxcXCJpY29uLWJ1Z1xcXCI+PHBhdGggZD1cXFwiTTEyNy44OCA3My4xNDNjMCAxLjQxMi0uNTA2IDIuNjM1LTEuNTE4IDMuNjY5LTEuMDExIDEuMDMzLTIuMjA5IDEuNTUtMy41OTIgMS41NWgtMTcuODg3YzAgOS4yOTYtMS43ODMgMTcuMTc4LTUuMzUgMjMuNjQ1bDE2LjYwOSAxNy4wNDRjMS4wMTEgMS4wMzQgMS41MTcgMi4yNTcgMS41MTcgMy42NyAwIDEuNDEyLS41MDYgMi42MzUtMS41MTcgMy42NjgtLjk1OCAxLjAzMy0yLjE1NSAxLjU1LTMuNTkzIDEuNTUtMS40MzggMC0yLjYzNS0uNTE3LTMuNTkzLTEuNTVsLTE1LjgxMS0xNi4wNjNhMTUuNDkgMTUuNDkgMCAwIDEtMS4xOTYgMS4wNmMtLjUzMi40MzQtMS42NSAxLjIwOC0zLjM1MyAyLjMyMmE1MC4xMDQgNTAuMTA0IDAgMCAxLTUuMTkyIDIuOTc0Yy0xLjc1OC44Ny0zLjk0IDEuNjU4LTYuNTQ2IDIuMzY0LTIuNjA3LjcwNi01LjE4OSAxLjA2LTcuNzQ4IDEuMDZWNDcuMDQ0SDU4Ljg5djczLjA2MmMtMi43MTYgMC01LjQxNy0uMzY3LTguMTA2LTEuMTAyLTIuNjg4LS43MzQtNS4wMDMtMS42MzEtNi45NDUtMi42OTJhNjYuNzY5IDY2Ljc2OSAwIDAgMS01LjI2OC0zLjE3OWMtMS41NzEtMS4wNTctMi43My0xLjk0LTMuNDc2LTIuNjVMMzMuOSAxMDkuMzRsLTE0LjYxMSAxNi44NzdjLTEuMDY2IDEuMTQtMi4zNDQgMS43MTEtMy44MzMgMS43MTEtMS4yNzcgMC0yLjQyMi0uNDM0LTMuNDM0LTEuMzA0LTEuMDEyLS45NzgtMS41NTctMi4xODctMS42MzUtMy42MjctLjA3OS0xLjQ0LjMzMy0yLjcwNSAxLjIzNi0zLjc5NGwxNi4xMjktMTguNTFjLTMuMDg3LTYuMTk3LTQuNjMtMTMuNjQ0LTQuNjMtMjIuMzQySDUuMjM1Yy0xLjM4MyAwLTIuNTgtLjUxNy0zLjU5Mi0xLjU1Uy4xMjUgNzQuNTQ1LjEyNSA3My4xMzJjMC0xLjQxMi41MDYtMi42MzUgMS41MTgtMy42NjggMS4wMTItMS4wMzQgMi4yMS0xLjU1IDMuNTkyLTEuNTVoMTcuODg3VjQzLjkzOUw5LjMwOCAyOS44MzNjLTEuMDEyLTEuMDMzLTEuNTE3LTIuMjU2LTEuNTE3LTMuNjY5IDAtMS40MTIuNTA1LTIuNjM1IDEuNTE3LTMuNjY4IDEuMDEyLTEuMDM0IDIuMjEtMS41NSAzLjU5My0xLjU1czIuNTguNTE2IDMuNTkzIDEuNTVsMTMuODEzIDE0LjEwNmg2Ny4zOTZsMTMuODE0LTE0LjEwNmMxLjAxMi0xLjAzNCAyLjIxLTEuNTUgMy41OTItMS41NSAxLjM4NCAwIDIuNTgxLjUxNiAzLjU5MyAxLjU1IDEuMDEyIDEuMDMzIDEuNTE4IDIuMjU2IDEuNTE4IDMuNjY4IDAgMS40MTMtLjUwNiAyLjYzNi0xLjUxOCAzLjY3bC0xMy44MTQgMTQuMTA1djIzLjk3NWgxNy44ODdjMS4zODMgMCAyLjU4LjUxNiAzLjU5MyAxLjU1IDEuMDExIDEuMDMzIDEuNTE3IDIuMjU2IDEuNTE3IDMuNjY4bC0uMDA1LjAxek04OS41NTIgMjYuMTc1SDM4LjQ0OGMwLTcuMjMgMi40ODktMTMuMzg2IDcuNDY2LTE4LjQ2OUM1MC44OTIgMi42MjMgNTYuOTIuMDgyIDY0IC4wODJjNy4wOCAwIDEzLjEwOCAyLjU0MSAxOC4wODYgNy42MjQgNC45NzcgNS4wODMgNy40NjYgMTEuMjQgNy40NjYgMTguNDY5elxcXCIgLz48L3N5bWJvbD5cIlxufSk7XG52YXIgcmVzdWx0ID0gc3ByaXRlLmFkZChzeW1ib2wpO1xuZXhwb3J0IGRlZmF1bHQgc3ltYm9sIl0sIm1hcHBpbmdzIjoiQUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0EiLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./src/icons/svg/bug.svg\n"</span>);</span><br><span class="line"></span><br><span class="line">/***/ &#125;)</span><br></pre></td></tr></table></figure>
-
-<p>所以在JS中使用svg标签来加载对应的svg文件的时候只需要在svg标签加入use 然后给id属性赋值为对应symbol的id，比如<code>id=&quot;#icon-404&quot;</code></p>
-]]></content>
   </entry>
   <entry>
     <title>工具函数</title>
@@ -2482,6 +2469,21 @@ createComponentInstance
       </tags>
   </entry>
   <entry>
+    <title>节流</title>
+    <url>/2021/02/throttle/</url>
+    <content><![CDATA[<h5 id="创建一个节流函数在给定的毫秒中最多调用一次"><a href="#创建一个节流函数在给定的毫秒中最多调用一次" class="headerlink" title="创建一个节流函数在给定的毫秒中最多调用一次"></a>创建一个节流函数在给定的毫秒中最多调用一次</h5><p>Creates a throttled function that only invokes the provided function at most once per every wait milliseconds</p>
+<hr>
+<p>使用setTimeout 和 clearTimeout 对给定对方法节流。fn使用<code>Function.prototype.apply()</code>this上下文应用到函数中并且提供必要到参数arguments。使用<code>Date.now()</code>收集上一次函数的调用时间。没有给定第二个参数 <code>wait</code>的情况，默认设置时间间隔为0</p>
+<a id="more"></a>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> throttle = <span class="function">(<span class="params">fn, wait</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> inThrottle, lastFn, lastTime;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> context = <span class="keyword">this</span>,</span><br><span class="line">      args = <span class="built_in">arguments</span>;</span><br><span class="line">    <span class="keyword">if</span> (!inThrottle) &#123;</span><br><span class="line">      fn.apply(context, args);</span><br><span class="line">      lastTime = <span class="built_in">Date</span>.now();</span><br><span class="line">      inThrottle = <span class="literal">true</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      clearTimeout(lastFn);</span><br><span class="line">      lastFn = setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">Date</span>.now() - lastTime &gt;= wait) &#123;</span><br><span class="line">          fn.apply(context, args);</span><br><span class="line">          lastTime = <span class="built_in">Date</span>.now();</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;, <span class="built_in">Math</span>.max(wait - (<span class="built_in">Date</span>.now() - lastTime), <span class="number">0</span>));</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h5 id="for-instance"><a href="#for-instance" class="headerlink" title="for instance"></a>for instance</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(</span><br><span class="line">  <span class="string">'resize'</span>,</span><br><span class="line">  throttle(<span class="function"><span class="keyword">function</span>(<span class="params">evt</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">window</span>.innerWidth);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">window</span>.innerHeight);</span><br><span class="line">  &#125;, <span class="number">250</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>vuex</title>
     <url>/2020/04/vuex/</url>
     <content><![CDATA[<h2 id="vuex-简述"><a href="#vuex-简述" class="headerlink" title="vuex 简述"></a>vuex 简述</h2><p>vuex 本质上就是 vue 中的 mixin，store 在每个 vue 组建实例创建的时候通过 mixin 的方式注入的，mixin 就类似这样的格式</p>
@@ -2562,6 +2564,38 @@ createComponentInstance
       <tags>
         <tag>Vue</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>在JS文件使用svg加载svg文件</title>
+    <url>/2020/10/svgInJS/</url>
+    <content><![CDATA[<h3 id="怎么在js文件中用引用svg文件"><a href="#怎么在js文件中用引用svg文件" class="headerlink" title="怎么在js文件中用引用svg文件"></a>怎么在js文件中用引用svg文件</h3><p>使用webpack的require.context,它接收三个参数</p>
+<ul>
+<li>要搜索的文件夹目录</li>
+<li>是否还应该搜索它的子目录，</li>
+<li>以及一个匹配文件的正则表达式。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const req = require.context(<span class="string">'./svg'</span>, <span class="literal">false</span>, /\.svg$/)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>req返回的是一个方法</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> webpackContext(req) &#123;</span><br><span class="line">	var id = webpackContextResolve(req);</span><br><span class="line">	<span class="built_in">return</span> __webpack_require__(id);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>包含三个属性</p>
+<ul>
+<li>id</li>
+<li>keys </li>
+<li>resolve<a id="more"></a>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">webpackContext.keys = <span class="keyword">function</span> <span class="function"><span class="title">webpackContextKeys</span></span>() &#123;</span><br><span class="line">	<span class="built_in">return</span> Object.keys(map);</span><br><span class="line">&#125;;</span><br><span class="line">webpackContext.resolve = webpackContextResolve;</span><br><span class="line">webpackContext.id = <span class="string">"./src/icons/svg sync \\.svg$"</span>;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>再使用<code>const requireAll = requireContext =&gt; requireContext.keys().map(requireContext)</code>之后，会得到一个Module的数组,数组的每一项就是执行import后的Module<br><img src="/images/svg-in-js/map.png" alt="dom"><br><img src="/images/svg-in-js/image.png" alt="image"><br>Module数组<br><img src="/images/svg-in-js/module.png" alt="module"><br><strong>webpack_require</strong>方法</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> __webpack_require__(moduleId) &#123;</span><br><span class="line">/******/</span><br><span class="line">/******/ 		// Check <span class="keyword">if</span> module is <span class="keyword">in</span> cache</span><br><span class="line">/******/ 		<span class="keyword">if</span>(installedModules[moduleId]) &#123;</span><br><span class="line">/******/ 			<span class="built_in">return</span> installedModules[moduleId].exports;</span><br><span class="line">/******/ 		&#125;</span><br><span class="line">/******/ 		// Create a new module (and put it into the cache)</span><br><span class="line">/******/ 		var module = installedModules[moduleId] = &#123;</span><br><span class="line">/******/ 			i: moduleId,</span><br><span class="line">/******/ 			l: <span class="literal">false</span>,</span><br><span class="line">/******/ 			exports: &#123;&#125;,</span><br><span class="line">/******/ 			hot: hotCreateModule(moduleId),</span><br><span class="line">/******/ 			parents: (hotCurrentParentsTemp = hotCurrentParents, hotCurrentParents = [], hotCurrentParentsTemp),</span><br><span class="line">/******/ 			children: []</span><br><span class="line">/******/ 		&#125;;</span><br><span class="line">/******/</span><br><span class="line">/******/ 		// Execute the module <span class="keyword">function</span></span><br><span class="line">/******/ 		modules[moduleId].call(module.exports, module, module.exports, hotCreateRequire(moduleId));</span><br><span class="line">/******/</span><br><span class="line">/******/ 		// Flag the module as loaded</span><br><span class="line">/******/ 		module.l = <span class="literal">true</span>;</span><br><span class="line">/******/</span><br><span class="line">/******/ 		// Return the exports of the module</span><br><span class="line">/******/ 		<span class="built_in">return</span> module.exports;</span><br><span class="line">/******/ 	&#125;</span><br></pre></td></tr></table></figure>
+
+<p>svg example</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/***/ <span class="string">"./src/icons/svg/bug.svg"</span>:</span><br><span class="line">/*!*******************************!*\</span><br><span class="line">  !*** ./src/icons/svg/bug.svg ***!</span><br><span class="line">  \*******************************/</span><br><span class="line">/*! exports provided: default */</span><br><span class="line">/***/ (<span class="keyword">function</span>(module, __webpack_exports__, __webpack_require__) &#123;</span><br><span class="line"></span><br><span class="line"><span class="string">"use strict"</span>;</span><br><span class="line"><span class="built_in">eval</span>(<span class="string">"__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! svg-baker-runtime/browser-symbol */ \"./node_modules/svg-baker-runtime/browser-symbol.js\");\n/* harmony import */ var svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! svg-sprite-loader/runtime/browser-sprite.build */ \"./node_modules/svg-sprite-loader/runtime/browser-sprite.build.js\");\n/* harmony import */ var svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1__);\n\n\nvar symbol = new svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0___default.a(&#123;\n  \"id\": \"icon-bug\",\n  \"use\": \"icon-bug-usage\",\n  \"viewBox\": \"0 0 128 128\",\n  \"content\": \"&lt;symbol xmlns=\\\"http://www.w3.org/2000/svg\\\" viewBox=\\\"0 0 128 128\\\" id=\\\"icon-bug\\\"&gt;&lt;path d=\\\"M127.88 73.143c0 1.412-.506 2.635-1.518 3.669-1.011 1.033-2.209 1.55-3.592 1.55h-17.887c0 9.296-1.783 17.178-5.35 23.645l16.609 17.044c1.011 1.034 1.517 2.257 1.517 3.67 0 1.412-.506 2.635-1.517 3.668-.958 1.033-2.155 1.55-3.593 1.55-1.438 0-2.635-.517-3.593-1.55l-15.811-16.063a15.49 15.49 0 0 1-1.196 1.06c-.532.434-1.65 1.208-3.353 2.322a50.104 50.104 0 0 1-5.192 2.974c-1.758.87-3.94 1.658-6.546 2.364-2.607.706-5.189 1.06-7.748 1.06V47.044H58.89v73.062c-2.716 0-5.417-.367-8.106-1.102-2.688-.734-5.003-1.631-6.945-2.692a66.769 66.769 0 0 1-5.268-3.179c-1.571-1.057-2.73-1.94-3.476-2.65L33.9 109.34l-14.611 16.877c-1.066 1.14-2.344 1.711-3.833 1.711-1.277 0-2.422-.434-3.434-1.304-1.012-.978-1.557-2.187-1.635-3.627-.079-1.44.333-2.705 1.236-3.794l16.129-18.51c-3.087-6.197-4.63-13.644-4.63-22.342H5.235c-1.383 0-2.58-.517-3.592-1.55S.125 74.545.125 73.132c0-1.412.506-2.635 1.518-3.668 1.012-1.034 2.21-1.55 3.592-1.55h17.887V43.939L9.308 29.833c-1.012-1.033-1.517-2.256-1.517-3.669 0-1.412.505-2.635 1.517-3.668 1.012-1.034 2.21-1.55 3.593-1.55s2.58.516 3.593 1.55l13.813 14.106h67.396l13.814-14.106c1.012-1.034 2.21-1.55 3.592-1.55 1.384 0 2.581.516 3.593 1.55 1.012 1.033 1.518 2.256 1.518 3.668 0 1.413-.506 2.636-1.518 3.67l-13.814 14.105v23.975h17.887c1.383 0 2.58.516 3.593 1.55 1.011 1.033 1.517 2.256 1.517 3.668l-.005.01zM89.552 26.175H38.448c0-7.23 2.489-13.386 7.466-18.469C50.892 2.623 56.92.082 64 .082c7.08 0 13.108 2.541 18.086 7.624 4.977 5.083 7.466 11.24 7.466 18.469z\\\" /&gt;&lt;/symbol&gt;\"\n&#125;);\nvar result = svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1___default.a.add(symbol);\n/* harmony default export */ __webpack_exports__[\"default\"] = (symbol);//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9zcmMvaWNvbnMvc3ZnL2J1Zy5zdmcuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvaWNvbnMvc3ZnL2J1Zy5zdmc/MjI4NiJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgU3ByaXRlU3ltYm9sIGZyb20gXCJzdmctYmFrZXItcnVudGltZS9icm93c2VyLXN5bWJvbFwiO1xuaW1wb3J0IHNwcml0ZSBmcm9tIFwic3ZnLXNwcml0ZS1sb2FkZXIvcnVudGltZS9icm93c2VyLXNwcml0ZS5idWlsZFwiO1xudmFyIHN5bWJvbCA9IG5ldyBTcHJpdGVTeW1ib2woe1xuICBcImlkXCI6IFwiaWNvbi1idWdcIixcbiAgXCJ1c2VcIjogXCJpY29uLWJ1Zy11c2FnZVwiLFxuICBcInZpZXdCb3hcIjogXCIwIDAgMTI4IDEyOFwiLFxuICBcImNvbnRlbnRcIjogXCI8c3ltYm9sIHhtbG5zPVxcXCJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Z1xcXCIgdmlld0JveD1cXFwiMCAwIDEyOCAxMjhcXFwiIGlkPVxcXCJpY29uLWJ1Z1xcXCI+PHBhdGggZD1cXFwiTTEyNy44OCA3My4xNDNjMCAxLjQxMi0uNTA2IDIuNjM1LTEuNTE4IDMuNjY5LTEuMDExIDEuMDMzLTIuMjA5IDEuNTUtMy41OTIgMS41NWgtMTcuODg3YzAgOS4yOTYtMS43ODMgMTcuMTc4LTUuMzUgMjMuNjQ1bDE2LjYwOSAxNy4wNDRjMS4wMTEgMS4wMzQgMS41MTcgMi4yNTcgMS41MTcgMy42NyAwIDEuNDEyLS41MDYgMi42MzUtMS41MTcgMy42NjgtLjk1OCAxLjAzMy0yLjE1NSAxLjU1LTMuNTkzIDEuNTUtMS40MzggMC0yLjYzNS0uNTE3LTMuNTkzLTEuNTVsLTE1LjgxMS0xNi4wNjNhMTUuNDkgMTUuNDkgMCAwIDEtMS4xOTYgMS4wNmMtLjUzMi40MzQtMS42NSAxLjIwOC0zLjM1MyAyLjMyMmE1MC4xMDQgNTAuMTA0IDAgMCAxLTUuMTkyIDIuOTc0Yy0xLjc1OC44Ny0zLjk0IDEuNjU4LTYuNTQ2IDIuMzY0LTIuNjA3LjcwNi01LjE4OSAxLjA2LTcuNzQ4IDEuMDZWNDcuMDQ0SDU4Ljg5djczLjA2MmMtMi43MTYgMC01LjQxNy0uMzY3LTguMTA2LTEuMTAyLTIuNjg4LS43MzQtNS4wMDMtMS42MzEtNi45NDUtMi42OTJhNjYuNzY5IDY2Ljc2OSAwIDAgMS01LjI2OC0zLjE3OWMtMS41NzEtMS4wNTctMi43My0xLjk0LTMuNDc2LTIuNjVMMzMuOSAxMDkuMzRsLTE0LjYxMSAxNi44NzdjLTEuMDY2IDEuMTQtMi4zNDQgMS43MTEtMy44MzMgMS43MTEtMS4yNzcgMC0yLjQyMi0uNDM0LTMuNDM0LTEuMzA0LTEuMDEyLS45NzgtMS41NTctMi4xODctMS42MzUtMy42MjctLjA3OS0xLjQ0LjMzMy0yLjcwNSAxLjIzNi0zLjc5NGwxNi4xMjktMTguNTFjLTMuMDg3LTYuMTk3LTQuNjMtMTMuNjQ0LTQuNjMtMjIuMzQySDUuMjM1Yy0xLjM4MyAwLTIuNTgtLjUxNy0zLjU5Mi0xLjU1Uy4xMjUgNzQuNTQ1LjEyNSA3My4xMzJjMC0xLjQxMi41MDYtMi42MzUgMS41MTgtMy42NjggMS4wMTItMS4wMzQgMi4yMS0xLjU1IDMuNTkyLTEuNTVoMTcuODg3VjQzLjkzOUw5LjMwOCAyOS44MzNjLTEuMDEyLTEuMDMzLTEuNTE3LTIuMjU2LTEuNTE3LTMuNjY5IDAtMS40MTIuNTA1LTIuNjM1IDEuNTE3LTMuNjY4IDEuMDEyLTEuMDM0IDIuMjEtMS41NSAzLjU5My0xLjU1czIuNTguNTE2IDMuNTkzIDEuNTVsMTMuODEzIDE0LjEwNmg2Ny4zOTZsMTMuODE0LTE0LjEwNmMxLjAxMi0xLjAzNCAyLjIxLTEuNTUgMy41OTItMS41NSAxLjM4NCAwIDIuNTgxLjUxNiAzLjU5MyAxLjU1IDEuMDEyIDEuMDMzIDEuNTE4IDIuMjU2IDEuNTE4IDMuNjY4IDAgMS40MTMtLjUwNiAyLjYzNi0xLjUxOCAzLjY3bC0xMy44MTQgMTQuMTA1djIzLjk3NWgxNy44ODdjMS4zODMgMCAyLjU4LjUxNiAzLjU5MyAxLjU1IDEuMDExIDEuMDMzIDEuNTE3IDIuMjU2IDEuNTE3IDMuNjY4bC0uMDA1LjAxek04OS41NTIgMjYuMTc1SDM4LjQ0OGMwLTcuMjMgMi40ODktMTMuMzg2IDcuNDY2LTE4LjQ2OUM1MC44OTIgMi42MjMgNTYuOTIuMDgyIDY0IC4wODJjNy4wOCAwIDEzLjEwOCAyLjU0MSAxOC4wODYgNy42MjQgNC45NzcgNS4wODMgNy40NjYgMTEuMjQgNy40NjYgMTguNDY5elxcXCIgLz48L3N5bWJvbD5cIlxufSk7XG52YXIgcmVzdWx0ID0gc3ByaXRlLmFkZChzeW1ib2wpO1xuZXhwb3J0IGRlZmF1bHQgc3ltYm9sIl0sIm1hcHBpbmdzIjoiQUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0EiLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./src/icons/svg/bug.svg\n"</span>);</span><br><span class="line"></span><br><span class="line">/***/ &#125;)</span><br></pre></td></tr></table></figure>
+
+<p>所以在JS中使用svg标签来加载对应的svg文件的时候只需要在svg标签加入use 然后给id属性赋值为对应symbol的id，比如<code>id=&quot;#icon-404&quot;</code></p>
+]]></content>
   </entry>
   <entry>
     <title>vue3</title>
