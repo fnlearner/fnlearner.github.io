@@ -187,6 +187,72 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://fnlearner.github.io/2022/01/monaco-editor/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="ZJS">
+      <meta itemprop="description" content="你找到我了呀！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Personal Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/01/monaco-editor/" class="post-title-link" itemprop="url">基于vite的monaco-editor</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-01-06 20:51:23 / 修改时间：21:17:11" itemprop="dateCreated datePublished" datetime="2022-01-06T20:51:23+08:00">2022-01-06</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><code>npm i -D monaco-editor vite-plugin-monaco-editor</code> 安装依赖</p>
+<p><a href="https://github.com/vitejs/vite/discussions/1791" target="_blank" rel="noopener">discussions</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">&lt;script setup lang=&quot;ts&quot;&gt;</span><br><span class="line"></span><br><span class="line">import &#123; onMounted, ref &#125; from &apos;vue&apos;</span><br><span class="line">import * as monaco from &apos;monaco-editor&apos;</span><br><span class="line">import &apos;monaco-editor/esm/vs/basic-languages/css/css.contribution&apos;</span><br><span class="line">import &apos;monaco-editor/esm/vs/basic-languages/xml/xml.contribution&apos;</span><br><span class="line">import &apos;monaco-editor/esm/vs/basic-languages/javascript/javascript.contribution&apos;</span><br><span class="line">//@ts-ignore</span><br><span class="line">import EditorWorker from &apos;monaco-editor/esm/vs/editor/editor.worker?worker&apos;</span><br><span class="line">//@ts-ignore</span><br><span class="line"></span><br><span class="line">import TsWorker from &apos;monaco-editor/esm/vs/language/typescript/ts.worker?worker&apos;</span><br><span class="line">//@ts-ignore</span><br><span class="line">import JsonWorker from &apos;monaco-editor/esm/vs/language/json/json.worker?worker&apos;</span><br><span class="line">//@ts-ignore</span><br><span class="line">import CssWorker from &apos;monaco-editor/esm/vs/language/css/css.worker?worker&apos;</span><br><span class="line">//@ts-ignore</span><br><span class="line">import HtmlWorker from &apos;monaco-editor/esm/vs/language/html/html.worker?worker&apos;</span><br><span class="line">// @ts-ignore</span><br><span class="line">self.MonacoEnvironment = &#123;</span><br><span class="line">    getWorker(_: string, label: string) &#123;</span><br><span class="line">        if (label === &apos;typescript&apos; || label === &apos;javascript&apos;) return new TsWorker()</span><br><span class="line">        if (label === &apos;json&apos;) return new JsonWorker()</span><br><span class="line">        if (label === &apos;css&apos;) return new CssWorker()</span><br><span class="line">        if (label === &apos;html&apos;) return new HtmlWorker()</span><br><span class="line">        return new EditorWorker()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const monacoRef = ref();</span><br><span class="line">const monacoInstance = ref&lt;ReturnType&lt;typeof monaco.editor.create&gt;&gt;()</span><br><span class="line">onMounted(() =&gt; &#123;</span><br><span class="line">    monacoInstance.value = monaco.editor.create(monacoRef.value,&#123;</span><br><span class="line">        language:&quot;typescript&quot;,</span><br><span class="line">        value:&quot;console.log(&apos;hello world&apos;)&quot;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div id=&quot;monaco&quot; ref=&quot;monacoRef&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;style scoped&gt;</span><br><span class="line">#monaco&#123;</span><br><span class="line">    height: 500px;</span><br><span class="line">    width: 500px;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; defineConfig &#125; <span class="keyword">from</span> <span class="string">'vite'</span></span><br><span class="line"><span class="keyword">import</span> vue <span class="keyword">from</span> <span class="string">'@vitejs/plugin-vue'</span></span><br><span class="line"><span class="keyword">const</span> prefix = <span class="string">`monaco-editor/esm/vs`</span>;</span><br><span class="line"><span class="keyword">import</span> monacoEditorPlugin <span class="keyword">from</span> <span class="string">"vite-plugin-monaco-editor"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// https://vitejs.dev/config/</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> defineConfig(&#123;</span><br><span class="line">  plugins: [vue(),monacoEditorPlugin()],</span><br><span class="line">  build:&#123;</span><br><span class="line">    rollupOptions: &#123;</span><br><span class="line">      output: &#123;</span><br><span class="line">        manualChunks: &#123;</span><br><span class="line">          jsonWorker: [<span class="string">`<span class="subst">$&#123;prefix&#125;</span>/language/json/json.worker`</span>],</span><br><span class="line">          cssWorker: [<span class="string">`<span class="subst">$&#123;prefix&#125;</span>/language/css/css.worker`</span>],</span><br><span class="line">          htmlWorker: [<span class="string">`<span class="subst">$&#123;prefix&#125;</span>/language/html/html.worker`</span>],</span><br><span class="line">          tsWorker: [<span class="string">`<span class="subst">$&#123;prefix&#125;</span>/language/typescript/ts.worker`</span>],</span><br><span class="line">          editorWorker: [<span class="string">`<span class="subst">$&#123;prefix&#125;</span>/editor/editor.worker`</span>],</span><br><span class="line">        &#125;,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<p><img src="/images/monaco-editor/editor.jpg" alt="结果"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://fnlearner.github.io/2022/01/dh算法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -819,73 +885,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://fnlearner.github.io/2021/03/essay-11/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="ZJS">
-      <meta itemprop="description" content="你找到我了呀！">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Personal Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/03/essay-11/" class="post-title-link" itemprop="url">今日随笔（3.21)）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-03-21 17:01:11 / 修改时间：17:26:12" itemprop="dateCreated datePublished" datetime="2021-03-21T17:01:11+08:00">2021-03-21</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="How-to-Make-Badass-Shadows"><a href="#How-to-Make-Badass-Shadows" class="headerlink" title="How to Make Badass Shadows"></a>How to Make Badass Shadows</h4><p><a href="https://blog.prototypr.io/how-to-make-badass-shadows-564b3a30aba4" target="_blank" rel="noopener">Tips to help create better UI shadows.</a>  </p>
-<h4 id="Jest"><a href="#Jest" class="headerlink" title="Jest"></a>Jest</h4><p><a href="https://pragmaticpineapple.com/7-ways-to-debug-jest-tests-in-terminal/" target="_blank" rel="noopener">7 Ways to Debug Jest Tests in Terminal</a></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/03/essay-11/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -957,7 +956,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-count">60</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -969,7 +968,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-count">31</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

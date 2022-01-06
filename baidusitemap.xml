@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://fnlearner.github.io/2022/01/monaco-editor/</loc>
+    <lastmod>2022-01-06</lastmod>
+  </url>
+  <url>
+    <loc>https://fnlearner.github.io/2020/08/mianshi2/</loc>
+    <lastmod>2022-01-06</lastmod>
+  </url>
+  <url>
     <loc>https://fnlearner.github.io/2022/01/dh%E7%AE%97%E6%B3%95/</loc>
     <lastmod>2022-01-06</lastmod>
   </url>
@@ -129,10 +137,6 @@
     <lastmod>2020-10-07</lastmod>
   </url>
   <url>
-    <loc>https://fnlearner.github.io/2020/08/mianshi2/</loc>
-    <lastmod>2020-10-07</lastmod>
-  </url>
-  <url>
     <loc>https://fnlearner.github.io/2019/12/mutationObserver/</loc>
     <lastmod>2020-10-07</lastmod>
   </url>
@@ -205,11 +209,11 @@
     <lastmod>2020-10-07</lastmod>
   </url>
   <url>
-    <loc>https://fnlearner.github.io/2020/07/essay-3/</loc>
+    <loc>https://fnlearner.github.io/2020/07/essay-2/</loc>
     <lastmod>2020-10-07</lastmod>
   </url>
   <url>
-    <loc>https://fnlearner.github.io/2020/07/essay-2/</loc>
+    <loc>https://fnlearner.github.io/2020/07/essay-3/</loc>
     <lastmod>2020-10-07</lastmod>
   </url>
   <url>
@@ -221,11 +225,11 @@
     <lastmod>2020-10-07</lastmod>
   </url>
   <url>
-    <loc>https://fnlearner.github.io/2020/07/ObjectKeys/</loc>
+    <loc>https://fnlearner.github.io/2019/08/Javscript_complex_judge/</loc>
     <lastmod>2020-10-07</lastmod>
   </url>
   <url>
-    <loc>https://fnlearner.github.io/2019/08/Javscript_complex_judge/</loc>
+    <loc>https://fnlearner.github.io/2020/07/ObjectKeys/</loc>
     <lastmod>2020-10-07</lastmod>
   </url>
   <url>
