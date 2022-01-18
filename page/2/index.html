@@ -187,6 +187,80 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://fnlearner.github.io/2021/05/worker/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="ZJS">
+      <meta itemprop="description" content="你找到我了呀！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Personal Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/05/worker/" class="post-title-link" itemprop="url">worker</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-05-18 19:14:20 / 修改时间：21:59:58" itemprop="dateCreated datePublished" datetime="2021-05-18T19:14:20+08:00">2021-05-18</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Web Worker 文献综述</p>
+<p>Web Worker 作为浏览器多线程技术, 在页面内容不断丰富, 功能日趋复杂的当下, 成为缓解页面卡顿, 提升应用性能的可选方案.<br>但她的容颜, 隐藏在边缘试探的科普文章和不知深浅的兼容性背后; 对 JS 单线程面试题倒背如流的前端工程师, 对多线程开发有着天然的陌生感.</p>
+<p>业务背景</p>
+<p>因为我负责的组件中有个是树组件，那么对于这个树组件有个功能是叫做搜索的功能，一开始的时候在搜索匹配节点的时候是在主线程中去执行代码，但是在遇到计算量大的时候，就会一直占用主线程的资源，导致页面不能及时的跟用户进行响应，那么我就想到了将这个计算的代码放到后台（也就是worker）去执行逻辑，这样的话就不会阻塞页面的渲染工作，因为worker的代码跟主线程的代码是属于并行的关系。</p>
+<h4 id="worker介绍"><a href="#worker介绍" class="headerlink" title="worker介绍"></a>worker介绍</h4><p>官方对这个<a href="https://link.zhihu.com/?target=https%3A//developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API" target="_blank" rel="noopener">web worker</a>的表述是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Web Workers makes it possible to run a script operation </span><br><span class="line">in a background thread separate from the main execution thread </span><br><span class="line">of a web application.</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/worker/worker-process.jpeg" alt="process"></p>
+<p>通过这个其实可以想到的是 并行可以提升执行效率，任务的拆分能减少页面的卡顿</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/05/worker/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://fnlearner.github.io/2021/03/essay-11/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -827,75 +901,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://fnlearner.github.io/2020/11/bugsForNode/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="ZJS">
-      <meta itemprop="description" content="你找到我了呀！">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Personal Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/11/bugsForNode/" class="post-title-link" itemprop="url">部署hexo踩坑记录</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-11-14 22:47:51 / 修改时间：22:49:48" itemprop="dateCreated datePublished" datetime="2020-11-14T22:47:51+08:00">2020-11-14</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>在执行下面这句代码的时候</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g -d</span><br></pre></td></tr></table></figure>
-
-<p>报错信息</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Something<span class="string">'s wrong. Maybe you can find the solution here: https://hexo.io/docs/troubleshooting.html</span></span><br><span class="line"><span class="string">TypeError [ERR_INVALID_ARG_TYPE]: The "mode" argument must be integer. Received an instance of Object</span></span><br><span class="line"><span class="string">    at copyFile (fs.js:1924:10)</span></span><br><span class="line"><span class="string">    at tryCatcher (/Users/zjs/Desktop/blog/node_modules/bluebird/js/release/util.js:16:23)</span></span><br><span class="line"><span class="string">    at ret (eval at makeNodePromisifiedEval (/Users/zjs/.nvm/versions/node/v14.10.0/lib/node_modules/hexo-cli/node_modules/bluebird/js/release/promisify.js:184:12), &lt;anonymous&gt;:13:39)</span></span><br></pre></td></tr></table></figure>
-
-<p>解决方案<br> NodeJs 版本从 14 回到 12 就🉑️！</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -963,7 +972,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">60</span>
+          <span class="site-state-item-count">61</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
