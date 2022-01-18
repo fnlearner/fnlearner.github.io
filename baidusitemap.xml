@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://fnlearner.github.io/2022/01/dfs-hierarchy/</loc>
+    <lastmod>2022-01-18</lastmod>
+  </url>
+  <url>
     <loc>https://fnlearner.github.io/2020/11/flex/</loc>
     <lastmod>2022-01-18</lastmod>
   </url>
@@ -229,11 +233,11 @@
     <lastmod>2020-10-07</lastmod>
   </url>
   <url>
-    <loc>https://fnlearner.github.io/2019/08/Javscript_complex_judge/</loc>
+    <loc>https://fnlearner.github.io/2020/07/ObjectKeys/</loc>
     <lastmod>2020-10-07</lastmod>
   </url>
   <url>
-    <loc>https://fnlearner.github.io/2020/07/ObjectKeys/</loc>
+    <loc>https://fnlearner.github.io/2019/08/Javscript_complex_judge/</loc>
     <lastmod>2020-10-07</lastmod>
   </url>
   <url>

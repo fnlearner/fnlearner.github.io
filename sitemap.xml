@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://fnlearner.github.io/2022/01/dfs-hierarchy/</loc>
+    
+    <lastmod>2022-01-18</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://fnlearner.github.io/2020/11/flex/</loc>
     
     <lastmod>2022-01-18</lastmod>
@@ -533,7 +542,7 @@
   </url>
   
   <url>
-    <loc>https://fnlearner.github.io/2019/08/Javscript_complex_judge/</loc>
+    <loc>https://fnlearner.github.io/2020/07/ObjectKeys/</loc>
     
     <lastmod>2020-10-07</lastmod>
     
@@ -542,7 +551,7 @@
   </url>
   
   <url>
-    <loc>https://fnlearner.github.io/2020/07/ObjectKeys/</loc>
+    <loc>https://fnlearner.github.io/2019/08/Javscript_complex_judge/</loc>
     
     <lastmod>2020-10-07</lastmod>
     
@@ -578,14 +587,14 @@
 
   
   <url>
-    <loc>https://fnlearner.github.io/tagstags/JavaScript/</loc>
+    <loc>https://fnlearner.github.io/tagstags/TypeScript/</loc>
     <lastmod>2022-01-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://fnlearner.github.io/tagstags/TypeScript/</loc>
+    <loc>https://fnlearner.github.io/tagstags/JavaScript/</loc>
     <lastmod>2022-01-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -607,6 +616,13 @@
   
   <url>
     <loc>https://fnlearner.github.io/tagstags/Chrome/</loc>
+    <lastmod>2022-01-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://fnlearner.github.io/tagstags/%E7%AE%97%E6%B3%95/</loc>
     <lastmod>2022-01-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -797,14 +813,14 @@
 
   
   <url>
-    <loc>https://fnlearner.github.io/categories/JavaScript/</loc>
+    <loc>https://fnlearner.github.io/categories/TypeScript/</loc>
     <lastmod>2022-01-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://fnlearner.github.io/categories/TypeScript/</loc>
+    <loc>https://fnlearner.github.io/categories/JavaScript/</loc>
     <lastmod>2022-01-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

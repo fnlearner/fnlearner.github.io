@@ -187,6 +187,66 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://fnlearner.github.io/2022/01/dfs-hierarchy/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="ZJS">
+      <meta itemprop="description" content="你找到我了呀！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Personal Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/01/dfs-hierarchy/" class="post-title-link" itemprop="url">递归求阶层</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-01-18 19:50:09 / 修改时间：19:55:59" itemprop="dateCreated datePublished" datetime="2022-01-18T19:50:09+08:00">2022-01-18</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">dfs</span>(<span class="params">n,current</span>)</span>&#123;  </span><br><span class="line">    <span class="keyword">if</span>(n &gt; <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="comment">// current 是累加数，只要没有到最后一个就继续累加</span></span><br><span class="line">       <span class="keyword">return</span> dfs(n<span class="number">-1</span>,current + n)</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">return</span> current</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params">n1,n2</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(n1 &gt; n2) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="comment">// 两数到阶层相减就是两数之间所有数之和</span></span><br><span class="line">    <span class="keyword">const</span> result = dfs(n2,<span class="number">0</span>) - dfs(n1 - <span class="number">1</span>,<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(test(<span class="number">1</span>,<span class="number">100</span>))</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://fnlearner.github.io/2022/01/essay2022-1-13/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -822,68 +882,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://fnlearner.github.io/2021/07/polyfill/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="ZJS">
-      <meta itemprop="description" content="你找到我了呀！">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Personal Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/07/polyfill/" class="post-title-link" itemprop="url">polyfill</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-07-13 18:59:58 / 修改时间：19:07:32" itemprop="dateCreated datePublished" datetime="2021-07-13T18:59:58+08:00">2021-07-13</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Promise-all"><a href="#Promise-all" class="headerlink" title="Promise.all"></a>Promise.all</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Promise</span>.all = <span class="function"><span class="keyword">function</span> (<span class="params">promises</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> results = [];</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    promises.forEach(<span class="function">(<span class="params">p, index</span>) =&gt;</span> &#123;</span><br><span class="line">      p.then(<span class="function">(<span class="params">result</span>) =&gt;</span> &#123;</span><br><span class="line">        results.push(result);</span><br><span class="line">        <span class="keyword">if</span> (index === promises.length - <span class="number">1</span>) &#123;</span><br><span class="line">          resolve(results);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;).catch(<span class="function">(<span class="params">err</span>) =&gt;</span> reject(err));</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Promise-any"><a href="#Promise-any" class="headerlink" title="Promise.any"></a>Promise.any</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Promise</span>.any = <span class="function"><span class="keyword">function</span> (<span class="params">promises</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> result = [];</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    promises.forEach(<span class="function">(<span class="params">item, index</span>) =&gt;</span> &#123;</span><br><span class="line">      item</span><br><span class="line">        .then(<span class="function">(<span class="params">res</span>) =&gt;</span> resolve(res))</span><br><span class="line">        .catch(<span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">          result.push(error);</span><br><span class="line">          <span class="keyword">if</span> (index === pro mises.length - <span class="number">1</span>) &#123;</span><br><span class="line">              <span class="comment">// 如果全部都失败，返回结果合集</span></span><br><span class="line">            reject(result);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -955,7 +953,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-count">62</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -967,7 +965,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-count">32</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

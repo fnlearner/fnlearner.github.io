@@ -187,6 +187,68 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://fnlearner.github.io/2021/07/polyfill/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="ZJS">
+      <meta itemprop="description" content="你找到我了呀！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Personal Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/07/polyfill/" class="post-title-link" itemprop="url">polyfill</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-07-13 18:59:58 / 修改时间：19:07:32" itemprop="dateCreated datePublished" datetime="2021-07-13T18:59:58+08:00">2021-07-13</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Promise-all"><a href="#Promise-all" class="headerlink" title="Promise.all"></a>Promise.all</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Promise</span>.all = <span class="function"><span class="keyword">function</span> (<span class="params">promises</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> results = [];</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    promises.forEach(<span class="function">(<span class="params">p, index</span>) =&gt;</span> &#123;</span><br><span class="line">      p.then(<span class="function">(<span class="params">result</span>) =&gt;</span> &#123;</span><br><span class="line">        results.push(result);</span><br><span class="line">        <span class="keyword">if</span> (index === promises.length - <span class="number">1</span>) &#123;</span><br><span class="line">          resolve(results);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;).catch(<span class="function">(<span class="params">err</span>) =&gt;</span> reject(err));</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Promise-any"><a href="#Promise-any" class="headerlink" title="Promise.any"></a>Promise.any</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Promise</span>.any = <span class="function"><span class="keyword">function</span> (<span class="params">promises</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> result = [];</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    promises.forEach(<span class="function">(<span class="params">item, index</span>) =&gt;</span> &#123;</span><br><span class="line">      item</span><br><span class="line">        .then(<span class="function">(<span class="params">res</span>) =&gt;</span> resolve(res))</span><br><span class="line">        .catch(<span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">          result.push(error);</span><br><span class="line">          <span class="keyword">if</span> (index === pro mises.length - <span class="number">1</span>) &#123;</span><br><span class="line">              <span class="comment">// 如果全部都失败，返回结果合集</span></span><br><span class="line">            reject(result);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://fnlearner.github.io/2021/05/worker/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -829,78 +891,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://fnlearner.github.io/2020/12/essay-6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="ZJS">
-      <meta itemprop="description" content="你找到我了呀！">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Personal Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/12/essay-6/" class="post-title-link" itemprop="url">今日随笔(2020-12-27)</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-12-27 12:00:04 / 修改时间：12:10:29" itemprop="dateCreated datePublished" datetime="2020-12-27T12:00:04+08:00">2020-12-27</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <ol>
-<li>在vue ts class给数组添加值时报错<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> default class App&#123;</span><br><span class="line">    list =[]</span><br><span class="line">    <span class="function"><span class="title">_push</span></span>()&#123;</span><br><span class="line">        this.list.push(1)</span><br><span class="line">        <span class="comment"># error </span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
-<p>由于定义的list是never类型的数组，所以不能够直接添加元素，所以在定义数组的时候需要显示定义类型</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list = [] as number[]</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>line-height 属性同样会影响伪元素的高度</li>
-<li>ts class 自定义vue双向绑定<br>v-model默认监听input事件，如果是checkbox或者radio<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@Modle(<span class="string">'change'</span>) value:any</span><br><span class="line"><span class="comment"># 这样vue会监听change，$emit('change')改变外部绑定的值</span></span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -972,7 +962,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-count">62</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -984,7 +974,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-count">32</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
