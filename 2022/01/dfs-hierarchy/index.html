@@ -20,18 +20,18 @@
     var CONFIG = {"hostname":"fnlearner.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="12345678910111213function dfs(n,current)&amp;#123;      if(n &amp;gt; 0)&amp;#123;        // current 是累加数，只要没有到最后一个就继续累加       return dfs(n-1,current + n)    &amp;#125;else return current&amp;#125;function test(n1,n2)&amp;#1">
+  <meta name="description" content="问题背景： 递归求两数之间所有数之和 12345678910111213function dfs(n,current)&amp;#123;      if(n &amp;gt; 0)&amp;#123;        // current 是累加数，只要没有到最后一个就继续累加       return dfs(n-1,current + n)    &amp;#125;else return current&amp;#125;func">
 <meta name="keywords" content="JavaScript,算法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="递归求阶层">
 <meta property="og:url" content="https://fnlearner.github.io/2022/01/dfs-hierarchy/index.html">
 <meta property="og:site_name" content="Personal Blog">
-<meta property="og:description" content="12345678910111213function dfs(n,current)&amp;#123;      if(n &amp;gt; 0)&amp;#123;        // current 是累加数，只要没有到最后一个就继续累加       return dfs(n-1,current + n)    &amp;#125;else return current&amp;#125;function test(n1,n2)&amp;#1">
+<meta property="og:description" content="问题背景： 递归求两数之间所有数之和 12345678910111213function dfs(n,current)&amp;#123;      if(n &amp;gt; 0)&amp;#123;        // current 是累加数，只要没有到最后一个就继续累加       return dfs(n-1,current + n)    &amp;#125;else return current&amp;#125;func">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2022-01-18T11:55:59.032Z">
+<meta property="og:updated_time" content="2022-01-19T04:08:25.637Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="递归求阶层">
-<meta name="twitter:description" content="12345678910111213function dfs(n,current)&amp;#123;      if(n &amp;gt; 0)&amp;#123;        // current 是累加数，只要没有到最后一个就继续累加       return dfs(n-1,current + n)    &amp;#125;else return current&amp;#125;function test(n1,n2)&amp;#1">
+<meta name="twitter:description" content="问题背景： 递归求两数之间所有数之和 12345678910111213function dfs(n,current)&amp;#123;      if(n &amp;gt; 0)&amp;#123;        // current 是累加数，只要没有到最后一个就继续累加       return dfs(n-1,current + n)    &amp;#125;else return current&amp;#125;func">
 
 <link rel="canonical" href="https://fnlearner.github.io/2022/01/dfs-hierarchy/">
 
@@ -211,10 +211,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2022-01-18 19:50:09 / 修改时间：19:55:59" itemprop="dateCreated datePublished" datetime="2022-01-18T19:50:09+08:00">2022-01-18</time>
+              <time title="创建时间：2022-01-18 19:50:09" itemprop="dateCreated datePublished" datetime="2022-01-18T19:50:09+08:00">2022-01-18</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-01-19 12:08:25" itemprop="dateModified" datetime="2022-01-19T12:08:25+08:00">2022-01-19</time>
+              </span>
 
           
             <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
@@ -234,8 +240,13 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">dfs</span>(<span class="params">n,current</span>)</span>&#123;  </span><br><span class="line">    <span class="keyword">if</span>(n &gt; <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="comment">// current 是累加数，只要没有到最后一个就继续累加</span></span><br><span class="line">       <span class="keyword">return</span> dfs(n<span class="number">-1</span>,current + n)</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">return</span> current</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params">n1,n2</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(n1 &gt; n2) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="comment">// 两数到阶层相减就是两数之间所有数之和</span></span><br><span class="line">    <span class="keyword">const</span> result = dfs(n2,<span class="number">0</span>) - dfs(n1 - <span class="number">1</span>,<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(test(<span class="number">1</span>,<span class="number">100</span>))</span><br></pre></td></tr></table></figure>
+        <p>问题背景： 递归求两数之间所有数之和</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">dfs</span>(<span class="params">n,current</span>)</span>&#123;  </span><br><span class="line">    <span class="keyword">if</span>(n &gt; <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="comment">// current 是累加数，只要没有到最后一个就继续累加</span></span><br><span class="line">       <span class="keyword">return</span> dfs(n<span class="number">-1</span>,current + n)</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">return</span> current</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params">n1,n2</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(n1 &gt; n2) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="comment">// 两数到阶层相减就是两数之间所有数之和</span></span><br><span class="line">    <span class="keyword">const</span> result = dfs(n2,<span class="number">0</span>) - dfs(n1 - <span class="number">1</span>,<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(test(<span class="number">1</span>,<span class="number">100</span>))</span><br></pre></td></tr></table></figure>
 
+<p>ummm 我一开始想法是分别求两个数的阶层，然后相减就是两数之间所有数之和，不过这个应该可以不用相减就可以处理的，如下</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">dfs2</span>(<span class="params">n1,n2,current</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(n2 &gt;= n1)&#123;</span><br><span class="line">        <span class="keyword">return</span> dfs2(n1,n2 <span class="number">-1</span>,current + n2)</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">return</span> current</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test2</span>(<span class="params">n1,n2</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> dfs2(n1,n2,<span class="number">0</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(test2(<span class="number">1</span>,<span class="number">100</span>))</span><br></pre></td></tr></table></figure>
+
+<p>直接在计算阶层的时候处理一下累加的判断条件就行了。</p>
 
     </div>
 
