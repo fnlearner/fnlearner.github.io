@@ -20,21 +20,20 @@
     var CONFIG = {"hostname":"fnlearner.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="在使用antd的select中的search从远端获取数据时option渲染不符合预期行为，需求背景：下拉框列表数据默认展示二十条数据，支持后端条件过滤，在滚动时加载数据 场景复现：  从视频中可以看到到在搜索数据时列表中有匹配的数据但是在ui上并没有过滤出来  但是可以看到实际的数据如图能够正确输出，但是在ui上不显示 一开始有考虑到使用了相同的数据引用地址导致ui渲染不更新，但是在经过深拷贝数">
+  <meta name="description" content="在使用antd的select中的search从远端获取数据时option渲染不符合预期行为，需求背景：下拉框列表数据默认展示二十条数据，支持后端条件过滤，在滚动时加载数据 场景复现：  从视频中可以看到到在搜索数据时列表中有匹配的数据但是在ui上并没有过滤出来">
 <meta name="keywords" content="rc-select,antd,select,filterOption">
 <meta property="og:type" content="article">
 <meta property="og:title" content="rc-select">
 <meta property="og:url" content="https://fnlearner.github.io/2022/04/rc-select/index.html">
 <meta property="og:site_name" content="Personal Blog">
-<meta property="og:description" content="在使用antd的select中的search从远端获取数据时option渲染不符合预期行为，需求背景：下拉框列表数据默认展示二十条数据，支持后端条件过滤，在滚动时加载数据 场景复现：  从视频中可以看到到在搜索数据时列表中有匹配的数据但是在ui上并没有过滤出来  但是可以看到实际的数据如图能够正确输出，但是在ui上不显示 一开始有考虑到使用了相同的数据引用地址导致ui渲染不更新，但是在经过深拷贝数">
+<meta property="og:description" content="在使用antd的select中的search从远端获取数据时option渲染不符合预期行为，需求背景：下拉框列表数据默认展示二十条数据，支持后端条件过滤，在滚动时加载数据 场景复现：  从视频中可以看到到在搜索数据时列表中有匹配的数据但是在ui上并没有过滤出来">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://fnlearner.github.io/images/rc-select/filter.png">
 <meta property="og:image" content="https://fnlearner.github.io/images/rc-select/result.png">
-<meta property="og:updated_time" content="2022-04-01T13:01:49.929Z">
+<meta property="og:updated_time" content="2022-04-01T13:15:50.207Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="rc-select">
-<meta name="twitter:description" content="在使用antd的select中的search从远端获取数据时option渲染不符合预期行为，需求背景：下拉框列表数据默认展示二十条数据，支持后端条件过滤，在滚动时加载数据 场景复现：  从视频中可以看到到在搜索数据时列表中有匹配的数据但是在ui上并没有过滤出来  但是可以看到实际的数据如图能够正确输出，但是在ui上不显示 一开始有考虑到使用了相同的数据引用地址导致ui渲染不更新，但是在经过深拷贝数">
-<meta name="twitter:image" content="https://fnlearner.github.io/images/rc-select/filter.png">
+<meta name="twitter:description" content="在使用antd的select中的search从远端获取数据时option渲染不符合预期行为，需求背景：下拉框列表数据默认展示二十条数据，支持后端条件过滤，在滚动时加载数据 场景复现：  从视频中可以看到到在搜索数据时列表中有匹配的数据但是在ui上并没有过滤出来">
+<meta name="twitter:image" content="https://fnlearner.github.io/images/rc-select/result.png">
 
 <link rel="canonical" href="https://fnlearner.github.io/2022/04/rc-select/">
 
@@ -216,7 +215,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2022-04-01 20:05:52 / 修改时间：21:01:49" itemprop="dateCreated datePublished" datetime="2022-04-01T20:05:52+08:00">2022-04-01</time>
+              <time title="创建时间：2022-04-01 20:05:52 / 修改时间：21:15:50" itemprop="dateCreated datePublished" datetime="2022-04-01T20:05:52+08:00">2022-04-01</time>
             </span>
 
           
@@ -241,8 +240,11 @@
 <p>场景复现：<br><video id="video" src="/images/rc-select/demo.mov" controls preload="none" poster="封面"></video></p>
 
 从视频中可以看到到在搜索数据时列表中有匹配的数据但是在ui上并没有过滤出来
+<a id="more"></a>
+但是可以看到实际的数据如图
+![数据](/images/rc-select/filter.png)
+能够正确输出，但是在ui上不显示
 
-<p>但是可以看到实际的数据如图<br><img src="/images/rc-select/filter.png" alt="数据"><br>能够正确输出，但是在ui上不显示</p>
 <p>一开始有考虑到使用了相同的数据引用地址导致ui渲染不更新，但是在经过深拷贝数据后发现情况仍然复现，因此排除引用地址导致的ui不更新问题。</p>
 <p>查看antd源码发现select组件是基于一个叫rc-select的组件做的开发，因此我在本地做了一个最小环境的复现</p>
 <p>在排查过程中，发现在rc-select中有一个叫useFilterOption的自定义hook，每次option更新的时候都会执行这个钩子，经过进一步debug 发现：</p>
@@ -291,7 +293,10 @@
     <a href="/2022/01/diff-loader-plugin/" rel="prev" title="loader和plugin的区别">
       <i class="fa fa-chevron-left"></i> loader和plugin的区别
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2022/04/queryString/" rel="next" title="queryString">
+      queryString <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -366,7 +371,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">64</span>
+          <span class="site-state-item-count">65</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -378,7 +383,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-count">40</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
