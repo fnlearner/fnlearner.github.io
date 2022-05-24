@@ -187,6 +187,67 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://fnlearner.github.io/2022/05/topDistance/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="ZJS">
+      <meta itemprop="description" content="你找到我了呀！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Personal Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/05/topDistance/" class="post-title-link" itemprop="url">topDistance</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-05-24 20:52:20 / 修改时间：20:56:01" itemprop="dateCreated datePublished" datetime="2022-05-24T20:52:20+08:00">2022-05-24</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>计算某个DOM元素距离浏览器顶部的距离</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">useTopDistance</span>&lt;<span class="title">T</span> <span class="title">extends</span> <span class="title">HTMLDivElement</span>&gt;(<span class="params">defaultInstance = <span class="number">24</span></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> divRef = React.useRef&lt;T&gt;(<span class="literal">null</span>);</span><br><span class="line">  <span class="keyword">const</span> [height, setHeight] = React.useState(<span class="number">0</span>);</span><br><span class="line">  <span class="comment">// 递归获取遍历到的元素的offsetTop</span></span><br><span class="line">  <span class="keyword">const</span> getElementInstanceToTop = (el: HTMLElement | <span class="literal">null</span>): <span class="function"><span class="params">number</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (el?.offsetParent) &#123;</span><br><span class="line">      <span class="keyword">return</span> getElementInstanceToTop(el?.offsetParent <span class="keyword">as</span> HTMLElement) + el.offsetTop + el.scrollTop;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> el ? el.offsetTop : <span class="number">0</span>;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="comment">// 重新计算高度，因为可能需要在填充数据的时候设置高度</span></span><br><span class="line">  <span class="keyword">const</span> calculateHeight = React.useCallback(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; clientHeight &#125; = <span class="built_in">document</span>.body;</span><br><span class="line">    <span class="keyword">const</span> offsetParentTop = getElementInstanceToTop(divRef.current);</span><br><span class="line">    <span class="keyword">const</span> result = clientHeight - offsetParentTop ?? <span class="number">0</span>;</span><br><span class="line">    setHeight(result - defaultInstance);</span><br><span class="line">  &#125;, []);</span><br><span class="line"></span><br><span class="line">  React.useLayoutEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">window</span>.requestAnimationFrame(calculateHeight);</span><br><span class="line">    <span class="built_in">window</span>.addEventListener(<span class="string">'resize'</span>, calculateHeight);</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="built_in">window</span>.removeEventListener(<span class="string">'resize'</span>, calculateHeight);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;, []);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    divRef,</span><br><span class="line">    height,</span><br><span class="line">    calculateHeight,</span><br><span class="line">    <span class="comment">// rafCalculateHeight: window.requestAnimationFrame(calculateHeight),</span></span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://fnlearner.github.io/2022/04/queryString/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -803,67 +864,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://fnlearner.github.io/2021/12/essay12-22/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="ZJS">
-      <meta itemprop="description" content="你找到我了呀！">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Personal Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/essay12-22/" class="post-title-link" itemprop="url">今日随笔</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-12-22 19:11:39 / 修改时间：21:45:08" itemprop="dateCreated datePublished" datetime="2021-12-22T19:11:39+08:00">2021-12-22</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><img src="/images/essay12-22/xianxiang.png" alt="现象"></p>
-<p>全局调用g函数发现this为undefined，按照我的理解在全局调用的函数this应该是指向windows，然而这里却输出的是undefined<br>因此我去查了资料，发现在规范上是这么写的</p>
-<p><img src="/images/essay12-22/class.jpg" alt="class"><br>如果所示class中默认为严格模式，而在严格模式中，未指明this指向的话this是等于undefined的，this是在运行时确定的，而不是在声明的时候确定的，因此这里的<code>g()</code>在全局环境中调用未指明this指向，因此此时输出undefined。<br><img src="/images/essay12-22/function.jpg" alt="function"><br>而在function中是可以指定是否是严格模式的</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -935,7 +935,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-count">66</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -947,7 +947,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-count">42</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
