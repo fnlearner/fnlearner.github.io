@@ -646,13 +646,6 @@
   </url>
   
   <url>
-    <loc>https://fnlearner.github.io/tagstags/cdn/</loc>
-    <lastmod>2022-06-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://fnlearner.github.io/tagstags/css/</loc>
     <lastmod>2022-06-12</lastmod>
     <changefreq>weekly</changefreq>
@@ -661,6 +654,13 @@
   
   <url>
     <loc>https://fnlearner.github.io/tagstags/Chrome/</loc>
+    <lastmod>2022-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://fnlearner.github.io/tagstags/cdn/</loc>
     <lastmod>2022-06-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -688,13 +688,6 @@
   </url>
   
   <url>
-    <loc>https://fnlearner.github.io/tagstags/Jest/</loc>
-    <lastmod>2022-06-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://fnlearner.github.io/tagstags/webpack/</loc>
     <lastmod>2022-06-12</lastmod>
     <changefreq>weekly</changefreq>
@@ -702,14 +695,21 @@
   </url>
   
   <url>
-    <loc>https://fnlearner.github.io/tagstags/Tinymce/</loc>
+    <loc>https://fnlearner.github.io/tagstags/docker/</loc>
     <lastmod>2022-06-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://fnlearner.github.io/tagstags/docker/</loc>
+    <loc>https://fnlearner.github.io/tagstags/Jest/</loc>
+    <lastmod>2022-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://fnlearner.github.io/tagstags/Tinymce/</loc>
     <lastmod>2022-06-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -737,6 +737,20 @@
   </url>
   
   <url>
+    <loc>https://fnlearner.github.io/tagstags/git/</loc>
+    <lastmod>2022-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://fnlearner.github.io/tagstags/tool/</loc>
+    <lastmod>2022-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://fnlearner.github.io/tagstags/hexo/</loc>
     <lastmod>2022-06-12</lastmod>
     <changefreq>weekly</changefreq>
@@ -758,14 +772,7 @@
   </url>
   
   <url>
-    <loc>https://fnlearner.github.io/tagstags/tool/</loc>
-    <lastmod>2022-06-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://fnlearner.github.io/tagstags/git/</loc>
+    <loc>https://fnlearner.github.io/tagstags/leetcode/</loc>
     <lastmod>2022-06-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -773,13 +780,6 @@
   
   <url>
     <loc>https://fnlearner.github.io/tagstags/javascript/</loc>
-    <lastmod>2022-06-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://fnlearner.github.io/tagstags/leetcode/</loc>
     <lastmod>2022-06-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -821,13 +821,6 @@
   </url>
   
   <url>
-    <loc>https://fnlearner.github.io/tagstags/gis-openlayers-ol6/</loc>
-    <lastmod>2022-06-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://fnlearner.github.io/tagstags/monaco-editor/</loc>
     <lastmod>2022-06-12</lastmod>
     <changefreq>weekly</changefreq>
@@ -843,6 +836,20 @@
   
   <url>
     <loc>https://fnlearner.github.io/tagstags/Vue/</loc>
+    <lastmod>2022-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://fnlearner.github.io/tagstags/gis-openlayers-ol6/</loc>
+    <lastmod>2022-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://fnlearner.github.io/tagstags/Vue3/</loc>
     <lastmod>2022-06-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -892,13 +899,6 @@
   
   <url>
     <loc>https://fnlearner.github.io/tagstags/filterOption/</loc>
-    <lastmod>2022-06-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://fnlearner.github.io/tagstags/Vue3/</loc>
     <lastmod>2022-06-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -991,14 +991,14 @@
   </url>
   
   <url>
-    <loc>https://fnlearner.github.io/categories/TypeScript/Vue3/</loc>
+    <loc>https://fnlearner.github.io/categories/Vue/JavaScript/</loc>
     <lastmod>2022-06-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://fnlearner.github.io/categories/Vue/JavaScript/</loc>
+    <loc>https://fnlearner.github.io/categories/TypeScript/Vue3/</loc>
     <lastmod>2022-06-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
