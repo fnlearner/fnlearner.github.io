@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 3.9.0">
+<meta name="generator" content="Hexo 6.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -20,18 +20,18 @@
     var CONFIG = {"hostname":"fnlearner.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Introduce近期项目接触到gis到东西，我选择了openlayers6这个开源库来做项目开发，踩来几个坑，记录一下。 加载自定义图片作为底图在加载自定义图片作为底图时，我把url给image对象 123const img = new Image()const url = &apos;/static/img.ppng&apos;img.url = url">
-<meta name="keywords" content="gis openlayers ol6">
+  <meta name="description" content="Introduce近期项目接触到gis到东西，我选择了openlayers6这个开源库来做项目开发，踩来几个坑，记录一下。 加载自定义图片作为底图在加载自定义图片作为底图时，我把url给image对象 123const img &#x3D; new Image()const url &#x3D; &amp;#x27;&#x2F;static&#x2F;img.ppng&amp;#x27;img.url &#x3D; url   在渲染map对象时，我用到是lay">
 <meta property="og:type" content="article">
 <meta property="og:title" content="openlayers">
 <meta property="og:url" content="https://fnlearner.github.io/2021/03/openlayers/index.html">
 <meta property="og:site_name" content="Personal Blog">
-<meta property="og:description" content="Introduce近期项目接触到gis到东西，我选择了openlayers6这个开源库来做项目开发，踩来几个坑，记录一下。 加载自定义图片作为底图在加载自定义图片作为底图时，我把url给image对象 123const img = new Image()const url = &apos;/static/img.ppng&apos;img.url = url">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-03-14T11:48:03.032Z">
+<meta property="og:description" content="Introduce近期项目接触到gis到东西，我选择了openlayers6这个开源库来做项目开发，踩来几个坑，记录一下。 加载自定义图片作为底图在加载自定义图片作为底图时，我把url给image对象 123const img &#x3D; new Image()const url &#x3D; &amp;#x27;&#x2F;static&#x2F;img.ppng&amp;#x27;img.url &#x3D; url   在渲染map对象时，我用到是lay">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-03-14T10:47:06.000Z">
+<meta property="article:modified_time" content="2021-03-14T11:48:03.032Z">
+<meta property="article:author" content="ZJS">
+<meta property="article:tag" content="gis openlayers ol6">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="openlayers">
-<meta name="twitter:description" content="Introduce近期项目接触到gis到东西，我选择了openlayers6这个开源库来做项目开发，踩来几个坑，记录一下。 加载自定义图片作为底图在加载自定义图片作为底图时，我把url给image对象 123const img = new Image()const url = &apos;/static/img.ppng&apos;img.url = url">
 
 <link rel="canonical" href="https://fnlearner.github.io/2021/03/openlayers/">
 
@@ -236,19 +236,18 @@
       
         <h3 id="Introduce"><a href="#Introduce" class="headerlink" title="Introduce"></a>Introduce</h3><p>近期项目接触到gis到东西，我选择了openlayers6这个开源库来做项目开发，踩来几个坑，记录一下。</p>
 <h3 id="加载自定义图片作为底图"><a href="#加载自定义图片作为底图" class="headerlink" title="加载自定义图片作为底图"></a>加载自定义图片作为底图</h3><p>在加载自定义图片作为底图时，我把url给image对象</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> img = <span class="keyword">new</span> Image()</span><br><span class="line"><span class="keyword">const</span> url = <span class="string">'/static/img.ppng'</span></span><br><span class="line">img.url = url</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> img = <span class="keyword">new</span> <span class="title class_">Image</span>()</span><br><span class="line"><span class="keyword">const</span> url = <span class="string">&#x27;/static/img.ppng&#x27;</span></span><br><span class="line">img.<span class="property">url</span> = url</span><br></pre></td></tr></table></figure>
 
-<a id="more"></a>
+<!-- more  -->
 <p>在渲染map对象时，我用到是layer下的image，在给定的source这个属性值，我用ImageCanvas来渲染自定义的图层。这是一开始写的代码,但是在这段代码中，会有两个问题：</p>
 <ul>
 <li>第一个问题是在画布初始渲染的时候会渲染不出来的，必须在缩放层级之后画布才能正常显示；</li>
 <li>第二个问题就是不管怎么滚动或者平移，画布总会自动聚焦到中心。</li>
 </ul>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> <span class="keyword">new</span> ImageCanvas(&#123;</span><br><span class="line">     canvasFunction: (</span><br><span class="line">       extent,</span><br><span class="line">       resolution,</span><br><span class="line">       pixelRatio,</span><br><span class="line">       size </span><br><span class="line">     ) =&gt; &#123;</span><br><span class="line">       <span class="keyword">const</span> canvas = <span class="built_in">document</span>.createElement(<span class="string">'canvas'</span>);</span><br><span class="line">       canvas.width = size[<span class="number">0</span>];</span><br><span class="line">       canvas.height = size[<span class="number">1</span>];</span><br><span class="line">       <span class="keyword">const</span> img = <span class="keyword">new</span> Image()</span><br><span class="line">       <span class="keyword">const</span> url = <span class="string">'/static/img.ppng'</span></span><br><span class="line">       img.url = url</span><br><span class="line">       img.onolad = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">           ctx.drawImage(img, <span class="number">0</span>, <span class="number">0</span>, size[<span class="number">0</span>], size[<span class="number">1</span>]);</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> canvas;</span><br><span class="line">     &#125;,</span><br><span class="line">     projection: <span class="string">'EPSG:3857'</span></span><br><span class="line">   &#125;);</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">ImageCanvas</span>(&#123;</span><br><span class="line">     <span class="attr">canvasFunction</span>: <span class="function">(<span class="params"></span></span></span><br><span class="line"><span class="params"><span class="function">       extent,</span></span></span><br><span class="line"><span class="params"><span class="function">       resolution,</span></span></span><br><span class="line"><span class="params"><span class="function">       pixelRatio,</span></span></span><br><span class="line"><span class="params"><span class="function">       size </span></span></span><br><span class="line"><span class="params"><span class="function">     </span>) =&gt;</span> &#123;</span><br><span class="line">       <span class="keyword">const</span> canvas = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&#x27;canvas&#x27;</span>);</span><br><span class="line">       canvas.<span class="property">width</span> = size[<span class="number">0</span>];</span><br><span class="line">       canvas.<span class="property">height</span> = size[<span class="number">1</span>];</span><br><span class="line">       <span class="keyword">const</span> img = <span class="keyword">new</span> <span class="title class_">Image</span>()</span><br><span class="line">       <span class="keyword">const</span> url = <span class="string">&#x27;/static/img.ppng&#x27;</span></span><br><span class="line">       img.<span class="property">url</span> = url</span><br><span class="line">       img.<span class="property">onolad</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">           ctx.<span class="title function_">drawImage</span>(img, <span class="number">0</span>, <span class="number">0</span>, size[<span class="number">0</span>], size[<span class="number">1</span>]);</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> canvas;</span><br><span class="line">     &#125;,</span><br><span class="line">     <span class="attr">projection</span>: <span class="string">&#x27;EPSG:3857&#x27;</span></span><br><span class="line">   &#125;);</span><br></pre></td></tr></table></figure>
 <p>首先第一个问题解决方案，那就是在img到onload里面来进行一个底图渲染的工作。<br>第二个问题的原因是因为openlayers 中不管对地图平移还是缩放，都会进行重绘的操作，所以解决方案就是设置一个临时变量来判断是否是第一次绘制。</p>
 <p>like this </p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> <span class="keyword">new</span> ImageCanvas(&#123;</span><br><span class="line">      canvasFunction: (</span><br><span class="line">        extent,</span><br><span class="line">        resolution,</span><br><span class="line">        pixelRatio,</span><br><span class="line">        size <span class="comment">/*, projection*/</span></span><br><span class="line">      ) =&gt; &#123;</span><br><span class="line">        <span class="keyword">const</span> canvas = <span class="built_in">document</span>.createElement(<span class="string">'canvas'</span>);</span><br><span class="line">        canvas.width = size[<span class="number">0</span>];</span><br><span class="line">        canvas.height = size[<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">        <span class="comment">// eslint-disable-next-line @typescript-eslint/no-non-null-assertion</span></span><br><span class="line">        <span class="keyword">const</span> ctx = canvas.getContext(<span class="string">'2d'</span>)!;</span><br><span class="line">        <span class="comment">// 这里必须要做一个判断，每次的范围变动都会引起重绘，从而触发该回调函数</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.isFirst) &#123;</span><br><span class="line">          <span class="keyword">this</span>.isFirst = <span class="literal">false</span>;</span><br><span class="line">          ctx.beginPath();</span><br><span class="line">          ctx.drawImage(img, <span class="number">0</span>, <span class="number">0</span>, size[<span class="number">0</span>], size[<span class="number">1</span>]);</span><br><span class="line">          ctx.closePath();</span><br><span class="line"></span><br><span class="line">          <span class="keyword">return</span> canvas;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      projection: <span class="string">'EPSG:3857'</span></span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">ImageCanvas</span>(&#123;</span><br><span class="line">      <span class="attr">canvasFunction</span>: <span class="function">(<span class="params"></span></span></span><br><span class="line"><span class="params"><span class="function">        extent,</span></span></span><br><span class="line"><span class="params"><span class="function">        resolution,</span></span></span><br><span class="line"><span class="params"><span class="function">        pixelRatio,</span></span></span><br><span class="line"><span class="params"><span class="function">        size <span class="comment">/*, projection*/</span></span></span></span><br><span class="line"><span class="params"><span class="function">      </span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> canvas = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&#x27;canvas&#x27;</span>);</span><br><span class="line">        canvas.<span class="property">width</span> = size[<span class="number">0</span>];</span><br><span class="line">        canvas.<span class="property">height</span> = size[<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">        <span class="comment">// eslint-disable-next-line @typescript-eslint/no-non-null-assertion</span></span><br><span class="line">        <span class="keyword">const</span> ctx = canvas.<span class="title function_">getContext</span>(<span class="string">&#x27;2d&#x27;</span>)!;</span><br><span class="line">        <span class="comment">// 这里必须要做一个判断，每次的范围变动都会引起重绘，从而触发该回调函数</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">isFirst</span>) &#123;</span><br><span class="line">          <span class="variable language_">this</span>.<span class="property">isFirst</span> = <span class="literal">false</span>;</span><br><span class="line">          ctx.<span class="title function_">beginPath</span>();</span><br><span class="line">          ctx.<span class="title function_">drawImage</span>(img, <span class="number">0</span>, <span class="number">0</span>, size[<span class="number">0</span>], size[<span class="number">1</span>]);</span><br><span class="line">          ctx.<span class="title function_">closePath</span>();</span><br><span class="line"></span><br><span class="line">          <span class="keyword">return</span> canvas;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">projection</span>: <span class="string">&#x27;EPSG:3857&#x27;</span></span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
 
 <h3 id="底图限制拖动范围"><a href="#底图限制拖动范围" class="headerlink" title="底图限制拖动范围"></a>底图限制拖动范围</h3><p>在view中定义extent即可</p>
 <h3 id="在移动feature时限制在容器之内"><a href="#在移动feature时限制在容器之内" class="headerlink" title="在移动feature时限制在容器之内"></a>在移动feature时限制在容器之内</h3><ul>
@@ -360,7 +359,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Introduce"><span class="nav-number">1.</span> <span class="nav-text">Introduce</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加载自定义图片作为底图"><span class="nav-number">2.</span> <span class="nav-text">加载自定义图片作为底图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#底图限制拖动范围"><span class="nav-number">3.</span> <span class="nav-text">底图限制拖动范围</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在移动feature时限制在容器之内"><span class="nav-number">4.</span> <span class="nav-text">在移动feature时限制在容器之内</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在编辑feature时同样需要限制范围。"><span class="nav-number">5.</span> <span class="nav-text">在编辑feature时同样需要限制范围。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undo-redo的实现"><span class="nav-number">6.</span> <span class="nav-text">undo redo的实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#点击feature实行交互，点击空白取消交互，点击其他feature，当前交互，上次取消交互。"><span class="nav-number">7.</span> <span class="nav-text">点击feature实行交互，点击空白取消交互，点击其他feature，当前交互，上次取消交互。</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Introduce"><span class="nav-number">1.</span> <span class="nav-text">Introduce</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A0%E8%BD%BD%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9B%BE%E7%89%87%E4%BD%9C%E4%B8%BA%E5%BA%95%E5%9B%BE"><span class="nav-number">2.</span> <span class="nav-text">加载自定义图片作为底图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BA%95%E5%9B%BE%E9%99%90%E5%88%B6%E6%8B%96%E5%8A%A8%E8%8C%83%E5%9B%B4"><span class="nav-number">3.</span> <span class="nav-text">底图限制拖动范围</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E7%A7%BB%E5%8A%A8feature%E6%97%B6%E9%99%90%E5%88%B6%E5%9C%A8%E5%AE%B9%E5%99%A8%E4%B9%8B%E5%86%85"><span class="nav-number">4.</span> <span class="nav-text">在移动feature时限制在容器之内</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E7%BC%96%E8%BE%91feature%E6%97%B6%E5%90%8C%E6%A0%B7%E9%9C%80%E8%A6%81%E9%99%90%E5%88%B6%E8%8C%83%E5%9B%B4%E3%80%82"><span class="nav-number">5.</span> <span class="nav-text">在编辑feature时同样需要限制范围。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undo-redo%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-number">6.</span> <span class="nav-text">undo redo的实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%82%B9%E5%87%BBfeature%E5%AE%9E%E8%A1%8C%E4%BA%A4%E4%BA%92%EF%BC%8C%E7%82%B9%E5%87%BB%E7%A9%BA%E7%99%BD%E5%8F%96%E6%B6%88%E4%BA%A4%E4%BA%92%EF%BC%8C%E7%82%B9%E5%87%BB%E5%85%B6%E4%BB%96feature%EF%BC%8C%E5%BD%93%E5%89%8D%E4%BA%A4%E4%BA%92%EF%BC%8C%E4%B8%8A%E6%AC%A1%E5%8F%96%E6%B6%88%E4%BA%A4%E4%BA%92%E3%80%82"><span class="nav-number">7.</span> <span class="nav-text">点击feature实行交互，点击空白取消交互，点击其他feature，当前交互，上次取消交互。</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -376,7 +375,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">67</span>
+          <span class="site-state-item-count">68</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -388,7 +387,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-count">45</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -424,7 +423,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -470,9 +469,17 @@
   <script src="/lib/anime.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
 <script src="/js/schemes/muse.js"></script>
+
+
 <script src="/js/next-boot.js"></script>
+
 
 
 
@@ -481,7 +488,9 @@
 
 
 
-  <script src="/js/local-search.js"></script>
+  
+<script src="/js/local-search.js"></script>
+
 
 
 

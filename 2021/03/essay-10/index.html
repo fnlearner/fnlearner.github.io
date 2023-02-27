@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 3.9.0">
+<meta name="generator" content="Hexo 6.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -20,18 +20,18 @@
     var CONFIG = {"hostname":"fnlearner.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="removeNonASCIIRemoves non-printable ASCII characters. Use a regular expression to remove non-printable ASCII characters. 1const removeNonASCII = str =&amp;gt; str.replace(/[^\x20-\x7E]/g, &apos;&apos;)  1removeNonA">
-<meta name="keywords" content="JavaScript">
+  <meta name="description" content="removeNonASCIIRemoves non-printable ASCII characters. Use a regular expression to remove non-printable ASCII characters. 1const removeNonASCII &#x3D; str &#x3D;&gt; str.replace(&#x2F;[^\x20-\x7E]&#x2F;g, &amp;#x27;&amp;#x27;)  1">
 <meta property="og:type" content="article">
 <meta property="og:title" content="今日随笔">
 <meta property="og:url" content="https://fnlearner.github.io/2021/03/essay-10/index.html">
 <meta property="og:site_name" content="Personal Blog">
-<meta property="og:description" content="removeNonASCIIRemoves non-printable ASCII characters. Use a regular expression to remove non-printable ASCII characters. 1const removeNonASCII = str =&amp;gt; str.replace(/[^\x20-\x7E]/g, &apos;&apos;)  1removeNonA">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-03-14T10:43:53.011Z">
+<meta property="og:description" content="removeNonASCIIRemoves non-printable ASCII characters. Use a regular expression to remove non-printable ASCII characters. 1const removeNonASCII &#x3D; str &#x3D;&gt; str.replace(&#x2F;[^\x20-\x7E]&#x2F;g, &amp;#x27;&amp;#x27;)  1">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-03-14T10:30:49.000Z">
+<meta property="article:modified_time" content="2021-03-14T10:43:53.011Z">
+<meta property="article:author" content="ZJS">
+<meta property="article:tag" content="JavaScript">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="今日随笔">
-<meta name="twitter:description" content="removeNonASCIIRemoves non-printable ASCII characters. Use a regular expression to remove non-printable ASCII characters. 1const removeNonASCII = str =&amp;gt; str.replace(/[^\x20-\x7E]/g, &apos;&apos;)  1removeNonA">
 
 <link rel="canonical" href="https://fnlearner.github.io/2021/03/essay-10/">
 
@@ -236,17 +236,15 @@
       
         <h3 id="removeNonASCII"><a href="#removeNonASCII" class="headerlink" title="removeNonASCII"></a>removeNonASCII</h3><p>Removes non-printable ASCII characters.</p>
 <p>Use a regular expression to remove non-printable ASCII characters.</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> removeNonASCII = <span class="function"><span class="params">str</span> =&gt;</span> str.replace(<span class="regexp">/[^\x20-\x7E]/g</span>, <span class="string">''</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">removeNonASCII</span> = str =&gt; str.<span class="title function_">replace</span>(<span class="regexp">/[^\x20-\x7E]/g</span>, <span class="string">&#x27;&#x27;</span>)</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">removeNonASCII(<span class="string">'äÄçÇéÉêlorem-ipsumöÖÐþúÚ'</span>); <span class="comment">// 'lorem-ipsum'</span></span><br></pre></td></tr></table></figure>
-
-<a id="more"></a>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">removeNonASCII</span>(<span class="string">&#x27;äÄçÇéÉêlorem-ipsumöÖÐþúÚ&#x27;</span>); <span class="comment">// &#x27;lorem-ipsum&#x27;</span></span><br></pre></td></tr></table></figure>
+<span id="more"></span>
 <h3 id="Constant-width-to-height-ratio"><a href="#Constant-width-to-height-ratio" class="headerlink" title="Constant width to height ratio"></a>Constant width to height ratio</h3><p>iven an element of variable width, it will ensure its height remains proportionate in a responsive fashion (i.e., its width to height ratio remains constant).</p>
 <p><code>html</code></p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"constant-width-to-height-ratio"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;constant-width-to-height-ratio&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p><code>css</code></p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.constant-width-to-height-ratio</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#333</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">50%</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.constant-width-to-height-ratio</span><span class="selector-pseudo">::before</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">''</span>;</span><br><span class="line">  <span class="attribute">padding-top</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">float</span>: left;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.constant-width-to-height-ratio</span><span class="selector-pseudo">::after</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">''</span>;</span><br><span class="line">  <span class="attribute">display</span>: block;</span><br><span class="line">  <span class="attribute">clear</span>: both;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.constant-width-to-height-ratio</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#333</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">50%</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.constant-width-to-height-ratio</span><span class="selector-pseudo">::before</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">  <span class="attribute">padding-top</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">float</span>: left;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.constant-width-to-height-ratio</span><span class="selector-pseudo">::after</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">  <span class="attribute">display</span>: block;</span><br><span class="line">  <span class="attribute">clear</span>: both;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><code>description</code><br>padding-top on the ::before pseudo-element causes the height of the element to equal a percentage of its width. 100% therefore means the element’s height will always be 100% of the width, creating a responsive square.</p>
 <p>This method also allows content to be placed inside the element normally.</p>
@@ -366,7 +364,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">67</span>
+          <span class="site-state-item-count">68</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -378,7 +376,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-count">45</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -414,7 +412,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -460,9 +458,17 @@
   <script src="/lib/anime.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
 <script src="/js/schemes/muse.js"></script>
+
+
 <script src="/js/next-boot.js"></script>
+
 
 
 
@@ -471,7 +477,9 @@
 
 
 
-  <script src="/js/local-search.js"></script>
+  
+<script src="/js/local-search.js"></script>
+
 
 
 

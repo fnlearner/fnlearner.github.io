@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 3.9.0">
+<meta name="generator" content="Hexo 6.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -21,23 +21,23 @@
   </script>
 
   <meta name="description" content="Web Worker 文献综述 Web Worker 作为浏览器多线程技术, 在页面内容不断丰富, 功能日趋复杂的当下, 成为缓解页面卡顿, 提升应用性能的可选方案.但她的容颜, 隐藏在边缘试探的科普文章和不知深浅的兼容性背后; 对 JS 单线程面试题倒背如流的前端工程师, 对多线程开发有着天然的陌生感. 业务背景 因为我负责的组件中有个是树组件，那么对于这个树组件有个功能是叫做搜索的功能，一开始">
-<meta name="keywords" content="worker javaScript">
 <meta property="og:type" content="article">
 <meta property="og:title" content="worker">
 <meta property="og:url" content="https://fnlearner.github.io/2021/05/worker/index.html">
 <meta property="og:site_name" content="Personal Blog">
 <meta property="og:description" content="Web Worker 文献综述 Web Worker 作为浏览器多线程技术, 在页面内容不断丰富, 功能日趋复杂的当下, 成为缓解页面卡顿, 提升应用性能的可选方案.但她的容颜, 隐藏在边缘试探的科普文章和不知深浅的兼容性背后; 对 JS 单线程面试题倒背如流的前端工程师, 对多线程开发有着天然的陌生感. 业务背景 因为我负责的组件中有个是树组件，那么对于这个树组件有个功能是叫做搜索的功能，一开始">
-<meta property="og:locale" content="zh-CN">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://fnlearner.github.io/images/worker/worker-process.jpeg">
 <meta property="og:image" content="https://fnlearner.github.io/images/worker/worker-draft.png">
 <meta property="og:image" content="https://fnlearner.github.io/images/worker/shared-worker.jpeg">
 <meta property="og:image" content="https://fnlearner.github.io/images/worker/event-loop-and-worker.png">
 <meta property="og:image" content="https://fnlearner.github.io/images/worker/thread.jpeg">
 <meta property="og:image" content="https://fnlearner.github.io/images/worker/cost.jpeg">
-<meta property="og:updated_time" content="2021-05-18T13:59:58.738Z">
+<meta property="article:published_time" content="2021-05-18T11:14:20.000Z">
+<meta property="article:modified_time" content="2021-05-18T13:59:58.738Z">
+<meta property="article:author" content="ZJS">
+<meta property="article:tag" content="worker javaScript">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="worker">
-<meta name="twitter:description" content="Web Worker 文献综述 Web Worker 作为浏览器多线程技术, 在页面内容不断丰富, 功能日趋复杂的当下, 成为缓解页面卡顿, 提升应用性能的可选方案.但她的容颜, 隐藏在边缘试探的科普文章和不知深浅的兼容性背后; 对 JS 单线程面试题倒背如流的前端工程师, 对多线程开发有着天然的陌生感. 业务背景 因为我负责的组件中有个是树组件，那么对于这个树组件有个功能是叫做搜索的功能，一开始">
 <meta name="twitter:image" content="https://fnlearner.github.io/images/worker/worker-process.jpeg">
 
 <link rel="canonical" href="https://fnlearner.github.io/2021/05/worker/">
@@ -245,14 +245,13 @@
 <p>Web Worker 作为浏览器多线程技术, 在页面内容不断丰富, 功能日趋复杂的当下, 成为缓解页面卡顿, 提升应用性能的可选方案.<br>但她的容颜, 隐藏在边缘试探的科普文章和不知深浅的兼容性背后; 对 JS 单线程面试题倒背如流的前端工程师, 对多线程开发有着天然的陌生感.</p>
 <p>业务背景</p>
 <p>因为我负责的组件中有个是树组件，那么对于这个树组件有个功能是叫做搜索的功能，一开始的时候在搜索匹配节点的时候是在主线程中去执行代码，但是在遇到计算量大的时候，就会一直占用主线程的资源，导致页面不能及时的跟用户进行响应，那么我就想到了将这个计算的代码放到后台（也就是worker）去执行逻辑，这样的话就不会阻塞页面的渲染工作，因为worker的代码跟主线程的代码是属于并行的关系。</p>
-<h4 id="worker介绍"><a href="#worker介绍" class="headerlink" title="worker介绍"></a>worker介绍</h4><p>官方对这个<a href="https://link.zhihu.com/?target=https%3A//developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API" target="_blank" rel="noopener">web worker</a>的表述是</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Web Workers makes it possible to run a script operation </span><br><span class="line">in a background thread separate from the main execution thread </span><br><span class="line">of a web application.</span><br></pre></td></tr></table></figure>
-
+<h4 id="worker介绍"><a href="#worker介绍" class="headerlink" title="worker介绍"></a>worker介绍</h4><p>官方对这个<a href="https://link.zhihu.com/?target=https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API">web worker</a>的表述是</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Web Workers makes it possible to run a script operation </span><br><span class="line">in a background thread separate from the main execution thread </span><br><span class="line">of a web application.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p><img src="/images/worker/worker-process.jpeg" alt="process"></p>
 <p>通过这个其实可以想到的是 并行可以提升执行效率，任务的拆分能减少页面的卡顿</p>
-<a id="more"></a>
+<span id="more"></span>
 
-<h4 id="技术规范"><a href="#技术规范" class="headerlink" title="技术规范"></a>技术规范</h4><p><a href="https://www.w3.org/TR/workers/" target="_blank" rel="noopener">worker的技术规范</a>并不是近几年才开始提出的，它在09年就已经有了草案<br><img src="/images/worker/worker-draft.png" alt="worker draft"></p>
+<h4 id="技术规范"><a href="#技术规范" class="headerlink" title="技术规范"></a>技术规范</h4><p><a target="_blank" rel="noopener" href="https://www.w3.org/TR/workers/">worker的技术规范</a>并不是近几年才开始提出的，它在09年就已经有了草案<br><img src="/images/worker/worker-draft.png" alt="worker draft"></p>
 <h4 id="Worker的分类"><a href="#Worker的分类" class="headerlink" title="Worker的分类"></a>Worker的分类</h4><p>在mdn上worker介绍了三种worker类型，分别是Dedicated workers （专用worker），Shared Worker（共享worker）以及 Service Worker。<br>Dedicated worker 只能与创建它的页面渲染进程通行，不能够进行多tab共享，这是最常见的也是用的最多的一种worker<br>而 SharedWorker 可以在多个浏览器 Tab 中访问到同一个 Worker 实例, 实现多 Tab 共享数据, 共享 webSocket 连接等. 看起来很美好, 但 safari 放弃了 SharedWorker 支持, 因为 webkit 引擎的技术原因. 如下图所示, 只在 safari 5~6 中短暂支持过.</p>
 <p><img src="/images/worker/shared-worker.jpeg" alt="shared worker"></p>
 <p>相比之下, DedicatedWorker 有着更广的兼容性和更多业务落地实践, 本文后面讨论中的 Worker 都是特指 DedicatedWorker.</p>
@@ -273,14 +272,14 @@
 <p>真正带来性能提升的是<code>多核多线程并发</code>.</p>
 <p>如多个没有依赖关系的同步任务, 在单线程上只能串行执行, 在多核多线程中可以并行执行.</p>
 <h4 id="把主线程还给-UI"><a href="#把主线程还给-UI" class="headerlink" title="把主线程还给 UI"></a>把主线程还给 UI</h4><p>Worker 的应用场景, 本质上是从主线程中剥离逻辑, 让主线程专注于 UI 渲染. </p>
-<h4 id="woker-通信方式"><a href="#woker-通信方式" class="headerlink" title="woker 通信方式"></a>woker 通信方式</h4><p><a href="https://developer.mozilla.org/en-US/docs/Web/API/DedicatedWorkerGlobalScope" target="_blank" rel="noopener">worker相关api</a><br><img src="/images/worker/thread.jpeg" alt="thread"></p>
+<h4 id="woker-通信方式"><a href="#woker-通信方式" class="headerlink" title="woker 通信方式"></a>woker 通信方式</h4><p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/DedicatedWorkerGlobalScope">worker相关api</a><br><img src="/images/worker/thread.jpeg" alt="thread"></p>
 <h4 id="worker-跟主线程的-异同"><a href="#worker-跟主线程的-异同" class="headerlink" title="worker 跟主线程的 异同"></a>worker 跟主线程的 异同</h4><h5 id="共同点"><a href="#共同点" class="headerlink" title="共同点"></a>共同点</h5><ul>
 <li>包含完整的 JS 运行时, 支持 ECMAScript 规范定义的语言语法和内置对象.</li>
 <li>支持 XmlHttpRequest, 能独立发送网络请求与后台交互.</li>
 <li>包含只读的 Location, 指向 Worker 线程执行的 script url, 可通过 url 传递参数给 Worker 环境.</li>
 <li>包含只读的 Navigator, 用于获取浏览器信息, 如通过 Navigator.userAgent 识别浏览器.</li>
-<li>支持 setTimeout / setInterval 计时器, 可用于实现异步逻辑.</li>
-<li>支持 WebSocket 进行网络 I/O; 支持 IndexedDB 进行文件 I/O.</li>
+<li>支持 setTimeout &#x2F; setInterval 计时器, 可用于实现异步逻辑.</li>
+<li>支持 WebSocket 进行网络 I&#x2F;O; 支持 IndexedDB 进行文件 I&#x2F;O.</li>
 </ul>
 <h5 id="不同点"><a href="#不同点" class="headerlink" title="不同点"></a>不同点</h5><ul>
 <li>Worker 线程没有 DOM API, 无法新建和操作 DOM; 也无法访问到主线程的 DOM Element.</li>
@@ -292,11 +291,11 @@
 <p>从差异点上看, Worker 线程无法染指 UI, 并受主线程控制, 适合默默干活.</p>
 <h4 id="通信速度"><a href="#通信速度" class="headerlink" title="通信速度"></a>通信速度</h4><p>Worker 多线程虽然实现了 JS 任务的并行运行, 也带来额外的通信开销. 如下图所示, 从线程A 调用 postMessage 发送数据到线程B onmessage 接收到数据有时间差, 这段时间差称为通信消耗.</p>
 <p><img src="/images/worker/cost.jpeg" alt="oost"></p>
-<p>提升的性能 = 并行提升的性能 – 通信消耗的性能. 在线程计算能力固定的情况下, 要通过多线程提升更多性能, 需要尽量减少通信消耗.</p>
+<p>提升的性能 &#x3D; 并行提升的性能 – 通信消耗的性能. 在线程计算能力固定的情况下, 要通过多线程提升更多性能, 需要尽量减少通信消耗.</p>
 <h4 id="数据传输方式"><a href="#数据传输方式" class="headerlink" title="数据传输方式"></a>数据传输方式</h4><p>通信方式有 3 种: Structured Clone, Transfer Memory 和 Shared Array Buffer.</p>
 <h5 id="Structured-Clone"><a href="#Structured-Clone" class="headerlink" title="Structured Clone"></a>Structured Clone</h5><p>Structured Clone 是 postMessage 默认的通信方式. 如下图所示, 复制一份线程A 的 JS Object 内存给到线程B, 线程B 能获取和操作新复制的内存.</p>
 <p>Structured Clone 通过复制内存的方式简单有效地隔离不同线程内存, 避免冲突; 且传输的 Object 数据结构很灵活. 但复制过程中, 线程A 要同步执行 Object Serialization, 线程B 要同步执行 Object Deserialization; 如果 Object 规模过大, 会占用大量的线程时间.</p>
-<h5 id="Transfer-Memory"><a href="#Transfer-Memory" class="headerlink" title="Transfer Memory"></a>Transfer Memory</h5><p>Transfer Memory 意为转移内存, 它不需要 Serialization/Deserialization, 能大大减少传输过程占用的线程时间. 如下图所示 , 线程A 将指定内存的所有权和操作权转给线程B, 但转让后线程A 无法再访问这块内存.</p>
+<h5 id="Transfer-Memory"><a href="#Transfer-Memory" class="headerlink" title="Transfer Memory"></a>Transfer Memory</h5><p>Transfer Memory 意为转移内存, 它不需要 Serialization&#x2F;Deserialization, 能大大减少传输过程占用的线程时间. 如下图所示 , 线程A 将指定内存的所有权和操作权转给线程B, 但转让后线程A 无法再访问这块内存.</p>
 <p>Transfer Memory 以失去控制权来换取高效传输, 通过内存独占给多线程并发加锁. 但只能转让 ArrayBuffer 等大小规整的二进制(Raw Binary)数据; 对矩阵数据(如 RGB 图片,对rgb图片像素操作，比如取反色)比较适用. 实践上也要考虑从 JS Object 生成二进制数据的运算成本。</p>
 <h5 id="Shared-Array-Buffers"><a href="#Shared-Array-Buffers" class="headerlink" title="Shared Array Buffers"></a>Shared Array Buffers</h5><p>Shared Array Buffer 是共享内存, 线程A 和线程B 可以同时访问和操作同一块内存空间. 数据都共享了, 也就没有传输什么事了.<br>但多个并行的线程共享内存, 会产生竞争问题(Race Conditions). 不像前 2 种传输方式默认加锁, Shared Array Buffers 把难题抛给开发者, 开发者可以用 Atomics 来维护这块共享的内存. 作为较新的传输方式, 浏览器兼容性可想而知, 目前只有 Chrome 68+ 支持.</p>
 <h4 id="兼容性"><a href="#兼容性" class="headerlink" title="兼容性"></a>兼容性</h4><p>兼容性是前端技术方案评估中需要关注的问题. 对 Web Worker 更是如此, 因为 Worker 的多线程能力, 要么业务场景完全用不上; 要么一用就是重度依赖的基础能力.</p>
@@ -399,7 +398,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#worker介绍"><span class="nav-number">1.</span> <span class="nav-text">worker介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#技术规范"><span class="nav-number">2.</span> <span class="nav-text">技术规范</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Worker的分类"><span class="nav-number">3.</span> <span class="nav-text">Worker的分类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#异步任务与worker的区别"><span class="nav-number">4.</span> <span class="nav-text">异步任务与worker的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#应用场景"><span class="nav-number">5.</span> <span class="nav-text">应用场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#性能提升"><span class="nav-number">6.</span> <span class="nav-text">性能提升</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#worker的线程策略"><span class="nav-number">7.</span> <span class="nav-text">worker的线程策略</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#把主线程还给-UI"><span class="nav-number">8.</span> <span class="nav-text">把主线程还给 UI</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#woker-通信方式"><span class="nav-number">9.</span> <span class="nav-text">woker 通信方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#worker-跟主线程的-异同"><span class="nav-number">10.</span> <span class="nav-text">worker 跟主线程的 异同</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#共同点"><span class="nav-number">10.1.</span> <span class="nav-text">共同点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#不同点"><span class="nav-number">10.2.</span> <span class="nav-text">不同点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通信速度"><span class="nav-number">11.</span> <span class="nav-text">通信速度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据传输方式"><span class="nav-number">12.</span> <span class="nav-text">数据传输方式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Structured-Clone"><span class="nav-number">12.1.</span> <span class="nav-text">Structured Clone</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Transfer-Memory"><span class="nav-number">12.2.</span> <span class="nav-text">Transfer Memory</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Shared-Array-Buffers"><span class="nav-number">12.3.</span> <span class="nav-text">Shared Array Buffers</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#兼容性"><span class="nav-number">13.</span> <span class="nav-text">兼容性</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#worker%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">worker介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8A%80%E6%9C%AF%E8%A7%84%E8%8C%83"><span class="nav-number">2.</span> <span class="nav-text">技术规范</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Worker%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-number">3.</span> <span class="nav-text">Worker的分类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%82%E6%AD%A5%E4%BB%BB%E5%8A%A1%E4%B8%8Eworker%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">4.</span> <span class="nav-text">异步任务与worker的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">5.</span> <span class="nav-text">应用场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%A7%E8%83%BD%E6%8F%90%E5%8D%87"><span class="nav-number">6.</span> <span class="nav-text">性能提升</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#worker%E7%9A%84%E7%BA%BF%E7%A8%8B%E7%AD%96%E7%95%A5"><span class="nav-number">7.</span> <span class="nav-text">worker的线程策略</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8A%8A%E4%B8%BB%E7%BA%BF%E7%A8%8B%E8%BF%98%E7%BB%99-UI"><span class="nav-number">8.</span> <span class="nav-text">把主线程还给 UI</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#woker-%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8F"><span class="nav-number">9.</span> <span class="nav-text">woker 通信方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#worker-%E8%B7%9F%E4%B8%BB%E7%BA%BF%E7%A8%8B%E7%9A%84-%E5%BC%82%E5%90%8C"><span class="nav-number">10.</span> <span class="nav-text">worker 跟主线程的 异同</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%85%B1%E5%90%8C%E7%82%B9"><span class="nav-number">10.1.</span> <span class="nav-text">共同点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%8D%E5%90%8C%E7%82%B9"><span class="nav-number">10.2.</span> <span class="nav-text">不同点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%9A%E4%BF%A1%E9%80%9F%E5%BA%A6"><span class="nav-number">11.</span> <span class="nav-text">通信速度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93%E6%96%B9%E5%BC%8F"><span class="nav-number">12.</span> <span class="nav-text">数据传输方式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Structured-Clone"><span class="nav-number">12.1.</span> <span class="nav-text">Structured Clone</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Transfer-Memory"><span class="nav-number">12.2.</span> <span class="nav-text">Transfer Memory</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Shared-Array-Buffers"><span class="nav-number">12.3.</span> <span class="nav-text">Shared Array Buffers</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%BC%E5%AE%B9%E6%80%A7"><span class="nav-number">13.</span> <span class="nav-text">兼容性</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -415,7 +414,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">67</span>
+          <span class="site-state-item-count">68</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -427,7 +426,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-count">45</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -463,7 +462,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -509,9 +508,17 @@
   <script src="/lib/anime.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
 <script src="/js/schemes/muse.js"></script>
+
+
 <script src="/js/next-boot.js"></script>
+
 
 
 
@@ -520,7 +527,9 @@
 
 
 
-  <script src="/js/local-search.js"></script>
+  
+<script src="/js/local-search.js"></script>
+
 
 
 

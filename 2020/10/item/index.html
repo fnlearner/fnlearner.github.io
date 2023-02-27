@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 3.9.0">
+<meta name="generator" content="Hexo 6.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -21,18 +21,18 @@
   </script>
 
   <meta name="description" content="Proposal for a .item() method on all the built-in indexables这个方法是给有索引对象内置的一个方法，那么这个方法接收一个 number 类型的 index，对象能够根据 index 来确定值。那其实看到这会有个问题，具备索引的对象自己就能根据索引来确定值了，那么这个方法出现的意义是为什么？它其实是用负值的 index 来获取值，比如 12c">
-<meta name="keywords" content="JavaScript">
 <meta property="og:type" content="article">
 <meta property="og:title" content="item">
 <meta property="og:url" content="https://fnlearner.github.io/2020/10/item/index.html">
 <meta property="og:site_name" content="Personal Blog">
 <meta property="og:description" content="Proposal for a .item() method on all the built-in indexables这个方法是给有索引对象内置的一个方法，那么这个方法接收一个 number 类型的 index，对象能够根据 index 来确定值。那其实看到这会有个问题，具备索引的对象自己就能根据索引来确定值了，那么这个方法出现的意义是为什么？它其实是用负值的 index 来获取值，比如 12c">
-<meta property="og:locale" content="zh-CN">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://fnlearner.github.io/images/item/proposal.png">
-<meta property="og:updated_time" content="2021-03-21T09:51:21.828Z">
+<meta property="article:published_time" content="2020-10-07T12:46:37.000Z">
+<meta property="article:modified_time" content="2021-03-21T09:51:21.828Z">
+<meta property="article:author" content="ZJS">
+<meta property="article:tag" content="JavaScript">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="item">
-<meta name="twitter:description" content="Proposal for a .item() method on all the built-in indexables这个方法是给有索引对象内置的一个方法，那么这个方法接收一个 number 类型的 index，对象能够根据 index 来确定值。那其实看到这会有个问题，具备索引的对象自己就能根据索引来确定值了，那么这个方法出现的意义是为什么？它其实是用负值的 index 来获取值，比如 12c">
 <meta name="twitter:image" content="https://fnlearner.github.io/images/item/proposal.png">
 
 <link rel="canonical" href="https://fnlearner.github.io/2020/10/item/">
@@ -248,12 +248,12 @@
 <p>是这样的用法。<br>那么这个方法是挂载在 String，Array，TypeArray 这三个数据结构的原型链上。<br>然后对于 dom 结构中类型 document.getElementById()这样的返回 NodeList 结构在经过 Array.from 转化之后同样会挂载 item 方法</p>
 <p>但是这个方法目前还处于 stage3 阶段，因此是不能直接使用的 hhhh。但是官方给出了 polyfill</p>
 <p>Like this:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> item(n) &#123;</span><br><span class="line">	<span class="comment"># ToInteger() abstract op</span></span><br><span class="line">	n = Math.trunc(n) || 0;</span><br><span class="line">	<span class="comment"># Allow negative indexing from the end</span></span><br><span class="line">	<span class="keyword">if</span>(n &lt; 0) n += this.length;</span><br><span class="line">	<span class="comment"># OOB access is guaranteed to return undefined</span></span><br><span class="line">	<span class="keyword">if</span>(n &lt; 0 || n &gt;= this.length) <span class="built_in">return</span> undefined;</span><br><span class="line">	<span class="comment"># Otherwise, this is just normal property access</span></span><br><span class="line">	<span class="built_in">return</span> this[n];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Other TypedArray constructors omitted for brevity.</span></span><br><span class="line"><span class="keyword">for</span> (<span class="built_in">let</span> C of [Array, String, Uint8Array]) &#123;</span><br><span class="line">    Object.defineProperty(C.prototype, <span class="string">"item"</span>,</span><br><span class="line">                          &#123; value: item,</span><br><span class="line">                            writable: <span class="literal">true</span>,</span><br><span class="line">                            enumerable: <span class="literal">false</span>,</span><br><span class="line">                            configurable: <span class="literal">true</span> &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> item(n) &#123;</span><br><span class="line">	<span class="comment"># ToInteger() abstract op</span></span><br><span class="line">	n = Math.trunc(n) || 0;</span><br><span class="line">	<span class="comment"># Allow negative indexing from the end</span></span><br><span class="line">	<span class="keyword">if</span>(n &lt; 0) n += this.length;</span><br><span class="line">	<span class="comment"># OOB access is guaranteed to return undefined</span></span><br><span class="line">	<span class="keyword">if</span>(n &lt; 0 || n &gt;= this.length) <span class="built_in">return</span> undefined;</span><br><span class="line">	<span class="comment"># Otherwise, this is just normal property access</span></span><br><span class="line">	<span class="built_in">return</span> this[n];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Other TypedArray constructors omitted for brevity.</span></span><br><span class="line"><span class="keyword">for</span> (<span class="built_in">let</span> C of [Array, String, Uint8Array]) &#123;</span><br><span class="line">    Object.defineProperty(C.prototype, <span class="string">&quot;item&quot;</span>,</span><br><span class="line">                          &#123; value: item,</span><br><span class="line">                            writable: <span class="literal">true</span>,</span><br><span class="line">                            enumerable: <span class="literal">false</span>,</span><br><span class="line">                            configurable: <span class="literal">true</span> &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h4 id="2021-3-21-更新"><a href="#2021-3-21-更新" class="headerlink" title="2021-3-21 更新"></a>2021-3-21 更新</h4><p><img src="/images/item/proposal.png" alt="proposal"></p>
 <p>item方法更名为at方法</p>
 <p><code>Spec-compliant polyfills using the old name of .item(): Array.prototype.item, String.prototype.item</code></p>
-<p>The original iteration of this proposal proposed the name of the method to be .item(). Unfortunately, this was found out to be not web compatible. Libraries, notably YUI2 and YUI3, were duck-typing objects to be DOM collections based on the presence of a .item property. Please see <a href="https://github.com/tc39/proposal-relative-indexing-method/issues/28" target="_blank" rel="noopener">#28</a>, <a href="https://github.com/tc39/proposal-relative-indexing-method/issues/31" target="_blank" rel="noopener">#31</a>, and <a href="https://github.com/tc39/proposal-relative-indexing-method/issues/32" target="_blank" rel="noopener">#32</a> for more details.</p>
+<p>The original iteration of this proposal proposed the name of the method to be .item(). Unfortunately, this was found out to be not web compatible. Libraries, notably YUI2 and YUI3, were duck-typing objects to be DOM collections based on the presence of a .item property. Please see <a target="_blank" rel="noopener" href="https://github.com/tc39/proposal-relative-indexing-method/issues/28">#28</a>, <a target="_blank" rel="noopener" href="https://github.com/tc39/proposal-relative-indexing-method/issues/31">#31</a>, and <a target="_blank" rel="noopener" href="https://github.com/tc39/proposal-relative-indexing-method/issues/32">#32</a> for more details.</p>
 <p>Captured below is the original motivation for choosing the .item() name and the original concerns.</p>
 
     </div>
@@ -353,7 +353,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Proposal-for-a-item-method-on-all-the-built-in-indexables"><span class="nav-number">1.</span> <span class="nav-text">Proposal for a .item() method on all the built-in indexables</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2021-3-21-更新"><span class="nav-number">1.1.</span> <span class="nav-text">2021-3-21 更新</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Proposal-for-a-item-method-on-all-the-built-in-indexables"><span class="nav-number">1.</span> <span class="nav-text">Proposal for a .item() method on all the built-in indexables</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2021-3-21-%E6%9B%B4%E6%96%B0"><span class="nav-number">1.1.</span> <span class="nav-text">2021-3-21 更新</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -369,7 +369,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">67</span>
+          <span class="site-state-item-count">68</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -381,7 +381,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-count">45</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -417,7 +417,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -463,9 +463,17 @@
   <script src="/lib/anime.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
 <script src="/js/schemes/muse.js"></script>
+
+
 <script src="/js/next-boot.js"></script>
+
 
 
 
@@ -474,7 +482,9 @@
 
 
 
-  <script src="/js/local-search.js"></script>
+  
+<script src="/js/local-search.js"></script>
+
 
 
 

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 3.9.0">
+<meta name="generator" content="Hexo 6.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -21,17 +21,17 @@
   </script>
 
   <meta name="description" content="null vs undefinedThe ECMAScript language specification describes them as follows:  undefined 是被使用但是没有被赋值 null 是对变量一个显示对声明一个值  在JS中，每个变量能够同时被赋值引用类型和原始类型。因此，如果null意味着 不是一个对象，JS也需要一个初值意味着 既不是 引用类型 也不是 原始">
-<meta name="keywords" content="JavaScript">
 <meta property="og:type" content="article">
 <meta property="og:title" content="今日随笔(1-31)">
 <meta property="og:url" content="https://fnlearner.github.io/2021/01/essay-8/index.html">
 <meta property="og:site_name" content="Personal Blog">
 <meta property="og:description" content="null vs undefinedThe ECMAScript language specification describes them as follows:  undefined 是被使用但是没有被赋值 null 是对变量一个显示对声明一个值  在JS中，每个变量能够同时被赋值引用类型和原始类型。因此，如果null意味着 不是一个对象，JS也需要一个初值意味着 既不是 引用类型 也不是 原始">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-02-10T07:23:09.701Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-01-31T07:30:19.000Z">
+<meta property="article:modified_time" content="2021-02-10T07:23:09.701Z">
+<meta property="article:author" content="ZJS">
+<meta property="article:tag" content="JavaScript">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="今日随笔(1-31)">
-<meta name="twitter:description" content="null vs undefinedThe ECMAScript language specification describes them as follows:  undefined 是被使用但是没有被赋值 null 是对变量一个显示对声明一个值  在JS中，每个变量能够同时被赋值引用类型和原始类型。因此，如果null意味着 不是一个对象，JS也需要一个初值意味着 既不是 引用类型 也不是 原始">
 
 <link rel="canonical" href="https://fnlearner.github.io/2021/01/essay-8/">
 
@@ -246,7 +246,7 @@
 <li>null 是对变量一个显示对声明一个值</li>
 </ul>
 <p>在JS中，每个变量能够同时被赋值引用类型和原始类型。因此，如果null意味着 不是一个对象，JS也需要一个初值意味着 既不是 引用类型 也不是 原始类型。那个值就是undefined。</p>
-<a id="more"></a>
+<span id="more"></span>
 <p>If a variable myVar has not been initialized yet, its value is undefined:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">let</span> myVar;</span><br><span class="line">assert.equal(myVar, undefined);</span><br></pre></td></tr></table></figure>
 
@@ -268,22 +268,21 @@
 <p>The prototype of an object is either an object or, at the end of a chain of prototypes, null. Object.prototype does not have a prototype:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; Object.getPrototypeOf(Object.prototype)</span><br><span class="line">null</span><br></pre></td></tr></table></figure>
 
-<p>If we match a regular expression (such as /a/) against a string (such as ‘x’), we either get an object with matching data (if matching was successful) or null (if matching failed)(有结果就返回匹配对象，没结果返回null):</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; /a/.<span class="built_in">exec</span>(<span class="string">'x'</span>)</span><br><span class="line">null</span><br></pre></td></tr></table></figure>
+<p>If we match a regular expression (such as &#x2F;a&#x2F;) against a string (such as ‘x’), we either get an object with matching data (if matching was successful) or null (if matching failed)(有结果就返回匹配对象，没结果返回null):</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; /a/.exec(<span class="string">&#x27;x&#x27;</span>)</span><br><span class="line">null</span><br></pre></td></tr></table></figure>
 
 <p>The JSON data format does not support undefined, only null:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; JSON.stringify(&#123;a: undefined, b: null&#125;)</span><br><span class="line"><span class="string">'&#123;"b":null&#125;'</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; JSON.stringify(&#123;a: undefined, b: null&#125;)</span><br><span class="line"><span class="string">&#x27;&#123;&quot;b&quot;:null&#125;&#x27;</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="Operators-that-treat-undefined-and-or-null-specially"><a href="#Operators-that-treat-undefined-and-or-null-specially" class="headerlink" title="Operators that treat undefined and/or null specially"></a>Operators that treat undefined and/or null specially</h3><h4 id="undefined-and-parameter-default-values"><a href="#undefined-and-parameter-default-values" class="headerlink" title="undefined and parameter default values"></a>undefined and parameter default values</h4><p>参数默认值的使用情况：</p>
+<h3 id="Operators-that-treat-undefined-and-x2F-or-null-specially"><a href="#Operators-that-treat-undefined-and-x2F-or-null-specially" class="headerlink" title="Operators that treat undefined and&#x2F;or null specially"></a>Operators that treat undefined and&#x2F;or null specially</h3><h4 id="undefined-and-parameter-default-values"><a href="#undefined-and-parameter-default-values" class="headerlink" title="undefined and parameter default values"></a>undefined and parameter default values</h4><p>参数默认值的使用情况：</p>
 <ul>
 <li>参数没传</li>
 <li>参数的值是undefined</li>
 </ul>
 <p>For example</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> myFunc(arg=<span class="string">'abc'</span>) &#123;</span><br><span class="line">  <span class="built_in">return</span> arg;</span><br><span class="line">&#125;</span><br><span class="line">assert.equal(myFunc(<span class="string">'hello'</span>), <span class="string">'hello'</span>);</span><br><span class="line">assert.equal(myFunc(), <span class="string">'abc'</span>);</span><br><span class="line">assert.equal(myFunc(undefined), <span class="string">'abc'</span>);</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> myFunc(arg=<span class="string">&#x27;abc&#x27;</span>) &#123;</span><br><span class="line">  <span class="built_in">return</span> arg;</span><br><span class="line">&#125;</span><br><span class="line">assert.equal(myFunc(<span class="string">&#x27;hello&#x27;</span>), <span class="string">&#x27;hello&#x27;</span>);</span><br><span class="line">assert.equal(myFunc(), <span class="string">&#x27;abc&#x27;</span>);</span><br><span class="line">assert.equal(myFunc(undefined), <span class="string">&#x27;abc&#x27;</span>);</span><br></pre></td></tr></table></figure>
 <h4 id="undefined-and-destructuring-default-values"><a href="#undefined-and-destructuring-default-values" class="headerlink" title="undefined and destructuring default values"></a>undefined and destructuring default values</h4><p>解构给默认值跟参数给默认值一样，匹配到undefined给默认值<br>Default values in destructuring work similarly to parameter default values – they are used if a variable either has no match in the data or if it matches undefined:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">const [a=<span class="string">'a'</span>] = [];</span><br><span class="line">assert.equal(a, <span class="string">'a'</span>);</span><br><span class="line"></span><br><span class="line">const [b=<span class="string">'b'</span>] = [undefined];</span><br><span class="line">assert.equal(b, <span class="string">'b'</span>);</span><br><span class="line"></span><br><span class="line">const &#123;prop: c=<span class="string">'c'</span>&#125; = &#123;&#125;;</span><br><span class="line">assert.equal(c, <span class="string">'c'</span>);</span><br><span class="line"></span><br><span class="line">const &#123;prop: d=<span class="string">'d'</span>&#125; = &#123;prop: undefined&#125;;</span><br><span class="line">assert.equal(d, <span class="string">'d'</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">const [a=<span class="string">&#x27;a&#x27;</span>] = [];</span><br><span class="line">assert.equal(a, <span class="string">&#x27;a&#x27;</span>);</span><br><span class="line"></span><br><span class="line">const [b=<span class="string">&#x27;b&#x27;</span>] = [undefined];</span><br><span class="line">assert.equal(b, <span class="string">&#x27;b&#x27;</span>);</span><br><span class="line"></span><br><span class="line">const &#123;prop: c=<span class="string">&#x27;c&#x27;</span>&#125; = &#123;&#125;;</span><br><span class="line">assert.equal(c, <span class="string">&#x27;c&#x27;</span>);</span><br><span class="line"></span><br><span class="line">const &#123;prop: d=<span class="string">&#x27;d&#x27;</span>&#125; = &#123;prop: undefined&#125;;</span><br><span class="line">assert.equal(d, <span class="string">&#x27;d&#x27;</span>);</span><br></pre></td></tr></table></figure>
 
 <h4 id="undefined-and-null-and-optional-chaining"><a href="#undefined-and-null-and-optional-chaining" class="headerlink" title="undefined and null and optional chaining"></a>undefined and null and optional chaining</h4><p>When there is optional chaining via value?.prop:</p>
 <ul>
@@ -293,14 +292,14 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> getProp(value) &#123;</span><br><span class="line">  <span class="comment"># optional static property access</span></span><br><span class="line">  <span class="built_in">return</span> value?.prop;</span><br><span class="line">&#125;</span><br><span class="line">assert.equal(</span><br><span class="line">  getProp(&#123;prop: 123&#125;), 123);</span><br><span class="line">assert.equal(</span><br><span class="line">  getProp(undefined), undefined);</span><br><span class="line">assert.equal(</span><br><span class="line">  getProp(null), undefined);</span><br></pre></td></tr></table></figure>
 
 <p>The following two operations work similarly:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">obj?.[«expr»] // optional dynamic property access</span><br><span class="line">func?.(«arg0», «arg1») // optional <span class="keyword">function</span> or method call</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">obj?.[«<span class="built_in">expr</span>»] // optional dynamic property access</span><br><span class="line">func?.(«arg0», «arg1») // optional <span class="keyword">function</span> or method call</span><br></pre></td></tr></table></figure>
 
 <h4 id="undefined-and-null-and-nullish-coalescing"><a href="#undefined-and-null-and-nullish-coalescing" class="headerlink" title="undefined and null and nullish coalescing"></a>undefined and null and nullish coalescing</h4><p>nullish coalescing 的使用比较 简单，如果值是undefined 或者null的时候取后者</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&gt; undefined ?? <span class="string">'default value'</span></span><br><span class="line"><span class="string">'default value'</span></span><br><span class="line">&gt; null ?? <span class="string">'default value'</span></span><br><span class="line"><span class="string">'default value'</span></span><br><span class="line"></span><br><span class="line">&gt; 0 ?? <span class="string">'default value'</span></span><br><span class="line">0</span><br><span class="line">&gt; 123 ?? <span class="string">'default value'</span></span><br><span class="line">123</span><br><span class="line">&gt; <span class="string">''</span> ?? <span class="string">'default value'</span></span><br><span class="line"><span class="string">''</span></span><br><span class="line">&gt; <span class="string">'abc'</span> ?? <span class="string">'default value'</span></span><br><span class="line"><span class="string">'abc'</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&gt; undefined ?? <span class="string">&#x27;default value&#x27;</span></span><br><span class="line"><span class="string">&#x27;default value&#x27;</span></span><br><span class="line">&gt; null ?? <span class="string">&#x27;default value&#x27;</span></span><br><span class="line"><span class="string">&#x27;default value&#x27;</span></span><br><span class="line"></span><br><span class="line">&gt; 0 ?? <span class="string">&#x27;default value&#x27;</span></span><br><span class="line">0</span><br><span class="line">&gt; 123 ?? <span class="string">&#x27;default value&#x27;</span></span><br><span class="line">123</span><br><span class="line">&gt; <span class="string">&#x27;&#x27;</span> ?? <span class="string">&#x27;default value&#x27;</span></span><br><span class="line"><span class="string">&#x27;&#x27;</span></span><br><span class="line">&gt; <span class="string">&#x27;abc&#x27;</span> ?? <span class="string">&#x27;default value&#x27;</span></span><br><span class="line"><span class="string">&#x27;abc&#x27;</span></span><br></pre></td></tr></table></figure>
 
-<p>The nullish coalescing assignment operator ??= combines nullish coalescing with assignment:</p>
-<p>??=  就是把 取值和赋值合起来</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> setName(obj) &#123;</span><br><span class="line">  obj.name ??= <span class="string">'(Unnamed)'</span>;</span><br><span class="line">  <span class="built_in">return</span> obj;</span><br><span class="line">&#125;</span><br><span class="line">assert.deepEqual(</span><br><span class="line">  setName(&#123;&#125;),</span><br><span class="line">  &#123;name: <span class="string">'(Unnamed)'</span>&#125;</span><br><span class="line">);</span><br><span class="line">assert.deepEqual(</span><br><span class="line">  setName(&#123;name: undefined&#125;),</span><br><span class="line">  &#123;name: <span class="string">'(Unnamed)'</span>&#125;</span><br><span class="line">);</span><br><span class="line">assert.deepEqual(</span><br><span class="line">  setName(&#123;name: null&#125;),</span><br><span class="line">  &#123;name: <span class="string">'(Unnamed)'</span>&#125;</span><br><span class="line">);</span><br><span class="line">assert.deepEqual(</span><br><span class="line">  setName(&#123;name: <span class="string">'Jane'</span>&#125;),</span><br><span class="line">  &#123;name: <span class="string">'Jane'</span>&#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>The nullish coalescing assignment operator ??&#x3D; combines nullish coalescing with assignment:</p>
+<p>??&#x3D;  就是把 取值和赋值合起来</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> setName(obj) &#123;</span><br><span class="line">  obj.name ??= <span class="string">&#x27;(Unnamed)&#x27;</span>;</span><br><span class="line">  <span class="built_in">return</span> obj;</span><br><span class="line">&#125;</span><br><span class="line">assert.deepEqual(</span><br><span class="line">  setName(&#123;&#125;),</span><br><span class="line">  &#123;name: <span class="string">&#x27;(Unnamed)&#x27;</span>&#125;</span><br><span class="line">);</span><br><span class="line">assert.deepEqual(</span><br><span class="line">  setName(&#123;name: undefined&#125;),</span><br><span class="line">  &#123;name: <span class="string">&#x27;(Unnamed)&#x27;</span>&#125;</span><br><span class="line">);</span><br><span class="line">assert.deepEqual(</span><br><span class="line">  setName(&#123;name: null&#125;),</span><br><span class="line">  &#123;name: <span class="string">&#x27;(Unnamed)&#x27;</span>&#125;</span><br><span class="line">);</span><br><span class="line">assert.deepEqual(</span><br><span class="line">  setName(&#123;name: <span class="string">&#x27;Jane&#x27;</span>&#125;),</span><br><span class="line">  &#123;name: <span class="string">&#x27;Jane&#x27;</span>&#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -398,7 +397,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#null-vs-undefined"><span class="nav-number">1.</span> <span class="nav-text">null vs undefined</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Operators-that-treat-undefined-and-or-null-specially"><span class="nav-number">2.</span> <span class="nav-text">Operators that treat undefined and/or null specially</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined-and-parameter-default-values"><span class="nav-number">2.1.</span> <span class="nav-text">undefined and parameter default values</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined-and-destructuring-default-values"><span class="nav-number">2.2.</span> <span class="nav-text">undefined and destructuring default values</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined-and-null-and-optional-chaining"><span class="nav-number">2.3.</span> <span class="nav-text">undefined and null and optional chaining</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined-and-null-and-nullish-coalescing"><span class="nav-number">2.4.</span> <span class="nav-text">undefined and null and nullish coalescing</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#null-vs-undefined"><span class="nav-number">1.</span> <span class="nav-text">null vs undefined</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Operators-that-treat-undefined-and-x2F-or-null-specially"><span class="nav-number">2.</span> <span class="nav-text">Operators that treat undefined and&#x2F;or null specially</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined-and-parameter-default-values"><span class="nav-number">2.1.</span> <span class="nav-text">undefined and parameter default values</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined-and-destructuring-default-values"><span class="nav-number">2.2.</span> <span class="nav-text">undefined and destructuring default values</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined-and-null-and-optional-chaining"><span class="nav-number">2.3.</span> <span class="nav-text">undefined and null and optional chaining</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined-and-null-and-nullish-coalescing"><span class="nav-number">2.4.</span> <span class="nav-text">undefined and null and nullish coalescing</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -414,7 +413,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">67</span>
+          <span class="site-state-item-count">68</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -426,7 +425,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-count">45</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -462,7 +461,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -508,9 +507,17 @@
   <script src="/lib/anime.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
 <script src="/js/schemes/muse.js"></script>
+
+
 <script src="/js/next-boot.js"></script>
+
 
 
 
@@ -519,7 +526,9 @@
 
 
 
-  <script src="/js/local-search.js"></script>
+  
+<script src="/js/local-search.js"></script>
+
 
 
 

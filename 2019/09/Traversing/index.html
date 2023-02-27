@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 3.9.0">
+<meta name="generator" content="Hexo 6.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -21,17 +21,17 @@
   </script>
 
   <meta name="description" content="深度优先遍历从某个顶点v出发，首先访问该顶点然后依次从它的各个未被访问的邻接点出发深度优先搜索遍历图，直至图中所有和v有路径相通的顶点都被访问到">
-<meta name="keywords" content="JavaScript">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Traversing">
 <meta property="og:url" content="https://fnlearner.github.io/2019/09/Traversing/index.html">
 <meta property="og:site_name" content="Personal Blog">
 <meta property="og:description" content="深度优先遍历从某个顶点v出发，首先访问该顶点然后依次从它的各个未被访问的邻接点出发深度优先搜索遍历图，直至图中所有和v有路径相通的顶点都被访问到">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-10-07T09:41:15.630Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-09-06T01:35:15.000Z">
+<meta property="article:modified_time" content="2020-10-07T09:41:15.630Z">
+<meta property="article:author" content="ZJS">
+<meta property="article:tag" content="JavaScript">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Traversing">
-<meta name="twitter:description" content="深度优先遍历从某个顶点v出发，首先访问该顶点然后依次从它的各个未被访问的邻接点出发深度优先搜索遍历图，直至图中所有和v有路径相通的顶点都被访问到">
 
 <link rel="canonical" href="https://fnlearner.github.io/2019/09/Traversing/">
 
@@ -241,16 +241,13 @@
 
       
         <h3 id="深度优先遍历"><a href="#深度优先遍历" class="headerlink" title="深度优先遍历"></a>深度优先遍历</h3><p>从某个顶点v出发，首先访问该顶点然后依次从它的各个未被访问的邻接点出发深度优先搜索遍历图，直至图中所有和v有路径相通的顶点都被访问到</p>
-<a id="more"></a>
+<span id="more"></span>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 递归</span></span><br><span class="line"><span class="built_in">let</span> deepTraversal1 = (node, nodeList = []) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (node !== null) &#123;</span><br><span class="line">    nodeList.push(node)</span><br><span class="line">    <span class="built_in">let</span> children = node.children</span><br><span class="line">    <span class="keyword">if</span>(children!==null||children.length!==0)&#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="built_in">let</span> i = 0; i &lt; children.length; i++) &#123;</span><br><span class="line">        deepTraversal1(children[i], nodeList)</span><br><span class="line">      &#125;</span><br><span class="line">     &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">return</span> nodeList</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 递归</span></span><br><span class="line"><span class="built_in">let</span> deepTraversal2= (node)=&gt;&#123;</span><br><span class="line">  <span class="built_in">let</span> nodes=[];</span><br><span class="line">  <span class="keyword">if</span>(node!== null)&#123;</span><br><span class="line">    nodes.push(node);</span><br><span class="line">    <span class="built_in">let</span> children = node.children;</span><br><span class="line">    <span class="keyword">if</span>(children!==null||children.length!==0)&#123;</span><br><span class="line">      <span class="keyword">for</span>(<span class="built_in">let</span> i=0;i&lt;children.length;i++)&#123;</span><br><span class="line">        nodes= nodes.concat(deepTraversal2(children[i]));</span><br><span class="line">      &#125;</span><br><span class="line">     &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">return</span> nodes;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 非递归</span></span><br><span class="line"><span class="built_in">let</span> deepTraversal2=(node)=&gt;&#123;</span><br><span class="line">  <span class="built_in">let</span> stack =[];</span><br><span class="line">  <span class="built_in">let</span> nodes=[];</span><br><span class="line">  <span class="keyword">if</span>(node)&#123;</span><br><span class="line">    /*如果node节点存在*/</span><br><span class="line">    stack.push(node);</span><br><span class="line">    <span class="keyword">while</span>(stack.length)&#123;</span><br><span class="line">      <span class="built_in">let</span> item= stack.pop();//取出队尾元素</span><br><span class="line">      <span class="built_in">let</span> children = item.children;//获取元素子节点</span><br><span class="line">      nodes.push(children);//推进子节点，结构与父节点一样</span><br><span class="line">      <span class="keyword">if</span>(children!==null||children.length!==0)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="built_in">let</span> i =0;i&lt;children.length;i++)&#123;</span><br><span class="line">          stack.push(children[i]);</span><br><span class="line">        &#125;</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">return</span> nodes;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <h3 id="广度优先遍历"><a href="#广度优先遍历" class="headerlink" title="广度优先遍历"></a>广度优先遍历</h3><p>从某顶点v出发，在访问了v之后依次访问v的各个未曾访问过的邻接点，然后分别从这些邻接点出发依次访问它们的邻接点，并使得“先被访问的顶点的邻接点先于后被访问的顶点的邻接点被访问，直至图中所有已被访问的顶点的邻接点都被访问到</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">let</span> widthTraversal2=(node)=&gt;&#123;</span><br><span class="line">  <span class="built_in">let</span> nodes=[];</span><br><span class="line">  <span class="built_in">let</span> stack=[];</span><br><span class="line">  <span class="keyword">if</span>(node)&#123;</span><br><span class="line">    stack.push(node);</span><br><span class="line">    <span class="keyword">while</span>(stack.length)&#123;</span><br><span class="line">      <span class="built_in">let</span> item = stack.shift();</span><br><span class="line">      <span class="built_in">let</span> children = item.children;</span><br><span class="line">      nodes.push(node);</span><br><span class="line">      <span class="keyword">if</span>(children!==null||children.length!==0)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="built_in">let</span> i =0;i&lt;children.length;i++)&#123;</span><br><span class="line">          stack.push(children[i]);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">return</span> nodes;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 
     </div>
 
@@ -349,7 +346,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#深度优先遍历"><span class="nav-number">1.</span> <span class="nav-text">深度优先遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#广度优先遍历"><span class="nav-number">2.</span> <span class="nav-text">广度优先遍历</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86"><span class="nav-number">1.</span> <span class="nav-text">深度优先遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86"><span class="nav-number">2.</span> <span class="nav-text">广度优先遍历</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -365,7 +362,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">67</span>
+          <span class="site-state-item-count">68</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -377,7 +374,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-count">45</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -413,7 +410,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -459,9 +456,17 @@
   <script src="/lib/anime.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
 <script src="/js/schemes/muse.js"></script>
+
+
 <script src="/js/next-boot.js"></script>
+
 
 
 
@@ -470,7 +475,9 @@
 
 
 
-  <script src="/js/local-search.js"></script>
+  
+<script src="/js/local-search.js"></script>
+
 
 
 

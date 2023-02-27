@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 3.9.0">
+<meta name="generator" content="Hexo 6.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -20,19 +20,19 @@
     var CONFIG = {"hostname":"fnlearner.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="由于浏览器的同源策略，所以当不同源发送请求时，会发生跨域，请求返回的结果被浏览器所拦截，其中一个解决办法就是用jsonp,jquery中的ajax中就支持了jsonp的数据类型 12345$.ajax(&amp;#123; url: &amp;apos;http://twitter.com/status/user_timeline/padraicb.json?count=10&amp;apos;, dataType: &amp;">
-<meta name="keywords" content="JavaScript">
+  <meta name="description" content="由于浏览器的同源策略，所以当不同源发送请求时，会发生跨域，请求返回的结果被浏览器所拦截，其中一个解决办法就是用jsonp,jquery中的ajax中就支持了jsonp的数据类型 12345$.ajax(&amp;#123; url: &amp;#x27;http:&#x2F;&#x2F;twitter.com&#x2F;status&#x2F;user_timeline&#x2F;padraicb.json?count&#x3D;10&amp;#x27;, dataType: &amp;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="jsonp实现">
 <meta property="og:url" content="https://fnlearner.github.io/2019/11/jsonp/index.html">
 <meta property="og:site_name" content="Personal Blog">
-<meta property="og:description" content="由于浏览器的同源策略，所以当不同源发送请求时，会发生跨域，请求返回的结果被浏览器所拦截，其中一个解决办法就是用jsonp,jquery中的ajax中就支持了jsonp的数据类型 12345$.ajax(&amp;#123; url: &amp;apos;http://twitter.com/status/user_timeline/padraicb.json?count=10&amp;apos;, dataType: &amp;">
-<meta property="og:locale" content="zh-CN">
+<meta property="og:description" content="由于浏览器的同源策略，所以当不同源发送请求时，会发生跨域，请求返回的结果被浏览器所拦截，其中一个解决办法就是用jsonp,jquery中的ajax中就支持了jsonp的数据类型 12345$.ajax(&amp;#123; url: &amp;#x27;http:&#x2F;&#x2F;twitter.com&#x2F;status&#x2F;user_timeline&#x2F;padraicb.json?count&#x3D;10&amp;#x27;, dataType: &amp;">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://i0.wp.com/blog.logrocket.com/wp-content/uploads/2019/11/invalid-syntax-error.png?w=730&ssl=1">
-<meta property="og:updated_time" content="2020-10-07T09:41:15.632Z">
+<meta property="article:published_time" content="2019-11-28T06:04:32.000Z">
+<meta property="article:modified_time" content="2020-10-07T09:41:15.632Z">
+<meta property="article:author" content="ZJS">
+<meta property="article:tag" content="JavaScript">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="jsonp实现">
-<meta name="twitter:description" content="由于浏览器的同源策略，所以当不同源发送请求时，会发生跨域，请求返回的结果被浏览器所拦截，其中一个解决办法就是用jsonp,jquery中的ajax中就支持了jsonp的数据类型 12345$.ajax(&amp;#123; url: &amp;apos;http://twitter.com/status/user_timeline/padraicb.json?count=10&amp;apos;, dataType: &amp;">
 <meta name="twitter:image" content="https://i0.wp.com/blog.logrocket.com/wp-content/uploads/2019/11/invalid-syntax-error.png?w=730&ssl=1">
 
 <link rel="canonical" href="https://fnlearner.github.io/2019/11/jsonp/">
@@ -243,38 +243,34 @@
 
       
         <p>由于浏览器的同源策略，所以当不同源发送请求时，会发生跨域，请求返回的结果被浏览器所拦截，其中一个解决办法就是用jsonp,jquery中的ajax中就支持了jsonp的数据类型</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$.ajax(&#123;</span><br><span class="line"> url: &apos;http://twitter.com/status/user_timeline/padraicb.json?count=10&apos;,</span><br><span class="line"> dataType: &apos;jsonp&apos;,</span><br><span class="line"> success: function onSuccess() &#123; &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<a id="more"></a>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$.ajax(&#123;</span><br><span class="line"> url: &#x27;http://twitter.com/status/user_timeline/padraicb.json?count=10&#x27;,</span><br><span class="line"> dataType: &#x27;jsonp&#x27;,</span><br><span class="line"> success: function onSuccess() &#123; &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
 <h3 id="什么是jsonp？"><a href="#什么是jsonp？" class="headerlink" title="什么是jsonp？"></a>什么是jsonp？</h3><p>jsonp就是我们开发人员利用了script标签的特性来绕过了浏览器的同源策略，因为script加载资源的时候不受浏览器同源策略的影响，但是这个策略（同源策略）不允许读取与当前网站不同源的回复，只允许发送请求，不允许读取请求</p>
-<p>一个网站的origin由三分部分组成，首先就是URI的格式（http://）,接着是主机名（比如：baidu.com），最后是端口号（比如：443）。像 <a href="http://logrocket.com" target="_blank" rel="noopener">http://logrocket.com</a> 和 https:////logrocket.com 是两个不同的origin因为URI的格式不同。</p>
+<p>一个网站的origin由三分部分组成，首先就是URI的格式（http:&#x2F;&#x2F;）,接着是主机名（比如：baidu.com），最后是端口号（比如：443）。像 <a target="_blank" rel="noopener" href="http://logrocket.com/">http://logrocket.com</a> 和 https:&#x2F;&#x2F;&#x2F;&#x2F;logrocket.com 是两个不同的origin因为URI的格式不同。</p>
 <h3 id="它怎么工作的？"><a href="#它怎么工作的？" class="headerlink" title="它怎么工作的？"></a>它怎么工作的？</h3><p>假如本地端口启动在localhost：8080，我们发送一个请求到提供json api的服务上去</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://www.server.com/api/person/1</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://www.server.com/api/person/1</span><br></pre></td></tr></table></figure>
 <p>然后响应的话可能长这样</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;firstName&quot;: &quot;Maciej&quot;,</span><br><span class="line">  &quot;lastName&quot;: &quot;Cieslar&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;firstName&quot;: &quot;Maciej&quot;,</span><br><span class="line">  &quot;lastName&quot;: &quot;Cieslar&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>但是由于同源策略的限制，我们可以发送请求到服务端，但是服务端返回的请求被浏览器给拦截了，因为网站跟服务器不同源。</p>
-<p>script元素可以代替我们自己发送请求，同源策略不限制它，它能够加载并且执行外链资源的js，这样的话比如在 <a href="https://logrocket.com的网站可以从不同来源的提供商加载google" target="_blank" rel="noopener">https://logrocket.com的网站可以从不同来源的提供商加载google</a> Map库，比如CDN</p>
+<p>script元素可以代替我们自己发送请求，同源策略不限制它，它能够加载并且执行外链资源的js，这样的话比如在 <a target="_blank" rel="noopener" href="https://logrocket.com的网站可以从不同来源的提供商加载google/">https://logrocket.com的网站可以从不同来源的提供商加载google</a> Map库，比如CDN</p>
 <p>通过给script中的src赋值成想要访问的请求，script标签将会获取到响应，并且在浏览器中执行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=&quot;https://www.server.com/api/person/1&quot; async=&quot;true&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=&quot;https://www.server.com/api/person/1&quot; async=&quot;true&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
 
 <p>但是问题在于，script会自动解析并且执行返回的js代码。在这种情况下，上面返回的代码会是JSON格式的。JSON会被解析成js代码，因此浏览器会抛出一个错误因为JSON不是有效的JS代码<br><img src="https://i0.wp.com/blog.logrocket.com/wp-content/uploads/2019/11/invalid-syntax-error.png?w=730&ssl=1" alt="图片"></p>
 <p>因此我们必须返回一个正常运行的JS代码这样script解析并且运行的时候浏览器才不会抛出错误。我们只要把返回的JSON赋值给JS变量或者作为函数的参数就行，毕竟本质上来说，JSON也属于JS对象格式。</p>
 <p>因此与其返回纯JSON格式，服务器倒不如返回JS代码。在返回的代码中，将JSON对象放在返回的函数中作为参数传递，函数的名字需要由客户端来传递，提供的函数名字在查询参数中叫做callback</p>
 <p>在查询中提供回调函数的名字后，我们在全局上下文中创建了一个函数（function），这个函数在响应被解析并且执行的时候回调用一次</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://www.server.com/api/person/1?callback=callbackName</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://www.server.com/api/person/1?callback=callbackName</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">callbackName(&#123;</span><br><span class="line">  &quot;firstName&quot;: &quot;Maciej&quot;,</span><br><span class="line">  &quot;lastName&quot;: &quot;Cieslar&quot;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">callbackName(&#123;</span><br><span class="line">  &quot;firstName&quot;: &quot;Maciej&quot;,</span><br><span class="line">  &quot;lastName&quot;: &quot;Cieslar&quot;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <p>因为callbackName在接收到回调的时候callbackName挂载到window上，因此上面的代码其实就是相当于</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">window.callbackName(&#123;</span><br><span class="line">  &quot;firstName&quot;: &quot;Maciej&quot;,</span><br><span class="line">  &quot;lastName&quot;: &quot;Cieslar&quot;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">window.callbackName(&#123;</span><br><span class="line">  &quot;firstName&quot;: &quot;Maciej&quot;,</span><br><span class="line">  &quot;lastName&quot;: &quot;Cieslar&quot;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
 <p>这段代码会在window上下文执行，这个函数将由script下载的代码来执行</p>
 <p>为了让jsonp能够正常工作，前后端都需要支持。当对于函数的命名没有标准的规范的时候，前端通常会给发送的函数命名为callback</p>
-<h3 id="创建一个jsonp的实现"><a href="#创建一个jsonp的实现" class="headerlink" title="创建一个jsonp的实现"></a>创建一个jsonp的实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">let jsonpID = 0;</span><br><span class="line"></span><br><span class="line">function jsonp(url, timeout = 7500) &#123;</span><br><span class="line">  const head = document.querySelector(&apos;head&apos;);</span><br><span class="line">  jsonpID += 1;</span><br><span class="line"></span><br><span class="line">  return new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">    let script = document.createElement(&apos;script&apos;);</span><br><span class="line">    const callbackName = `jsonpCallback$&#123;jsonpID&#125;`;</span><br><span class="line"></span><br><span class="line">    script.src = encodeURI(`$&#123;url&#125;?callback=$&#123;callbackName&#125;`);</span><br><span class="line">    script.async = true;</span><br><span class="line"></span><br><span class="line">    const timeoutId = window.setTimeout(() =&gt; &#123;</span><br><span class="line">      cleanUp();</span><br><span class="line"></span><br><span class="line">      return reject(new Error(&apos;Timeout&apos;));</span><br><span class="line">    &#125;, timeout);</span><br><span class="line"></span><br><span class="line">    window[callbackName] = data =&gt; &#123;</span><br><span class="line">      cleanUp();</span><br><span class="line"></span><br><span class="line">      return resolve(data);</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    script.addEventListener(&apos;error&apos;, error =&gt; &#123;</span><br><span class="line">      cleanUp();</span><br><span class="line"></span><br><span class="line">      return reject(error);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    function cleanUp() &#123;</span><br><span class="line">      window[callbackName] = undefined;</span><br><span class="line">      head.removeChild(script);</span><br><span class="line">      window.clearTimeout(timeoutId);</span><br><span class="line">      script = null;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    head.appendChild(script);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="创建一个jsonp的实现"><a href="#创建一个jsonp的实现" class="headerlink" title="创建一个jsonp的实现"></a>创建一个jsonp的实现</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">let jsonpID = 0;</span><br><span class="line"></span><br><span class="line">function jsonp(url, timeout = 7500) &#123;</span><br><span class="line">  const head = document.querySelector(&#x27;head&#x27;);</span><br><span class="line">  jsonpID += 1;</span><br><span class="line"></span><br><span class="line">  return new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">    let script = document.createElement(&#x27;script&#x27;);</span><br><span class="line">    const callbackName = `jsonpCallback$&#123;jsonpID&#125;`;</span><br><span class="line"></span><br><span class="line">    script.src = encodeURI(`$&#123;url&#125;?callback=$&#123;callbackName&#125;`);</span><br><span class="line">    script.async = true;</span><br><span class="line"></span><br><span class="line">    const timeoutId = window.setTimeout(() =&gt; &#123;</span><br><span class="line">      cleanUp();</span><br><span class="line"></span><br><span class="line">      return reject(new Error(&#x27;Timeout&#x27;));</span><br><span class="line">    &#125;, timeout);</span><br><span class="line"></span><br><span class="line">    window[callbackName] = data =&gt; &#123;</span><br><span class="line">      cleanUp();</span><br><span class="line"></span><br><span class="line">      return resolve(data);</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    script.addEventListener(&#x27;error&#x27;, error =&gt; &#123;</span><br><span class="line">      cleanUp();</span><br><span class="line"></span><br><span class="line">      return reject(error);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    function cleanUp() &#123;</span><br><span class="line">      window[callbackName] = undefined;</span><br><span class="line">      head.removeChild(script);</span><br><span class="line">      window.clearTimeout(timeoutId);</span><br><span class="line">      script = null;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    head.appendChild(script);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<p>如上所示，jsonpID是一个共享的变量，它会确保每个请求都有独一无二的函数名字。<br>首先我们把head对象的引用保存在一个叫head的变量中，然后我们会增加jsonpID来确保函数名唯一。在函数内部返回一个promise，我们创建一个script标签以及由jsonpCallback和独一无二的ID组成的callbackName,然后我们把提供的url放到script标签的src属性上，设置callbackName = callbackName，这个实现不支持添加参数，只能get请求，可以添加async确保不会阻塞浏览器</p>
+<p>如上所示，jsonpID是一个共享的变量，它会确保每个请求都有独一无二的函数名字。<br>首先我们把head对象的引用保存在一个叫head的变量中，然后我们会增加jsonpID来确保函数名唯一。在函数内部返回一个promise，我们创建一个script标签以及由jsonpCallback和独一无二的ID组成的callbackName,然后我们把提供的url放到script标签的src属性上，设置callbackName &#x3D; callbackName，这个实现不支持添加参数，只能get请求，可以添加async确保不会阻塞浏览器</p>
 <p>返回的结果有三种可能</p>
 <ul>
 <li>要么正确  </li>
@@ -282,13 +278,12 @@
 <li>要么超时<br>在上面的代码中都做了处理</li>
 </ul>
 <p>在cleanUp函数中抽象清理过程，三个函数-超时，成功，失败-看起来都长一样 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">const timeoutId = window.setTimeout(() =&gt; &#123;</span><br><span class="line">  cleanUp();</span><br><span class="line"></span><br><span class="line">  return reject(new Error(&apos;Timeout&apos;));</span><br><span class="line">&#125;, timeout);</span><br><span class="line"></span><br><span class="line">window[callbackName] = data =&gt; &#123;</span><br><span class="line">  cleanUp();</span><br><span class="line"></span><br><span class="line">  return resolve(data);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">script.addEventListener(&apos;error&apos;, error =&gt; &#123;</span><br><span class="line">  cleanUp();</span><br><span class="line"></span><br><span class="line">  return reject(error);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">const timeoutId = window.setTimeout(() =&gt; &#123;</span><br><span class="line">  cleanUp();</span><br><span class="line"></span><br><span class="line">  return reject(new Error(&#x27;Timeout&#x27;));</span><br><span class="line">&#125;, timeout);</span><br><span class="line"></span><br><span class="line">window[callbackName] = data =&gt; &#123;</span><br><span class="line">  cleanUp();</span><br><span class="line"></span><br><span class="line">  return resolve(data);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">script.addEventListener(&#x27;error&#x27;, error =&gt; &#123;</span><br><span class="line">  cleanUp();</span><br><span class="line"></span><br><span class="line">  return reject(error);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
 <p>然后在请求完成后调用cleanUp函数,注销挂载在window上的callbackName，移除script节点，清除定时器，将script置空，让script能被浏览器正常GC</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function cleanUp() &#123;</span><br><span class="line">  window[callbackName] = undefined;</span><br><span class="line">  head.removeChild(script);</span><br><span class="line">  window.clearTimeout(timeoutId);</span><br><span class="line">  script = null;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function cleanUp() &#123;</span><br><span class="line">  window[callbackName] = undefined;</span><br><span class="line">  head.removeChild(script);</span><br><span class="line">  window.clearTimeout(timeoutId);</span><br><span class="line">  script = null;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>然后我们再把script插入到head头中，script将会在插入的时候自动发送请求,<br>来个例子</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">jsonp(</span><br><span class="line">  &apos;https://gist.github.com/maciejcieslar/1c1f79d5778af4c2ee17927de769cea3.json&apos;</span><br><span class="line">)</span><br><span class="line">  .then(console.log)</span><br><span class="line">  .catch(console.error);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">jsonp(</span><br><span class="line">  &#x27;https://gist.github.com/maciejcieslar/1c1f79d5778af4c2ee17927de769cea3.json&#x27;</span><br><span class="line">)</span><br><span class="line">  .then(console.log)</span><br><span class="line">  .catch(console.error);</span><br></pre></td></tr></table></figure>
 
 <p>PS：当初被问的时候就不会，好气啊</p>
 
@@ -389,7 +384,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是jsonp？"><span class="nav-number">1.</span> <span class="nav-text">什么是jsonp？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#它怎么工作的？"><span class="nav-number">2.</span> <span class="nav-text">它怎么工作的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建一个jsonp的实现"><span class="nav-number">3.</span> <span class="nav-text">创建一个jsonp的实现</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFjsonp%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">什么是jsonp？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%83%E6%80%8E%E4%B9%88%E5%B7%A5%E4%BD%9C%E7%9A%84%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">它怎么工作的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AAjsonp%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.</span> <span class="nav-text">创建一个jsonp的实现</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -405,7 +400,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">67</span>
+          <span class="site-state-item-count">68</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -417,7 +412,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-count">45</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -453,7 +448,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -499,9 +494,17 @@
   <script src="/lib/anime.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
 <script src="/js/schemes/muse.js"></script>
+
+
 <script src="/js/next-boot.js"></script>
+
 
 
 
@@ -510,7 +513,9 @@
 
 
 
-  <script src="/js/local-search.js"></script>
+  
+<script src="/js/local-search.js"></script>
+
 
 
 

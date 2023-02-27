@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 3.9.0">
+<meta name="generator" content="Hexo 6.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -21,16 +21,15 @@
   </script>
 
   <meta name="description" content="你找到我了呀！">
-<meta name="keywords" content="前端 vue">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Personal Blog">
 <meta property="og:url" content="https://fnlearner.github.io/index.html">
 <meta property="og:site_name" content="Personal Blog">
 <meta property="og:description" content="你找到我了呀！">
-<meta property="og:locale" content="zh-CN">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="ZJS">
+<meta property="article:tag" content="前端 vue">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Personal Blog">
-<meta name="twitter:description" content="你找到我了呀！">
 
 <link rel="canonical" href="https://fnlearner.github.io/">
 
@@ -187,6 +186,66 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://fnlearner.github.io/2023/02/richTextForDraftJs/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="ZJS">
+      <meta itemprop="description" content="你找到我了呀！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Personal Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/02/richTextForDraftJs/" class="post-title-link" itemprop="url">基于DraftJS实现的计算表达式</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-02-27 22:30:32 / 修改时间：22:41:54" itemprop="dateCreated datePublished" datetime="2023-02-27T22:30:32+08:00">2023-02-27</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <div class="pdfobject-container" data-target="/pdf/expression.pdf" data-height="500px"></div>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://fnlearner.github.io/2022/06/imageFormat/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -230,7 +289,7 @@
 <body>
     <input id="upload-input" type="file" accept="image/*" onchange="handleUpload()">
     选择要转换的格式
-    <select id="format-select" onchange="handleChange()">
+    <select id="format-select"  onchange="handleChange()">
         <option value="webp">
             webp
         </option>
@@ -252,7 +311,7 @@
         files:null,
         format:'webp'
     };
-
+ 
 
 
     function handleUpload(){
@@ -291,20 +350,20 @@
                     ctx.drawImage(image,0,0)
                     const format = `image/${param.format}`
                     const url =  canvas.toDataURL(format)  
-
-
+                   
+                    
                     const a = document.createElement('a')
                     a.download = Date.now() 
                     a.href = url
-
+                   
                     a.click()
-
+              
                 }
             }
-
+            
         }
     }
-
+        
 </script>
 
 </html>
@@ -369,8 +428,7 @@
 
       
           <p>计算某个DOM元素距离浏览器顶部的距离</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">useTopDistance</span>&lt;<span class="title">T</span> <span class="title">extends</span> <span class="title">HTMLDivElement</span>&gt;(<span class="params">defaultInstance = <span class="number">24</span></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> divRef = React.useRef&lt;T&gt;(<span class="literal">null</span>);</span><br><span class="line">  <span class="keyword">const</span> [height, setHeight] = React.useState(<span class="number">0</span>);</span><br><span class="line">  <span class="comment">// 递归获取遍历到的元素的offsetTop</span></span><br><span class="line">  <span class="keyword">const</span> getElementInstanceToTop = (el: HTMLElement | <span class="literal">null</span>): <span class="function"><span class="params">number</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (el?.offsetParent) &#123;</span><br><span class="line">      <span class="keyword">return</span> getElementInstanceToTop(el?.offsetParent <span class="keyword">as</span> HTMLElement) + el.offsetTop + el.scrollTop;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> el ? el.offsetTop : <span class="number">0</span>;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="comment">// 重新计算高度，因为可能需要在填充数据的时候设置高度</span></span><br><span class="line">  <span class="keyword">const</span> calculateHeight = React.useCallback(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; clientHeight &#125; = <span class="built_in">document</span>.body;</span><br><span class="line">    <span class="keyword">const</span> offsetParentTop = getElementInstanceToTop(divRef.current);</span><br><span class="line">    <span class="keyword">const</span> result = clientHeight - offsetParentTop ?? <span class="number">0</span>;</span><br><span class="line">    setHeight(result - defaultInstance);</span><br><span class="line">  &#125;, []);</span><br><span class="line"></span><br><span class="line">  React.useLayoutEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">window</span>.requestAnimationFrame(calculateHeight);</span><br><span class="line">    <span class="built_in">window</span>.addEventListener(<span class="string">'resize'</span>, calculateHeight);</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="built_in">window</span>.removeEventListener(<span class="string">'resize'</span>, calculateHeight);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;, []);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    divRef,</span><br><span class="line">    height,</span><br><span class="line">    calculateHeight,</span><br><span class="line">    <span class="comment">// rafCalculateHeight: window.requestAnimationFrame(calculateHeight),</span></span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> useTopDistance&lt;T <span class="keyword">extends</span> <span class="title class_">HTMLDivElement</span>&gt;(defaultInstance = <span class="number">24</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> divRef = <span class="title class_">React</span>.<span class="property">useRef</span>&lt;T&gt;(<span class="literal">null</span>);</span><br><span class="line">  <span class="keyword">const</span> [height, setHeight] = <span class="title class_">React</span>.<span class="title function_">useState</span>(<span class="number">0</span>);</span><br><span class="line">  <span class="comment">// 递归获取遍历到的元素的offsetTop</span></span><br><span class="line">  <span class="keyword">const</span> getElementInstanceToTop = (<span class="attr">el</span>: <span class="title class_">HTMLElement</span> | <span class="literal">null</span>): <span class="function"><span class="params">number</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (el?.<span class="property">offsetParent</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="title function_">getElementInstanceToTop</span>(el?.<span class="property">offsetParent</span> <span class="keyword">as</span> <span class="title class_">HTMLElement</span>) + el.<span class="property">offsetTop</span> + el.<span class="property">scrollTop</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> el ? el.<span class="property">offsetTop</span> : <span class="number">0</span>;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="comment">// 重新计算高度，因为可能需要在填充数据的时候设置高度</span></span><br><span class="line">  <span class="keyword">const</span> calculateHeight = <span class="title class_">React</span>.<span class="title function_">useCallback</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; clientHeight &#125; = <span class="variable language_">document</span>.<span class="property">body</span>;</span><br><span class="line">    <span class="keyword">const</span> offsetParentTop = <span class="title function_">getElementInstanceToTop</span>(divRef.<span class="property">current</span>);</span><br><span class="line">    <span class="keyword">const</span> result = clientHeight - offsetParentTop ?? <span class="number">0</span>;</span><br><span class="line">    <span class="title function_">setHeight</span>(result - defaultInstance);</span><br><span class="line">  &#125;, []);</span><br><span class="line"></span><br><span class="line">  <span class="title class_">React</span>.<span class="title function_">useLayoutEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">window</span>.<span class="title function_">requestAnimationFrame</span>(calculateHeight);</span><br><span class="line">    <span class="variable language_">window</span>.<span class="title function_">addEventListener</span>(<span class="string">&#x27;resize&#x27;</span>, calculateHeight);</span><br><span class="line">    <span class="keyword">return</span> <span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="variable language_">window</span>.<span class="title function_">removeEventListener</span>(<span class="string">&#x27;resize&#x27;</span>, calculateHeight);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;, []);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    divRef,</span><br><span class="line">    height,</span><br><span class="line">    calculateHeight,</span><br><span class="line">    <span class="comment">// rafCalculateHeight: window.requestAnimationFrame(calculateHeight),</span></span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -489,8 +547,8 @@
 
       
           <h2 id="在使用antd的select中的search从远端获取数据时option渲染不符合预期行为，"><a href="#在使用antd的select中的search从远端获取数据时option渲染不符合预期行为，" class="headerlink" title="在使用antd的select中的search从远端获取数据时option渲染不符合预期行为，"></a>在使用antd的select中的search从远端获取数据时option渲染不符合预期行为，</h2><p>需求背景：下拉框列表数据默认展示二十条数据，支持后端条件过滤，在滚动时加载数据</p>
-<p>场景复现：<br><video id="video" src="/images/rc-select/demo.mov" controls preload="none" poster="封面"></video></p>
-
+<p>场景复现：<br><video id="video" src="/images/rc-select/demo.mov" controls="" preload="none" poster="封面"></p>
+</video>
 从视频中可以看到到在搜索数据时列表中有匹配的数据但是在ui上并没有过滤出来
           <!--noindex-->
             <div class="post-button">
@@ -624,11 +682,9 @@
 
       
           <p>问题背景： 递归求两数之间所有数之和</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">dfs</span>(<span class="params">n,current</span>)</span>&#123;  </span><br><span class="line">    <span class="keyword">if</span>(n &gt; <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="comment">// current 是累加数，只要没有到最后一个就继续累加</span></span><br><span class="line">       <span class="keyword">return</span> dfs(n<span class="number">-1</span>,current + n)</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">return</span> current</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params">n1,n2</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(n1 &gt; n2) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="comment">// 两数到阶层相减就是两数之间所有数之和</span></span><br><span class="line">    <span class="keyword">const</span> result = dfs(n2,<span class="number">0</span>) - dfs(n1 - <span class="number">1</span>,<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(test(<span class="number">1</span>,<span class="number">100</span>))</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">dfs</span>(<span class="params">n,current</span>)&#123;  </span><br><span class="line">    <span class="keyword">if</span>(n &gt; <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="comment">// current 是累加数，只要没有到最后一个就继续累加</span></span><br><span class="line">       <span class="keyword">return</span> <span class="title function_">dfs</span>(n-<span class="number">1</span>,current + n)</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">return</span> current</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">test</span>(<span class="params">n1,n2</span>)&#123;</span><br><span class="line">    <span class="keyword">if</span>(n1 &gt; n2) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="comment">// 两数到阶层相减就是两数之间所有数之和</span></span><br><span class="line">    <span class="keyword">const</span> result = <span class="title function_">dfs</span>(n2,<span class="number">0</span>) - <span class="title function_">dfs</span>(n1 - <span class="number">1</span>,<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">test</span>(<span class="number">1</span>,<span class="number">100</span>))</span><br></pre></td></tr></table></figure>
 <p>ummm 我一开始想法是分别求两个数的阶层，然后相减就是两数之间所有数之和，不过这个应该可以不用相减就可以处理的，如下</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">dfs2</span>(<span class="params">n1,n2,current</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(n2 &gt;= n1)&#123;</span><br><span class="line">        <span class="keyword">return</span> dfs2(n1,n2 <span class="number">-1</span>,current + n2)</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">return</span> current</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test2</span>(<span class="params">n1,n2</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> dfs2(n1,n2,<span class="number">0</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(test2(<span class="number">1</span>,<span class="number">100</span>))</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">dfs2</span>(<span class="params">n1,n2,current</span>)&#123;</span><br><span class="line">    <span class="keyword">if</span>(n2 &gt;= n1)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="title function_">dfs2</span>(n1,n2 -<span class="number">1</span>,current + n2)</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">return</span> current</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">test2</span>(<span class="params">n1,n2</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="title function_">dfs2</span>(n1,n2,<span class="number">0</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">test2</span>(<span class="number">1</span>,<span class="number">100</span>))</span><br></pre></td></tr></table></figure>
 <p>直接在计算阶层的时候处理一下累加的判断条件就行了。</p>
 
       
@@ -695,7 +751,7 @@
 
       
           <h3 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h3><p>每次排序找到最大的那个</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bubble</span>(<span class="params">arr</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> swapped = <span class="literal">false</span></span><br><span class="line">    <span class="keyword">do</span>&#123;</span><br><span class="line">        swapped = <span class="literal">false</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> i =<span class="number">0</span>;i&lt;arr.length<span class="number">-1</span>;i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(arr[i] &gt; arr[i+<span class="number">1</span>])&#123;</span><br><span class="line">                [arr[i],arr[i+<span class="number">1</span>]] =[arr[i+<span class="number">1</span>],arr[i]]</span><br><span class="line">                swapped = <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">while</span>(swapped)</span><br><span class="line">    <span class="keyword">return</span> arr</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(bubble([<span class="number">9</span>,<span class="number">6</span>,<span class="number">3</span>,<span class="number">6</span>,<span class="number">8</span>,<span class="number">0</span>,<span class="number">6</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">5</span>]))</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">[</span></span><br><span class="line"><span class="comment">  0, 2, 3, 3, 5,</span></span><br><span class="line"><span class="comment">  6, 6, 6, 8, 9</span></span><br><span class="line"><span class="comment">]</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">bubble</span>(<span class="params">arr</span>)&#123;</span><br><span class="line">    <span class="keyword">let</span> swapped = <span class="literal">false</span></span><br><span class="line">    <span class="keyword">do</span>&#123;</span><br><span class="line">        swapped = <span class="literal">false</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> i =<span class="number">0</span>;i&lt;arr.<span class="property">length</span>-<span class="number">1</span>;i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(arr[i] &gt; arr[i+<span class="number">1</span>])&#123;</span><br><span class="line">                [arr[i],arr[i+<span class="number">1</span>]] =[arr[i+<span class="number">1</span>],arr[i]]</span><br><span class="line">                swapped = <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">while</span>(swapped)</span><br><span class="line">    <span class="keyword">return</span> arr</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">bubble</span>([<span class="number">9</span>,<span class="number">6</span>,<span class="number">3</span>,<span class="number">6</span>,<span class="number">8</span>,<span class="number">0</span>,<span class="number">6</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">5</span>]))</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">[</span></span><br><span class="line"><span class="comment">  0, 2, 3, 3, 5,</span></span><br><span class="line"><span class="comment">  6, 6, 6, 8, 9</span></span><br><span class="line"><span class="comment">]</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2022/01/essay2022-1-13/#more" rel="contents">
@@ -762,10 +818,10 @@
 
       
           <p><code>npm i -D monaco-editor vite-plugin-monaco-editor</code> 安装依赖</p>
-<p><a href="https://github.com/vitejs/vite/discussions/1791" target="_blank" rel="noopener">discussions</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">&lt;script setup lang=&quot;ts&quot;&gt;</span><br><span class="line"></span><br><span class="line">import &#123; onMounted, ref &#125; from &apos;vue&apos;</span><br><span class="line">import * as monaco from &apos;monaco-editor&apos;</span><br><span class="line">import &apos;monaco-editor/esm/vs/basic-languages/css/css.contribution&apos;</span><br><span class="line">import &apos;monaco-editor/esm/vs/basic-languages/xml/xml.contribution&apos;</span><br><span class="line">import &apos;monaco-editor/esm/vs/basic-languages/javascript/javascript.contribution&apos;</span><br><span class="line">//@ts-ignore</span><br><span class="line">import EditorWorker from &apos;monaco-editor/esm/vs/editor/editor.worker?worker&apos;</span><br><span class="line">//@ts-ignore</span><br><span class="line"></span><br><span class="line">import TsWorker from &apos;monaco-editor/esm/vs/language/typescript/ts.worker?worker&apos;</span><br><span class="line">//@ts-ignore</span><br><span class="line">import JsonWorker from &apos;monaco-editor/esm/vs/language/json/json.worker?worker&apos;</span><br><span class="line">//@ts-ignore</span><br><span class="line">import CssWorker from &apos;monaco-editor/esm/vs/language/css/css.worker?worker&apos;</span><br><span class="line">//@ts-ignore</span><br><span class="line">import HtmlWorker from &apos;monaco-editor/esm/vs/language/html/html.worker?worker&apos;</span><br><span class="line">// @ts-ignore</span><br><span class="line">self.MonacoEnvironment = &#123;</span><br><span class="line">    getWorker(_: string, label: string) &#123;</span><br><span class="line">        if (label === &apos;typescript&apos; || label === &apos;javascript&apos;) return new TsWorker()</span><br><span class="line">        if (label === &apos;json&apos;) return new JsonWorker()</span><br><span class="line">        if (label === &apos;css&apos;) return new CssWorker()</span><br><span class="line">        if (label === &apos;html&apos;) return new HtmlWorker()</span><br><span class="line">        return new EditorWorker()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const monacoRef = ref();</span><br><span class="line">const monacoInstance = ref&lt;ReturnType&lt;typeof monaco.editor.create&gt;&gt;()</span><br><span class="line">onMounted(() =&gt; &#123;</span><br><span class="line">    monacoInstance.value = monaco.editor.create(monacoRef.value,&#123;</span><br><span class="line">        language:&quot;typescript&quot;,</span><br><span class="line">        value:&quot;console.log(&apos;hello world&apos;)&quot;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div id=&quot;monaco&quot; ref=&quot;monacoRef&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;style scoped&gt;</span><br><span class="line">#monaco&#123;</span><br><span class="line">    height: 500px;</span><br><span class="line">    width: 500px;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://github.com/vitejs/vite/discussions/1791">discussions</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">&lt;script setup lang=&quot;ts&quot;&gt;</span><br><span class="line"></span><br><span class="line">import &#123; onMounted, ref &#125; from &#x27;vue&#x27;</span><br><span class="line">import * as monaco from &#x27;monaco-editor&#x27;</span><br><span class="line">import &#x27;monaco-editor/esm/vs/basic-languages/css/css.contribution&#x27;</span><br><span class="line">import &#x27;monaco-editor/esm/vs/basic-languages/xml/xml.contribution&#x27;</span><br><span class="line">import &#x27;monaco-editor/esm/vs/basic-languages/javascript/javascript.contribution&#x27;</span><br><span class="line">//@ts-ignore</span><br><span class="line">import EditorWorker from &#x27;monaco-editor/esm/vs/editor/editor.worker?worker&#x27;</span><br><span class="line">//@ts-ignore</span><br><span class="line"></span><br><span class="line">import TsWorker from &#x27;monaco-editor/esm/vs/language/typescript/ts.worker?worker&#x27;</span><br><span class="line">//@ts-ignore</span><br><span class="line">import JsonWorker from &#x27;monaco-editor/esm/vs/language/json/json.worker?worker&#x27;</span><br><span class="line">//@ts-ignore</span><br><span class="line">import CssWorker from &#x27;monaco-editor/esm/vs/language/css/css.worker?worker&#x27;</span><br><span class="line">//@ts-ignore</span><br><span class="line">import HtmlWorker from &#x27;monaco-editor/esm/vs/language/html/html.worker?worker&#x27;</span><br><span class="line">// @ts-ignore</span><br><span class="line">self.MonacoEnvironment = &#123;</span><br><span class="line">    getWorker(_: string, label: string) &#123;</span><br><span class="line">        if (label === &#x27;typescript&#x27; || label === &#x27;javascript&#x27;) return new TsWorker()</span><br><span class="line">        if (label === &#x27;json&#x27;) return new JsonWorker()</span><br><span class="line">        if (label === &#x27;css&#x27;) return new CssWorker()</span><br><span class="line">        if (label === &#x27;html&#x27;) return new HtmlWorker()</span><br><span class="line">        return new EditorWorker()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const monacoRef = ref();</span><br><span class="line">const monacoInstance = ref&lt;ReturnType&lt;typeof monaco.editor.create&gt;&gt;()</span><br><span class="line">onMounted(() =&gt; &#123;</span><br><span class="line">    monacoInstance.value = monaco.editor.create(monacoRef.value,&#123;</span><br><span class="line">        language:&quot;typescript&quot;,</span><br><span class="line">        value:&quot;console.log(&#x27;hello world&#x27;)&quot;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div id=&quot;monaco&quot; ref=&quot;monacoRef&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;style scoped&gt;</span><br><span class="line">#monaco&#123;</span><br><span class="line">    height: 500px;</span><br><span class="line">    width: 500px;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; defineConfig &#125; <span class="keyword">from</span> <span class="string">'vite'</span></span><br><span class="line"><span class="keyword">import</span> vue <span class="keyword">from</span> <span class="string">'@vitejs/plugin-vue'</span></span><br><span class="line"><span class="keyword">const</span> prefix = <span class="string">`monaco-editor/esm/vs`</span>;</span><br><span class="line"><span class="keyword">import</span> monacoEditorPlugin <span class="keyword">from</span> <span class="string">"vite-plugin-monaco-editor"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// https://vitejs.dev/config/</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> defineConfig(&#123;</span><br><span class="line">  plugins: [vue(),monacoEditorPlugin()],</span><br><span class="line">  build:&#123;</span><br><span class="line">    rollupOptions: &#123;</span><br><span class="line">      output: &#123;</span><br><span class="line">        manualChunks: &#123;</span><br><span class="line">          jsonWorker: [<span class="string">`<span class="subst">$&#123;prefix&#125;</span>/language/json/json.worker`</span>],</span><br><span class="line">          cssWorker: [<span class="string">`<span class="subst">$&#123;prefix&#125;</span>/language/css/css.worker`</span>],</span><br><span class="line">          htmlWorker: [<span class="string">`<span class="subst">$&#123;prefix&#125;</span>/language/html/html.worker`</span>],</span><br><span class="line">          tsWorker: [<span class="string">`<span class="subst">$&#123;prefix&#125;</span>/language/typescript/ts.worker`</span>],</span><br><span class="line">          editorWorker: [<span class="string">`<span class="subst">$&#123;prefix&#125;</span>/editor/editor.worker`</span>],</span><br><span class="line">        &#125;,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; defineConfig &#125; <span class="keyword">from</span> <span class="string">&#x27;vite&#x27;</span></span><br><span class="line"><span class="keyword">import</span> vue <span class="keyword">from</span> <span class="string">&#x27;@vitejs/plugin-vue&#x27;</span></span><br><span class="line"><span class="keyword">const</span> prefix = <span class="string">`monaco-editor/esm/vs`</span>;</span><br><span class="line"><span class="keyword">import</span> monacoEditorPlugin <span class="keyword">from</span> <span class="string">&quot;vite-plugin-monaco-editor&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// https://vitejs.dev/config/</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">defineConfig</span>(&#123;</span><br><span class="line">  <span class="attr">plugins</span>: [<span class="title function_">vue</span>(),<span class="title function_">monacoEditorPlugin</span>()],</span><br><span class="line">  <span class="attr">build</span>:&#123;</span><br><span class="line">    <span class="attr">rollupOptions</span>: &#123;</span><br><span class="line">      <span class="attr">output</span>: &#123;</span><br><span class="line">        <span class="attr">manualChunks</span>: &#123;</span><br><span class="line">          <span class="attr">jsonWorker</span>: [<span class="string">`<span class="subst">$&#123;prefix&#125;</span>/language/json/json.worker`</span>],</span><br><span class="line">          <span class="attr">cssWorker</span>: [<span class="string">`<span class="subst">$&#123;prefix&#125;</span>/language/css/css.worker`</span>],</span><br><span class="line">          <span class="attr">htmlWorker</span>: [<span class="string">`<span class="subst">$&#123;prefix&#125;</span>/language/html/html.worker`</span>],</span><br><span class="line">          <span class="attr">tsWorker</span>: [<span class="string">`<span class="subst">$&#123;prefix&#125;</span>/language/typescript/ts.worker`</span>],</span><br><span class="line">          <span class="attr">editorWorker</span>: [<span class="string">`<span class="subst">$&#123;prefix&#125;</span>/editor/editor.worker`</span>],</span><br><span class="line">        &#125;,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>运行结果：</p>
 <p><img src="/images/monaco-editor/editor.jpg" alt="结果"></p>
@@ -788,7 +844,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://fnlearner.github.io/2022/01/dh算法/">
+    <link itemprop="mainEntityOfPage" href="https://fnlearner.github.io/2022/01/dh%E7%AE%97%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -802,7 +858,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/01/dh算法/" class="post-title-link" itemprop="url">dh算法</a>
+            <a href="/2022/01/dh%E7%AE%97%E6%B3%95/" class="post-title-link" itemprop="url">dh算法</a>
         </h2>
 
         <div class="post-meta">
@@ -838,79 +894,7 @@
 <p>在加密数据时使用对称密码算法，密钥管理使用公钥密码技术</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2022/01/dh算法/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://fnlearner.github.io/2022/01/cdn/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="ZJS">
-      <meta itemprop="description" content="你找到我了呀！">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Personal Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/01/cdn/" class="post-title-link" itemprop="url">cdn</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-01-04 12:02:23 / 修改时间：13:58:08" itemprop="dateCreated datePublished" datetime="2022-01-04T12:02:23+08:00">2022-01-04</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>CDN(Content Delivery Network)是指内容分发网络，也称为内容传送网络，</p>
-<h3 id="组成"><a href="#组成" class="headerlink" title="组成"></a>组成</h3><p>CDN由以下几个关键技术组成：</p>
-<ul>
-<li>内容缓存设备</li>
-<li>内容交换机</li>
-<li>内容路由器</li>
-<li>CDN内容管理系统
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/01/cdn/#more" rel="contents">
+              <a class="btn" href="/2022/01/dh%E7%AE%97%E6%B3%95/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1001,7 +985,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">67</span>
+          <span class="site-state-item-count">68</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1013,7 +997,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-count">45</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1049,7 +1033,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -1095,9 +1079,17 @@
   <script src="/lib/anime.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
 <script src="/js/schemes/muse.js"></script>
+
+
 <script src="/js/next-boot.js"></script>
+
 
 
 
@@ -1106,7 +1098,9 @@
 
 
 
-  <script src="/js/local-search.js"></script>
+  
+<script src="/js/local-search.js"></script>
+
 
 
 

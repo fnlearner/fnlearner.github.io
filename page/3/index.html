@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 3.9.0">
+<meta name="generator" content="Hexo 6.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -21,16 +21,15 @@
   </script>
 
   <meta name="description" content="你找到我了呀！">
-<meta name="keywords" content="前端 vue">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Personal Blog">
 <meta property="og:url" content="https://fnlearner.github.io/page/3/index.html">
 <meta property="og:site_name" content="Personal Blog">
 <meta property="og:description" content="你找到我了呀！">
-<meta property="og:locale" content="zh-CN">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="ZJS">
+<meta property="article:tag" content="前端 vue">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Personal Blog">
-<meta name="twitter:description" content="你找到我了呀！">
 
 <link rel="canonical" href="https://fnlearner.github.io/page/3/">
 
@@ -183,6 +182,76 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://fnlearner.github.io/2021/03/essay-10/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="ZJS">
+      <meta itemprop="description" content="你找到我了呀！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Personal Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/03/essay-10/" class="post-title-link" itemprop="url">今日随笔</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-03-14 18:30:49 / 修改时间：18:43:53" itemprop="dateCreated datePublished" datetime="2021-03-14T18:30:49+08:00">2021-03-14</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="removeNonASCII"><a href="#removeNonASCII" class="headerlink" title="removeNonASCII"></a>removeNonASCII</h3><p>Removes non-printable ASCII characters.</p>
+<p>Use a regular expression to remove non-printable ASCII characters.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">removeNonASCII</span> = str =&gt; str.<span class="title function_">replace</span>(<span class="regexp">/[^\x20-\x7E]/g</span>, <span class="string">&#x27;&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">removeNonASCII</span>(<span class="string">&#x27;äÄçÇéÉêlorem-ipsumöÖÐþúÚ&#x27;</span>); <span class="comment">// &#x27;lorem-ipsum&#x27;</span></span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/03/essay-10/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -532,7 +601,7 @@
 <li><p>计算元素的scrollTop，让滚动列表的scrollTop的值等于元素的scrollTop</p>
 </li>
 <li><p>scrollIntoView</p>
-<p> <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView" target="_blank" rel="noopener">文档</a></p>
+<p> <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView">文档</a></p>
 </li>
 </ol>
 
@@ -595,17 +664,9 @@
       
           <ol>
 <li>在vue ts class给数组添加值时报错<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> default class App&#123;</span><br><span class="line">    list =[]</span><br><span class="line">    <span class="function"><span class="title">_push</span></span>()&#123;</span><br><span class="line">        this.list.push(1)</span><br><span class="line">        <span class="comment"># error </span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
-<p>由于定义的list是never类型的数组，所以不能够直接添加元素，所以在定义数组的时候需要显示定义类型</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list = [] as number[]</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
+由于定义的list是never类型的数组，所以不能够直接添加元素，所以在定义数组的时候需要显示定义类型<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list = [] as number[]</span><br></pre></td></tr></table></figure></li>
 <li>line-height 属性同样会影响伪元素的高度</li>
-<li>ts class 自定义vue双向绑定<br>v-model默认监听input事件，如果是checkbox或者radio<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@Modle(<span class="string">'change'</span>) value:any</span><br><span class="line"><span class="comment"># 这样vue会监听change，$emit('change')改变外部绑定的值</span></span><br></pre></td></tr></table></figure>
-
-</li>
+<li>ts class 自定义vue双向绑定<br>v-model默认监听input事件，如果是checkbox或者radio<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@Modle(<span class="string">&#x27;change&#x27;</span>) value:any</span><br><span class="line"><span class="comment"># 这样vue会监听change，$emit(&#x27;change&#x27;)改变外部绑定的值</span></span><br></pre></td></tr></table></figure></li>
 </ol>
 
       
@@ -667,9 +728,8 @@
       
           <p>在执行下面这句代码的时候</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g -d</span><br></pre></td></tr></table></figure>
-
 <p>报错信息</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Something<span class="string">'s wrong. Maybe you can find the solution here: https://hexo.io/docs/troubleshooting.html</span></span><br><span class="line"><span class="string">TypeError [ERR_INVALID_ARG_TYPE]: The "mode" argument must be integer. Received an instance of Object</span></span><br><span class="line"><span class="string">    at copyFile (fs.js:1924:10)</span></span><br><span class="line"><span class="string">    at tryCatcher (/Users/zjs/Desktop/blog/node_modules/bluebird/js/release/util.js:16:23)</span></span><br><span class="line"><span class="string">    at ret (eval at makeNodePromisifiedEval (/Users/zjs/.nvm/versions/node/v14.10.0/lib/node_modules/hexo-cli/node_modules/bluebird/js/release/promisify.js:184:12), &lt;anonymous&gt;:13:39)</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Something<span class="string">&#x27;s wrong. Maybe you can find the solution here: https://hexo.io/docs/troubleshooting.html</span></span><br><span class="line"><span class="string">TypeError [ERR_INVALID_ARG_TYPE]: The &quot;mode&quot; argument must be integer. Received an instance of Object</span></span><br><span class="line"><span class="string">    at copyFile (fs.js:1924:10)</span></span><br><span class="line"><span class="string">    at tryCatcher (/Users/zjs/Desktop/blog/node_modules/bluebird/js/release/util.js:16:23)</span></span><br><span class="line"><span class="string">    at ret (eval at makeNodePromisifiedEval (/Users/zjs/.nvm/versions/node/v14.10.0/lib/node_modules/hexo-cli/node_modules/bluebird/js/release/promisify.js:184:12), &lt;anonymous&gt;:13:39)</span></span><br></pre></td></tr></table></figure>
 
 <p>解决方案<br> NodeJs 版本从 14 回到 12 就🉑️！</p>
 
@@ -737,11 +797,9 @@
 
       
           <p>上个html代码</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"parent"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"child"</span>&gt;</span>Child<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"child"</span>&gt;</span>Child<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"child"</span>&gt;</span>Child<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;parent&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;child&quot;</span>&gt;</span>Child<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;child&quot;</span>&gt;</span>Child<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;child&quot;</span>&gt;</span>Child<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>css≠</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.parent</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.child</span> &#123;</span><br><span class="line">  <span class="attribute">flex</span>: <span class="number">0</span> <span class="number">1</span> auto; <span class="comment">/* Default flex value */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <html>
 <style>
 body{
@@ -775,8 +833,7 @@ body{
 </html>
 
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.child</span> &#123;</span><br><span class="line">  <span class="attribute">flex</span>: [flex-grow] [flex-shrink] [flex-basis];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><span id="showCssText"><span></span></span></p>
+<p><span id="showCssText"><span></p>
 <p><button id="toggle">toggle</button></p>
 <script>
 const btn = document.getElementById("toggle");
@@ -865,104 +922,16 @@ btn.addEventListener('click',function(){
 
       
           <h3 id="笔记一"><a href="#笔记一" class="headerlink" title="笔记一"></a>笔记一</h3><p>在vue项目中使用ts-class的形式来编写组件的时候，要记得在export上面➕<code>@Component</code>装饰器，不然组件不能正常注册</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">import &#123;</span><br><span class="line">    Component,</span><br><span class="line">    Vue,</span><br><span class="line">    InjectReactive</span><br><span class="line">&#125; from <span class="string">'vue-property-decorator'</span>;</span><br><span class="line"></span><br><span class="line">@Component</span><br><span class="line">class Child extends Vue &#123;</span><br><span class="line">    @InjectReactive() node: number;</span><br><span class="line">    <span class="function"><span class="title">mounted</span></span>() &#123;</span><br><span class="line">        console.log(this.node)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">import &#123;</span><br><span class="line">    Component,</span><br><span class="line">    Vue,</span><br><span class="line">    InjectReactive</span><br><span class="line">&#125; from <span class="string">&#x27;vue-property-decorator&#x27;</span>;</span><br><span class="line"></span><br><span class="line">@Component</span><br><span class="line">class Child extends Vue &#123;</span><br><span class="line">    @InjectReactive() node: number;</span><br><span class="line">    <span class="function"><span class="title">mounted</span></span>() &#123;</span><br><span class="line">        console.log(this.node)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>如果在页面中需要用到子组件的情况，需要像这样注册,并且<code>@Component</code>装饰器只需要写一次</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">import &#123;</span><br><span class="line">    Vue,</span><br><span class="line">    Component,</span><br><span class="line">    ProvideReactive</span><br><span class="line">&#125; from <span class="string">'vue-property-decorator'</span>;</span><br><span class="line">import Child from <span class="string">'./child.vue'</span></span><br><span class="line">@Component(&#123;</span><br><span class="line">    components: &#123;</span><br><span class="line">        Child</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line">class Parent extends Vue &#123;</span><br><span class="line">    @ProvideReactive() node = &#123;&#125;</span><br><span class="line">    <span class="function"><span class="title">mounted</span></span>() &#123;</span><br><span class="line">        this.node = 1</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">import &#123;</span><br><span class="line">    Vue,</span><br><span class="line">    Component,</span><br><span class="line">    ProvideReactive</span><br><span class="line">&#125; from <span class="string">&#x27;vue-property-decorator&#x27;</span>;</span><br><span class="line">import Child from <span class="string">&#x27;./child.vue&#x27;</span></span><br><span class="line">@Component(&#123;</span><br><span class="line">    components: &#123;</span><br><span class="line">        Child</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line">class Parent extends Vue &#123;</span><br><span class="line">    @ProvideReactive() node = &#123;&#125;</span><br><span class="line">    <span class="function"><span class="title">mounted</span></span>() &#123;</span><br><span class="line">        this.node = 1</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="笔记二-—-ProvideReactive来做数据透传的注意点"><a href="#笔记二-—-ProvideReactive来做数据透传的注意点" class="headerlink" title="笔记二 — ProvideReactive来做数据透传的注意点"></a>笔记二 — ProvideReactive来做数据透传的注意点</h3><p>如果在组件中使用Provide来进行数据透传的话，数据是不带响应式的。如果需要数据具有响应式，那么需要用ProvideReactive来做属性的透传，代码例子可以看上一个代码，另外由于在路由跳转的时候，有时候会有Provide的值重新定义的问题，这时候控制台会抛出异常，具体可以看这个<br><a href="https://github.com/kaorun343/vue-property-decorator/issues/277" target="_blank" rel="noopener">issue</a>,有临时的解决方案</p>
+<h3 id="笔记二-—-ProvideReactive来做数据透传的注意点"><a href="#笔记二-—-ProvideReactive来做数据透传的注意点" class="headerlink" title="笔记二 — ProvideReactive来做数据透传的注意点"></a>笔记二 — ProvideReactive来做数据透传的注意点</h3><p>如果在组件中使用Provide来进行数据透传的话，数据是不带响应式的。如果需要数据具有响应式，那么需要用ProvideReactive来做属性的透传，代码例子可以看上一个代码，另外由于在路由跳转的时候，有时候会有Provide的值重新定义的问题，这时候控制台会抛出异常，具体可以看这个<br><a target="_blank" rel="noopener" href="https://github.com/kaorun343/vue-property-decorator/issues/277">issue</a>,有临时的解决方案</p>
 <h3 id="笔记三-—-在弹窗中保证数据的实时性"><a href="#笔记三-—-在弹窗中保证数据的实时性" class="headerlink" title="笔记三 — 在弹窗中保证数据的实时性"></a>笔记三 — 在弹窗中保证数据的实时性</h3><p>需要把数据以Provide的形式传递给弹窗，但是数据仅仅只在第一次显示的时候是正常的数据，在关闭弹窗后再一次开启弹窗，显示的数据是上一次的数据。原因暂时不知道。所以我在关闭弹窗的时候同时用v-if来销毁元素，这样每次打开的元素都是一个最新的元素，同时这个时候获取到的数据也是最新的数据。</p>
 <h3 id="笔记四-—-数据获取完后保证子组件获取最新的数据"><a href="#笔记四-—-数据获取完后保证子组件获取最新的数据" class="headerlink" title="笔记四 — 数据获取完后保证子组件获取最新的数据"></a>笔记四 — 数据获取完后保证子组件获取最新的数据</h3><p>在父组件用axios获取数据的时候，然后传递给子组件，但是子组件渲染的时候是定义时就给的默认值。<br>原因：父组件在请求数据的时候，子组件的生命周期已经走完并且已经渲染完成，所以这时候是拿不到请求后返回的真实数据<br>方案：我这里用v-if来判断获取的数据的长度是否为空来判断是否要渲染子组件，缺点：数据量很大的时候会有很长时间的空白。</p>
 <h3 id="笔记五-—-自定义组件绑定v-models"><a href="#笔记五-—-自定义组件绑定v-models" class="headerlink" title="笔记五 — 自定义组件绑定v-models"></a>笔记五 — 自定义组件绑定v-models</h3><p>想让自定义组件能够使用v-model语法糖，这样子组件的数据就可以实时的反馈到父组件中去</p>
 <p>在vue中，对input来说，v-model是value和input事件的语法糖，对于checkbox来说，监听的事件是change，给对应的元素添加对应的事件，然后在自组件emit出去，把相应的value值绑定到对应的dom元素中去。</p>
 
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://fnlearner.github.io/2020/10/svgInJS/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="ZJS">
-      <meta itemprop="description" content="你找到我了呀！">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Personal Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/10/svgInJS/" class="post-title-link" itemprop="url">在JS文件使用svg加载svg文件</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-10-13 21:27:37" itemprop="dateCreated datePublished" datetime="2020-10-13T21:27:37+08:00">2020-10-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-21 21:33:43" itemprop="dateModified" datetime="2020-10-21T21:33:43+08:00">2020-10-21</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="怎么在js文件中用引用svg文件"><a href="#怎么在js文件中用引用svg文件" class="headerlink" title="怎么在js文件中用引用svg文件"></a>怎么在js文件中用引用svg文件</h3><p>使用webpack的require.context,它接收三个参数</p>
-<ul>
-<li>要搜索的文件夹目录</li>
-<li>是否还应该搜索它的子目录，</li>
-<li>以及一个匹配文件的正则表达式。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const req = require.context(<span class="string">'./svg'</span>, <span class="literal">false</span>, /\.svg$/)</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<p>req返回的是一个方法</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> webpackContext(req) &#123;</span><br><span class="line">	var id = webpackContextResolve(req);</span><br><span class="line">	<span class="built_in">return</span> __webpack_require__(id);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>包含三个属性</p>
-<ul>
-<li>id</li>
-<li>keys </li>
-<li>resolve
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/10/svgInJS/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
       
     </div>
 
@@ -1048,7 +1017,7 @@ btn.addEventListener('click',function(){
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">67</span>
+          <span class="site-state-item-count">68</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1060,7 +1029,7 @@ btn.addEventListener('click',function(){
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-count">45</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1096,7 +1065,7 @@ btn.addEventListener('click',function(){
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -1142,9 +1111,17 @@ btn.addEventListener('click',function(){
   <script src="/lib/anime.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
 <script src="/js/schemes/muse.js"></script>
+
+
 <script src="/js/next-boot.js"></script>
+
 
 
 
@@ -1153,7 +1130,9 @@ btn.addEventListener('click',function(){
 
 
 
-  <script src="/js/local-search.js"></script>
+  
+<script src="/js/local-search.js"></script>
+
 
 
 
