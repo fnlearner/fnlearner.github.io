@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"fnlearner.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="背景描述实现一个虚拟滚动组件，可以满足列表和瀑布流两种模式 线上预览环境 https:&#x2F;&#x2F;codesandbox.io&#x2F;s&#x2F;dong-tai-gao-du-xu-ni-gun-dong-4945px?file&#x3D;&#x2F;Masonry.tsx 具体代码实现可以看以上链接 动态高度的计算是在子项渲染之后做的，因此在渲染的时候这里会渲染两次，一次是预渲染，一次是计算过后的渲染 实现高度的组件思路类似，具体可以">
+<meta property="og:type" content="article">
+<meta property="og:title" content="dynamic_size_list">
+<meta property="og:url" content="https://fnlearner.github.io/2023/09/dynamic-size-list/index.html">
+<meta property="og:site_name" content="Personal Blog">
+<meta property="og:description" content="背景描述实现一个虚拟滚动组件，可以满足列表和瀑布流两种模式 线上预览环境 https:&#x2F;&#x2F;codesandbox.io&#x2F;s&#x2F;dong-tai-gao-du-xu-ni-gun-dong-4945px?file&#x3D;&#x2F;Masonry.tsx 具体代码实现可以看以上链接 动态高度的计算是在子项渲染之后做的，因此在渲染的时候这里会渲染两次，一次是预渲染，一次是计算过后的渲染 实现高度的组件思路类似，具体可以">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-09-01T12:40:40.000Z">
+<meta property="article:modified_time" content="2023-09-01T12:47:46.124Z">
+<meta property="article:author" content="ZJS">
+<meta property="article:tag" content="Typescript React React-Virtualized 瀑布流">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://fnlearner.github.io/2023/09/dynamic-size-list/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>dynamic_size_list | Personal Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Personal Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404.html" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://fnlearner.github.io/2023/09/dynamic-size-list/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="ZJS">
+      <meta itemprop="description" content="你找到我了呀！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Personal Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          dynamic_size_list
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-09-01 20:40:40 / 修改时间：20:47:46" itemprop="dateCreated datePublished" datetime="2023-09-01T20:40:40+08:00">2023-09-01</time>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="背景描述"><a href="#背景描述" class="headerlink" title="背景描述"></a>背景描述</h3><p>实现一个虚拟滚动组件，可以满足列表和瀑布流两种模式</p>
+<p>线上预览环境</p>
+<p><a target="_blank" rel="noopener" href="https://codesandbox.io/s/dong-tai-gao-du-xu-ni-gun-dong-4945px?file=/Masonry.tsx">https://codesandbox.io/s/dong-tai-gao-du-xu-ni-gun-dong-4945px?file=/Masonry.tsx</a></p>
+<p>具体代码实现可以看以上链接</p>
+<p>动态高度的计算是在子项渲染之后做的，因此在渲染的时候这里会渲染两次，一次是预渲染，一次是计算过后的渲染</p>
+<p>实现高度的组件思路类似，具体可以看代码：</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; useRef, useEffect &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">RowRenderer</span> = (<span class="params">&#123;</span></span><br><span class="line"><span class="params">  index,</span></span><br><span class="line"><span class="params">  isScrolling,</span></span><br><span class="line"><span class="params">  key,</span></span><br><span class="line"><span class="params">  style,</span></span><br><span class="line"><span class="params">  state,</span></span><br><span class="line"><span class="params">  render,</span></span><br><span class="line"><span class="params">  setRowHeight</span></span><br><span class="line"><span class="params">&#125;</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> rowRef = useRef&lt;<span class="title class_">HTMLDivElement</span> | <span class="literal">null</span>&gt;(<span class="literal">null</span>);</span><br><span class="line">  <span class="keyword">const</span> &#123; showScrollingPlaceholder &#125; = state;</span><br><span class="line">  <span class="keyword">const</span> placeholderContent = (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">      // <span class="attr">className</span>=<span class="string">&#123;clsx(styles.row,</span> <span class="attr">styles.isScrollingPlaceholder</span>)&#125;</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">      <span class="attr">key</span>=<span class="string">&#123;key&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">      <span class="attr">style</span>=<span class="string">&#123;style&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">    &gt;</span></span></span><br><span class="line"><span class="language-xml">      Scrolling...</span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line"></span><br><span class="line">  <span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (rowRef) &#123;</span><br><span class="line">      <span class="title function_">setRowHeight</span>(index, rowRef.<span class="property">current</span>.<span class="property">clientHeight</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="function">() =&gt;</span> &#123;&#125;;</span><br><span class="line">  &#125;, [rowRef, index]);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> showScrollingPlaceholder &amp;&amp; isScrolling ? (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;placeholderContent&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  ) : (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">key</span>=<span class="string">&#123;key&#125;</span> <span class="attr">className</span>=<span class="string">&quot;row&quot;</span> <span class="attr">style</span>=<span class="string">&#123;style&#125;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">ref</span>=<span class="string">&#123;rowRef&#125;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;render()&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">RowRenderer</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>如果只是需要实现虚拟列表模式，可以考虑用<code>react-window</code>来实现，因为这个库更小，这里使用了<code>react-virtualized</code>是因为react-window支持的是网格布局，而瀑布流不属于网格布局，所以对于react-window的话不考虑</p>
+<p>来看列表的实现：<br>示例代码，基本可以直接用，有额外需要可以自己做修改</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; useEffect, useRef, useState &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">AutoSizer</span>, <span class="title class_">List</span> &#125; <span class="keyword">from</span> <span class="string">&quot;react-virtualized&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;./list.css&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">RowRenderer</span> <span class="keyword">from</span> <span class="string">&quot;./Rowrenderer&quot;</span>;</span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">Props</span>&lt;T <span class="keyword">extends</span> <span class="title class_">Record</span>&lt;<span class="built_in">string</span>, <span class="built_in">any</span>&gt;&gt; &#123;</span><br><span class="line">  <span class="attr">children</span>: <span class="function">(<span class="params">p: &#123; index; isScrolling?: <span class="built_in">boolean</span>; item: T &#125;</span>) =&gt;</span> <span class="title class_">React</span>.<span class="property">ReactNode</span>;</span><br><span class="line">  <span class="attr">data</span>: T[];</span><br><span class="line">  height?: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title class_">VirtualList</span>&lt;T <span class="keyword">extends</span> <span class="title class_">Record</span>&lt;<span class="built_in">string</span>, <span class="built_in">any</span>&gt;&gt;(&#123;</span><br><span class="line">  data,</span><br><span class="line">  height = <span class="number">400</span>,</span><br><span class="line">  children</span><br><span class="line">&#125;: <span class="title class_">Props</span>&lt;T&gt;) &#123;</span><br><span class="line">  <span class="keyword">const</span> listRef = useRef&lt;<span class="title class_">List</span>&gt;();</span><br><span class="line">  <span class="keyword">const</span> itemCount = data?.<span class="property">length</span>;</span><br><span class="line">  <span class="keyword">const</span> [state, setState] = <span class="title function_">useState</span>(&#123;</span><br><span class="line">    <span class="attr">listHeight</span>: height,</span><br><span class="line">    <span class="attr">listRowHeight</span>: <span class="number">50</span>,</span><br><span class="line">    <span class="attr">overscanRowCount</span>: <span class="number">10</span>,</span><br><span class="line">    <span class="attr">rowCount</span>: itemCount,</span><br><span class="line">    <span class="attr">scrollToIndex</span>: <span class="literal">undefined</span>,</span><br><span class="line">    <span class="attr">showScrollingPlaceholder</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">useDynamicRowHeight</span>: <span class="literal">false</span></span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">const</span> rowHeight = <span class="title function_">useRef</span>(&#123;&#125;);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">setRowHeight</span> = (<span class="params">index: <span class="built_in">number</span>, value: <span class="built_in">number</span></span>) =&gt; &#123;</span><br><span class="line">    rowHeight.<span class="property">current</span> = &#123;</span><br><span class="line">      ...rowHeight.<span class="property">current</span>,</span><br><span class="line">      [index]: value</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    listRef.<span class="property">current</span>.<span class="title function_">recomputeRowHeights</span>();</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">_getRowHeight</span> = (<span class="params">&#123; index &#125;</span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> rowHeight.<span class="property">current</span>[index] || state.<span class="property">listRowHeight</span>;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">AutoSizer</span> <span class="attr">disableHeight</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      &#123;(&#123; width &#125;) =&gt; &#123;</span></span><br><span class="line"><span class="language-xml">        return (</span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">List</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            <span class="attr">ref</span>=<span class="string">&#123;listRef&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            <span class="attr">className</span>=<span class="string">&#123;</span>&quot;<span class="attr">List</span>&quot;&#125;</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            <span class="attr">height</span>=<span class="string">&#123;state.listHeight&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            <span class="attr">overscanRowCount</span>=<span class="string">&#123;state.overscanRowCount&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            // <span class="attr">noRowsRenderer</span>=<span class="string">&#123;this._noRowsRenderer&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            <span class="attr">rowCount</span>=<span class="string">&#123;state.rowCount&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            <span class="attr">rowHeight</span>=<span class="string">&#123;_getRowHeight&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            <span class="attr">rowRenderer</span>=<span class="string">&#123;(&#123;</span> <span class="attr">index</span>, <span class="attr">isScrolling</span>, <span class="attr">key</span>, <span class="attr">style</span> &#125;) =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-xml">              return (</span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">RowRenderer</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                  <span class="attr">index</span>=<span class="string">&#123;index&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                  <span class="attr">isScrolling</span>=<span class="string">&#123;isScrolling&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                  <span class="attr">style</span>=<span class="string">&#123;style&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                  <span class="attr">key</span>=<span class="string">&#123;key&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                  <span class="attr">setRowHeight</span>=<span class="string">&#123;setRowHeight&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                  <span class="attr">render</span>=<span class="string">&#123;()</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-xml">                    return children(&#123; index, isScrolling, item: data[index] &#125;);</span></span><br><span class="line"><span class="language-xml">                  &#125;&#125;</span></span><br><span class="line"><span class="language-xml">                  state=&#123;state&#125;</span></span><br><span class="line"><span class="language-xml">                /&gt;</span></span><br><span class="line"><span class="language-xml">              );</span></span><br><span class="line"><span class="language-xml">            &#125;&#125;</span></span><br><span class="line"><span class="language-xml">            scrollToIndex=&#123;state.scrollToIndex&#125;</span></span><br><span class="line"><span class="language-xml">            width=&#123;width&#125;</span></span><br><span class="line"><span class="language-xml">          /&gt;</span></span><br><span class="line"><span class="language-xml">        );</span></span><br><span class="line"><span class="language-xml">      &#125;&#125;</span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">AutoSizer</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>这是瀑布流的实现:</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; useEffect, useRef &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;</span><br><span class="line">  <span class="title class_">AutoSizer</span>,</span><br><span class="line">  <span class="title class_">CellMeasurer</span>,</span><br><span class="line">  <span class="title class_">CellMeasurerCache</span>,</span><br><span class="line">  <span class="title class_">Masonry</span></span><br><span class="line">&#125; <span class="keyword">from</span> <span class="string">&quot;react-virtualized&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; createCellPositioner &#125; <span class="keyword">from</span> <span class="string">&quot;react-virtualized/dist/es/Masonry&quot;</span>;</span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">Props</span> &#123;</span><br><span class="line">  <span class="attr">itemCount</span>: <span class="built_in">number</span>;</span><br><span class="line">  <span class="attr">children</span>: <span class="function">(<span class="params">&#123;</span></span></span><br><span class="line"><span class="params"><span class="function">    index,</span></span></span><br><span class="line"><span class="params"><span class="function">    isScrolling</span></span></span><br><span class="line"><span class="params"><span class="function">  &#125;: &#123;</span></span></span><br><span class="line"><span class="params"><span class="function">    index: <span class="built_in">number</span>;</span></span></span><br><span class="line"><span class="params"><span class="function">    isScrolling: <span class="built_in">boolean</span>;</span></span></span><br><span class="line"><span class="params"><span class="function">  &#125;</span>) =&gt;</span> <span class="title class_">React</span>.<span class="property">ReactNode</span>;</span><br><span class="line">  height?: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">VirtualMasonry</span>(<span class="params">&#123;</span></span><br><span class="line"><span class="params">  itemCount,</span></span><br><span class="line"><span class="params">  children,</span></span><br><span class="line"><span class="params">  height = <span class="number">300</span></span></span><br><span class="line"><span class="params">&#125;: Props</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> cache = <span class="title function_">useRef</span>(</span><br><span class="line">    <span class="keyword">new</span> <span class="title class_">CellMeasurerCache</span>(&#123;</span><br><span class="line">      <span class="attr">defaultHeight</span>: <span class="number">250</span>,</span><br><span class="line">      <span class="attr">defaultWidth</span>: <span class="number">200</span>,</span><br><span class="line">      <span class="attr">fixedWidth</span>: <span class="literal">true</span></span><br><span class="line">    &#125;)</span><br><span class="line">  );</span><br><span class="line">  <span class="keyword">const</span> state = <span class="title function_">useRef</span>(&#123;</span><br><span class="line">    <span class="attr">columnWidth</span>: <span class="number">200</span>,</span><br><span class="line">    height,</span><br><span class="line">    <span class="attr">gutterSize</span>: <span class="number">10</span>,</span><br><span class="line">    <span class="attr">overscanByPixels</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="attr">windowScrollerEnabled</span>: <span class="literal">false</span></span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">const</span> width = <span class="title function_">useRef</span>(<span class="number">0</span>);</span><br><span class="line">  <span class="keyword">const</span> columnCount = <span class="title function_">useRef</span>(<span class="number">0</span>);</span><br><span class="line">  <span class="keyword">const</span> scrollTopRefVal = <span class="title function_">useRef</span>(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> cellPositioner = <span class="title function_">useRef</span>(</span><br><span class="line">    <span class="title function_">createCellPositioner</span>(&#123;</span><br><span class="line">      <span class="attr">cellMeasurerCache</span>: cache.<span class="property">current</span>,</span><br><span class="line">      <span class="attr">columnCount</span>: columnCount.<span class="property">current</span>,</span><br><span class="line">      <span class="attr">columnWidth</span>: state.<span class="property">current</span>.<span class="property">columnWidth</span>,</span><br><span class="line">      <span class="attr">spacer</span>: state.<span class="property">current</span>.<span class="property">gutterSize</span></span><br><span class="line">    &#125;)</span><br><span class="line">  );</span><br><span class="line">  <span class="keyword">const</span> masonryRef = <span class="title function_">useRef</span>();</span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">setMasonryRef</span> = (<span class="params">ref</span>) =&gt; &#123;</span><br><span class="line">    masonryRef.<span class="property">current</span> = ref;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">resetCellPositioner</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; columnWidth, gutterSize &#125; = state.<span class="property">current</span>;</span><br><span class="line">    <span class="keyword">if</span> (!cellPositioner) <span class="keyword">return</span>;</span><br><span class="line">    cellPositioner.<span class="property">current</span>?.<span class="property">reset</span>?.(&#123;</span><br><span class="line">      <span class="attr">columnCount</span>: columnCount.<span class="property">current</span>,</span><br><span class="line">      columnWidth,</span><br><span class="line">      <span class="attr">spacer</span>: gutterSize</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">calculateColumnCount</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; columnWidth, gutterSize &#125; = state.<span class="property">current</span>;</span><br><span class="line"></span><br><span class="line">    columnCount.<span class="property">current</span> = <span class="title class_">Math</span>.<span class="title function_">floor</span>(</span><br><span class="line">      width.<span class="property">current</span> / (columnWidth + gutterSize)</span><br><span class="line">    );</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">onResize</span> = (<span class="params">&#123; width: w &#125;</span>) =&gt; &#123;</span><br><span class="line">    width.<span class="property">current</span> = w;</span><br><span class="line">    <span class="comment">// 重新计算列的个数</span></span><br><span class="line">    <span class="title function_">calculateColumnCount</span>();</span><br><span class="line">    <span class="comment">//  根据列的个数重新计算位置</span></span><br><span class="line">    <span class="title function_">resetCellPositioner</span>();</span><br><span class="line">    <span class="comment">//  让组件根据位置重新计算</span></span><br><span class="line">    <span class="keyword">if</span> (masonryRef) masonryRef?.<span class="property">current</span>?.<span class="property">recomputeCellPositions</span>?.();</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 初始化宽度</span></span><br><span class="line">    <span class="title function_">calculateColumnCount</span>();</span><br><span class="line">  &#125;, [width]);</span><br><span class="line">  <span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">//  初始化cell position</span></span><br><span class="line"></span><br><span class="line">    cellPositioner.<span class="property">current</span> = <span class="title function_">createCellPositioner</span>(&#123;</span><br><span class="line">      <span class="attr">cellMeasurerCache</span>: cache.<span class="property">current</span>,</span><br><span class="line">      <span class="attr">columnCount</span>: columnCount.<span class="property">current</span>,</span><br><span class="line">      <span class="attr">columnWidth</span>: state.<span class="property">current</span>.<span class="property">columnWidth</span>,</span><br><span class="line">      <span class="attr">spacer</span>: state.<span class="property">current</span>.<span class="property">gutterSize</span></span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">// console.info(&quot;effect:&quot;, cellPositioner.current);</span></span><br><span class="line">  &#125;, [columnCount]);</span><br><span class="line">  <span class="comment">// console.info(&quot;out:&quot;, cellPositioner.current);</span></span><br><span class="line">  <span class="keyword">const</span> rowHeight = <span class="title function_">useRef</span>(&#123;&#125;);</span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">setRowHeight</span> = (<span class="params">index, value</span>) =&gt; &#123;</span><br><span class="line">    rowHeight.<span class="property">current</span> = &#123;</span><br><span class="line">      ...rowHeight.<span class="property">current</span>,</span><br><span class="line">      [index]: value</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="comment">// onResize(&#123; width: width.current &#125;);</span></span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">CellRenderer</span> = (<span class="params">&#123; index, key, parent, style, isScrolling &#125;</span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; columnWidth &#125; = state.<span class="property">current</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> divRef = useRef&lt;<span class="title class_">HTMLDivElement</span> | <span class="literal">null</span>&gt;(<span class="literal">null</span>);</span><br><span class="line">    <span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (divRef) &#123;</span><br><span class="line">        <span class="title function_">setRowHeight</span>(index, divRef.<span class="property">current</span>.<span class="property">clientHeight</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;, [divRef]);</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="language-xml"><span class="tag">&lt;<span class="name">CellMeasurer</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">cache</span>=<span class="string">&#123;cache.current&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">index</span>=<span class="string">&#123;index&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">key</span>=<span class="string">&#123;key&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">parent</span>=<span class="string">&#123;parent&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">      &gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">div</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">          <span class="attr">style</span>=<span class="string">&#123;&#123;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            <span class="attr">...style</span>,</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            <span class="attr">width:</span> <span class="attr">columnWidth</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">          &#125;&#125;</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        &gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">div</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            <span class="attr">ref</span>=<span class="string">&#123;divRef&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            <span class="attr">style</span>=<span class="string">&#123;&#123;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">              <span class="attr">backgroundColor:</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                &quot;#&quot; + <span class="attr">Math.floor</span>(<span class="attr">Math.random</span>() * <span class="attr">16777215</span>)<span class="attr">.toString</span>(<span class="attr">16</span>),</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">              <span class="attr">borderRadius:</span> &quot;<span class="attr">0.5rem</span>&quot;,</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">              <span class="attr">height:</span> <span class="attr">rowHeight.current</span>[<span class="attr">index</span>],</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">              <span class="attr">marginBottom:</span> &quot;<span class="attr">0.5rem</span>&quot;,</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">              <span class="attr">width:</span> &quot;<span class="attr">100</span>%&quot;,</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">              <span class="attr">fontSize:</span> <span class="attr">20</span>,</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">              <span class="attr">color:</span> &quot;<span class="attr">white</span>&quot;,</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">              <span class="attr">display:</span> &quot;<span class="attr">flex</span>&quot;,</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">              <span class="attr">alignItems:</span> &quot;<span class="attr">center</span>&quot;,</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">              <span class="attr">justifyContent:</span> &quot;<span class="attr">center</span>&quot;</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            &#125;&#125;</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">          &gt;</span></span></span><br><span class="line"><span class="language-xml">            &#123;children(&#123; index, isScrolling &#125;)&#125;</span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">CellMeasurer</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">renderMasonry</span> = (<span class="params">&#123; width: w &#125;</span>) =&gt; &#123;</span><br><span class="line">    width.<span class="property">current</span> = w;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="language-xml"><span class="tag">&lt;<span class="name">Masonry</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">autoHeight</span>=<span class="string">&#123;false&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">cellCount</span>=<span class="string">&#123;itemCount&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">cellMeasurerCache</span>=<span class="string">&#123;cache.current&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">cellPositioner</span>=<span class="string">&#123;cellPositioner.current&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">cellRenderer</span>=<span class="string">&#123;(&#123;</span> <span class="attr">index</span>, <span class="attr">key</span>, <span class="attr">parent</span>, <span class="attr">style</span>, <span class="attr">isScrolling</span> &#125;) =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-xml">          return (</span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">CellRenderer</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">              <span class="attr">index</span>=<span class="string">&#123;index&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">              <span class="attr">key</span>=<span class="string">&#123;key&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">              <span class="attr">parent</span>=<span class="string">&#123;parent&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">              <span class="attr">style</span>=<span class="string">&#123;style&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">              <span class="attr">isScrolling</span>=<span class="string">&#123;isScrolling&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            /&gt;</span></span></span><br><span class="line"><span class="language-xml">          );</span></span><br><span class="line"><span class="language-xml">        &#125;&#125;</span></span><br><span class="line"><span class="language-xml">        height=&#123;state.current.height&#125;</span></span><br><span class="line"><span class="language-xml">        overscanByPixels=&#123;state.current.overscanByPixels&#125;</span></span><br><span class="line"><span class="language-xml">        ref=&#123;setMasonryRef&#125;</span></span><br><span class="line"><span class="language-xml">        scrollTop=&#123;scrollTopRefVal.current&#125;</span></span><br><span class="line"><span class="language-xml">        width=&#123;w&#125;</span></span><br><span class="line"><span class="language-xml">      /&gt;</span></span><br><span class="line">    );</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">renderAutoSizer</span> = (<span class="params">&#123; height, scrollTop &#125;</span>) =&gt; &#123;</span><br><span class="line">    scrollTopRefVal.<span class="property">current</span> = scrollTop;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="language-xml"><span class="tag">&lt;<span class="name">AutoSizer</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">disableHeight</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">height</span>=<span class="string">&#123;height&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">onResize</span>=<span class="string">&#123;onResize&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">overscanByPixels</span>=<span class="string">&#123;state.current.overscanByPixels&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">scrollTop</span>=<span class="string">&#123;scrollTopRefVal.current&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">      &gt;</span></span></span><br><span class="line"><span class="language-xml">        &#123;renderMasonry&#125;</span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">AutoSizer</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="title function_">renderAutoSizer</span>(&#123; <span class="attr">height</span>: state.<span class="property">current</span>.<span class="property">height</span>, <span class="attr">scrollTop</span>: <span class="number">0</span> &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="ZJS 微信支付">
+        <p>微信支付</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tagstags/Typescript-React-React-Virtualized-%E7%80%91%E5%B8%83%E6%B5%81/" rel="tag"># Typescript React React-Virtualized 瀑布流</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/02/richTextForDraftJs/" rel="prev" title="基于DraftJS实现的计算表达式">
+      <i class="fa fa-chevron-left"></i> 基于DraftJS实现的计算表达式
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%83%8C%E6%99%AF%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">背景描述</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="ZJS"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">ZJS</p>
+  <div class="site-description" itemprop="description">你找到我了呀！</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">69</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">46</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element"><i class="fa fa-comment"></i>
+    Chat
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="/1525039433@qq.com" title="E-Mail → 1525039433@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZJS</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

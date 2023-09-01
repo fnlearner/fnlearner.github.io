@@ -186,6 +186,91 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://fnlearner.github.io/2021/03/openlayers/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="ZJS">
+      <meta itemprop="description" content="你找到我了呀！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Personal Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/03/openlayers/" class="post-title-link" itemprop="url">openlayers</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-03-14 18:47:06 / 修改时间：19:48:03" itemprop="dateCreated datePublished" datetime="2021-03-14T18:47:06+08:00">2021-03-14</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="Introduce"><a href="#Introduce" class="headerlink" title="Introduce"></a>Introduce</h3><p>近期项目接触到gis到东西，我选择了openlayers6这个开源库来做项目开发，踩来几个坑，记录一下。</p>
+<h3 id="加载自定义图片作为底图"><a href="#加载自定义图片作为底图" class="headerlink" title="加载自定义图片作为底图"></a>加载自定义图片作为底图</h3><p>在加载自定义图片作为底图时，我把url给image对象</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> img = <span class="keyword">new</span> <span class="title class_">Image</span>()</span><br><span class="line"><span class="keyword">const</span> url = <span class="string">&#x27;/static/img.ppng&#x27;</span></span><br><span class="line">img.<span class="property">url</span> = url</span><br></pre></td></tr></table></figure>
+
+<!-- more  -->
+<p>在渲染map对象时，我用到是layer下的image，在给定的source这个属性值，我用ImageCanvas来渲染自定义的图层。这是一开始写的代码,但是在这段代码中，会有两个问题：</p>
+<ul>
+<li>第一个问题是在画布初始渲染的时候会渲染不出来的，必须在缩放层级之后画布才能正常显示；</li>
+<li>第二个问题就是不管怎么滚动或者平移，画布总会自动聚焦到中心。</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">ImageCanvas</span>(&#123;</span><br><span class="line">     <span class="attr">canvasFunction</span>: <span class="function">(<span class="params"></span></span></span><br><span class="line"><span class="params"><span class="function">       extent,</span></span></span><br><span class="line"><span class="params"><span class="function">       resolution,</span></span></span><br><span class="line"><span class="params"><span class="function">       pixelRatio,</span></span></span><br><span class="line"><span class="params"><span class="function">       size </span></span></span><br><span class="line"><span class="params"><span class="function">     </span>) =&gt;</span> &#123;</span><br><span class="line">       <span class="keyword">const</span> canvas = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&#x27;canvas&#x27;</span>);</span><br><span class="line">       canvas.<span class="property">width</span> = size[<span class="number">0</span>];</span><br><span class="line">       canvas.<span class="property">height</span> = size[<span class="number">1</span>];</span><br><span class="line">       <span class="keyword">const</span> img = <span class="keyword">new</span> <span class="title class_">Image</span>()</span><br><span class="line">       <span class="keyword">const</span> url = <span class="string">&#x27;/static/img.ppng&#x27;</span></span><br><span class="line">       img.<span class="property">url</span> = url</span><br><span class="line">       img.<span class="property">onolad</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">           ctx.<span class="title function_">drawImage</span>(img, <span class="number">0</span>, <span class="number">0</span>, size[<span class="number">0</span>], size[<span class="number">1</span>]);</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> canvas;</span><br><span class="line">     &#125;,</span><br><span class="line">     <span class="attr">projection</span>: <span class="string">&#x27;EPSG:3857&#x27;</span></span><br><span class="line">   &#125;);</span><br></pre></td></tr></table></figure>
+<p>首先第一个问题解决方案，那就是在img到onload里面来进行一个底图渲染的工作。<br>第二个问题的原因是因为openlayers 中不管对地图平移还是缩放，都会进行重绘的操作，所以解决方案就是设置一个临时变量来判断是否是第一次绘制。</p>
+<p>like this </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">ImageCanvas</span>(&#123;</span><br><span class="line">      <span class="attr">canvasFunction</span>: <span class="function">(<span class="params"></span></span></span><br><span class="line"><span class="params"><span class="function">        extent,</span></span></span><br><span class="line"><span class="params"><span class="function">        resolution,</span></span></span><br><span class="line"><span class="params"><span class="function">        pixelRatio,</span></span></span><br><span class="line"><span class="params"><span class="function">        size <span class="comment">/*, projection*/</span></span></span></span><br><span class="line"><span class="params"><span class="function">      </span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> canvas = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&#x27;canvas&#x27;</span>);</span><br><span class="line">        canvas.<span class="property">width</span> = size[<span class="number">0</span>];</span><br><span class="line">        canvas.<span class="property">height</span> = size[<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">        <span class="comment">// eslint-disable-next-line @typescript-eslint/no-non-null-assertion</span></span><br><span class="line">        <span class="keyword">const</span> ctx = canvas.<span class="title function_">getContext</span>(<span class="string">&#x27;2d&#x27;</span>)!;</span><br><span class="line">        <span class="comment">// 这里必须要做一个判断，每次的范围变动都会引起重绘，从而触发该回调函数</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">isFirst</span>) &#123;</span><br><span class="line">          <span class="variable language_">this</span>.<span class="property">isFirst</span> = <span class="literal">false</span>;</span><br><span class="line">          ctx.<span class="title function_">beginPath</span>();</span><br><span class="line">          ctx.<span class="title function_">drawImage</span>(img, <span class="number">0</span>, <span class="number">0</span>, size[<span class="number">0</span>], size[<span class="number">1</span>]);</span><br><span class="line">          ctx.<span class="title function_">closePath</span>();</span><br><span class="line"></span><br><span class="line">          <span class="keyword">return</span> canvas;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">projection</span>: <span class="string">&#x27;EPSG:3857&#x27;</span></span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="底图限制拖动范围"><a href="#底图限制拖动范围" class="headerlink" title="底图限制拖动范围"></a>底图限制拖动范围</h3><p>在view中定义extent即可</p>
+<h3 id="在移动feature时限制在容器之内"><a href="#在移动feature时限制在容器之内" class="headerlink" title="在移动feature时限制在容器之内"></a>在移动feature时限制在容器之内</h3><ul>
+<li>首先要限制范围，首选需要获取到容器到边界。获取view的extent即可</li>
+<li>其次需要在移动过程中获取多边形的边界。调用getExtent即可</li>
+<li>然后需要做临界值判断，根据boolean值来判断是否允许移动，容器边界跟feature边界比较即可。</li>
+<li>最后怎么来移动，参考库中自带的Translate可以发现，是获取到feature到geometry到translate方法来移动，当判断临界值时，移动的距离设置为0即可。</li>
+</ul>
+<p>为了应对不同分辨率或者容器大小下的限制范围 — 由于extent不会自动针对分辨率或者容器大小来计算，所以需要使用calculateExtent来根据容器大小获取最新的extent</p>
+<p>以上 需要重写部分Translate的实现</p>
+<h3 id="在编辑feature时同样需要限制范围。"><a href="#在编辑feature时同样需要限制范围。" class="headerlink" title="在编辑feature时同样需要限制范围。"></a>在编辑feature时同样需要限制范围。</h3><p>原理同移动feature，但是略复杂</p>
+<h3 id="undo-redo的实现"><a href="#undo-redo的实现" class="headerlink" title="undo redo的实现"></a>undo redo的实现</h3><p>因为需求中仅要记录移动feature和编辑feature，因此在undo redo的时候就是在addFeature和removeFeature中来回切换，只要记录当前操作的undo操作和redo操作即 — 在项目中undo 和redo的过程其实就是清除绘画和重新绘画的过程，我大概试了上百次，performance表现良好，一片绿色，但是记得在新增新的modify或者translate的时候要把上次的清除，不然有性能问题，非常卡。</p>
+<h3 id="点击feature实行交互，点击空白取消交互，点击其他feature，当前交互，上次取消交互。"><a href="#点击feature实行交互，点击空白取消交互，点击其他feature，当前交互，上次取消交互。" class="headerlink" title="点击feature实行交互，点击空白取消交互，点击其他feature，当前交互，上次取消交互。"></a>点击feature实行交互，点击空白取消交互，点击其他feature，当前交互，上次取消交互。</h3><p>之前是自己直接用click事件来做处理，后来发现selet这个可以帮我处理点击和取消点击的样式问题，但是仍然需要我自己处理交互问题，每次点击feature的时候其实就是把上次的modify和translate删除，然后重新添加一份当前点击feature的modify和translate，</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://fnlearner.github.io/2021/03/essay-10/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -878,74 +963,6 @@ btn.addEventListener('click',function(){
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://fnlearner.github.io/2020/10/conclusion/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="ZJS">
-      <meta itemprop="description" content="你找到我了呀！">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Personal Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/10/conclusion/" class="post-title-link" itemprop="url">随笔</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-10-21 21:03:54 / 修改时间：21:27:54" itemprop="dateCreated datePublished" datetime="2020-10-21T21:03:54+08:00">2020-10-21</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="笔记一"><a href="#笔记一" class="headerlink" title="笔记一"></a>笔记一</h3><p>在vue项目中使用ts-class的形式来编写组件的时候，要记得在export上面➕<code>@Component</code>装饰器，不然组件不能正常注册</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">import &#123;</span><br><span class="line">    Component,</span><br><span class="line">    Vue,</span><br><span class="line">    InjectReactive</span><br><span class="line">&#125; from <span class="string">&#x27;vue-property-decorator&#x27;</span>;</span><br><span class="line"></span><br><span class="line">@Component</span><br><span class="line">class Child extends Vue &#123;</span><br><span class="line">    @InjectReactive() node: number;</span><br><span class="line">    <span class="function"><span class="title">mounted</span></span>() &#123;</span><br><span class="line">        console.log(this.node)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>如果在页面中需要用到子组件的情况，需要像这样注册,并且<code>@Component</code>装饰器只需要写一次</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">import &#123;</span><br><span class="line">    Vue,</span><br><span class="line">    Component,</span><br><span class="line">    ProvideReactive</span><br><span class="line">&#125; from <span class="string">&#x27;vue-property-decorator&#x27;</span>;</span><br><span class="line">import Child from <span class="string">&#x27;./child.vue&#x27;</span></span><br><span class="line">@Component(&#123;</span><br><span class="line">    components: &#123;</span><br><span class="line">        Child</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line">class Parent extends Vue &#123;</span><br><span class="line">    @ProvideReactive() node = &#123;&#125;</span><br><span class="line">    <span class="function"><span class="title">mounted</span></span>() &#123;</span><br><span class="line">        this.node = 1</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="笔记二-—-ProvideReactive来做数据透传的注意点"><a href="#笔记二-—-ProvideReactive来做数据透传的注意点" class="headerlink" title="笔记二 — ProvideReactive来做数据透传的注意点"></a>笔记二 — ProvideReactive来做数据透传的注意点</h3><p>如果在组件中使用Provide来进行数据透传的话，数据是不带响应式的。如果需要数据具有响应式，那么需要用ProvideReactive来做属性的透传，代码例子可以看上一个代码，另外由于在路由跳转的时候，有时候会有Provide的值重新定义的问题，这时候控制台会抛出异常，具体可以看这个<br><a target="_blank" rel="noopener" href="https://github.com/kaorun343/vue-property-decorator/issues/277">issue</a>,有临时的解决方案</p>
-<h3 id="笔记三-—-在弹窗中保证数据的实时性"><a href="#笔记三-—-在弹窗中保证数据的实时性" class="headerlink" title="笔记三 — 在弹窗中保证数据的实时性"></a>笔记三 — 在弹窗中保证数据的实时性</h3><p>需要把数据以Provide的形式传递给弹窗，但是数据仅仅只在第一次显示的时候是正常的数据，在关闭弹窗后再一次开启弹窗，显示的数据是上一次的数据。原因暂时不知道。所以我在关闭弹窗的时候同时用v-if来销毁元素，这样每次打开的元素都是一个最新的元素，同时这个时候获取到的数据也是最新的数据。</p>
-<h3 id="笔记四-—-数据获取完后保证子组件获取最新的数据"><a href="#笔记四-—-数据获取完后保证子组件获取最新的数据" class="headerlink" title="笔记四 — 数据获取完后保证子组件获取最新的数据"></a>笔记四 — 数据获取完后保证子组件获取最新的数据</h3><p>在父组件用axios获取数据的时候，然后传递给子组件，但是子组件渲染的时候是定义时就给的默认值。<br>原因：父组件在请求数据的时候，子组件的生命周期已经走完并且已经渲染完成，所以这时候是拿不到请求后返回的真实数据<br>方案：我这里用v-if来判断获取的数据的长度是否为空来判断是否要渲染子组件，缺点：数据量很大的时候会有很长时间的空白。</p>
-<h3 id="笔记五-—-自定义组件绑定v-models"><a href="#笔记五-—-自定义组件绑定v-models" class="headerlink" title="笔记五 — 自定义组件绑定v-models"></a>笔记五 — 自定义组件绑定v-models</h3><p>想让自定义组件能够使用v-model语法糖，这样子组件的数据就可以实时的反馈到父组件中去</p>
-<p>在vue中，对input来说，v-model是value和input事件的语法糖，对于checkbox来说，监听的事件是change，给对应的元素添加对应的事件，然后在自组件emit出去，把相应的value值绑定到对应的dom元素中去。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1017,7 +1034,7 @@ btn.addEventListener('click',function(){
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">68</span>
+          <span class="site-state-item-count">69</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1029,7 +1046,7 @@ btn.addEventListener('click',function(){
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">45</span>
+        <span class="site-state-item-count">46</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
