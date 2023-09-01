@@ -128,17 +128,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>部署hexo踩坑记录</title>
-    <url>/2020/11/bugsForNode/</url>
-    <content><![CDATA[<p>在执行下面这句代码的时候</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g -d</span><br></pre></td></tr></table></figure>
-<p>报错信息</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Something<span class="string">&#x27;s wrong. Maybe you can find the solution here: https://hexo.io/docs/troubleshooting.html</span></span><br><span class="line"><span class="string">TypeError [ERR_INVALID_ARG_TYPE]: The &quot;mode&quot; argument must be integer. Received an instance of Object</span></span><br><span class="line"><span class="string">    at copyFile (fs.js:1924:10)</span></span><br><span class="line"><span class="string">    at tryCatcher (/Users/zjs/Desktop/blog/node_modules/bluebird/js/release/util.js:16:23)</span></span><br><span class="line"><span class="string">    at ret (eval at makeNodePromisifiedEval (/Users/zjs/.nvm/versions/node/v14.10.0/lib/node_modules/hexo-cli/node_modules/bluebird/js/release/promisify.js:184:12), &lt;anonymous&gt;:13:39)</span></span><br></pre></td></tr></table></figure>
-
-<p>解决方案<br> NodeJs 版本从 14 回到 12 就🉑️！</p>
-]]></content>
-  </entry>
-  <entry>
     <title>自适应布局</title>
     <url>/2019/08/adaptive/</url>
     <content><![CDATA[<h2 id="grid"><a href="#grid" class="headerlink" title="grid"></a>grid</h2><p>css</p>
@@ -263,6 +252,17 @@
       </tags>
   </entry>
   <entry>
+    <title>部署hexo踩坑记录</title>
+    <url>/2020/11/bugsForNode/</url>
+    <content><![CDATA[<p>在执行下面这句代码的时候</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g -d</span><br></pre></td></tr></table></figure>
+<p>报错信息</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Something<span class="string">&#x27;s wrong. Maybe you can find the solution here: https://hexo.io/docs/troubleshooting.html</span></span><br><span class="line"><span class="string">TypeError [ERR_INVALID_ARG_TYPE]: The &quot;mode&quot; argument must be integer. Received an instance of Object</span></span><br><span class="line"><span class="string">    at copyFile (fs.js:1924:10)</span></span><br><span class="line"><span class="string">    at tryCatcher (/Users/zjs/Desktop/blog/node_modules/bluebird/js/release/util.js:16:23)</span></span><br><span class="line"><span class="string">    at ret (eval at makeNodePromisifiedEval (/Users/zjs/.nvm/versions/node/v14.10.0/lib/node_modules/hexo-cli/node_modules/bluebird/js/release/promisify.js:184:12), &lt;anonymous&gt;:13:39)</span></span><br></pre></td></tr></table></figure>
+
+<p>解决方案<br> NodeJs 版本从 14 回到 12 就🉑️！</p>
+]]></content>
+  </entry>
+  <entry>
     <title>Chrome调试工具的那点事</title>
     <url>/2019/09/chorme-panel/</url>
     <content><![CDATA[<h3 id=""><a href="#" class="headerlink" title="$_"></a>$_</h3><p>调试的过程中，你经常会通过打印查看一些变量的值，但如果你想看一下上次执行的结果呢？再输一遍表达式吗</p>
@@ -330,21 +330,6 @@
       </tags>
   </entry>
   <entry>
-    <title>随笔</title>
-    <url>/2020/10/conclusion/</url>
-    <content><![CDATA[<h3 id="笔记一"><a href="#笔记一" class="headerlink" title="笔记一"></a>笔记一</h3><p>在vue项目中使用ts-class的形式来编写组件的时候，要记得在export上面➕<code>@Component</code>装饰器，不然组件不能正常注册</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">import &#123;</span><br><span class="line">    Component,</span><br><span class="line">    Vue,</span><br><span class="line">    InjectReactive</span><br><span class="line">&#125; from <span class="string">&#x27;vue-property-decorator&#x27;</span>;</span><br><span class="line"></span><br><span class="line">@Component</span><br><span class="line">class Child extends Vue &#123;</span><br><span class="line">    @InjectReactive() node: number;</span><br><span class="line">    <span class="function"><span class="title">mounted</span></span>() &#123;</span><br><span class="line">        console.log(this.node)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>如果在页面中需要用到子组件的情况，需要像这样注册,并且<code>@Component</code>装饰器只需要写一次</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">import &#123;</span><br><span class="line">    Vue,</span><br><span class="line">    Component,</span><br><span class="line">    ProvideReactive</span><br><span class="line">&#125; from <span class="string">&#x27;vue-property-decorator&#x27;</span>;</span><br><span class="line">import Child from <span class="string">&#x27;./child.vue&#x27;</span></span><br><span class="line">@Component(&#123;</span><br><span class="line">    components: &#123;</span><br><span class="line">        Child</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line">class Parent extends Vue &#123;</span><br><span class="line">    @ProvideReactive() node = &#123;&#125;</span><br><span class="line">    <span class="function"><span class="title">mounted</span></span>() &#123;</span><br><span class="line">        this.node = 1</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="笔记二-—-ProvideReactive来做数据透传的注意点"><a href="#笔记二-—-ProvideReactive来做数据透传的注意点" class="headerlink" title="笔记二 — ProvideReactive来做数据透传的注意点"></a>笔记二 — ProvideReactive来做数据透传的注意点</h3><p>如果在组件中使用Provide来进行数据透传的话，数据是不带响应式的。如果需要数据具有响应式，那么需要用ProvideReactive来做属性的透传，代码例子可以看上一个代码，另外由于在路由跳转的时候，有时候会有Provide的值重新定义的问题，这时候控制台会抛出异常，具体可以看这个<br><a href="https://github.com/kaorun343/vue-property-decorator/issues/277">issue</a>,有临时的解决方案</p>
-<h3 id="笔记三-—-在弹窗中保证数据的实时性"><a href="#笔记三-—-在弹窗中保证数据的实时性" class="headerlink" title="笔记三 — 在弹窗中保证数据的实时性"></a>笔记三 — 在弹窗中保证数据的实时性</h3><p>需要把数据以Provide的形式传递给弹窗，但是数据仅仅只在第一次显示的时候是正常的数据，在关闭弹窗后再一次开启弹窗，显示的数据是上一次的数据。原因暂时不知道。所以我在关闭弹窗的时候同时用v-if来销毁元素，这样每次打开的元素都是一个最新的元素，同时这个时候获取到的数据也是最新的数据。</p>
-<h3 id="笔记四-—-数据获取完后保证子组件获取最新的数据"><a href="#笔记四-—-数据获取完后保证子组件获取最新的数据" class="headerlink" title="笔记四 — 数据获取完后保证子组件获取最新的数据"></a>笔记四 — 数据获取完后保证子组件获取最新的数据</h3><p>在父组件用axios获取数据的时候，然后传递给子组件，但是子组件渲染的时候是定义时就给的默认值。<br>原因：父组件在请求数据的时候，子组件的生命周期已经走完并且已经渲染完成，所以这时候是拿不到请求后返回的真实数据<br>方案：我这里用v-if来判断获取的数据的长度是否为空来判断是否要渲染子组件，缺点：数据量很大的时候会有很长时间的空白。</p>
-<h3 id="笔记五-—-自定义组件绑定v-models"><a href="#笔记五-—-自定义组件绑定v-models" class="headerlink" title="笔记五 — 自定义组件绑定v-models"></a>笔记五 — 自定义组件绑定v-models</h3><p>想让自定义组件能够使用v-model语法糖，这样子组件的数据就可以实时的反馈到父组件中去</p>
-<p>在vue中，对input来说，v-model是value和input事件的语法糖，对于checkbox来说，监听的事件是change，给对应的元素添加对应的事件，然后在自组件emit出去，把相应的value值绑定到对应的dom元素中去。</p>
-]]></content>
-  </entry>
-  <entry>
     <title>思考如何使a==1&amp;&amp;a==2&amp;&amp;a==3为true</title>
     <url>/2019/11/closure/</url>
     <content><![CDATA[<p>涉及运算符比较过程，运算符在比较两个值是否相等的时候做了什么,第二个涉及闭包JS比较两个数值是否相等可以用&#x3D;&#x3D; 和&#x3D;&#x3D;&#x3D; ，<span id="more"></span>其中 &#x3D;&#x3D; 会有隐式类型转换的操作，&#x3D;&#x3D;&#x3D;则不会,在两个数比较时，先调用valueOf,如果返回的不是原始类型，继续调用toString,如果不是原始类型，抛出异常</p>
@@ -360,6 +345,21 @@
       </tags>
   </entry>
   <entry>
+    <title>随笔</title>
+    <url>/2020/10/conclusion/</url>
+    <content><![CDATA[<h3 id="笔记一"><a href="#笔记一" class="headerlink" title="笔记一"></a>笔记一</h3><p>在vue项目中使用ts-class的形式来编写组件的时候，要记得在export上面➕<code>@Component</code>装饰器，不然组件不能正常注册</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">import &#123;</span><br><span class="line">    Component,</span><br><span class="line">    Vue,</span><br><span class="line">    InjectReactive</span><br><span class="line">&#125; from <span class="string">&#x27;vue-property-decorator&#x27;</span>;</span><br><span class="line"></span><br><span class="line">@Component</span><br><span class="line">class Child extends Vue &#123;</span><br><span class="line">    @InjectReactive() node: number;</span><br><span class="line">    <span class="function"><span class="title">mounted</span></span>() &#123;</span><br><span class="line">        console.log(this.node)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果在页面中需要用到子组件的情况，需要像这样注册,并且<code>@Component</code>装饰器只需要写一次</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">import &#123;</span><br><span class="line">    Vue,</span><br><span class="line">    Component,</span><br><span class="line">    ProvideReactive</span><br><span class="line">&#125; from <span class="string">&#x27;vue-property-decorator&#x27;</span>;</span><br><span class="line">import Child from <span class="string">&#x27;./child.vue&#x27;</span></span><br><span class="line">@Component(&#123;</span><br><span class="line">    components: &#123;</span><br><span class="line">        Child</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line">class Parent extends Vue &#123;</span><br><span class="line">    @ProvideReactive() node = &#123;&#125;</span><br><span class="line">    <span class="function"><span class="title">mounted</span></span>() &#123;</span><br><span class="line">        this.node = 1</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="笔记二-—-ProvideReactive来做数据透传的注意点"><a href="#笔记二-—-ProvideReactive来做数据透传的注意点" class="headerlink" title="笔记二 — ProvideReactive来做数据透传的注意点"></a>笔记二 — ProvideReactive来做数据透传的注意点</h3><p>如果在组件中使用Provide来进行数据透传的话，数据是不带响应式的。如果需要数据具有响应式，那么需要用ProvideReactive来做属性的透传，代码例子可以看上一个代码，另外由于在路由跳转的时候，有时候会有Provide的值重新定义的问题，这时候控制台会抛出异常，具体可以看这个<br><a href="https://github.com/kaorun343/vue-property-decorator/issues/277">issue</a>,有临时的解决方案</p>
+<h3 id="笔记三-—-在弹窗中保证数据的实时性"><a href="#笔记三-—-在弹窗中保证数据的实时性" class="headerlink" title="笔记三 — 在弹窗中保证数据的实时性"></a>笔记三 — 在弹窗中保证数据的实时性</h3><p>需要把数据以Provide的形式传递给弹窗，但是数据仅仅只在第一次显示的时候是正常的数据，在关闭弹窗后再一次开启弹窗，显示的数据是上一次的数据。原因暂时不知道。所以我在关闭弹窗的时候同时用v-if来销毁元素，这样每次打开的元素都是一个最新的元素，同时这个时候获取到的数据也是最新的数据。</p>
+<h3 id="笔记四-—-数据获取完后保证子组件获取最新的数据"><a href="#笔记四-—-数据获取完后保证子组件获取最新的数据" class="headerlink" title="笔记四 — 数据获取完后保证子组件获取最新的数据"></a>笔记四 — 数据获取完后保证子组件获取最新的数据</h3><p>在父组件用axios获取数据的时候，然后传递给子组件，但是子组件渲染的时候是定义时就给的默认值。<br>原因：父组件在请求数据的时候，子组件的生命周期已经走完并且已经渲染完成，所以这时候是拿不到请求后返回的真实数据<br>方案：我这里用v-if来判断获取的数据的长度是否为空来判断是否要渲染子组件，缺点：数据量很大的时候会有很长时间的空白。</p>
+<h3 id="笔记五-—-自定义组件绑定v-models"><a href="#笔记五-—-自定义组件绑定v-models" class="headerlink" title="笔记五 — 自定义组件绑定v-models"></a>笔记五 — 自定义组件绑定v-models</h3><p>想让自定义组件能够使用v-model语法糖，这样子组件的数据就可以实时的反馈到父组件中去</p>
+<p>在vue中，对input来说，v-model是value和input事件的语法糖，对于checkbox来说，监听的事件是change，给对应的元素添加对应的事件，然后在自组件emit出去，把相应的value值绑定到对应的dom元素中去。</p>
+]]></content>
+  </entry>
+  <entry>
     <title>递归求阶层</title>
     <url>/2022/01/dfs-hierarchy/</url>
     <content><![CDATA[<p>问题背景： 递归求两数之间所有数之和</p>
@@ -371,40 +371,6 @@
       <tags>
         <tag>JavaScript</tag>
         <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>dh算法</title>
-    <url>/2022/01/dh%E7%AE%97%E6%B3%95/</url>
-    <content><![CDATA[<p>全称 Diffie Hellman密钥交换算法</p>
-<p>DH算法属于公钥加密算法，https加密过程客户端C与服务端需要用到dh算法或者RSA算法来协商用户加密数据的session key</p>
-<p>在加密数据时使用对称密码算法，密钥管理使用公钥密码技术</p>
-<span id="more"></span>
-<h3 id="背景介绍-–-离散对数"><a href="#背景介绍-–-离散对数" class="headerlink" title="背景介绍 – 离散对数"></a>背景介绍 – 离散对数</h3><p>假设a, p均为素数，则有以下等式：<br>{a<sup>1</sup>mod p, a<sup>2</sup>mod p,…, a<sup>(p-1)</sup>mod p} &#x3D;{1, 2, …, p-1} &#x2F;&#x2F;{}表示集合 ，假定为T</p>
-<p>对于任意⼀个数x,若0&lt;x&lt;p,则必定存在唯⼀的y (0&lt;y&lt;p),使得x &#x3D; a<sup>y</sup>mod p，当p很⼤时，很难求出y。</p>
-<p>有以下公式：</p>
-<p>((a<sup>x</sup>mod p)<sup>y</sup>)mod p &#x3D; a<sup>xy</sup>mod p</p>
-<p>example:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">a = 3,p = 7</span><br><span class="line"></span><br><span class="line">3mod7 = 3</span><br><span class="line">9mod7 = 2</span><br><span class="line">27mod7 = 6 </span><br><span class="line"></span><br><span class="line">此时集合T为&#123;2,3,6&#125;</span><br></pre></td></tr></table></figure>
-
-<p>dh算法的安全性则是基于这个问题的难解性。</p>
-<h3 id="DH算法基本原理"><a href="#DH算法基本原理" class="headerlink" title="DH算法基本原理"></a>DH算法基本原理</h3><p><img src="/images/dh%E7%AE%97%E6%B3%95/%E5%8E%9F%E7%90%86.png" alt="原理"></p>
-<p>此时两个计算的共享密钥是相等的，中间人通过窃听双方在通信过程中的信息是可以获取到Ya，Yb，a，q这四个值的，而中间人若想知道双方计算出来的K的话，就需要知道某一方的指数，即Xb或者Xa，假设说中间人要获取Xb的值，那么Xb就等于${log_a{Yb}}$,而计算离散对数的结果是非常困难的，而对于大素数来说，求解离散对数被认为是不可能的，因此当q取极大值时，计算Xb是不可能的。</p>
-<p>example:</p>
-<p>a &#x3D; 3 q &#x3D; 17</p>
-<p>当Xa &#x3D; 15 时</p>
-<p>Ya &#x3D; 3<sup>15</sup> mod 17 &#x3D; 6</p>
-<p>6 – &gt; 发送给了Blob</p>
-<p>当Xb &#x3D; 13 时</p>
-<p>Yb &#x3D; 3<sup>13</sup> mode 17 &#x3D; 12</p>
-<p>12 –&gt; 发送给Alice</p>
-<p>Alice的共享密钥为 12<sup>15</sup> mode 17 &#x3D; 10</p>
-<p>Blob的共享密钥为 6<sup>13</sup> mode 17 &#x3D; 10</p>
-<p>以上即为DH加密算法</p>
-<p>摘自<a href="https://www.bilibili.com/video/BV12w411f7c5?from=search&seid=7708955631160057078&spm_id_from=333.337.0.0">blibli</a></p>
-]]></content>
-      <tags>
-        <tag>dh</tag>
       </tags>
   </entry>
   <entry>
@@ -446,6 +412,40 @@
 ]]></content>
       <tags>
         <tag>webpack</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>dh算法</title>
+    <url>/2022/01/dh%E7%AE%97%E6%B3%95/</url>
+    <content><![CDATA[<p>全称 Diffie Hellman密钥交换算法</p>
+<p>DH算法属于公钥加密算法，https加密过程客户端C与服务端需要用到dh算法或者RSA算法来协商用户加密数据的session key</p>
+<p>在加密数据时使用对称密码算法，密钥管理使用公钥密码技术</p>
+<span id="more"></span>
+<h3 id="背景介绍-–-离散对数"><a href="#背景介绍-–-离散对数" class="headerlink" title="背景介绍 – 离散对数"></a>背景介绍 – 离散对数</h3><p>假设a, p均为素数，则有以下等式：<br>{a<sup>1</sup>mod p, a<sup>2</sup>mod p,…, a<sup>(p-1)</sup>mod p} &#x3D;{1, 2, …, p-1} &#x2F;&#x2F;{}表示集合 ，假定为T</p>
+<p>对于任意⼀个数x,若0&lt;x&lt;p,则必定存在唯⼀的y (0&lt;y&lt;p),使得x &#x3D; a<sup>y</sup>mod p，当p很⼤时，很难求出y。</p>
+<p>有以下公式：</p>
+<p>((a<sup>x</sup>mod p)<sup>y</sup>)mod p &#x3D; a<sup>xy</sup>mod p</p>
+<p>example:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">a = 3,p = 7</span><br><span class="line"></span><br><span class="line">3mod7 = 3</span><br><span class="line">9mod7 = 2</span><br><span class="line">27mod7 = 6 </span><br><span class="line"></span><br><span class="line">此时集合T为&#123;2,3,6&#125;</span><br></pre></td></tr></table></figure>
+
+<p>dh算法的安全性则是基于这个问题的难解性。</p>
+<h3 id="DH算法基本原理"><a href="#DH算法基本原理" class="headerlink" title="DH算法基本原理"></a>DH算法基本原理</h3><p><img src="/images/dh%E7%AE%97%E6%B3%95/%E5%8E%9F%E7%90%86.png" alt="原理"></p>
+<p>此时两个计算的共享密钥是相等的，中间人通过窃听双方在通信过程中的信息是可以获取到Ya，Yb，a，q这四个值的，而中间人若想知道双方计算出来的K的话，就需要知道某一方的指数，即Xb或者Xa，假设说中间人要获取Xb的值，那么Xb就等于${log_a{Yb}}$,而计算离散对数的结果是非常困难的，而对于大素数来说，求解离散对数被认为是不可能的，因此当q取极大值时，计算Xb是不可能的。</p>
+<p>example:</p>
+<p>a &#x3D; 3 q &#x3D; 17</p>
+<p>当Xa &#x3D; 15 时</p>
+<p>Ya &#x3D; 3<sup>15</sup> mod 17 &#x3D; 6</p>
+<p>6 – &gt; 发送给了Blob</p>
+<p>当Xb &#x3D; 13 时</p>
+<p>Yb &#x3D; 3<sup>13</sup> mode 17 &#x3D; 12</p>
+<p>12 –&gt; 发送给Alice</p>
+<p>Alice的共享密钥为 12<sup>15</sup> mode 17 &#x3D; 10</p>
+<p>Blob的共享密钥为 6<sup>13</sup> mode 17 &#x3D; 10</p>
+<p>以上即为DH加密算法</p>
+<p>摘自<a href="https://www.bilibili.com/video/BV12w411f7c5?from=search&seid=7708955631160057078&spm_id_from=333.337.0.0">blibli</a></p>
+]]></content>
+      <tags>
+        <tag>dh</tag>
       </tags>
   </entry>
   <entry>
@@ -554,25 +554,6 @@
       </tags>
   </entry>
   <entry>
-    <title>今日随笔</title>
-    <url>/2021/11/essay-12/</url>
-    <content><![CDATA[<h4 id="tinymce爬坑记录"><a href="#tinymce爬坑记录" class="headerlink" title="tinymce爬坑记录"></a>tinymce爬坑记录</h4></br>
-若是需要使用tinymce并且要让tinymce的样式不受其他样式干扰时，vue中的使用scope给html标签增加自定义属性是不太可取的。应该是要使用shadow dom（与主dom分开渲染）或者iframe内嵌（可以理解为单独开一个窗体）
-
-<h5 id="Note"><a href="#Note" class="headerlink" title="Note"></a>Note</h5><ol>
-<li>非inline模式下的tinymce是可以挂载在shadow dom下的，而inline模式下的tinymce挂载在shadow dom下是无效的，大致原因是浏览器的api selection对于shadow dom的支持还没搞定，具体可以查看tinymce的issue或者selection api的介绍，或者可以查看源代码16100+行左右的applyFormat函数，挂载在shadow dom中和不挂载在shadow dom中走的逻辑是不一样的！。（查了很久orz，然后去issue验证了猜想）</li>
-<li>初始化挂载在iframe下的tinymce需要使用当前document挂载的tinymce实例，使用父级窗体加载进来的tinymce在子iframe中是用不了的，因为tinymce在操作格式时会获取当前document下的数据。</li>
-<li>如果想要在toolbar添加自定义按钮可以使用ui.addButton.因为看见有人是通过直接操作dom的方式来添加自定义按钮</li>
-<li>如果要修改某个类的样式可以在content_style中进行修改，同样看见有人通过获取editor的容器然后遍历子节点来动态修改样式。</li>
-<li>假如iframe所在的vue组件加载成功了而加载了tinymce文件的iframe的window没有挂载tinymce时，这时候去初始化inline模式是初始化失败的，用vue的watch貌似是不起作用的，我用的方案是raf来定时获取tinymce，然后初始化数据。（假如有更好的方法告诉我。）</li>
-</ol>
-]]></content>
-      <tags>
-        <tag>JavaScript</tag>
-        <tag>Tinymce</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>今日随笔(7-30)</title>
     <url>/2020/07/essay-2/</url>
     <content><![CDATA[<h2 id="用-ts-开发-react-组件"><a href="#用-ts-开发-react-组件" class="headerlink" title="用 ts 开发 react 组件"></a>用 ts 开发 react 组件</h2></br>
@@ -620,6 +601,25 @@
       </categories>
       <tags>
         <tag>essay</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>今日随笔</title>
+    <url>/2021/11/essay-12/</url>
+    <content><![CDATA[<h4 id="tinymce爬坑记录"><a href="#tinymce爬坑记录" class="headerlink" title="tinymce爬坑记录"></a>tinymce爬坑记录</h4></br>
+若是需要使用tinymce并且要让tinymce的样式不受其他样式干扰时，vue中的使用scope给html标签增加自定义属性是不太可取的。应该是要使用shadow dom（与主dom分开渲染）或者iframe内嵌（可以理解为单独开一个窗体）
+
+<h5 id="Note"><a href="#Note" class="headerlink" title="Note"></a>Note</h5><ol>
+<li>非inline模式下的tinymce是可以挂载在shadow dom下的，而inline模式下的tinymce挂载在shadow dom下是无效的，大致原因是浏览器的api selection对于shadow dom的支持还没搞定，具体可以查看tinymce的issue或者selection api的介绍，或者可以查看源代码16100+行左右的applyFormat函数，挂载在shadow dom中和不挂载在shadow dom中走的逻辑是不一样的！。（查了很久orz，然后去issue验证了猜想）</li>
+<li>初始化挂载在iframe下的tinymce需要使用当前document挂载的tinymce实例，使用父级窗体加载进来的tinymce在子iframe中是用不了的，因为tinymce在操作格式时会获取当前document下的数据。</li>
+<li>如果想要在toolbar添加自定义按钮可以使用ui.addButton.因为看见有人是通过直接操作dom的方式来添加自定义按钮</li>
+<li>如果要修改某个类的样式可以在content_style中进行修改，同样看见有人通过获取editor的容器然后遍历子节点来动态修改样式。</li>
+<li>假如iframe所在的vue组件加载成功了而加载了tinymce文件的iframe的window没有挂载tinymce时，这时候去初始化inline模式是初始化失败的，用vue的watch貌似是不起作用的，我用的方案是raf来定时获取tinymce，然后初始化数据。（假如有更好的方法告诉我。）</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+        <tag>Tinymce</tag>
       </tags>
   </entry>
   <entry>
@@ -673,19 +673,6 @@
       </tags>
   </entry>
   <entry>
-    <title>今日随笔(8-6)</title>
-    <url>/2020/08/essay-4/</url>
-    <content><![CDATA[<p>先看代码</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const a = 1</span><br><span class="line">[...[1,2,3]].forEach(item=&gt;console.log(item))</span><br></pre></td></tr></table></figure>
-<p>乍一看，是不是感觉挺正常的，在浏览器的log窗口应该能输出1，2，3，才对<br>然后在浏览器跑一下，发现</p>
-<p><img src="/images/essay-4/unexpected_error.png.png" alt="error"></p>
-<p>然后emm排查了一下，语法是没问题的，浏览器版本是最新的开发版本，es6的语法肯定是支持的，那问题其实就是a&#x3D;1 后面漏了分号，所以代码就成了这样</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const a = 1[...[1,2,3]].forEach(item=&gt;console.log(item))</span><br></pre></td></tr></table></figure>
-<p>那代码成了这样那肯定不能正确解析了～</p>
-<p>果然，漏写分号不是好习惯～</p>
-]]></content>
-  </entry>
-  <entry>
     <title>今日随笔(2020-10-11)</title>
     <url>/2020/10/essay-5/</url>
     <content><![CDATA[<h3 id="命令行文件的上传与下载"><a href="#命令行文件的上传与下载" class="headerlink" title="命令行文件的上传与下载"></a>命令行文件的上传与下载</h3><p>文件的上传和下载命令都是scp</p>
@@ -702,9 +689,16 @@
       </tags>
   </entry>
   <entry>
-    <title>今日随笔</title>
-    <url>/2021/01/essay-7/</url>
-    <content><![CDATA[<p><img src="/images/essay-7/essay.png" alt="essay"></p>
+    <title>今日随笔(8-6)</title>
+    <url>/2020/08/essay-4/</url>
+    <content><![CDATA[<p>先看代码</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const a = 1</span><br><span class="line">[...[1,2,3]].forEach(item=&gt;console.log(item))</span><br></pre></td></tr></table></figure>
+<p>乍一看，是不是感觉挺正常的，在浏览器的log窗口应该能输出1，2，3，才对<br>然后在浏览器跑一下，发现</p>
+<p><img src="/images/essay-4/unexpected_error.png.png" alt="error"></p>
+<p>然后emm排查了一下，语法是没问题的，浏览器版本是最新的开发版本，es6的语法肯定是支持的，那问题其实就是a&#x3D;1 后面漏了分号，所以代码就成了这样</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">const a = 1[...[1,2,3]].forEach(item=&gt;console.log(item))</span><br></pre></td></tr></table></figure>
+<p>那代码成了这样那肯定不能正确解析了～</p>
+<p>果然，漏写分号不是好习惯～</p>
 ]]></content>
   </entry>
   <entry>
@@ -716,6 +710,12 @@
 <li>line-height 属性同样会影响伪元素的高度</li>
 <li>ts class 自定义vue双向绑定<br>v-model默认监听input事件，如果是checkbox或者radio<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">@Modle(<span class="string">&#x27;change&#x27;</span>) value:any</span><br><span class="line"><span class="comment"># 这样vue会监听change，$emit(&#x27;change&#x27;)改变外部绑定的值</span></span><br></pre></td></tr></table></figure></li>
 </ol>
+]]></content>
+  </entry>
+  <entry>
+    <title>今日随笔</title>
+    <url>/2021/01/essay-7/</url>
+    <content><![CDATA[<p><img src="/images/essay-7/essay.png" alt="essay"></p>
 ]]></content>
   </entry>
   <entry>
@@ -829,6 +829,20 @@
       </tags>
   </entry>
   <entry>
+    <title>排序算法</title>
+    <url>/2022/01/essay2022-1-13/</url>
+    <content><![CDATA[<h3 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h3><p>每次排序找到最大的那个</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">bubble</span>(<span class="params">arr</span>)&#123;</span><br><span class="line">    <span class="keyword">let</span> swapped = <span class="literal">false</span></span><br><span class="line">    <span class="keyword">do</span>&#123;</span><br><span class="line">        swapped = <span class="literal">false</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> i =<span class="number">0</span>;i&lt;arr.<span class="property">length</span>-<span class="number">1</span>;i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(arr[i] &gt; arr[i+<span class="number">1</span>])&#123;</span><br><span class="line">                [arr[i],arr[i+<span class="number">1</span>]] =[arr[i+<span class="number">1</span>],arr[i]]</span><br><span class="line">                swapped = <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">while</span>(swapped)</span><br><span class="line">    <span class="keyword">return</span> arr</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">bubble</span>([<span class="number">9</span>,<span class="number">6</span>,<span class="number">3</span>,<span class="number">6</span>,<span class="number">8</span>,<span class="number">0</span>,<span class="number">6</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">5</span>]))</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">[</span></span><br><span class="line"><span class="comment">  0, 2, 3, 3, 5,</span></span><br><span class="line"><span class="comment">  6, 6, 6, 8, 9</span></span><br><span class="line"><span class="comment">]</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+<h3 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h3><p>每次循环要跟当前循环的最小值交换数据</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">selectionsort</span>(<span class="params">arr</span>)&#123;</span><br><span class="line">    <span class="keyword">const</span> len = arr.<span class="property">length</span>;</span><br><span class="line">    <span class="keyword">let</span> sortIndex = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span>(sortIndex &lt; len)&#123;</span><br><span class="line">        <span class="comment">// 将第一个没有排序的元素设置为最小值</span></span><br><span class="line">        <span class="comment">// let min = arr[sortIndex]</span></span><br><span class="line">        <span class="keyword">let</span> minIndex = sortIndex</span><br><span class="line">        <span class="comment">// 遍历每个没有排序过的元素</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> i=sortIndex;i&lt;len;i++)&#123;</span><br><span class="line">            <span class="comment">// 更新最小值</span></span><br><span class="line">            <span class="keyword">if</span>(arr[i] &lt; arr[minIndex])&#123;</span><br><span class="line">                minIndex = i</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        [arr[sortIndex],arr[minIndex]] = [arr[minIndex],arr[sortIndex]]</span><br><span class="line">        sortIndex++</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> arr</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">selectionsort</span>([<span class="number">45</span>,</span><br><span class="line">    <span class="number">50</span>,</span><br><span class="line">    <span class="number">32</span>,</span><br><span class="line">    <span class="number">4</span>,</span><br><span class="line">    <span class="number">37</span>,</span><br><span class="line">    <span class="number">10</span>,</span><br><span class="line">    <span class="number">47</span>,</span><br><span class="line">    <span class="number">44</span>,</span><br><span class="line">    <span class="number">17</span>,</span><br><span class="line">    <span class="number">38</span>,</span><br><span class="line">    <span class="number">26</span>,</span><br><span class="line">    <span class="number">25</span>,</span><br><span class="line">    <span class="number">37</span>,</span><br><span class="line">    <span class="number">17</span>,</span><br><span class="line">    <span class="number">1</span>,</span><br><span class="line">    <span class="number">3</span>,</span><br><span class="line">    <span class="number">7</span>])</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment"> [</span></span><br><span class="line"><span class="comment">   1,  3,  4,  7, 10, 17, 17,</span></span><br><span class="line"><span class="comment">  25, 26, 32, 37, 37, 38, 44,</span></span><br><span class="line"><span class="comment">  45, 47, 50</span></span><br><span class="line"><span class="comment">]</span></span><br><span class="line"><span class="comment">     * /</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">insertsort</span>(<span class="params">arr</span>)&#123;</span><br><span class="line">    <span class="keyword">let</span> sortIndex = <span class="number">0</span></span><br><span class="line">    <span class="keyword">const</span> len = arr.<span class="property">length</span></span><br><span class="line">        <span class="comment">// 遍历每个没有排序过的元素ß   </span></span><br><span class="line">    <span class="keyword">while</span>(sortIndex &lt; len)&#123;</span><br><span class="line">        <span class="keyword">let</span> currentIndex = sortIndex   </span><br><span class="line">        <span class="keyword">const</span> x = arr[currentIndex]  </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> i = sortIndex-<span class="number">1</span>;i&gt;=<span class="number">0</span>;i--)&#123;</span><br><span class="line">            <span class="keyword">if</span>(x &lt; arr[i])&#123;</span><br><span class="line">                <span class="comment">// 元素交换之后更新索引，将较小的元素往左移动</span></span><br><span class="line">                [arr[i],arr[currentIndex]] = [arr[currentIndex],arr[i]]</span><br><span class="line">                currentIndex = i</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        sortIndex++</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> arr</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>应该还有几个排序。。。等这段时间忙完再补上</p>
+]]></content>
+  </entry>
+  <entry>
     <title>今日随笔</title>
     <url>/2021/12/essay12-29/</url>
     <content><![CDATA[<h3 id="同源策略"><a href="#同源策略" class="headerlink" title="同源策略"></a>同源策略</h3><p>同源的定义：如果两个 URL 的 protocol、port (en-US) (如果有指定的话)和 host 都相同的话，则这两个 URL 是同源。这个方案也被称为“协议&#x2F;主机&#x2F;端口元组”，或者直接是 “元组”。（“元组” 是指一组项目构成的整体，双重&#x2F;三重&#x2F;四重&#x2F;五重&#x2F;等的通用形式）。</p>
@@ -852,20 +866,6 @@
       <tags>
         <tag>同源策略</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>排序算法</title>
-    <url>/2022/01/essay2022-1-13/</url>
-    <content><![CDATA[<h3 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h3><p>每次排序找到最大的那个</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">bubble</span>(<span class="params">arr</span>)&#123;</span><br><span class="line">    <span class="keyword">let</span> swapped = <span class="literal">false</span></span><br><span class="line">    <span class="keyword">do</span>&#123;</span><br><span class="line">        swapped = <span class="literal">false</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> i =<span class="number">0</span>;i&lt;arr.<span class="property">length</span>-<span class="number">1</span>;i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(arr[i] &gt; arr[i+<span class="number">1</span>])&#123;</span><br><span class="line">                [arr[i],arr[i+<span class="number">1</span>]] =[arr[i+<span class="number">1</span>],arr[i]]</span><br><span class="line">                swapped = <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">while</span>(swapped)</span><br><span class="line">    <span class="keyword">return</span> arr</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">bubble</span>([<span class="number">9</span>,<span class="number">6</span>,<span class="number">3</span>,<span class="number">6</span>,<span class="number">8</span>,<span class="number">0</span>,<span class="number">6</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">5</span>]))</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">[</span></span><br><span class="line"><span class="comment">  0, 2, 3, 3, 5,</span></span><br><span class="line"><span class="comment">  6, 6, 6, 8, 9</span></span><br><span class="line"><span class="comment">]</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<span id="more"></span>
-<h3 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h3><p>每次循环要跟当前循环的最小值交换数据</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">selectionsort</span>(<span class="params">arr</span>)&#123;</span><br><span class="line">    <span class="keyword">const</span> len = arr.<span class="property">length</span>;</span><br><span class="line">    <span class="keyword">let</span> sortIndex = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span>(sortIndex &lt; len)&#123;</span><br><span class="line">        <span class="comment">// 将第一个没有排序的元素设置为最小值</span></span><br><span class="line">        <span class="comment">// let min = arr[sortIndex]</span></span><br><span class="line">        <span class="keyword">let</span> minIndex = sortIndex</span><br><span class="line">        <span class="comment">// 遍历每个没有排序过的元素</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> i=sortIndex;i&lt;len;i++)&#123;</span><br><span class="line">            <span class="comment">// 更新最小值</span></span><br><span class="line">            <span class="keyword">if</span>(arr[i] &lt; arr[minIndex])&#123;</span><br><span class="line">                minIndex = i</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        [arr[sortIndex],arr[minIndex]] = [arr[minIndex],arr[sortIndex]]</span><br><span class="line">        sortIndex++</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> arr</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">selectionsort</span>([<span class="number">45</span>,</span><br><span class="line">    <span class="number">50</span>,</span><br><span class="line">    <span class="number">32</span>,</span><br><span class="line">    <span class="number">4</span>,</span><br><span class="line">    <span class="number">37</span>,</span><br><span class="line">    <span class="number">10</span>,</span><br><span class="line">    <span class="number">47</span>,</span><br><span class="line">    <span class="number">44</span>,</span><br><span class="line">    <span class="number">17</span>,</span><br><span class="line">    <span class="number">38</span>,</span><br><span class="line">    <span class="number">26</span>,</span><br><span class="line">    <span class="number">25</span>,</span><br><span class="line">    <span class="number">37</span>,</span><br><span class="line">    <span class="number">17</span>,</span><br><span class="line">    <span class="number">1</span>,</span><br><span class="line">    <span class="number">3</span>,</span><br><span class="line">    <span class="number">7</span>])</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment"> [</span></span><br><span class="line"><span class="comment">   1,  3,  4,  7, 10, 17, 17,</span></span><br><span class="line"><span class="comment">  25, 26, 32, 37, 37, 38, 44,</span></span><br><span class="line"><span class="comment">  45, 47, 50</span></span><br><span class="line"><span class="comment">]</span></span><br><span class="line"><span class="comment">     * /</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">insertsort</span>(<span class="params">arr</span>)&#123;</span><br><span class="line">    <span class="keyword">let</span> sortIndex = <span class="number">0</span></span><br><span class="line">    <span class="keyword">const</span> len = arr.<span class="property">length</span></span><br><span class="line">        <span class="comment">// 遍历每个没有排序过的元素ß   </span></span><br><span class="line">    <span class="keyword">while</span>(sortIndex &lt; len)&#123;</span><br><span class="line">        <span class="keyword">let</span> currentIndex = sortIndex   </span><br><span class="line">        <span class="keyword">const</span> x = arr[currentIndex]  </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> i = sortIndex-<span class="number">1</span>;i&gt;=<span class="number">0</span>;i--)&#123;</span><br><span class="line">            <span class="keyword">if</span>(x &lt; arr[i])&#123;</span><br><span class="line">                <span class="comment">// 元素交换之后更新索引，将较小的元素往左移动</span></span><br><span class="line">                [arr[i],arr[currentIndex]] = [arr[currentIndex],arr[i]]</span><br><span class="line">                currentIndex = i</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        sortIndex++</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> arr</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>应该还有几个排序。。。等这段时间忙完再补上</p>
-]]></content>
   </entry>
   <entry>
     <title>理解 flex-basis</title>
@@ -1345,22 +1345,6 @@ btn.addEventListener('click',function(){
       </tags>
   </entry>
   <entry>
-    <title>leetcode第73之矩阵置0</title>
-    <url>/2019/08/leetcode-73/</url>
-    <content><![CDATA[<p>描述：: 给定一个 m x n 的矩阵，如果一个元素为 0，则将其所在行和列的所有元素都设为 0。请使用原地算法。</p>
-<span id="more"></span>
-
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * @param &#123;number[][]&#125; matrix</span><br><span class="line"> * @<span class="built_in">return</span> &#123;void&#125; Do not <span class="built_in">return</span> anything, modify matrix in-place instead.</span><br><span class="line"> */</span><br><span class="line">var setZeroes = <span class="keyword">function</span>(matrix) &#123;</span><br><span class="line">    <span class="built_in">let</span> columns=new Set(),rows=new Set();</span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">let</span> row =0;row&lt;matrix.length;row++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="built_in">let</span> column =0;column&lt;matrix[row].length;column++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(matrix[row][column]==0)&#123;</span><br><span class="line">                columns.add(column);</span><br><span class="line">                rows.add(row);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">let</span> row =0;row&lt;matrix.length;row++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="built_in">let</span> column =0;column&lt;matrix[row].length;column++)&#123;</span><br><span class="line">           <span class="keyword">if</span>(rows.has(row)||columns.has(column))&#123;</span><br><span class="line">               matrix[row][column]=0;</span><br><span class="line">           &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> matrix;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>题解：将0所在的行列储存起来作为标记，第二次循环的时候判断元素当前所在行或者列是否在标记的行或列即可</p>
-]]></content>
-      <categories>
-        <category>leetcode</category>
-      </categories>
-      <tags>
-        <tag>leetcode</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>leetcode第289之生命游戏</title>
     <url>/2019/08/leetcode_289/</url>
     <content><![CDATA[<p>描述：根据百度百科，生命游戏，简称为生命，是英国数学家约翰·何顿·康威在1970年发明的细胞自动机。</p>
@@ -1447,6 +1431,22 @@ btn.addEventListener('click',function(){
       </tags>
   </entry>
   <entry>
+    <title>leetcode第73之矩阵置0</title>
+    <url>/2019/08/leetcode-73/</url>
+    <content><![CDATA[<p>描述：: 给定一个 m x n 的矩阵，如果一个元素为 0，则将其所在行和列的所有元素都设为 0。请使用原地算法。</p>
+<span id="more"></span>
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * @param &#123;number[][]&#125; matrix</span><br><span class="line"> * @<span class="built_in">return</span> &#123;void&#125; Do not <span class="built_in">return</span> anything, modify matrix in-place instead.</span><br><span class="line"> */</span><br><span class="line">var setZeroes = <span class="keyword">function</span>(matrix) &#123;</span><br><span class="line">    <span class="built_in">let</span> columns=new Set(),rows=new Set();</span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">let</span> row =0;row&lt;matrix.length;row++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="built_in">let</span> column =0;column&lt;matrix[row].length;column++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(matrix[row][column]==0)&#123;</span><br><span class="line">                columns.add(column);</span><br><span class="line">                rows.add(row);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">let</span> row =0;row&lt;matrix.length;row++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="built_in">let</span> column =0;column&lt;matrix[row].length;column++)&#123;</span><br><span class="line">           <span class="keyword">if</span>(rows.has(row)||columns.has(column))&#123;</span><br><span class="line">               matrix[row][column]=0;</span><br><span class="line">           &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> matrix;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>题解：将0所在的行列储存起来作为标记，第二次循环的时候判断元素当前所在行或者列是否在标记的行或列即可</p>
+]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>元素定位</title>
     <url>/2020/12/location/</url>
     <content><![CDATA[<ol>
@@ -1469,6 +1469,122 @@ btn.addEventListener('click',function(){
 </li>
 </ol>
 ]]></content>
+  </entry>
+  <entry>
+    <title>面试总结(2)</title>
+    <url>/2020/08/mianshi2/</url>
+    <content><![CDATA[<h2 id="https握手过程"><a href="#https握手过程" class="headerlink" title="https握手过程"></a>https握手过程</h2><ol>
+<li>服务端生成公私钥</li>
+<li>服务端把公钥，加密的hash算法以及个人信息发送给CA</li>
+<li>CA把服务端发送来的明文信息用服务端发来的hash算法加密生成密文，然后用CA的私钥对密文进行加密生成签名</li>
+<li>CA把证书发还给服务端，证书内容包括签名，以及证书的颁发对象以及 颁发者等信息。</li>
+<li>服务端把证书和明文信息一起发送给客户端</li>
+<li>客户端接收服务端发送的证书，用内置在操作系统的公钥对签名进行解密，然后用服务端发来对hash算法对明文进行加密，如果两次生成的字符串相等，那么数据是可信的<br>7.客户端与服务端经过DH加密算法生成对称密钥</li>
+<li>用生成的对称密钥加密一段握手信息，发送给服务端。双端验证。</li>
+<li>后续加密用生成的对称密钥加密<span id="more"></span></li>
+</ol>
+<h2 id="输入URL到页面渲染过程"><a href="#输入URL到页面渲染过程" class="headerlink" title="输入URL到页面渲染过程"></a>输入URL到页面渲染过程</h2><ol>
+<li>浏览器进程拼接URL，加协议</li>
+<li>网络进程根据URl做DNS解析</li>
+<li>请求的资源返回给渲染进程</li>
+<li>渲染进程根据返回的状态码以及content-type来进行后续的流程</li>
+<li>是html类型则进行渲染流程</li>
+<li>生成CSSOM以及DOM</li>
+<li>生成Render树。</li>
+<li>根据render树生成图层树</li>
+<li>渲染进程对图层进行绘制，把图层绘制拆分成一个个的绘制指令，绘制指令组成绘制列表</li>
+<li>渲染进程的合成线程来进行实际的绘制操作</li>
+<li>合成线程在光栅化线程中执行光栅化（把图层转化成位图）</li>
+<li>光栅化采用GPU加速，因此实际绘制过程在GPU进程</li>
+<li>光栅化结束渲染进程通知浏览器进程</li>
+<li>浏览器进程接收drawquard命令，将其页面内容绘制到内存中，最后再将内存显示在屏幕上。</li>
+<li>done！</li>
+</ol>
+<h2 id="字符串翻转"><a href="#字符串翻转" class="headerlink" title="字符串翻转"></a>字符串翻转</h2><p>略</p>
+<h2 id="字符串转数组"><a href="#字符串转数组" class="headerlink" title="字符串转数组"></a>字符串转数组</h2><p>parseInt Number 两者区别<br>略</p>
+<h2 id="DNS解析过程"><a href="#DNS解析过程" class="headerlink" title="DNS解析过程"></a>DNS解析过程</h2><p>找本地缓存，没找到请求域名服务器</p>
+<h2 id="DNS劫持"><a href="#DNS劫持" class="headerlink" title="DNS劫持"></a>DNS劫持</h2><p>略</p>
+<h2 id="强缓存-协商缓存"><a href="#强缓存-协商缓存" class="headerlink" title="强缓存 协商缓存"></a>强缓存 协商缓存</h2><ul>
+<li><p>强缓存：</p>
+<ul>
+<li>Cache-Control</li>
+<li>Expire</li>
+</ul>
+</li>
+<li><p>协商缓存：</p>
+<ul>
+<li>If-Modified-Since</li>
+<li>Etag</li>
+</ul>
+</li>
+</ul>
+<p>其他略</p>
+<h2 id="vue双向绑定原理"><a href="#vue双向绑定原理" class="headerlink" title="vue双向绑定原理"></a>vue双向绑定原理</h2><p>数据劫持 ➕ 发布订阅</p>
+<h2 id="vue响应式原理"><a href="#vue响应式原理" class="headerlink" title="vue响应式原理"></a>vue响应式原理</h2><p>依赖收集 + 依赖更细</p>
+<h2 id="react-fiber"><a href="#react-fiber" class="headerlink" title="react fiber"></a>react fiber</h2><ol>
+<li>根据component生成fiber树</li>
+<li>每个节点都对应一个fiber节点</li>
+<li>当前渲染在屏幕上的是current树</li>
+<li>current树有一个是alternate的指针指向wip树</li>
+<li>wip也有相同的指针指向current树</li>
+<li>wip树是fork了一份current树，这个叫做double buffering</li>
+<li>有两个阶段，一个是render，一个是commit</li>
+<li>render阶段可以被打断，commit阶段不可以被打断</li>
+<li>render阶段的任务主要根据插入的顺序来执行，通过使用requestIdlecallback这个api来实现任务的调度</li>
+<li>高优先级的任务可以打断低优先级的任务执行，比如用户输入等需要及时反馈的任务属于高优先级，而对于数据获取这类的任务属于低优先级</li>
+<li>react内部通过使用messageChannel来实现reqeustIdleCallback的polyfill</li>
+</ol>
+<h2 id="xss防御"><a href="#xss防御" class="headerlink" title="xss防御"></a>xss防御</h2><ol>
+<li>转码</li>
+<li>白名单</li>
+<li>过滤</li>
+</ol>
+<h2 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h2><ol>
+<li>SameSite<ul>
+<li>Lax</li>
+<li>Strict</li>
+<li>None</li>
+</ul>
+</li>
+<li>x-frame-option</li>
+<li>csp<ul>
+<li>default-src</li>
+<li>image-src</li>
+<li>media-src</li>
+<li>script-src</li>
+</ul>
+</li>
+<li>token</li>
+<li>refer&#x2F;origin</li>
+</ol>
+<h2 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h2><ol>
+<li><p>webpack</p>
+<ul>
+<li>缩小构建体积（分包，tree-shaking，剔除第三方库不需要的模块）</li>
+<li>缓存（cache-loader，hard-source-webpack-plugin，dll）</li>
+<li>预加载（preload）</li>
+<li>减少请求资源数（mini-css-extract-plugin，html-webpack-plugin）</li>
+</ul>
+</li>
+<li><p>差异化服务</p>
+</li>
+<li><p>图片懒加载（非可视区域图片用placeholder替代或者低质量图片）</p>
+</li>
+<li><p>减少时间复杂度</p>
+</li>
+<li><p>非必要文件异步加载或动态加载模块</p>
+</li>
+<li><p>对核心内容启用SSR</p>
+</li>
+</ol>
+<h2 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h2><p>CORS</p>
+<p>img</p>
+<p>script</p>
+]]></content>
+      <tags>
+        <tag>article</tag>
+        <tag>conclusion</tag>
+      </tags>
   </entry>
   <entry>
     <title>面试总结</title>
@@ -1663,139 +1779,6 @@ btn.addEventListener('click',function(){
 ]]></content>
   </entry>
   <entry>
-    <title>面试总结(2)</title>
-    <url>/2020/08/mianshi2/</url>
-    <content><![CDATA[<h2 id="https握手过程"><a href="#https握手过程" class="headerlink" title="https握手过程"></a>https握手过程</h2><ol>
-<li>服务端生成公私钥</li>
-<li>服务端把公钥，加密的hash算法以及个人信息发送给CA</li>
-<li>CA把服务端发送来的明文信息用服务端发来的hash算法加密生成密文，然后用CA的私钥对密文进行加密生成签名</li>
-<li>CA把证书发还给服务端，证书内容包括签名，以及证书的颁发对象以及 颁发者等信息。</li>
-<li>服务端把证书和明文信息一起发送给客户端</li>
-<li>客户端接收服务端发送的证书，用内置在操作系统的公钥对签名进行解密，然后用服务端发来对hash算法对明文进行加密，如果两次生成的字符串相等，那么数据是可信的<br>7.客户端与服务端经过DH加密算法生成对称密钥</li>
-<li>用生成的对称密钥加密一段握手信息，发送给服务端。双端验证。</li>
-<li>后续加密用生成的对称密钥加密<span id="more"></span></li>
-</ol>
-<h2 id="输入URL到页面渲染过程"><a href="#输入URL到页面渲染过程" class="headerlink" title="输入URL到页面渲染过程"></a>输入URL到页面渲染过程</h2><ol>
-<li>浏览器进程拼接URL，加协议</li>
-<li>网络进程根据URl做DNS解析</li>
-<li>请求的资源返回给渲染进程</li>
-<li>渲染进程根据返回的状态码以及content-type来进行后续的流程</li>
-<li>是html类型则进行渲染流程</li>
-<li>生成CSSOM以及DOM</li>
-<li>生成Render树。</li>
-<li>根据render树生成图层树</li>
-<li>渲染进程对图层进行绘制，把图层绘制拆分成一个个的绘制指令，绘制指令组成绘制列表</li>
-<li>渲染进程的合成线程来进行实际的绘制操作</li>
-<li>合成线程在光栅化线程中执行光栅化（把图层转化成位图）</li>
-<li>光栅化采用GPU加速，因此实际绘制过程在GPU进程</li>
-<li>光栅化结束渲染进程通知浏览器进程</li>
-<li>浏览器进程接收drawquard命令，将其页面内容绘制到内存中，最后再将内存显示在屏幕上。</li>
-<li>done！</li>
-</ol>
-<h2 id="字符串翻转"><a href="#字符串翻转" class="headerlink" title="字符串翻转"></a>字符串翻转</h2><p>略</p>
-<h2 id="字符串转数组"><a href="#字符串转数组" class="headerlink" title="字符串转数组"></a>字符串转数组</h2><p>parseInt Number 两者区别<br>略</p>
-<h2 id="DNS解析过程"><a href="#DNS解析过程" class="headerlink" title="DNS解析过程"></a>DNS解析过程</h2><p>找本地缓存，没找到请求域名服务器</p>
-<h2 id="DNS劫持"><a href="#DNS劫持" class="headerlink" title="DNS劫持"></a>DNS劫持</h2><p>略</p>
-<h2 id="强缓存-协商缓存"><a href="#强缓存-协商缓存" class="headerlink" title="强缓存 协商缓存"></a>强缓存 协商缓存</h2><ul>
-<li><p>强缓存：</p>
-<ul>
-<li>Cache-Control</li>
-<li>Expire</li>
-</ul>
-</li>
-<li><p>协商缓存：</p>
-<ul>
-<li>If-Modified-Since</li>
-<li>Etag</li>
-</ul>
-</li>
-</ul>
-<p>其他略</p>
-<h2 id="vue双向绑定原理"><a href="#vue双向绑定原理" class="headerlink" title="vue双向绑定原理"></a>vue双向绑定原理</h2><p>数据劫持 ➕ 发布订阅</p>
-<h2 id="vue响应式原理"><a href="#vue响应式原理" class="headerlink" title="vue响应式原理"></a>vue响应式原理</h2><p>依赖收集 + 依赖更细</p>
-<h2 id="react-fiber"><a href="#react-fiber" class="headerlink" title="react fiber"></a>react fiber</h2><ol>
-<li>根据component生成fiber树</li>
-<li>每个节点都对应一个fiber节点</li>
-<li>当前渲染在屏幕上的是current树</li>
-<li>current树有一个是alternate的指针指向wip树</li>
-<li>wip也有相同的指针指向current树</li>
-<li>wip树是fork了一份current树，这个叫做double buffering</li>
-<li>有两个阶段，一个是render，一个是commit</li>
-<li>render阶段可以被打断，commit阶段不可以被打断</li>
-<li>render阶段的任务主要根据插入的顺序来执行，通过使用requestIdlecallback这个api来实现任务的调度</li>
-<li>高优先级的任务可以打断低优先级的任务执行，比如用户输入等需要及时反馈的任务属于高优先级，而对于数据获取这类的任务属于低优先级</li>
-<li>react内部通过使用messageChannel来实现reqeustIdleCallback的polyfill</li>
-</ol>
-<h2 id="xss防御"><a href="#xss防御" class="headerlink" title="xss防御"></a>xss防御</h2><ol>
-<li>转码</li>
-<li>白名单</li>
-<li>过滤</li>
-</ol>
-<h2 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h2><ol>
-<li>SameSite<ul>
-<li>Lax</li>
-<li>Strict</li>
-<li>None</li>
-</ul>
-</li>
-<li>x-frame-option</li>
-<li>csp<ul>
-<li>default-src</li>
-<li>image-src</li>
-<li>media-src</li>
-<li>script-src</li>
-</ul>
-</li>
-<li>token</li>
-<li>refer&#x2F;origin</li>
-</ol>
-<h2 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h2><ol>
-<li><p>webpack</p>
-<ul>
-<li>缩小构建体积（分包，tree-shaking，剔除第三方库不需要的模块）</li>
-<li>缓存（cache-loader，hard-source-webpack-plugin，dll）</li>
-<li>预加载（preload）</li>
-<li>减少请求资源数（mini-css-extract-plugin，html-webpack-plugin）</li>
-</ul>
-</li>
-<li><p>差异化服务</p>
-</li>
-<li><p>图片懒加载（非可视区域图片用placeholder替代或者低质量图片）</p>
-</li>
-<li><p>减少时间复杂度</p>
-</li>
-<li><p>非必要文件异步加载或动态加载模块</p>
-</li>
-<li><p>对核心内容启用SSR</p>
-</li>
-</ol>
-<h2 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h2><p>CORS</p>
-<p>img</p>
-<p>script</p>
-]]></content>
-      <tags>
-        <tag>article</tag>
-        <tag>conclusion</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基于vite的monaco-editor</title>
-    <url>/2022/01/monaco-editor/</url>
-    <content><![CDATA[<p><code>npm i -D monaco-editor vite-plugin-monaco-editor</code> 安装依赖</p>
-<p><a href="https://github.com/vitejs/vite/discussions/1791">discussions</a></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;script setup lang=&quot;ts&quot;&gt;</span><br><span class="line"></span><br><span class="line">import &#123; onMounted, ref &#125; from &#x27;vue&#x27;</span><br><span class="line">import * as monaco from &#x27;monaco-editor&#x27;</span><br><span class="line">import &#x27;monaco-editor/esm/vs/basic-languages/css/css.contribution&#x27;</span><br><span class="line">import &#x27;monaco-editor/esm/vs/basic-languages/xml/xml.contribution&#x27;</span><br><span class="line">import &#x27;monaco-editor/esm/vs/basic-languages/javascript/javascript.contribution&#x27;</span><br><span class="line">//@ts-ignore</span><br><span class="line">import EditorWorker from &#x27;monaco-editor/esm/vs/editor/editor.worker?worker&#x27;</span><br><span class="line">//@ts-ignore</span><br><span class="line"></span><br><span class="line">import TsWorker from &#x27;monaco-editor/esm/vs/language/typescript/ts.worker?worker&#x27;</span><br><span class="line">//@ts-ignore</span><br><span class="line">import JsonWorker from &#x27;monaco-editor/esm/vs/language/json/json.worker?worker&#x27;</span><br><span class="line">//@ts-ignore</span><br><span class="line">import CssWorker from &#x27;monaco-editor/esm/vs/language/css/css.worker?worker&#x27;</span><br><span class="line">//@ts-ignore</span><br><span class="line">import HtmlWorker from &#x27;monaco-editor/esm/vs/language/html/html.worker?worker&#x27;</span><br><span class="line">// @ts-ignore</span><br><span class="line">self.MonacoEnvironment = &#123;</span><br><span class="line">    getWorker(_: string, label: string) &#123;</span><br><span class="line">        if (label === &#x27;typescript&#x27; || label === &#x27;javascript&#x27;) return new TsWorker()</span><br><span class="line">        if (label === &#x27;json&#x27;) return new JsonWorker()</span><br><span class="line">        if (label === &#x27;css&#x27;) return new CssWorker()</span><br><span class="line">        if (label === &#x27;html&#x27;) return new HtmlWorker()</span><br><span class="line">        return new EditorWorker()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const monacoRef = ref();</span><br><span class="line">const monacoInstance = ref&lt;ReturnType&lt;typeof monaco.editor.create&gt;&gt;()</span><br><span class="line">onMounted(() =&gt; &#123;</span><br><span class="line">    monacoInstance.value = monaco.editor.create(monacoRef.value,&#123;</span><br><span class="line">        language:&quot;typescript&quot;,</span><br><span class="line">        value:&quot;console.log(&#x27;hello world&#x27;)&quot;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div id=&quot;monaco&quot; ref=&quot;monacoRef&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;style scoped&gt;</span><br><span class="line">#monaco&#123;</span><br><span class="line">    height: 500px;</span><br><span class="line">    width: 500px;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; defineConfig &#125; <span class="keyword">from</span> <span class="string">&#x27;vite&#x27;</span></span><br><span class="line"><span class="keyword">import</span> vue <span class="keyword">from</span> <span class="string">&#x27;@vitejs/plugin-vue&#x27;</span></span><br><span class="line"><span class="keyword">const</span> prefix = <span class="string">`monaco-editor/esm/vs`</span>;</span><br><span class="line"><span class="keyword">import</span> monacoEditorPlugin <span class="keyword">from</span> <span class="string">&quot;vite-plugin-monaco-editor&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// https://vitejs.dev/config/</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">defineConfig</span>(&#123;</span><br><span class="line">  <span class="attr">plugins</span>: [<span class="title function_">vue</span>(),<span class="title function_">monacoEditorPlugin</span>()],</span><br><span class="line">  <span class="attr">build</span>:&#123;</span><br><span class="line">    <span class="attr">rollupOptions</span>: &#123;</span><br><span class="line">      <span class="attr">output</span>: &#123;</span><br><span class="line">        <span class="attr">manualChunks</span>: &#123;</span><br><span class="line">          <span class="attr">jsonWorker</span>: [<span class="string">`<span class="subst">$&#123;prefix&#125;</span>/language/json/json.worker`</span>],</span><br><span class="line">          <span class="attr">cssWorker</span>: [<span class="string">`<span class="subst">$&#123;prefix&#125;</span>/language/css/css.worker`</span>],</span><br><span class="line">          <span class="attr">htmlWorker</span>: [<span class="string">`<span class="subst">$&#123;prefix&#125;</span>/language/html/html.worker`</span>],</span><br><span class="line">          <span class="attr">tsWorker</span>: [<span class="string">`<span class="subst">$&#123;prefix&#125;</span>/language/typescript/ts.worker`</span>],</span><br><span class="line">          <span class="attr">editorWorker</span>: [<span class="string">`<span class="subst">$&#123;prefix&#125;</span>/editor/editor.worker`</span>],</span><br><span class="line">        &#125;,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>运行结果：</p>
-<p><img src="/images/monaco-editor/editor.jpg" alt="结果"></p>
-]]></content>
-      <tags>
-        <tag>monaco-editor</tag>
-        <tag>vite</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>mutationObserver</title>
     <url>/2019/12/mutationObserver/</url>
     <content><![CDATA[<h3 id="MutationObserver-一个监听dom元素变化的接口"><a href="#MutationObserver-一个监听dom元素变化的接口" class="headerlink" title="MutationObserver,一个监听dom元素变化的接口"></a>MutationObserver,一个监听dom元素变化的接口</h3><p>dom元素观察者，监视 DOM 变动的接口，但是事件是异步的，需要等所有dom元素渲染完之后才执行<br>实例化一个observer对象,回调函数接收两个参数，一个是改变的属性所组成的一个对象数组，一个是实例本身</p>
@@ -1855,6 +1838,23 @@ btn.addEventListener('click',function(){
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">observer.disconnnet()</span><br></pre></td></tr></table></figure>]]></content>
       <tags>
         <tag>mutation</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基于vite的monaco-editor</title>
+    <url>/2022/01/monaco-editor/</url>
+    <content><![CDATA[<p><code>npm i -D monaco-editor vite-plugin-monaco-editor</code> 安装依赖</p>
+<p><a href="https://github.com/vitejs/vite/discussions/1791">discussions</a></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;script setup lang=&quot;ts&quot;&gt;</span><br><span class="line"></span><br><span class="line">import &#123; onMounted, ref &#125; from &#x27;vue&#x27;</span><br><span class="line">import * as monaco from &#x27;monaco-editor&#x27;</span><br><span class="line">import &#x27;monaco-editor/esm/vs/basic-languages/css/css.contribution&#x27;</span><br><span class="line">import &#x27;monaco-editor/esm/vs/basic-languages/xml/xml.contribution&#x27;</span><br><span class="line">import &#x27;monaco-editor/esm/vs/basic-languages/javascript/javascript.contribution&#x27;</span><br><span class="line">//@ts-ignore</span><br><span class="line">import EditorWorker from &#x27;monaco-editor/esm/vs/editor/editor.worker?worker&#x27;</span><br><span class="line">//@ts-ignore</span><br><span class="line"></span><br><span class="line">import TsWorker from &#x27;monaco-editor/esm/vs/language/typescript/ts.worker?worker&#x27;</span><br><span class="line">//@ts-ignore</span><br><span class="line">import JsonWorker from &#x27;monaco-editor/esm/vs/language/json/json.worker?worker&#x27;</span><br><span class="line">//@ts-ignore</span><br><span class="line">import CssWorker from &#x27;monaco-editor/esm/vs/language/css/css.worker?worker&#x27;</span><br><span class="line">//@ts-ignore</span><br><span class="line">import HtmlWorker from &#x27;monaco-editor/esm/vs/language/html/html.worker?worker&#x27;</span><br><span class="line">// @ts-ignore</span><br><span class="line">self.MonacoEnvironment = &#123;</span><br><span class="line">    getWorker(_: string, label: string) &#123;</span><br><span class="line">        if (label === &#x27;typescript&#x27; || label === &#x27;javascript&#x27;) return new TsWorker()</span><br><span class="line">        if (label === &#x27;json&#x27;) return new JsonWorker()</span><br><span class="line">        if (label === &#x27;css&#x27;) return new CssWorker()</span><br><span class="line">        if (label === &#x27;html&#x27;) return new HtmlWorker()</span><br><span class="line">        return new EditorWorker()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const monacoRef = ref();</span><br><span class="line">const monacoInstance = ref&lt;ReturnType&lt;typeof monaco.editor.create&gt;&gt;()</span><br><span class="line">onMounted(() =&gt; &#123;</span><br><span class="line">    monacoInstance.value = monaco.editor.create(monacoRef.value,&#123;</span><br><span class="line">        language:&quot;typescript&quot;,</span><br><span class="line">        value:&quot;console.log(&#x27;hello world&#x27;)&quot;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div id=&quot;monaco&quot; ref=&quot;monacoRef&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;style scoped&gt;</span><br><span class="line">#monaco&#123;</span><br><span class="line">    height: 500px;</span><br><span class="line">    width: 500px;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; defineConfig &#125; <span class="keyword">from</span> <span class="string">&#x27;vite&#x27;</span></span><br><span class="line"><span class="keyword">import</span> vue <span class="keyword">from</span> <span class="string">&#x27;@vitejs/plugin-vue&#x27;</span></span><br><span class="line"><span class="keyword">const</span> prefix = <span class="string">`monaco-editor/esm/vs`</span>;</span><br><span class="line"><span class="keyword">import</span> monacoEditorPlugin <span class="keyword">from</span> <span class="string">&quot;vite-plugin-monaco-editor&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// https://vitejs.dev/config/</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">defineConfig</span>(&#123;</span><br><span class="line">  <span class="attr">plugins</span>: [<span class="title function_">vue</span>(),<span class="title function_">monacoEditorPlugin</span>()],</span><br><span class="line">  <span class="attr">build</span>:&#123;</span><br><span class="line">    <span class="attr">rollupOptions</span>: &#123;</span><br><span class="line">      <span class="attr">output</span>: &#123;</span><br><span class="line">        <span class="attr">manualChunks</span>: &#123;</span><br><span class="line">          <span class="attr">jsonWorker</span>: [<span class="string">`<span class="subst">$&#123;prefix&#125;</span>/language/json/json.worker`</span>],</span><br><span class="line">          <span class="attr">cssWorker</span>: [<span class="string">`<span class="subst">$&#123;prefix&#125;</span>/language/css/css.worker`</span>],</span><br><span class="line">          <span class="attr">htmlWorker</span>: [<span class="string">`<span class="subst">$&#123;prefix&#125;</span>/language/html/html.worker`</span>],</span><br><span class="line">          <span class="attr">tsWorker</span>: [<span class="string">`<span class="subst">$&#123;prefix&#125;</span>/language/typescript/ts.worker`</span>],</span><br><span class="line">          <span class="attr">editorWorker</span>: [<span class="string">`<span class="subst">$&#123;prefix&#125;</span>/editor/editor.worker`</span>],</span><br><span class="line">        &#125;,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<p><img src="/images/monaco-editor/editor.jpg" alt="结果"></p>
+]]></content>
+      <tags>
+        <tag>monaco-editor</tag>
+        <tag>vite</tag>
       </tags>
   </entry>
   <entry>
@@ -2200,38 +2200,6 @@ createComponentInstance
       </tags>
   </entry>
   <entry>
-    <title>简单请求和复杂请求</title>
-    <url>/2020/09/request-of-complex-simply/</url>
-    <content><![CDATA[<h3 id="简单请求"><a href="#简单请求" class="headerlink" title="简单请求"></a>简单请求</h3><p>请求方法只能是以下三种：</p>
-<ol>
-<li>GET</li>
-<li>POST</li>
-<li>HEAD</li>
-</ol>
-<p>请求头只能用以下几种：</p>
-<ol>
-<li>Accept</li>
-<li>Accept-Language</li>
-<li>Content-Language</li>
-<li>Content-Type （需要注意额外的限制）</li>
-<li>DPR</li>
-<li>Downlink</li>
-<li>Save-Data</li>
-<li>Viewport-Width</li>
-<li>Width</li>
-</ol>
-<p>Content——Type只能有以下几种</p>
-<ol>
-<li>text&#x2F;plain</li>
-<li>multipart&#x2F;form-data</li>
-<li>application&#x2F;x-www-form-urlencoded</li>
-</ol>
-<p>请求中的任意XMLHttpRequestUpload 对象均没有注册任何事件监听器；XMLHttpRequestUpload 对象可以使用 XMLHttpRequest.upload 属性访问。</p>
-<p>请求中没有使用 ReadableStream 对象。</p>
-<h3 id="复杂请求"><a href="#复杂请求" class="headerlink" title="复杂请求"></a>复杂请求</h3><p>非简单请求就是复杂亲求</p>
-]]></content>
-  </entry>
-  <entry>
     <title>JavaScript读书笔记</title>
     <url>/2019/08/readingNote-JS/</url>
     <content><![CDATA[<h2 id="new运算符的实现"><a href="#new运算符的实现" class="headerlink" title="new运算符的实现"></a>new运算符的实现</h2><h3 id="定义一个函数，以及原型链的方法"><a href="#定义一个函数，以及原型链的方法" class="headerlink" title="定义一个函数，以及原型链的方法"></a>定义一个函数，以及原型链的方法</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> Testfoo(name) &#123;</span><br><span class="line">    console.log(this[name]) </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Testfoo.prototype.sayHello= <span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">    console.log(<span class="string">&#x27;hello&#x27;</span>);</span><br><span class="line">    <span class="built_in">return</span> 1;</span><br><span class="line">&#125;</span><br><span class="line">//使用new运算符</span><br><span class="line"><span class="built_in">let</span> aaa = new Testfoo();</span><br><span class="line">aaa.sayHello();//输出hello</span><br><span class="line">//不使用new运算符</span><br><span class="line"><span class="built_in">let</span> testObj  = &#123;&#125;;//创建空对象</span><br><span class="line">testObj=Object.create(Testfoo.prototype);//创建一个具有Testfoo的原型链的空方法</span><br><span class="line">Testfoo.call(testObj);//指定this</span><br><span class="line">console.log(<span class="string">&#x27;testObj&#x27;</span>,testObj.sayHello());//输出hello</span><br></pre></td></tr></table></figure>
@@ -2403,6 +2371,38 @@ createComponentInstance
       <tags>
         <tag>JavaScript</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>简单请求和复杂请求</title>
+    <url>/2020/09/request-of-complex-simply/</url>
+    <content><![CDATA[<h3 id="简单请求"><a href="#简单请求" class="headerlink" title="简单请求"></a>简单请求</h3><p>请求方法只能是以下三种：</p>
+<ol>
+<li>GET</li>
+<li>POST</li>
+<li>HEAD</li>
+</ol>
+<p>请求头只能用以下几种：</p>
+<ol>
+<li>Accept</li>
+<li>Accept-Language</li>
+<li>Content-Language</li>
+<li>Content-Type （需要注意额外的限制）</li>
+<li>DPR</li>
+<li>Downlink</li>
+<li>Save-Data</li>
+<li>Viewport-Width</li>
+<li>Width</li>
+</ol>
+<p>Content——Type只能有以下几种</p>
+<ol>
+<li>text&#x2F;plain</li>
+<li>multipart&#x2F;form-data</li>
+<li>application&#x2F;x-www-form-urlencoded</li>
+</ol>
+<p>请求中的任意XMLHttpRequestUpload 对象均没有注册任何事件监听器；XMLHttpRequestUpload 对象可以使用 XMLHttpRequest.upload 属性访问。</p>
+<p>请求中没有使用 ReadableStream 对象。</p>
+<h3 id="复杂请求"><a href="#复杂请求" class="headerlink" title="复杂请求"></a>复杂请求</h3><p>非简单请求就是复杂亲求</p>
+]]></content>
   </entry>
   <entry>
     <title>基于DraftJS实现的计算表达式</title>
